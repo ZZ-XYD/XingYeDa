@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/register_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/theme_orange"
+        android:drawableLeft="@mipmap/back"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="20dp"
+        android:text="@string/back"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/register_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1px"
+        android:background="@color/theme_orange"
+        android:paddingBottom="50dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="50dp"
+        android:textColor="@color/white"
+        android:textSize="25sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layout_theme_orange" >
+
+            <EditText
+                android:id="@+id/register_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:background="@null"
+                android:hint="@string/register_phone_hint"
+                android:inputType="phone"
+                android:maxLength="@string/edittext_length_11"
+                android:singleLine="true" 
+                android:paddingBottom="10dp"
+            android:paddingTop="10dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layout_theme_orange"
+            android:layout_marginTop="20dp" >
+
+            <TextView
+                android:id="@+id/register_getCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/track"
+                android:text="@string/register_getcode_text"
+                android:textColor="@color/theme_orange"
+                android:paddingTop="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingBottom="2dp"
+                 />
+
+            <EditText
+                android:id="@+id/register_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_toLeftOf="@+id/register_getCode"
+                android:background="@null"
+                android:hint="@string/register_code_hint"
+                android:inputType="number"
+                android:maxLength="@string/edittext_length_6"
+                android:singleLine="true"
+                android:paddingBottom="10dp"
+            android:paddingTop="10dp" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/register_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/button_theme"
+            android:text="@string/submit"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>

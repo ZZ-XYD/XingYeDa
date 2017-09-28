@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.xingyeda.ehome.view.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_share_seek"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EDECE8"
+    android:orientation="vertical"
+    >
+
+<com.xingyeda.ehome.view.PercentLinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    app:layout_heightPercent="8%"
+    app:layout_marginPercent="2%"
+    android:background="@color/white"
+    >
+    <ImageView
+        android:id="@+id/share_seek_back"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_heightPercent="30%"
+        android:layout_gravity="center"
+        android:src="@mipmap/back_search"
+        android:layout_weight="1"
+        app:layout_marginLeftPercent="2%"/>
+    <EditText
+        android:id="@+id/share_seek_import"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="8"
+        android:hint="搜索直播房间"
+        android:background="@null"
+        android:maxLines="1"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        app:layout_marginLeftPercent="1%"
+    />
+    <ImageView
+        android:id="@+id/share_seek_but"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:src="@mipmap/search"
+        app:layout_marginRightPercent="2%"/>
+
+
+</com.xingyeda.ehome.view.PercentLinearLayout>
+
+    <android.support.percent.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_marginTopPercent="1%">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/seek_history_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            />
+        <android.support.v4.widget.DrawerLayout
+            android:id="@+id/share_seek_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <android.support.design.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/share_seek_no_datas"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@null"
+                    android:background="@mipmap/no_data"
+                    android:visibility="gone"
+                    android:layout_marginBottom="2dp"
+                    />
+
+                <android.support.v4.widget.SwipeRefreshLayout
+                    android:id="@+id/share_seek_swipereLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/share_seek_recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        />
+                </android.support.v4.widget.SwipeRefreshLayout>
+
+            </android.support.design.widget.CoordinatorLayout>
+
+        </android.support.v4.widget.DrawerLayout>
+    </android.support.percent.PercentRelativeLayout>
+
+
+
+</com.xingyeda.ehome.view.PercentLinearLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="EHome" ></dbname>
+
+    <version value="3" ></version>
+
+
+    <list>
+        <mapping class="com.xingyeda.ehome.bean.InformationBase"></mapping>
+        <mapping class="com.xingyeda.ehome.bean.SeekHistoryBase"></mapping>
+        <mapping class="com.xingyeda.ehome.bean.ParkBean"></mapping>
+    </list>
+
+</litepal>

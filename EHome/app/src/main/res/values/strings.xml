@@ -1,0 +1,845 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--软件名字  -->
+    <string name="app_name">创享e家</string>
+    <!--versions名字  -->
+    <string name="versions">2.0.0</string>
+    <!--乐创e家         智享生活  -->
+    <string name="app_slogan">乐创e家         智享生活</string>
+    <!--兴业达科技有限公司  -->
+    <string name="company_name">兴业达科技有限公司</string>
+    <!--返回  -->
+    <string name="back">返回</string>
+    <!--确定  -->
+    <string name="confirm">确定</string>
+    <!--提交  -->
+    <string name="submit">提交</string>
+    <!--退出-->
+    <string name="quit">退出</string>
+    <!--取消-->
+    <string name="cancel">取消</string>
+    <!--11  -->
+    <string name="edittext_length_11">11</string>
+    <!--6  -->
+    <string name="edittext_length_6">6</string>
+    <!--16  -->
+    <string name="edittext_length_16">16</string>
+    <!--加载更多  -->
+    <string name="more_data">加载更多</string>
+    <!--加载更多  -->
+    <string name="load_more">加载更多</string>
+    <!--连接超时  -->
+    <string name="connection_timeout">连接超时</string>
+    <!--请输入帐号  -->
+    <string name="enter_account">请输入帐号</string>
+    <!--请输入密码  -->
+    <string name="enter_pwd">请输入密码</string>
+    <!--提示  -->
+    <string name="hint">提示</string>
+    <!--是否退出e家  -->
+    <string name="is_quit">是否退出e家</string>
+    <!--找回密码  -->
+    <string name="find_password">找回密码</string>
+    <!--验证码错误,请重新输入  -->
+    <string name="verification_code_error">验证码错误,请重新输入</string>
+    <!--请再次输入密码  -->
+    <string name="enter_pwd_again">请再次输入密码</string>
+    <!--两次输入密码不一致，请重新输入  -->
+    <string name="wrong_pwd">两次输入密码不一致，请重新输入</string>
+    <!--用户名不能为空,请输入  -->
+    <string name="username_not_null">用户名不能为空,请输入</string>
+    <!--密码不能为空,请输入  -->
+    <string name="pwd_not_null">密码不能为空,请输入</string>
+    <!--密码不能少于六位，请重新输入  -->
+    <string name="pwd_not_enough">密码不能少于六位，请重新输入</string>
+    <!--手机号码错误  -->
+    <string name="phone_error">手机号码错误</string>
+    <!--网络不可用  -->
+    <string name="network_error">网络不可用</string>
+    <!--个人信息  -->
+    <string name="information">个人信息</string>
+    <!--系统设置  -->
+    <string name="set">系统设置</string>
+    <!--修改密码  -->
+    <string name="change_pwd">修改密码</string>
+    <!--关于e家  -->
+    <string name="about_app">关于e家</string>
+    <!--切换登录  -->
+    <string name="switchover_login">切换用户</string>
+    <!--从相册选择  -->
+    <string name="for_photo_album">从相册选择</string>
+    <!--拍照 -->
+    <string name="photograph">拍照</string>
+    <!--设置头像 -->
+    <string name="set_head_portrait">设置头像</string>
+    <!--设置头像失败 -->
+    <string name="set_head_failure">设置头像失败</string>
+    <!--修改成功 -->
+    <string name="set_prosperity">修改成功</string>
+    <!--监控 -->
+    <string name="monitoring">监控</string>
+    <!--解除绑定 -->
+    <string name="relieve_bind">解除绑定</string>
+    <!--解除绑定成功 -->
+    <string name="relieve_bind_prosperity">解除绑定成功</string>
+    <!--是否解除该小区的绑定? -->
+    <string name="whether_relieve_bind">是否解除该小区的绑定?</string>
+    <!--解除绑定 -->
+    <string name="confirm_relieve_bind">该小区是默认小区，是否删除?</string>
+    <!--该栋数未绑定设备-->
+    <string name="not_bind_facility">该栋数未绑定设备</string>
+    <!--开门成功-->
+    <string name="open_door_prosperity">开门成功</string>
+    <!--门牌号不能为空，请重新输入-->
+    <string name="not_null_house_number">门牌号不能为空，请重新输入</string>
+    <!--添加成功-->
+    <string name="add_prosperity">添加成功</string>
+    <!--添加成功，请等待审核-->
+    <string name="wait_check">添加成功，请等待审核</string>
+    <!--监控被占用，请稍后再试-->
+    <string name="playback_failed">监控被占用，请稍后再试</string>
+    <!--视频地址错误 -->
+    <string name="play_address_error">视频地址错误</string>
+    <!--呼叫未接通 -->
+    <string name="call_not_connect">呼叫未接通</string>
+    <!--您有一次门禁呼叫未接通 -->
+    <string name="call_not_connect_hint">您有一次门禁呼叫未接通</string>
+    <!--未接通消息 -->
+    <string name="not_connect_message">未接通消息</string>
+    <!--暂无通知 -->
+    <string name="not_notification">暂无通知</string>
+    <!--暂无广告 -->
+    <string name="not_advertisement">暂无广告</string>
+    <!--建议记录 -->
+    <string name="complains_records">建议记录</string>
+    <!--维修记录 -->
+    <string name="maintenance_record">维修记录</string>
+    <!--小区通告 -->
+    <string name="village_notice">小区通告</string>
+    <!--建议历史 -->
+    <string name="suggested_history">建议历史</string>
+    <!--维修历史 -->
+    <string name="maintain_history">维修历史</string>
+    <!--通知 -->
+    <string name="notification">通知</string>
+    <!--建议 -->
+    <string name="suggested">建      议</string>
+    <!--建议 -->
+    <string name="suggest">建议/维修</string>
+    <!--建议记录 -->
+    <string name="suggested_record">建议记录</string>
+    <!--维修 -->
+    <string name="maintain">维      修</string>
+    <!--维修记录 -->
+    <string name="maintain_record">维修记录</string>
+    <!--图片数5张已满 -->
+    <string name="picture_for_5">图片数5张已满</string>
+    <!--确定移除此图片 -->
+    <string name="remove_picture">确定移除此图片</string>
+    <!--请输入内容 -->
+    <string name="input_content">请输入内容</string>
+    <!--上传成功 -->
+    <string name="uploaded_successfully">上传成功</string>
+    <!--上传失败 -->
+    <string name="upload_failed">上传失败</string>
+    <!--密码修改成功 -->
+    <string name="password_changed">密码修改成功</string>
+    <!--已添加 -->
+    <string name="already_add">已添加</string>
+    <!--女 -->
+    <string name="woman">女</string>
+    <!--男 -->
+    <string name="man">男</string>
+    <!--请选择修改 -->
+    <string name="choose_modify">请选择修改</string>
+    <!--请输入 -->
+    <string name="input">请输入</string>
+    <!--消息中心 -->
+    <string name="message_center">消息</string>
+    <!--个人 -->
+    <string name="individual">个人</string>
+    <!--系统 -->
+    <string name="systematic">系统</string>
+    <!--个人消息 -->
+    <string name="individual_information">个人消息</string>
+    <!--系统消息 -->
+    <string name="systematic_information">系统消息</string>
+    <!--是否接通 : -->
+    <string name="message_status">是否接通 :</string>
+    <!--是否开门 :-->
+    <string name="door_status">是否开门 :</string>
+    <!--发起人 -->
+    <string name="initiator">发起人 :</string>
+    <!--接受者 -->
+    <string name="receiver">接受者 :</string>
+    <!--接通 -->
+    <string name="connect">接通</string>
+    <!--未接通 -->
+    <string name="no_connect">未接通</string>
+    <!--开门 -->
+    <string name="open_door">开门</string>
+    <!--未开门 -->
+    <string name="no_open_door">未开门</string>
+    <!--是否删除？ -->
+    <string name="is_delete">是否删除？</string>
+    <!--审核未通过 -->
+    <string name="not_check">审核未通过</string>
+    <!--所有 -->
+    <string name="all">所有</string>
+    <string name="seek_hint">请输入要搜索的小区名字</string>
+    <!--其他  -->
+    <string name="more">其他</string>
+    <!--删除 -->
+    <string name="delete">删除</string>
+    <!--完成 -->
+    <string name="accomplish">完成</string>
+    <!--全选 -->
+    <string name="check_all">全选</string>
+
+
+    <!--开始体验  -->
+    <string name="guide_into_button">开始体验</string>
+    <!--请输入手机号码  -->
+    <string name="login_phone_hint">请输入手机号码</string>
+    <!--请输入密码  -->
+    <string name="login_password_hint">请输入密码</string>
+    <!--登录  -->
+    <string name="login_button">登录</string>
+    <!--忘记密码  -->
+    <string name="login_forgetpwd">忘记密码</string>
+    <!--注册新用户  -->
+    <string name="login_register">注册新用户</string>
+    <!--请输入手机号码  -->
+    <string name="register_phone_hint">请输入手机号码</string>
+    <!--请输入验证码  -->
+    <string name="register_code_hint">请输入验证码</string>
+    <!--获取验证码  -->
+    <string name="register_getcode_text">获取验证码</string>
+    <!--设置新密码  -->
+    <string name="setnewpwd_text">设置新密码</string>
+    <!--请输入新密码  -->
+    <string name="setnewpwd_newpwd_hint">请输入新密码</string>
+    <!--请再次输入新密码  -->
+    <string name="setnewpwd_newowd_again_hint">请再次输入新密码</string>
+    <!--注册帐号  -->
+    <string name="info_title">注册帐号</string>
+    <!--用户名  -->
+    <string name="info_name_text">用户名</string>
+    <!--请输入呢称  -->
+    <string name="info_name_hint">请输入呢称</string>
+    <!--邮箱  -->
+    <string name="info_email_text">邮箱</string>
+    <!--请输入邮箱  -->
+    <string name="info_email_hint">请输入邮箱</string>
+    <!--密码  -->
+    <string name="info_pwd_text">密码</string>
+    <!--请输入密码  -->
+    <string name="info_pwd_hint">请输入密码</string>
+    <!--请输入用户名  -->
+    <string name="info_username_hint">请输入用户名</string>
+    <!--确认密码  -->
+    <string name="info_OKpwd_text">确认密码</string>
+    <!--请再次输入密码  -->
+    <string name="info_OKpwd_hint">请再次输入密码</string>
+    <!--选择性别  -->
+    <string name="info_sex_text">选择性别</string>
+    <!--门禁  -->
+    <string name="hg_door_text">门禁</string>
+    <!--物业  -->
+    <string name="hg_tenement_text">物业</string>
+    <!--商圈  -->
+    <string name="hg_life_text">商圈</string>
+    <!--个人  -->
+    <string name="hg_info_text">个人</string>
+    <!--我的设备  -->
+    <string name="door_title_text">我的设备</string>
+    <!--请绑定小区  -->
+    <string name="door_add_hint">请绑定小区</string>
+    <!--[  -->
+    <string name="door_adapter_left">【</string>
+    <!--]  -->
+    <string name="door_adapter_right">】</string>
+    <!--门禁  -->
+    <string name="door_adapter_text">门禁</string>
+    <!--绑定小区  -->
+    <string name="door_add_text">绑定小区</string>
+    <!--小区  -->
+    <string name="door_add_xiaoqutext">小区</string>
+    <!--期数  -->
+    <string name="door_add_qishutext">期数</string>
+    <!--栋数  -->
+    <string name="door_add_dongshutext">栋数</string>
+    <!--门牌号  -->
+    <string name="door_add_doornubtext">门牌</string>
+    <!--业主  -->
+    <string name="door_add_owner">业主</string>
+    <!--家属  -->
+    <string name="door_add_relation">家属</string>
+    <!--租客  -->
+    <string name="door_add_tenant">租客</string>
+    <!--门禁监控  -->
+    <string name="door_rtmp_title">门禁监控</string>
+    <!--挂断  -->
+    <string name="door_rtmp_hang_up">挂断</string>
+    <!--开门  -->
+    <string name="door_rtmp_answer">开门</string>
+    <!--接通  -->
+    <string name="door_rtmp_start">接通</string>
+    <!--您家里有客人来了哦!  -->
+    <string name="door_hint">您家里有客人来了哦!</string>
+    <!--个人建议  -->
+    <string name="RT_complaint_text">意见/建议</string>
+    <!--物业报修  -->
+    <string name="RT_maintain_text">物业报修</string>
+    <!--便民缴费  -->
+    <string name="RT_transfer_text">便民缴费</string>
+    <!--缴费  -->
+    <string name="transfer">缴      费</string>
+    <!--关于  -->
+    <string name="RT_about_text">关于</string>
+    <!--通知  -->
+    <string name="RT_inform_text">通知</string>
+    <!--类型  -->
+    <string name="RT_cas_type_text">类型</string>
+    <!--标题  -->
+    <string name="RT_cas_title_text">标题</string>
+    <!--请输入标题  -->
+    <string name="RT_cas_title_hint">请输入标题</string>
+    <!--内容  -->
+    <string name="RT_cas_content_text">内容</string>
+    <!--上传图片  -->
+    <string name="RT_cas_upload_text">上传图片</string>
+    <!--暂无数据  -->
+    <string name="RT_cas_history_text">暂无数据</string>
+    <!--发布时间 :  -->
+    <string name="RT_notice_time_text">发布时间 :</string>
+    <!--商圈列表  -->
+    <string name="life_title_text">商圈列表</string>
+    <!--用户名 :   -->
+    <string name="menu_name_hint">用户名 : </string>
+    <!--设置  -->
+    <string name="menu_set_hint">设置</string>
+    <!--关于  -->
+    <string name="menu_about_hint">关于</string>
+    <!--修改密码  -->
+    <string name="menu_setnewpwd_hint">修改密码</string>
+    <!--versions :  -->
+    <string name="menu_versions_text">versions :</string>
+    <!--退出登录  -->
+    <string name="menu_quit_button">退出登录</string>
+
+    <!--修改信息  -->
+    <string name="menu_setinfo_title_hint">修改信息</string>
+    <!--真实姓名  -->
+    <string name="menu_setinfo_name_text">真实姓名</string>
+    <!--用户名  -->
+    <string name="menu_setinfo_username_text">用户名</string>
+    <!--手机号码  -->
+    <string name="menu_setinfo_phone_text">手机号码</string>
+    <!--默认小区  -->
+    <string name="menu_setinfo_xiaoqu_text">默认小区</string>
+    <!--备用号码  -->
+    <string name="menu_setinfo_reserve_phone_text">备用号码</string>
+    <!--邮箱  -->
+    <string name="menu_setinfo_e_mail_text">邮箱</string>
+    <!--性别  -->
+    <string name="menu_setinfo_sex_text">性别</string>
+    <!--当前用户类型  -->
+    <string name="menu_setinfo_type_text">当前用户类型</string>
+    <!--分享类型  -->
+    <string name="setinfo_share_type">分享类型</string>
+    <!--修改密码  -->
+    <string name="menu_setinfo_setpwd_text">修改密码</string>
+    <!--确定修改  -->
+    <string name="menu_setinfo_confirm_text">确定修改</string>
+    <!--修改新密码  -->
+    <string name="menu_change_title_hint">修改新密码</string>
+    <!--请输入旧密码  -->
+    <string name="menu_change_oldpwd_hint">请输入旧密码</string>
+    <!--请输入新密码  -->
+    <string name="menu_change_newpwd_hint">请输入新密码</string>
+    <!--请再次输入新密码  -->
+    <string name="menu_change_again_newpwd_hint">请再次输入新密码</string>
+    <!--设置  -->
+    <string name="menu_set_title_text">设置</string>
+    <!--消息提醒  -->
+    <string name="menu_set_informationhint_text">消息提醒</string>
+    <!--声音  -->
+    <string name="menu_set_voice_text">声音</string>
+    <!--震动  -->
+    <string name="menu_set_shake_text">震动</string>
+    <!--视频网络设定  -->
+    <string name="menu_set_rtmpnetwork_text">视频网络设定</string>
+    <!--wifi  -->
+    <string name="menu_set_wifi_text">wifi</string>
+    <!--3G/4G  -->
+    <string name="menu_set_3G_4G_text">3G/4G</string>
+    <!--呼叫设置  -->
+    <string name="menu_set_rtmpplay_text">呼叫设置</string>
+    <!--接听呼叫  -->
+    <string name="menu_set_receivecall_text">接听呼叫</string>
+    <!--一键开门  -->
+    <string name="menu_set_opendoor_text">一键开门</string>
+    <!--添加一键开门  -->
+    <string name="menu_set_add_opendoor_text">添加一键开门</string>
+    <!--关于我们  -->
+    <string name="menu_about_title_text">关于我们</string>
+    <!--联系我们 :   -->
+    <string name="menu_about_contact_text">联系我们 : </string>
+    <!--0731–22393818  -->
+    <string name="menu_about_number_text">0731–22393818</string>
+    <!--了解我们:   -->
+    <string name="menu_about_know_text">了解我们: </string>
+    <!--www.xyd999.com  -->
+    <string name="menu_about_url_text">http://www.xyd999.com</string>
+    <!--下载新版本  -->
+    <string name="update_notification_text">下载新版本</string>
+    <!--下载状态  -->
+    <string name="update_update_text">下载状态</string>
+    <!--加载更多  -->
+    <string name="p2refresh_head_load_more">加载更多</string>
+    <!--加载更多  -->
+    <string name="p2refresh_end_load_more">加载更多</string>
+    <!--点击加载  -->
+    <string name="p2refresh_end_click_load_more">点击加载</string>
+    <!--松开刷新  -->
+    <string name="p2refresh_release_refresh">松开刷新</string>
+    <!--下拉刷新  -->
+    <string name="p2refresh_pull_to_refresh">下拉刷新</string>
+    <!--正在刷新  -->
+    <string name="p2refresh_doing_head_refresh">正在刷新</string>
+    <!--加载中  -->
+    <string name="p2refresh_doing_end_refresh">加载中</string>
+    <!--最近更新  -->
+    <string name="p2refresh_refresh_lasttime">最近更新</string>
+    <!--智能家居  -->
+    <string name="smart_home">智能家居</string>
+    <!--重新绑定  -->
+    <string name="rebinding">重新绑定</string>
+    <!--信息验证  -->
+    <string name="infomation_detection">信息验证</string>
+    <!--添加停车场管理  -->
+    <string name="add_park">添加车辆信息</string>
+    <!--分享设备  -->
+    <string name="share_equipment">分享设备</string>
+    <!--描述  -->
+    <string name="describe">描述</string>
+
+
+    <!--账号 -->
+    <string name="door_hint_text">您的账号已被冻结，有疑问请联系物业管理员</string>
+    <!--账号 -->
+    <string name="account_number">账号</string>
+    <!--用户类型 -->
+    <string name="user_type">用户类型</string>
+    <!--请选择 -->
+    <string name="please_choose">请选择</string>
+    <!--loading...-->
+    <string name="loadin">loading...</string>
+    <!--语音对讲-->
+    <string name="netvoice">语音对讲</string>
+    <!--日 -->
+    <string name="day">日</string>
+    <!--月 -->
+    <string name="month">月</string>
+    <!--通告 -->
+    <string name="notice">通      告</string>
+    <!--服务 -->
+    <string name="serve">服务</string>
+    <!--超市购 -->
+    <string name="supermarket">超市购</string>
+    <!--城市服务 -->
+    <string name="city">城市服务</string>
+    <!--Q币充值 -->
+    <string name="recharge">Q币充值</string>
+    <!--生活缴费 -->
+    <string name="pay_fees">生活缴费</string>
+    <!--手机充值 -->
+    <string name="qb">手机充值</string>
+    <!--送药上门 -->
+    <string name="drug">送药上门</string>
+    <!--鲜花蛋糕 -->
+    <string name="flower_cake">鲜花蛋糕</string>
+    <!--生鲜水果 -->
+    <string name="fruits">生鲜水果</string>
+    <!--去评分 -->
+    <string name="graded">去评分</string>
+    <!--功能介绍 -->
+    <string name="function">功能介绍</string>
+    <!--检查新版本 -->
+    <string name="version_updating">检查新版本</string>
+    <!--上一条 -->
+    <string name="last">上一条</string>
+    <!--下一条 -->
+    <string name="next">下一条</string>
+    <!--Code -->
+    <string name="SN">Code</string>
+    <!--便民服务电话 -->
+    <string name="convenient_telephone">服务电话</string>
+    <!--冒号 -->
+    <string name="colon">:</string>
+    <!--保存 -->
+    <string name="save">保存</string>
+    <!--进入 -->
+    <string name="guide_goin">>>进入</string>
+    <!--请选择绑定的身份 -->
+    <string name="select_identity">请选择绑定的身份</string>
+    <!--请输入设备SN -->
+    <string name="SNCode_hint">请输入设备SN</string>
+    <!--请输入门号 -->
+    <string name="house_number_hint">请输入门号</string>
+    <!--请选择设备添加方式 -->
+    <string name="add_title">请选择设备添加方式</string>
+    <!--云视通号码添加 -->
+    <string name="add_loging_title">云视通号码添加</string>
+    <!--方式一：已联网设备 -->
+    <string name="method_one">方式一：已联网设备</string>
+    <!--方法二：无线配置 -->
+    <string name="method_two">方法二：无线配置</string>
+    <!--请输入云视通号码 -->
+    <string name="cloudview_number">请输入云视通号码</string>
+    <!--请输入设备呢称 -->
+    <string name="info_equipment_name">请输入设备呢称</string>
+    <!--云视通号 -->
+    <string name="cloudview_number_hint">云视通号</string>
+    <!--设备呢称 -->
+    <string name="equipment_name">设备呢称</string>
+    <!--声波配置 -->
+    <string name="Sound_waves_set">声波配置</string>
+    <!--未联网设备 -->
+    <string name="non_networked">未联网设备</string>
+    <!--请用顶针轻插设备的 -->
+    <string name="sound_wave_hint1">请用顶针轻插设备的</string>
+    <!--Reset -->
+    <string name="sound_wave_hint2">Reset</string>
+    <!--孔 -->
+    <string name="sound_wave_hint3">孔</string>
+    <!--直到听到提示音 -->
+    <string name="sound_wave_hint4">直到听到提示音</string>
+    <!--请输入摄像机要连接的无线网络密码 -->
+    <string name="sound_wave_hint5">请输入摄像机要连接的无线网络密码</string>
+    <!--摄像机暂时不支持连接5G WIFI -->
+    <string name="sound_wave_hint6">摄像机暂时不支持连接5G WIFI</string>
+    <!--请输入wi-fi名称 -->
+    <string name="sound_wave_hint7">请输入wi-fi名称</string>
+    <!--请输入wi-fi密码 -->
+    <string name="sound_wave_hint8">请输入wi-fi密码</string>
+    <!--连接WiFi -->
+    <string name="sound_wave_hint9">连接WiFi</string>
+    <!--点击 -->
+    <string name="sound_wave_hint10">点击</string>
+    <!--发送声波 -->
+    <string name="sound_wave_hint11">发送声波</string>
+    <!--按钮 -->
+    <string name="sound_wave_hint12">按钮</string>
+    <!--让摄像机连接无线网络 -->
+    <string name="sound_wave_hint13">让摄像机连接无线网络</string>
+    <!--发送声波 -->
+    <string name="sound_wave_hint14">发送声波</string>
+    <!--正在搜索设备 -->
+    <string name="sound_wave_hint15">正在搜索设备</string>
+    <!--下一步 -->
+    <string name="next_step">下一步</string>
+    <!--超清 -->
+    <string name="super_definition">超清</string>
+    <!--高情 -->
+    <string name="high_definition">高清</string>
+    <!--流畅 -->
+    <string name="fluency_definition">流畅</string>
+
+    <!--猫眼设置  -->
+    <string name="maoyan_set">猫眼设置</string>
+    <!--感应门铃  -->
+    <string name="maoyan_set_doorbell">感应门铃</string>
+    <!--红外感应  -->
+    <string name="maoyan_set_nfrared_induction">红外感应</string>
+    <!--移动侦测  -->
+    <string name="maoyan_set_motion_detection">移动侦测</string>
+    <!--报警推送  -->
+    <string name="jv_siren_push">报警推送</string>
+    <!--移动侦测  -->
+    <string name="jv_motion_detection_set">移动侦测灵敏度</string>
+    <!--呢称设置  -->
+    <string name="jv_nickname_set">呢称设置</string>
+    <!--报警设置  -->
+    <string name="jv_siren_set">报警设置</string>
+    <!--报警回放  -->
+    <string name="jv_siren_playback">报警回放</string>
+    <!--当天  -->
+    <string name="jv_rewind_today">当天</string>
+    <!--最近三天  -->
+    <string name="jv_rewind_three_days">最近三天</string>
+    <!--自定义  -->
+    <string name="jv_rewind_select">自定义</string>
+    <!--安全防护时间段  -->
+    <string name="safety_guard_time">安全防护时间段</string>
+    <!--分享  -->
+    <string name="share">分享</string>
+
+    <string name="error_tag_empty">tag不能为空</string>
+    <string name="error_tag_gs_empty">格式不对</string>
+    <!--wifi名称-->
+    <string name="on_off_wifi_name">wifi :</string>
+    <!--wifi密码-->
+    <string name="on_off_wifi_pwd">密码 :</string>
+    <!--添加WIFI开关-->
+    <string name="on_off_title">添加WIFI开关</string>
+    <!--wifi开关添加提示-->
+    <string name="on_off_hint">输入路由器Wi-Fi网络接入点名称（SSID）以及密码</string>
+    <!--wifi开关添加提示-->
+    <string name="on_off_hint2">正在绑定请稍后，如果红灯闪烁，表示路由器密码输入有误，请返回重新输入</string>
+
+
+    <string name="viewfinderview_status_text1">将二维码/条码放入取景框内</string>
+    <string name="viewfinderview_status_text2">即可自动扫描</string>
+    <string name="msg_camera_framework_bug">对不起,摄像头遇到的一个问题。您可能需要重新启动设备。</string>
+    <string name="button_ok">OK</string>
+    <!--style为数字  -->
+    <string name="style_hint">style为数字</string>
+    <!--Alias为大小写字母，数字，下划线  -->
+    <string name="alias_hint">Alias为大小写字母，数字，下划线</string>
+    <!--Tag为大小写字母，数字，下划线,中文， 多个用以逗号分隔  -->
+    <string name="tag_hint">Tag为大小写字母，数字，下划线,中文， 多个用以逗号分隔</string>
+    <string name="pushmsg_center_no_more_msg">已经到底啦</string>
+    <string name="pushmsg_center_pull_up_text">松开加载更多</string>
+    <string name="pushmsg_center_pull_down_text">下拉可以刷新</string>
+    <string name="pushmsg_center_pull_release_text">松开获取更多</string>
+    <string name="pushmsg_center_pull_down_update_time">最后更新时间 : </string>
+    <string name="pushmsg_center_load_more_ongoing_text">正在加载中</string>
+    <string name="xsearch_loading">正在加载中…</string>
+
+    <string name="pull_to_refresh_header_hint_normal">@string/pushmsg_center_pull_down_text</string>
+    <string name="pull_to_refresh_header_hint_normal2">上拉可以刷新</string>
+    <string name="pull_to_refresh_header_hint_ready">松开后刷新</string>
+    <string name="pull_to_refresh_header_hint_loading">@string/pushmsg_center_load_more_ongoing_text</string>
+    <string name="pull_to_refresh_header_last_time">@string/pushmsg_center_pull_down_update_time</string>
+    <string name="pull_to_refresh_footer_hint_ready">松开载入更多</string>
+    <string name="pull_to_refresh_refreshing_label">@string/pull_to_refresh_header_hint_loading</string>
+    <string name="pull_to_refresh_no_more_data">@string/pushmsg_center_no_more_msg</string>
+    <!--中维-->
+    <string name="welcome_info">中维世纪手机播放SDK</string>
+    <string name="select_function">请选择要使用的功能</string>
+    <string name="function1">功能1：视频播放相关功能</string>
+    <string name="function2">功能2：无线配置（声波、智联）</string>
+    <string name="function3">功能3：广播相关功能</string>
+    <string name="function4">功能4：SDK版本信息</string>
+    <string name="function5">功能5：账号相关操作</string>
+    <string name="function6">功能6：设备相关功能</string>
+
+
+    <string name="select_connect_way">请选择设备的连接方式</string>
+    <string name="connect_by_ip">IP连接视频</string>
+    <string name="connect_by_yst">云视通号码连接视频</string>
+    <string name="device_ip">设备IP</string>
+    <string name="device_port">设备端口</string>
+    <string name="device_yst_num">设备号</string>
+    <string name="device_user">用户名</string>
+    <string name="device_pwd">密码</string>
+    <string name="device_channel_count">设备通道总数</string>
+    <string name="device_channel">连接第几通道(1开始)</string>
+    <string name="connect_normal">正常连接</string>
+    <string name="connect_ap">AP连接</string>
+
+    <string name="wave_config">声波配置</string>
+    <string name="smart_config">智联路由配置</string>
+    <string name="wifi_name">Wi-Fi名称</string>
+    <string name="wifi_pwd">Wi-Fi密码</string>
+    <string name="wifi_mac">Mac地址</string>
+    <string name="repeat_counts">重复频次</string>
+    <string name="old_send">发送老声波</string>
+    <string name="new_send">发送新声波</string>
+    <string name="send">发送</string>
+
+    <string name="select_broad_way">请选择广播的方式</string>
+    <string name="lan_broad_way">局域网广播</string>
+    <string name="net_broad_way">跨网段广播</string>
+    <string name="broad_dev_count">广播到的设备</string>
+
+
+    <string name="connfailed_auth">用户名或密码错误 </string>
+    <string name="connfailed_channel_notopen">该通道不存在或未开放</string>
+    <string name="connfailed_type_invalid">连接类型无效</string>
+    <string name="connfailed_maxcount">超过设备最大连接数</string>
+    <string name="connfailed_timeout">连接超时</string>
+    <string name="connfailed_checkpass_timout">连接超时.</string>
+    <string name="connect_failed">连接失败</string>
+
+
+    <string name="connecting">连接中…</string>
+    <string name="resuming">恢复中…</string>
+    <string name="connect_ok">建立连接…</string>
+    <string name="i_ok">I帧OK</string>
+    <string name="o_ok">O帧OK</string>
+    <string name="error2">error2…</string>
+    <string name="error3">error3…</string>
+    <string name="error4">error4…</string>
+    <string name="error5">error5…</string>
+    <string name="error6">error6…</string>
+    <string name="error7">error7…</string>
+    <string name="error8">error8…</string>
+
+    <string name="closed">已断开</string>
+    <string name="abnormal_closed">连接异常断开</string>
+    <string name="overflow">超过最大连接数</string>
+    <string name="connecting_buffer1">正在缓冲1</string>
+    <string name="connecting_buffer2">正在缓冲2…</string>
+
+    <string name="sure">确定</string>
+    <string name="loading">加载中&#8230;</string>
+    <string name="login">登录</string>
+    <string name="logout">注销</string>
+    <string name="term">释放账号库资源</string>
+
+    <!--账号相关功能-->
+    <string name="account_title">请选择账号相关功能</string>
+    <string name="account_login">账号登陆</string>
+    <string name="account_register">账号注册</string>
+    <string name="account_register_nocode">账号注册(无验证码)</string>
+    <string name="account_reset">修改密码</string>
+    <string name="account_find">找回密码</string>
+    <string name="account_user">账号</string>
+    <string name="account_user_hint">请输入手机号/邮箱</string>
+    <string name="account_pwd">密码</string>
+    <string name="account_pwd_hint">请输入密码</string>
+    <string name="account_pwd_again_hint">请再次输入密码</string>
+    <string name="account_verity">获取验证码</string>
+    <string name="account_verity_hint">请输入验证码</string>
+    <string name="account_reset_old">请输入原密码</string>
+    <string name="account_reset_new">请输入新密码</string>
+    <string name="account_reset_newagain">再次输入新密码</string>
+    <string name="account_find_new">输入新设置的密码</string>
+    <string name="account_find_newagain">再次输入新设置的密码</string>
+
+    <!--报警相关功能-->
+    <string name="alarm_title">请选择设备相关功能</string>
+    <string name="alarm_add">添加设备</string>
+    <string name="alarm_change">设备修改</string>
+    <string name="alarm_delete">删除设备</string>
+    <string name="alarm_scan">查询设备列表</string>
+
+    <string name="screen_1">1分屏</string>
+    <string name="screen_4">4分屏…</string>
+    <string name="screen_9">9分屏…</string>
+    <string name="screen_16">16分屏…</string>
+    <string name="sound">声音</string>
+    <string name="single_call">单向对讲</string>
+    <string name="double_call">双向对讲</string>
+    <string name="record">录像</string>
+    <string name="change_stream">切换码流</string>
+    <string name="wifi_config">无线配置</string>
+    <string name="remote_play">远程回放</string>
+    <string name="modify_pwd">修改密码</string>
+    <string name="wifi_info">无线信息</string>
+    <string name="capture">抓拍</string>
+    <string name="ptz">云台</string>
+    <string name="press_to_talk">按住说话</string>
+    <string name="lose_to_stop">松开结束</string>
+    <string name="change_zoom">变焦</string>
+    <string name="change_focus">变倍</string>
+
+    <string name="function0_name">串口波特率设置</string>
+    <string name="function1_name">串口波特率获取</string>
+    <string name="function2_name">分辨率</string>
+    <string name="function3_name">wifi信道</string>
+    <string name="function4_name">ssid前缀</string>
+    <string name="function5_name">对比度亮度</string>
+    <string name="function6_name">旋转</string>
+    <string name="function7_name">VR</string>
+    <string name="function8_name">时间间隔</string>
+    <string name="function9_name">SD卡开关</string>
+    <string name="function10_name">wifi信号强度</string>
+    <string name="function11_name">时间同步</string>
+    <string name="function12_name">分贝报警</string>
+    <string name="function13_name">时间设置</string>
+    <string name="function14_name">SD卡状态</string>
+    <string name="function15_name">设备开始录像</string>
+    <string name="function16_name">设备停止录像</string>
+    <string name="function17_name">设备拍照</string>
+    <string name="function18_name">查询SD卡所有录像</string>
+    <string name="function19_name">查询SD卡所有照片</string>
+    <string name="function20_name">播放录像</string>
+    <string name="function21_name">下载文件</string>
+    <string name="function22_name">报警推送开关</string>
+    <string name="function23_name">移动侦测开关</string>
+    <string name="function24_name">移动侦测灵敏度</string>
+
+    <string name="start_time_text">00:00</string>
+    <string name="stop_time_text">23:59</string>
+    <string name="all_day">全天</string>
+
+
+    <!-- RemotePlayBackActivity -->
+    <string name="search">检索</string>
+    <string name="start_time">开始时间</string>
+    <string name="stop_time">结束时间</string>
+    <string name="save_path">保存路径</string>
+    <string name="video_load_failed">加载失败</string>
+    <string name="video_nodata_failed">没有数据</string>
+    <string name="video_normal">手动录像</string>
+    <string name="video_alarm">报警录像</string>
+    <string name="video_motion">移动检测</string>
+    <string name="video_time">定时录像</string>
+
+
+    <!-- 账号库问题的错误码 Start -->
+    <string name="lib_error_1">系统忙</string>
+    <string name="lib_error_2">连接出错</string>
+    <string name="lib_error_3">数据内容有错</string>
+    <string name="lib_error_4">请求命令出错</string>
+    <string name="lib_error_5">请求序号出错</string>
+    <string name="lib_error_6">IP鉴权失败</string>
+    <string name="lib_error_7">用户名密码错误</string>
+    <string name="lib_error_8">账号不存在</string>
+    <string name="lib_error_9">密码不正确</string>
+    <string name="lib_error_10">版本错误</string>
+    <string name="lib_error_11">请求跳转</string>
+    <string name="lib_error_20">系统异常</string>
+    <string name="lib_error_2000">操作失败，请重试</string>
+    <string name="lib_error_2001">执行超时</string>
+    <string name="lib_error_2002">当前无网络连接</string>
+    <!-- 账号库问题的错误码 End -->
+    <!-- 服务器返回的错误码 Start -->
+    <string name="server_error_1000">未知错误</string>
+    <string name="server_error_1001">解析错误</string>
+    <string name="server_error_1002">网络错误</string>
+    <string name="server_error_1003">协议出错</string>
+    <string name="server_error_1004">类型转换错误</string>
+    <!-- 服务器返回的错误码 End -->
+    <!-- 接口返回的错误码 Start -->
+    <!-- // 1.数据库或是其他基础操作失败 -->
+    <string name="web_error_101">数据库连接或操作失败</string>
+    <string name="web_error_102">参数传入不正确</string>
+    <string name="web_error_103">字符转换数字出错</string>
+    <string name="web_error_104">系统内部错误</string>
+    <string name="web_error_105">缓存异常</string>
+    <string name="web_error_106">远程连接异常</string>
+    <string name="web_error_107">返回结果为空</string>
+    <!-- // 2.设备管理出现的错误 -->
+    <string name="web_error_201">设备不存在</string>
+    <string name="web_error_202">用户没有绑定该设备</string>
+    <string name="web_error_203">设备已被绑定</string>
+    <string name="web_error_203_account">绑定账号:</string>
+    <string name="web_error_204">您已绑定该设备</string>
+    <string name="web_error_205">设备不在线</string>
+    <string name="web_error_206">设备用户名或密码错误</string>
+    <string name="web_error_209">邀请码已失效，请联系设备主人重新生成！</string>
+    <!-- // 3.报警出现的错误 -->
+    <string name="web_error_301">报警开关参数错误</string>
+    <!-- // 4.账号、验证码出现的错误 -->
+    <string name="web_error_401">账号已存在</string>
+    <string name="web_error_402">验证码不合法</string>
+    <string name="web_error_403">用户未登录或登录超时</string>
+    <string name="web_error_404">账号不存在</string>
+    <string name="web_error_405">老密码错误</string>
+    <string name="web_error_406">新密码错误</string>
+    <string name="web_error_407">参数为空</string>
+    <string name="web_error_408">参数不合法</string>
+    <string name="web_error_409">调用远程账号操作失败</string>
+    <string name="web_error_410">验证码发送失败</string>
+    <!-- // 5.其他出现的错误 -->
+    <string name="web_error_501">版本没有更新</string>
+    <string name="web_error_502">版本过高</string>
+    <!-- 消息成功率统计： 通道将消息转发给SDK后，SDK通知通道消息已接收到 -->
+    <string name="hwpush_ability_value" translatable="false">successRateAnalytics</string>
+</resources>

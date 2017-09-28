@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <com.xingyeda.ehome.view.PercentLinearLayout
+        android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.xingyeda.ehome.view.PercentLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_heightPercent="30%"
+        android:background="@mipmap/bg_annunciate"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp" 
+            android:layout_marginRight="20dp">
+
+            <ImageView
+                android:id="@+id/door_information"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/information_show"
+                android:gravity="center"
+                android:background="@null"
+                android:contentDescription="@null"
+                />
+
+            <!--<ImageView-->
+                <!--android:id="@+id/door_more"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:background="@null"-->
+                <!--android:contentDescription="@null"-->
+                <!--android:src="@drawable/more_show" />-->
+            <TextView 
+                android:id="@+id/door_spn"
+                android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@mipmap/down_new_show"
+            android:drawablePadding="5dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_18"
+                />
+          
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/frozen_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:visibility="gone"
+            />
+
+       
+
+    </com.xingyeda.ehome.view.PercentLinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <TextView
+            android:id="@+id/door_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/theme_orange"
+            android:gravity="center"
+            android:text="@string/door_title_text"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_22"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp" />
+            <!--<TextView-->
+                <!--android:id="@+id/doo_smart_home"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@color/white"-->
+                <!--android:gravity="center"-->
+                <!--android:text="@string/smart_home"-->
+                <!--android:textColor="@color/theme_orange"-->
+                <!--android:textSize="@dimen/text_size_22"-->
+                <!--android:paddingTop="5dp"-->
+                <!--android:paddingBottom="5dp" />-->
+
+        </LinearLayout>
+
+        
+<RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EDECE8">
+
+        <com.xingyeda.ehome.view.listview.PullToRefreshMenuView
+            android:id="@+id/door_Listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="#EDECE8" 
+            android:layout_marginTop="10dp"
+            />
+        <ImageView
+            android:id="@+id/no_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/nodoor_datas"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+             />
+        <ImageView
+            android:id="@+id/door_add"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@null"
+            android:src="@mipmap/add_small"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            />
+
+
+</RelativeLayout>
+        
+    </com.xingyeda.ehome.view.PercentLinearLayout>
+    <android.support.percent.PercentFrameLayout
+        android:id="@+id/share_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:descendantFocusability="afterDescendants"
+        android:background="#50000000">
+        <android.support.percent.PercentRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <ImageView
+                android:id="@+id/share_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@color/white"/>
+            <TextView
+                android:id="@+id/share_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/share_img"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_22"
+
+                />
+        </android.support.percent.PercentRelativeLayout>
+
+    </android.support.percent.PercentFrameLayout>
+    <android.support.percent.PercentFrameLayout
+        android:id="@+id/share_hint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:descendantFocusability="afterDescendants"
+        android:background="#50000000">
+        <android.support.percent.PercentRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@mipmap/share_bg"
+            >
+            <com.xingyeda.ehome.view.PercentLinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@mipmap/share_img"
+                app:layout_marginTopPercent="10%"
+                android:orientation="vertical"
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/share_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+                <TextView
+                    android:id="@+id/share_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+            </com.xingyeda.ehome.view.PercentLinearLayout>
+            <com.xingyeda.ehome.view.PercentLinearLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_widthPercent="80%"
+                app:layout_heightPercent="10%"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                app:layout_marginBottomPercent="10%">
+                <TextView
+                    android:id="@+id/share_cancel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:layout_marginRightPercent="1%"
+                    android:background="@drawable/button_theme"
+                    android:textColor="@color/white"
+                    android:text="@string/cancel"
+                    android:gravity="center"/>
+                <TextView
+                    android:id="@+id/share_confirm"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:layout_marginLeftPercent="1%"
+                    android:background="@drawable/button_theme"
+                    android:gravity="center"
+                    android:text="@string/confirm"
+                    android:textColor="@color/white"/>
+            </com.xingyeda.ehome.view.PercentLinearLayout>
+
+
+
+        </android.support.percent.PercentRelativeLayout>
+
+    </android.support.percent.PercentFrameLayout>
+
+
+
+</android.support.percent.PercentRelativeLayout>

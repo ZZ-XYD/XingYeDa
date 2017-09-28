@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:layout_width="wrap_content"  
+    android:layout_height="wrap_content"  
+    android:gravity="center_horizontal"
+    android:background="@null"  
+   android:orientation="vertical" >  
+   <LinearLayout 
+       android:layout_width="wrap_content"  
+    android:layout_height="wrap_content"  
+    android:gravity="center_horizontal"
+    android:background="@color/white"   
+   android:orientation="vertical"
+   android:layout_marginRight="10dp">
+       
+   
+  
+    <TextView  
+        android:id="@+id/my_share"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"  
+        android:gravity="center"  
+        android:padding="10dp"  
+        android:text="我的分享"
+        android:textSize="@dimen/text_size_18"
+        android:textColor="@color/black" 
+        android:drawablePadding="20dp"
+        
+        />  
+  
+    <View  
+        android:layout_width="wrap_content"  
+        android:layout_height="1dp"  
+        android:background="#EEEEEE"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+          />  
+  
+    <TextView  
+        android:id="@+id/seek"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"  
+        android:gravity="center"  
+        android:textColor="@color/black" 
+        android:padding="10dp"  
+        android:drawablePadding="20dp"
+        android:text="搜索"
+        android:textSize="@dimen/text_size_18" />
+  
+
+       </LinearLayout>
+  
+</LinearLayout>  

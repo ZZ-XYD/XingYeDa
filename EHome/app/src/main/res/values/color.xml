@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- app主题色 -->
+    <color name="theme">#30B4FF</color>
+    <!-- app主题色透明10% -->
+    <color name="theme_lucency_10">#1030B4FF</color>
+    <!-- app主题色透明20% -->
+    <color name="theme_lucency_20">#2030B4FF</color>
+    <!-- app主题色透明30% -->
+    <color name="theme_lucency_30">#3030B4FF</color>
+    <!-- app主题色透明40% -->
+    <color name="theme_lucency_40">#4030B4FF</color>
+    <!-- app主题色透明50% -->
+    <color name="theme_lucency_50">#5030B4FF</color>
+    <!-- app主题色透明60% -->
+    <color name="theme_lucency_60">#6030B4FF</color>
+    <!-- app主题色透明70% -->
+    <color name="theme_lucency_70">#7030B4FF</color>
+    <!-- app主题色透明80% -->
+    <color name="theme_lucency_80">#8030B4FF</color>
+    <!-- 红色透明50% -->
+    <color name="red_lucency_50">#50FF0080</color>
+    <!-- 灰色 -->
+    <color name="gray">#A1A1A1</color>
+    <!-- 灰色2 -->
+    <color name="gray2">#EDECE8</color>
+    <!-- 深蓝 -->
+    <color name="blue_dark">#006DB8</color>
+    <!-- 白色 -->
+    <color name="white">#FFFFFF</color>
+    <!-- 透明白色 -->
+    <color name="lucency_white">#d0FFFFFF</color>
+    <!-- 绿色 -->
+    <color name="green">#4CDA64</color>
+    <!-- 桃红 -->
+    <color name="peach">#F351C3</color>
+    <!-- 淡橙 -->
+    <color name="orange">#FCF9F1</color>
+    <!-- 透明黑 -->
+    <color name="transparent">#00000000</color>
+    <!-- 红色 -->
+    <color name="red_text">#FF0000</color>
+    <!-- 兰色 -->
+    <color name="blue">#95FCFC</color>
+    
+    <!-- 橘色 -->
+    <color name="theme_orange">#E68221</color>
+    
+    <!-- 橘色 -->
+    <color name="lucency_grey">#EDECE8</color>
+    <!--回放按钮 -->
+    <color name="playback">#DDDDDD</color>
+
+
+    <color name="contents_text">#ff000000</color>
+    <color name="encode_view">#ffffffff</color>
+    <color name="possible_result_points">#c0ffbd21</color> <!-- Android standard ICS color -->
+    <color name="result_minor_text">#ffc0c0c0</color>
+    <color name="result_points">#c099cc00</color> <!-- Android standard ICS color -->
+    <color name="result_text">#ffffffff</color>
+    <color name="result_view">#b0000000</color>
+    <color name="status_text">#ffffffff</color>
+    <color name="viewfinder_laser">#ffcc0000</color> <!-- Android standard ICS color -->
+    <color name="viewfinder_mask">#60000000</color>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <color name="mediacontroller_bg_pressed">#ff53c1bd</color>
+    <color name="mediacontroller_bg">#99000000</color>
+    <color name="black">#000000</color>
+    <!--<color name="pull_refresh_textview">#000000</color>-->
+    <!--<color name="gold">#000000</color>-->
+    <color name="txt_blue">#FF007CB0</color>
+    <color name="txt_gray">#FF575756</color>
+    <color name="txt_orange">#FFEB6100</color>
+    <color name="bg_gray">#FFE3E3E7</color>
+    <color name="bg">#FFF39200</color>
+    <color name="lightblue">#FF007AA2</color>
+    <color name="lightorange">#FFACBA00</color>
+    <color name="red">#FFFF0000</color>
+    <color name="transparentdarkgray">#CC292929</color>
+    <color name="transparentgray">#CC666666</color>
+    <color name="transparent2">#55ffffff</color>
+    <color name="transparentblack">#88000000</color>
+    <color name="transparentblack2">#cc000000</color>
+    <color name="transparentblue">#445CACEE</color>
+    <color name="yellow">#FFD700</color>
+    <color name="light_blue">#5CACEE</color>
+    <color name="light_gray">#87CEEB</color>
+    <color name="orange_red">#613030</color>
+    <color name="whiteGray">#ffC9CACB</color>
+    <color name="nomalGray">#838B83</color>
+   <!--  <color name="blue">#436EEE</color> -->
+    <color name="light_orange">#FFFCBA00</color>
+    <color name="coffee">#622f1b</color>
+    <color name="black2">#80000000</color>
+    <color name="click_color">#2b72d6</color>
+    <color name="buttom_top">#1e1e1e</color>
+    <color name="buttom_centre">#303030</color>
+    <!--<color name="buttom_buttom">#000000</color>-->
+    <color name="yellowbg">#e5d84f</color>
+    <color name="graybg">#ececec</color>
+    <color name="wangyibg">#f0f0f0</color>
+    <color name="wangyibg2">#E0E0E0</color>
+    <color name="younibg">#f6f6f6</color>
+    <color name="pathbg">#f1eee9</color>
+    <color name="pathbg2">#d0c3b7</color>
+    
+     <!-- 灰色 -->
+    <color name="shallowgrey">#F2F2F2</color>
+    
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+</resources>

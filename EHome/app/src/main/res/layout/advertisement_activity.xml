@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    <!--广告界面  -->
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/theme_orange"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+        
+    
+ <TextView
+        android:id="@+id/ad_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_20" 
+        android:layout_marginTop="1px"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+            /> 
+            <TextView
+            android:id="@+id/ad_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/back"
+            android:text="@string/back"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_20" 
+        android:layout_centerVertical="true"
+            android:paddingLeft="10dp"
+            />
+    </RelativeLayout>
+    <WebView 
+     android:id="@+id/web_view" 
+     android:layout_width="fill_parent" 
+     android:layout_height="fill_parent" 
+     />
+
+</LinearLayout>

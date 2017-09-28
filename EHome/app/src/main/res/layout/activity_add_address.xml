@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+
+    <TextView
+        android:id="@+id/door_add_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@mipmap/back"
+        android:text="@string/back"
+        android:textSize="@dimen/text_size_20"
+        android:background="@color/theme_orange"
+        android:textColor="@color/white"
+        android:paddingTop="20dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/door_add_text"
+            android:layout_marginTop="1px"
+            android:textSize="@dimen/text_size_30"
+            android:background="@color/theme_orange"
+            android:textColor="@color/white"
+            android:paddingTop="50dp"
+            android:paddingBottom="50dp"
+            android:paddingLeft="10dp"
+            />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+         >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/door_add_xiaoqutext"
+            android:textSize="20sp" 
+            android:layout_weight="1"/>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:gravity="center"
+            android:layout_marginRight="20dp" 
+            android:layout_weight="2"
+            >
+
+            <Button
+                android:id="@+id/door_xiaoqu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/layout_theme"
+                android:gravity="center" />
+
+            <LinearLayout 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                >
+            <View 
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/theme_orange"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:contentDescription="@null"
+                android:src="@mipmap/down" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+         >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/door_add_qishutext"
+            android:textSize="20sp" 
+            android:layout_weight="1"/>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:gravity="center"
+            android:layout_marginRight="20dp" 
+            android:layout_weight="2">
+
+            <Button
+                android:id="@+id/door_qishu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/layout_theme"
+                android:gravity="center" />
+
+            <LinearLayout 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                >
+            <View 
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/theme_orange"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:contentDescription="@null"
+                android:src="@mipmap/down" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/door_add_dongshutext"
+            android:textSize="20sp"
+            android:layout_weight="1" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:gravity="center"
+            android:layout_marginRight="20dp"
+            android:layout_weight="2" >
+
+            <Button
+                android:id="@+id/door_dongshu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/layout_theme" 
+                android:gravity="center"/>
+
+             <LinearLayout 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                >
+            <View 
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/theme_orange"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:contentDescription="@null"
+                android:src="@mipmap/down" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/user_type"
+            android:textSize="20sp" 
+            android:layout_weight="1"/>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:gravity="center"
+            android:layout_marginRight="20dp" 
+            android:layout_weight="2">
+
+           <Button
+                android:id="@+id/door_user_type"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/layout_theme" 
+                android:text="@string/please_choose"
+                android:gravity="center"/>
+
+             <LinearLayout 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                >
+            <View 
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/theme_orange"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:contentDescription="@null"
+                android:src="@mipmap/down" />
+            
+            </LinearLayout>
+           
+             
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+         >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/door_add_doornubtext"
+            android:textSize="20sp" 
+            android:layout_weight="1"/>
+
+        <EditText
+            android:id="@+id/door_add_doornub"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/layout_theme"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="4"
+            android:textSize="18sp" 
+            android:hint="@string/house_number_hint"
+            android:layout_weight="2"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/add_SN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+         >
+
+        <TextView
+            android:id="@+id/add_SNcode"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="20sp" 
+            android:layout_weight="1"/>
+
+        <EditText
+            android:id="@+id/add_code"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/layout_theme"
+            android:gravity="center"
+            android:digits="0123456789qwertyuioplkjhgfdsazxcvbnm"
+            android:textSize="18sp" 
+            android:layout_weight="2"
+            />
+    </LinearLayout>
+
+    
+
+    <Button
+        android:id="@+id/door_add_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_theme"
+        android:text="@string/submit" 
+        android:textColor="@color/white"/>
+    <TextView 
+        android:id="@+id/add_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textSize="@dimen/text_size_18"
+        android:layout_marginTop="10dp"
+        />
+
+</LinearLayout>

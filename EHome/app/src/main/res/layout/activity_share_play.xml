@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.percent.PercentRelativeLayout
+        android:id="@+id/title_layout"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    app:layout_heightPercent="8%"
+    android:background="@color/theme_orange"
+    >
+    <TextView
+    android:id="@+id/share_play_title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:textColor="@color/white"
+    android:textSize="@dimen/text_size_25"
+    android:text="聊天室"
+    />
+    <TextView
+    android:id="@+id/share_play_back"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:text="@string/back"
+    android:drawableLeft="@mipmap/back"
+    android:textColor="@color/white"
+    android:textSize="@dimen/text_size_20"
+    android:layout_marginLeft="10dp"
+    android:gravity="center"
+    />
+
+    </android.support.percent.PercentRelativeLayout>
+
+
+
+
+    <android.support.percent.PercentRelativeLayout
+        android:id="@+id/zb_playsurface_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_layout"
+        >
+
+
+        <SurfaceView
+            android:id="@+id/zb_playsurface"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/zb_linkstate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="#00FF00" />
+        <com.xingyeda.ehome.view.PercentLinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            app:layout_marginBottomPercent="5%"
+            app:layout_marginRightPercent="5%"
+            >
+            <com.xingyeda.ehome.view.PercentLinearLayout
+                android:id="@+id/zb_play_code_rate_show"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                >
+                <TextView
+                    android:id="@+id/zb_play_super_definition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/super_definition"
+                    android:textColor="@color/theme_orange"
+                    android:background="@drawable/button_theme_lucency"
+                    android:padding="5dp"/>
+                <TextView
+                    android:id="@+id/zb_play_high_definition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/high_definition"
+                    android:textColor="@color/theme_orange"
+                    android:background="@drawable/button_theme_lucency"
+                    android:padding="5dp"
+                    app:layout_marginTopPercent="2%"/>
+                <TextView
+                    android:id="@+id/zb_play_fluency_definition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fluency_definition"
+                    android:textColor="@color/theme_orange"
+                    android:background="@drawable/button_theme_lucency"
+                    android:padding="5dp"
+                    app:layout_marginTopPercent="2%"/>
+            </com.xingyeda.ehome.view.PercentLinearLayout>
+            <TextView
+                android:id="@+id/zb_play_code_rate_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fluency_definition"
+                android:textColor="@color/theme_orange"
+                android:background="@drawable/button_theme_lucency"
+                android:padding="5dp"
+                app:layout_marginTopPercent="2%"/>
+        </com.xingyeda.ehome.view.PercentLinearLayout>
+    </android.support.percent.PercentRelativeLayout>
+    <android.support.percent.PercentRelativeLayout
+        android:id="@+id/describe_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_heightPercent="8%"
+        android:layout_below="@id/zb_playsurface_layout"
+        android:background="@color/bg_gray"
+        >
+        <TextView
+            android:id="@+id/describe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_marginLeftPercent="5%"
+            app:layout_marginRightPercent="5%"
+            android:layout_margin="5dp"
+            android:textSize="@dimen/text_size_18"/>
+
+    </android.support.percent.PercentRelativeLayout>
+
+    <!--<android.support.percent.PercentRelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+        <com.xingyeda.ehome.view.PercentLinearLayout
+            android:id="@+id/import_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_heightPercent="6%"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            app:layout_marginPercent="1%"
+            >
+            <EditText
+                android:id="@+id/zb_edit"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="8"
+                android:hint="输入内容"
+                android:background="@drawable/button_black_lucency"
+                app:layout_marginLeftPercent="2%"
+                app:layout_marginRightPercent="1%"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+               />
+
+            <Button
+                android:id="@+id/zb_send"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="发送"
+                android:background="@drawable/button_blue_lucency"
+                app:layout_marginRightPercent="2%"
+                app:layout_marginLeftPercent="1%"
+                android:textColor="@color/white"
+                />
+        </com.xingyeda.ehome.view.PercentLinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1sp"
+            android:background="@color/black"
+            android:layout_above="@id/import_layout"/>
+        <ScrollView
+            android:id="@+id/zb_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/import_layout"
+            android:layout_below="@id/describe_layout"
+            android:layout_marginTop="10dp"
+            >
+            <TextView
+                android:id="@+id/zb_content"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                />
+        </ScrollView>
+
+
+    <!--</android.support.percent.PercentRelativeLayout>-->
+
+
+
+
+
+</android.support.percent.PercentRelativeLayout>

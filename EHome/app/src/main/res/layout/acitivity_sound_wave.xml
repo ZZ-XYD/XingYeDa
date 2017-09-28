@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F2F3F5"
+    android:orientation="vertical" >
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/theme_orange"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
+
+        <TextView
+            android:id="@+id/add_back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@mipmap/back"
+            android:text="@string/back"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_20" 
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/sound_wave_tltie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_20" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/sound_save1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:id="@+id/sound_wave_hint1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sound_wave_hint1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sound_wave_hint2"
+                android:textColor="@color/red" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sound_wave_hint3" />
+        </LinearLayout>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sound_wave_hint4" 
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/sound_wave_hint1"
+                android:layout_marginTop="10dp"/>
+        <ImageView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/sound_wave_hint"
+            android:layout_centerInParent="true"
+            android:contentDescription="@null"
+            />
+        <TextView
+            android:id="@+id/add_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/next_step"
+            android:textColor="@color/white"
+            android:background="@drawable/button_theme_orange"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="10dp"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+    <LinearLayout 
+        android:id="@+id/sound_save2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sound_wave_hint5"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"/>
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sound_wave_hint6"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:textColor="@color/red"/>
+        
+        <EditText 
+            android:id="@+id/wifi_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:padding="10dp"
+            android:hint="@string/sound_wave_hint7"/>
+        <EditText 
+            android:id="@+id/wifi_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:padding="10dp"
+            android:hint="@string/sound_wave_hint8"/>
+        
+        <TextView
+            android:id="@+id/connect_wifi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sound_wave_hint9"
+            android:textColor="@color/white"
+            android:background="@drawable/button_theme_orange"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="10dp"
+            android:gravity="center"
+            />
+        
+    </LinearLayout>
+    <RelativeLayout 
+        android:id="@+id/sound_save3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        
+        <LinearLayout
+            android:id="@+id/sound_wave_hint2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sound_wave_hint10" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sound_wave_hint11"
+                android:textColor="@color/red" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sound_wave_hint12" />
+        </LinearLayout>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sound_wave_hint13" 
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/sound_wave_hint2"
+                android:layout_marginTop="10dp"/>
+        <ImageView 
+            android:id="@+id/send_sound_wave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sound_wave"
+            android:layout_centerInParent="true"
+            android:contentDescription="@null"
+            />
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sound_wave_hint14"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"/>
+        <TextView
+            android:id="@+id/add_next2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/next_step"
+            android:textColor="@color/white"
+            android:background="@drawable/button_theme_orange"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="10dp"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            />
+    </RelativeLayout>
+    <RelativeLayout 
+        android:id="@+id/sound_save4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        <LinearLayout 
+            android:id="@+id/layout_hint1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            
+         <TextView
+             android:id="@+id/sound_wave_hint3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sound_wave_hint15" 
+                android:layout_marginTop="30dp"
+                 android:gravity="center"/>
+         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" 
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="稍后将完成配置，已搜索到" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/red" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="个设备" />
+        </LinearLayout>
+        </LinearLayout>
+          <LinearLayout 
+              android:id="@+id/layout_hint2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+            
+         <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="如果未发现您的设备" 
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                />
+         
+         <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="请点击重试" 
+                android:gravity="center"
+                android:layout_marginTop="10dp"/>
+         
+        </LinearLayout>
+        <!-- <ImageView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/seek1"
+            android:layout_centerInParent="true"
+            android:contentDescription="@null"
+            /> -->
+        <ProgressBar
+            android:id="@+id/sound_seek"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_centerInParent="true" 
+                android:background="@mipmap/seek1"
+                android:indeterminateDrawable="@drawable/sound_animdraw"
+                />
+        <TextView 
+            android:id="@+id/timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"/>
+        
+        
+    </RelativeLayout>
+    
+
+</LinearLayout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     >
+    
+         <!-- 多页面视图控件  -->
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp"
+        android:layout_height="150dp"
+        android:layout_width="match_parent"
+        >
+    </android.support.v4.view.ViewPager>
+    
+	<!-- 导航块  位置在VP的底部-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/vp"
+        android:background="#99999999"
+        android:orientation="vertical"
+        android:paddingTop="5dp"
+         >
+		<!-- 颜色 ：前两位为透明度，不写则无透明度 -->
+		
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="hello"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" 
+            android:layout_marginBottom="5dp"
+            />
+
+        <!-- 导航圆点图标 -->
+        <LinearLayout
+            android:id="@+id/ll_point"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" 
+            android:layout_marginBottom="5dp"
+            >
+        </LinearLayout>
+    
+    </LinearLayout>
+
+</RelativeLayout>

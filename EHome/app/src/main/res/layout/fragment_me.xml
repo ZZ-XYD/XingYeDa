@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.xingyeda.ehome.view.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#EDECE8" >
+
+
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_heightPercent="30%"
+        android:orientation="horizontal"
+        android:background="@color/theme_orange">
+        
+        <com.xingyeda.ehome.view.MaskedImage
+            android:id="@+id/me_head"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:padding="3dp"
+            android:background="@mipmap/head_bg"
+             />
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center"
+            >
+            
+        <TextView 
+            android:id="@+id/me_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/info_name_text"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_30"
+            />
+        <TextView 
+            android:id="@+id/sn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        >
+        
+    <TextView 
+        android:id="@+id/me_information"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/information"
+        android:drawableLeft="@mipmap/personal_information"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textSize="@dimen/text_size_18"
+        />
+    <View android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#EDECE8"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+    <TextView 
+        android:id="@+id/me_set"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/set"
+        android:drawableLeft="@mipmap/set"
+        android:drawablePadding="10dp"
+       android:textSize="@dimen/text_size_18"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        />
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+        
+    <TextView 
+        android:id="@+id/my_suggest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/suggest"
+        android:drawableLeft="@mipmap/service"
+        android:drawablePadding="10dp"
+        android:textSize="@dimen/text_size_18"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        />
+    <View android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#EDECE8"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        />
+    <TextView 
+        android:id="@+id/my_pay_fees"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_18"
+        android:text="@string/pay_fees"
+        android:drawableLeft="@mipmap/pay_fees"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        />
+        </LinearLayout>
+    <TextView 
+        android:id="@+id/me_about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/about_app"
+        android:textSize="@dimen/text_size_18"
+         android:background="@color/white"
+        android:drawableLeft="@mipmap/about"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        />
+    
+
+       
+
+</com.xingyeda.ehome.view.PercentLinearLayout>

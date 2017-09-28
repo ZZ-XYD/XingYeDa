@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <TextView
+        android:id="@+id/my_share_title"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_heightPercent="10%"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_25"
+        android:text="我的分享"
+        android:background="@color/theme_orange"/>
+
+    <TextView
+        android:id="@+id/my_share_back"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_heightPercent="10%"
+        android:layout_marginLeft="10dp"
+        android:drawableLeft="@mipmap/back"
+        android:gravity="center"
+        android:text="@string/back"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_20" />
+    <android.support.percent.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_marginTopPercent="10%">
+        <ImageView
+            android:id="@+id/my_share_no_datas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:background="@mipmap/no_data"
+            android:visibility="gone"
+            android:layout_marginBottom="2dp"
+            />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/my_share_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#00000000"/>
+
+    </android.support.percent.PercentRelativeLayout>
+
+
+
+</android.support.percent.PercentRelativeLayout>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+     >
+      <ImageView 
+        android:id="@+id/door_adapter_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:contentDescription="@null"
+        android:layout_marginTop="40dp"
+          android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        />
+      <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@+id/door_adapter_image"
+        android:layout_centerVertical="true"
+        android:paddingLeft="10dp"
+    android:paddingTop="10dp"
+    android:paddingRight="10dp"
+           >
+        
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        >
+          <TextView
+        android:id="@+id/door_list_xiaoqu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_18"
+        />
+         <TextView
+        android:id="@+id/door_list_qishu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_18"
+        android:layout_marginLeft="8dp"
+             />
+
+    </LinearLayout >
+    
+         <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+              >
+    <TextView
+        android:id="@+id/door_list_dongshu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_18"
+         />
+   <!--  <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/door_adapter_left"
+        android:layout_marginLeft="@dimen/x8" 
+         android:textSize="@dimen/text_size_18"/> -->
+    <TextView
+        android:id="@+id/door_list_doorplate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+         android:textSize="@dimen/text_size_18"
+         android:layout_marginLeft="8dp"
+         />
+    <!-- <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/door_adapter_right"
+        android:layout_marginLeft="@dimen/x2" 
+         android:textSize="@dimen/text_size_18"/> -->
+    </LinearLayout>
+    </LinearLayout>
+    <TextView 
+        android:id="@+id/type_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:background="@color/theme_orange"
+        />
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+       android:layout_marginRight="20dp">
+        <TextView
+            android:id="@+id/door_option0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:gravity="center"
+            android:textSize="10sp"
+            />
+
+        <TextView
+            android:id="@+id/door_option1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:textSize="10sp"
+            />
+
+
+        <TextView
+            android:id="@+id/door_option2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:textSize="10sp"
+            />
+
+    </LinearLayout>
+    </RelativeLayout>

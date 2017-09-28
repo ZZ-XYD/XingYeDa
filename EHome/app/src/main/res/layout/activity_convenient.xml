@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+
+        <TextView
+            android:id="@+id/convenient_back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/back"
+            android:text="@string/back"
+            android:textSize="@dimen/text_size_20" 
+            android:background="@color/theme_orange"
+            android:textColor="@color/white"
+            android:paddingTop="20dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/convenient_telephone"
+            android:layout_marginTop="1px"
+            android:textSize="@dimen/text_size_30"
+            android:background="@color/theme_orange"
+            android:textColor="@color/white"
+            android:paddingTop="50dp"
+            android:paddingBottom="50dp"
+            android:paddingLeft="10dp"
+            />
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            
+        <ListView 
+            android:id="@+id/convenient_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="10dp"
+            android:divider="#00000000"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            />
+        <ImageView 
+            android:id="@+id/convenient_nodata"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/no_data"
+            android:contentDescription="@null"
+            android:visibility="gone"/>
+        </RelativeLayout>
+
+</LinearLayout>

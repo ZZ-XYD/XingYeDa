@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+     <TextView
+        android:id="@+id/history_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@mipmap/back"
+        android:text="@string/back"
+       android:textSize="@dimen/text_size_20" 
+            android:background="@color/theme_orange"
+            android:textColor="@color/white"
+            android:paddingTop="20dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp" />
+    
+    <TextView
+        android:id="@+id/hisory_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1px"
+            android:textSize="@dimen/text_size_25"
+            android:background="@color/theme_orange"
+            android:textColor="@color/white"
+            android:paddingTop="50dp"
+            android:paddingBottom="50dp"
+            android:paddingLeft="10dp"
+         />
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        
+    <com.xingyeda.ehome.view.CustomListView 
+        android:id="@+id/history_listview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:visibility="gone"
+        android:background="@null"
+        android:divider="#00000000" 
+        />
+    <TextView 
+        android:id="@+id/history_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/no_data"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+    <!-- <TextView 
+        android:id="@+id/history_hint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/RT_cas_history_text"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:visibility="gone"/> -->
+    </RelativeLayout>
+
+</LinearLayout>

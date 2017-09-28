@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_card"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#EDECE8"
+    >
+    <ImageView
+    android:id="@+id/share_annunciate"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    app:layout_heightPercent="30%"
+    android:background="@mipmap/bg_annunciate"
+    android:scaleType="fitXY"
+    android:contentDescription="@null"/>
+    <ImageView
+        android:id="@+id/share_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/add"
+        android:background="@null"
+        android:layout_alignParentRight="true"
+        app:layout_marginTopPercent="5%"
+        app:layout_marginRightPercent="5%"
+        />
+
+
+
+
+
+    <android.support.v4.widget.DrawerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_marginTopPercent="1%"
+        android:layout_below="@id/share_annunciate"
+        >
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/share_no_datas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:background="@mipmap/no_data"
+                android:visibility="gone"
+                android:layout_marginBottom="2dp"
+                />
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/share_swipereLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+        </android.support.design.widget.CoordinatorLayout>
+
+    </android.support.v4.widget.DrawerLayout>
+</android.support.percent.PercentRelativeLayout>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.xingyeda.ehome.view.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#EDECE8" >
+
+    <android.support.percent.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_heightPercent="30%"
+        android:background="@color/theme_orange"
+        android:paddingBottom="5dp">
+        <TextView
+            android:id="@+id/life_convenience"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@mipmap/convenience"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:text="@string/convenient_telephone"
+            android:textSize="@dimen/text_size_22"
+            android:textColor="@color/white"
+            />
+    </android.support.percent.PercentRelativeLayout>
+    <!--<RelativeLayout -->
+        <!---->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="150dp"-->
+        <!--&gt;-->
+        <!--<ImageView -->
+            <!--android:id="@+id/bg_annunciate"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--app:layout_heightPercent="30%"-->
+            <!--android:background="@mipmap/bg_annunciate"-->
+            <!--android:scaleType="fitXY"-->
+            <!--android:contentDescription="@null"/>-->
+        
+        <!-- <TextView 
+            android:id="@+id/addr_str"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/location"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:drawablePadding="5dp"
+            android:background="@drawable/bg_location"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"/> -->
+    <!--</RelativeLayout>-->
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+        <View 
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_weight="1"
+            android:background="@color/theme_orange"
+            android:layout_gravity="center_vertical"
+            />
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/notice"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_30"
+            android:textColor="@color/theme_orange"
+            android:textStyle="bold"
+            />
+        <View 
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:background="@color/theme_orange"
+            />
+    </LinearLayout>
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.xingyeda.ehome.view.listview.PullToRefreshMenuView 
+        android:id="@+id/ad_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+        <ImageView 
+            android:id="@+id/ad_no_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/no_datas"
+            android:visibility="gone"
+            android:contentDescription="@null"/>
+        
+    </RelativeLayout>
+    
+
+
+
+</com.xingyeda.ehome.view.PercentLinearLayout>

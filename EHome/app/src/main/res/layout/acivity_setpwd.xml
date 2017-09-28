@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white" >
+    
+     <TextView
+        android:id="@+id/setnewpwd_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@mipmap/back"
+        android:text="@string/back"
+        android:background="@color/theme_orange"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="20dp"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/menu_setinfo_setpwd_text"
+        android:layout_marginTop="1px"
+        android:background="@color/theme_orange"
+        android:paddingBottom="50dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="50dp"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+         />
+
+   <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+    
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layout_theme_orange"
+            >
+            
+            <EditText
+            android:id="@+id/setnewpwd_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:singleLine="true"
+            android:background="@null"
+            android:hint="@string/setnewpwd_newpwd_hint"
+            android:maxLength="@string/edittext_length_16"
+                android:minLines="6"
+            android:inputType="textPassword"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            />
+        </RelativeLayout>
+
+        
+
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layout_theme_orange"
+            android:layout_marginTop="20dp"
+            >
+        <EditText
+            android:id="@+id/setnewpwd_pwd_again"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="@null"
+            android:singleLine="true"
+            android:hint="@string/setnewpwd_newowd_again_hint"
+            android:maxLength="@string/edittext_length_16"
+            android:minLines="6"
+            android:inputType="textPassword"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            />
+            <ImageView
+                android:id="@+id/setnewpwd_show_pwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:background="@mipmap/login_seepwd"
+                android:contentDescription="@null" 
+                />
+            <ImageView
+                android:id="@+id/setnewpwd_hide_pwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:background="@mipmap/login_hidepwd"
+                android:contentDescription="@null" 
+                android:visibility="gone"
+                />
+        </RelativeLayout>
+
+       
+
+
+        <Button
+            android:id="@+id/setnewpwd_submit"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_theme"
+            android:text="@string/submit"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/white" />
+
+    
+    </LinearLayout>
+       
+    
+    
+
+    
+
+</LinearLayout>

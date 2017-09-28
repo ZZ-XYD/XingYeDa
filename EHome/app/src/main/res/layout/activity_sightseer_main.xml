@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_card"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#EDECE8"
+    >
+    <ImageView
+        android:id="@+id/sightseer_annunciate"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_heightPercent="30%"
+        android:background="@mipmap/bg_annunciate"
+        android:scaleType="fitXY"
+        android:contentDescription="@null"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true" />
+
+    <ImageView
+        android:id="@+id/sightseer_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/add"
+        android:background="@null"
+        android:layout_alignParentRight="true"
+        app:layout_marginTopPercent="5%"
+        app:layout_marginRightPercent="5%"
+        />
+
+    <com.xingyeda.ehome.view.PercentLinearLayout
+        android:id="@+id/sightseer_taber"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_heightPercent="10%"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <TextView
+            android:id="@+id/sightseer_door"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/hg_door_text"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:drawableTop="@mipmap/door_hide"/>
+        <TextView
+            android:id="@+id/sightseer_tenement"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/hg_tenement_text"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:drawableTop="@mipmap/tenement_hide"/>
+        <TextView
+            android:id="@+id/sightseer_life"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/hg_life_text"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:drawableTop="@mipmap/life_show"/>
+        <TextView
+            android:id="@+id/sightseer_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/hg_info_text"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:drawableTop="@mipmap/me_hide"
+            />
+    </com.xingyeda.ehome.view.PercentLinearLayout>
+
+
+
+
+
+    <android.support.v4.widget.DrawerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_marginTopPercent="1%"
+        android:layout_below="@id/sightseer_annunciate"
+        android:layout_above="@id/sightseer_taber"
+
+        >
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/sightseer_no_datas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:background="@mipmap/no_data"
+                android:visibility="gone"
+                android:layout_marginBottom="2dp"
+                />
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/sightseer_swipereLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/sightseer_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+        </android.support.design.widget.CoordinatorLayout>
+
+    </android.support.v4.widget.DrawerLayout>
+
+
+</android.support.percent.PercentRelativeLayout>

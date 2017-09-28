@@ -1,0 +1,10 @@
+#账号是否存在
+{"root":{"data":{"isExist":"true"},"errorCode":"401","msg":"该用户已存在！","result":"true"}}
+#验证码
+{"root":{"data":{"validateCode":"30963"},"errorCode":"000","msg":"验证码发送成功！","result":"true"}}
+#账号信息
+{"root":{"data":{"mail":"sjyeyifan@163.com","phone":"15069038287","nickName":"哈哈","userId":"b15054819e364463929fa4b37753feba","push":0},"errorCode":"000","msg":"获取用户【b15054819e364463929fa4b37753feba】信息成功","result":"true"}}
+#设备列表
+{"root":{"data":[{"deviceGuid":"H2896714","deviceAddTime":"2016-11-25 15:42:24","permission":"0","deviceName":"H2896714"}],"errorCode":"000","msg":"用户设备列表获取成功","result":"true"}}
+#添加设备(设备已经被绑定)
+{"root":{"data":{"mail":"15588808874@163.com","phone":"15194169321","userid":"634812042db14207b69361433f49230a","username":"056FB803-BD84-4EA5-A1A2-6C7280AD038B"},"errorCode":"203","msg":"该设备已被其他用户绑定！","result":"false"}}

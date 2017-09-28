@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+     >
+    <LinearLayout 
+        android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_centerInParent="true"
+    android:layout_marginTop="20dp"
+    android:layout_marginLeft="30dp"
+    android:layout_marginBottom="20dp"
+    android:layout_marginRight="10dp">
+        
+
+    <TextView
+        android:id="@+id/xiaoqu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_18"
+        />
+
+    <TextView
+        android:id="@+id/qishu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_18" 
+         />
+
+
+    <TextView
+        android:id="@+id/dongshu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_18"
+         />
+
+    <TextView
+        android:id="@+id/doorplate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:textSize="@dimen/text_size_18" 
+        />
+    </LinearLayout>
+    <TextView 
+        android:id="@+id/default_xiaoqu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/menu_setinfo_xiaoqu_text"
+        android:drawableLeft="@mipmap/default_xiaoqu"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:drawablePadding="5dp"
+        android:textColor="@color/theme_orange"
+        android:visibility="gone"/>
+</RelativeLayout>

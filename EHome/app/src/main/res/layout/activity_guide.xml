@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme_orange"
+     >
+    <android.support.v4.view.ViewPager
+        android:id="@+id/guide_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+    <LinearLayout
+        android:id="@+id/guide_point"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal" 
+        android:layout_marginBottom="20dp"
+        />
+    <!-- <Button 
+        android:id="@+id/guide_into"
+        android:layout_width="@dimen/x120"
+        android:layout_height="@dimen/y18"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button_theme_lucency"
+        android:text="@string/guide_into_button"
+        android:textColor="@color/theme"
+        android:layout_marginBottom="@dimen/y23"
+        android:visibility="gone"
+        /> -->
+    <TextView
+        android:id="@+id/guide_into"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/guide_goin"
+        android:textSize="@dimen/text_size_20"
+        android:paddingEnd="5dp"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
+        android:gravity="center"
+        android:background="#BEBEBE"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        />
+
+</RelativeLayout>
