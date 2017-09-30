@@ -42,6 +42,7 @@ import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.push.ExampleUtil;
 import com.xingyeda.ehome.push.TagAliasOperatorHelper;
+import com.xingyeda.ehome.util.AESUtils;
 import com.xingyeda.ehome.view.PercentLinearLayout;
 
 import org.json.JSONException;
@@ -57,6 +58,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
+import cn.sharesdk.onekeyshare.OnekeyShare;
 import okhttp3.Call;
 
 import static com.xingyeda.ehome.push.TagAliasOperatorHelper.ACTION_ADD;
@@ -103,6 +105,8 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
     private String mEquipmentId;
     private String mRoomId;
     private String mDescribe;
+    private String mUserName;
+    private String enSharePassword = "";
 
     public static final String ACTION_NAME = "chatMessage";
 
@@ -121,6 +125,8 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
         manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         initUi();
         initSettings();
+
+
     }
 
 
@@ -185,9 +191,9 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
     //进入
     private void enter() {
         Map<String, String> params = new HashMap<>();
-        if (mEhomeApplication.getmCurrentUser()!=null) {
+        if (mEhomeApplication.getmCurrentUser() != null) {
             params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
-        }else{
+        } else {
             params.put("uid", "");
             params.put("regKey", JPushInterface.getRegistrationID(mContext));
         }
@@ -204,9 +210,9 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
     //退出
     private void exit() {
         Map<String, String> params = new HashMap<>();
-        if (mEhomeApplication.getmCurrentUser()!=null) {
+        if (mEhomeApplication.getmCurrentUser() != null) {
             params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
-        }else{
+        } else {
             params.put("uid", "");
             params.put("regKey", JPushInterface.getRegistrationID(mContext));
         }
@@ -222,9 +228,9 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
 
     private void sendMessage(String msg) {
         Map<String, String> params = new HashMap<>();
-        if (mEhomeApplication.getmCurrentUser()!=null) {
+        if (mEhomeApplication.getmCurrentUser() != null) {
             params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
-        }else{
+        } else {
             params.put("uid", "");
             params.put("regKey", JPushInterface.getRegistrationID(mContext));
         }
@@ -255,7 +261,7 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
                 String name = intent.getExtras().getString("name");
                 String content = intent.getExtras().getString("content");
                 String time = intent.getExtras().getString("time");
-                zbContent.append(name + ":" + content+ "\n");
+                zbContent.append(name + ":" + content + "\n");
             }
         }
 
@@ -704,7 +710,7 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
         super.onPause();
     }
 
-    @OnClick({R.id.zb_play_code_rate_text, R.id.zb_play_super_definition, R.id.zb_play_high_definition, R.id.zb_play_fluency_definition, R.id.zb_send, R.id.share_play_back,})
+    @OnClick({R.id.zb_play_code_rate_text, R.id.zb_play_super_definition, R.id.zb_play_high_definition, R.id.zb_play_fluency_definition, R.id.zb_send, R.id.share_play_back, R.id.share_play_share})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.zb_play_code_rate_text:
@@ -745,6 +751,28 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
                 break;
             case R.id.share_play_back:
                 onBackPressed();
+                break;
+            case R.id.share_play_share:
+                if (mEhomeApplication.getmCurrentUser() != null) {
+                    mUserName = mEhomeApplication.getmCurrentUser().getmUsername();//获取用户昵称
+                    String uid = mEhomeApplication.getmCurrentUser().getmId();
+                    Log.v("SharePlay_uid",uid);
+                    mEquipmentId = getIntent().getExtras().getString("equipmentId");
+                    Log.v("SharePlaymEquipmentId",mEquipmentId);
+                    mRoomId = getIntent().getExtras().getString("roomId");
+                    Log.v("SharePlaymmRoomId",mRoomId);
+                    String sharePassword = mEquipmentId + "|" + uid + "|" + mRoomId;
+                    Log.v("SharePlaymsharePassword",sharePassword);
+                    try {
+                        enSharePassword = AESUtils.Encrypt(sharePassword, "1234567890123456");
+                        Log.v("SharePlayPassword",enSharePassword);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (!enSharePassword.equals("")) {
+                    showShare();
+                }
                 break;
         }
     }
@@ -872,5 +900,29 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
         } else {
             return null;
         }
+    }
+
+    private void showShare() {
+        OnekeyShare oks = new OnekeyShare();
+        oks.disableSSOWhenAuthorize();//关闭sso授权
+
+//        oks.setTitle(getString(R.string.share));
+        // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
+//        oks.setTitleUrl("http://sharesdk.cn");
+        // text是分享文本，所有平台都需要这个字段0
+        oks.setText("content", "【来自" + mUserName + "的直播观看邀请】,复制这条信息￥" + enSharePassword + "￥后打开创享E家进入直播间!");
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+//        oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+        // url仅在微信（包括好友和朋友圈）中使用
+//        oks.setUrl("http://sharesdk.cn");
+        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
+//        oks.setComment("我是测试评论文本");
+        // site是分享此内容的网站名称，仅在QQ空间使用
+//        oks.setSite(getString(R.string.app_name));
+        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+//        oks.setSiteUrl("http://sharesdk.cn");
+
+        // 启动分享GUI
+        oks.show(this);
     }
 }

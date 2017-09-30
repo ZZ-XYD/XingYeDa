@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.zxing.WriterException;
 import com.jovision.JVBase;
@@ -492,6 +493,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                                         break;
                                     case 1:// 直播
                                         bundle.putString("equipmentId",bean.getmCameraId());
+                                        bundle.putString("mhousenumberId",bean.getmHouseNumberId());
                                         BaseUtils.startActivities(mContext, ActivityVideoShare.class,bundle);
                                         break;
                                     case 2:// 取消

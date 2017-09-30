@@ -60,6 +60,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':okhttp')
     //    compile 'com.jakewharton:butterknife:8.4.0'
+
     //    compile 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.jakewharton:butterknife:7.0.0'
     compile 'com.google.code.gson:gson:2.8.1'
@@ -77,4 +78,6 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.support:design:24.2.1'
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+    compile files('libs/MobCommons-2017.0914.1125.jar')
+    compile files('libs/MobTools-2017.0914.1125.jar')
 }
