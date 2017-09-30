@@ -166,6 +166,8 @@ public class ConnectPath
     public static final String DEBLOCKING_CAR = IP_PATH+"unlock";
     //月卡
     public static final String CAR_MONTH_CARD = IP_PATH+"monthCard";
+    //删除
+    public static final String CAR_REMOVE = IP_PATH+"clearCarBd";
 
 
     /**

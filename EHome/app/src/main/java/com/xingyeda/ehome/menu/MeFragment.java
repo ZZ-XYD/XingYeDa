@@ -327,7 +327,7 @@ public class MeFragment extends Fragment {
 	 * @param fromFile
 	 */
 	private void startPhotoZoom(Uri fromFile) {
-		Intent intent = new Intent("com.android.Camera.action.CROP");
+		Intent intent = new Intent("com.android.camera.action.CROP");
 		intent.setDataAndType(fromFile, "image/*");
 		// crop为true是设置在开启的intent中设置显示的view可以剪裁
 		intent.putExtra("crop", "true");

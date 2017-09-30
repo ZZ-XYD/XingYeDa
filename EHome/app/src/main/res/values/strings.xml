@@ -85,6 +85,12 @@
     <string name="relieve_bind_prosperity">解除绑定成功</string>
     <!--是否解除该小区的绑定? -->
     <string name="whether_relieve_bind">是否解除该小区的绑定?</string>
+    <!--是否删除摄像头? -->
+    <string name="is_remove_camera">是否删除摄像头</string>
+    <!--是否删除猫眼? -->
+    <string name="is_remove_cateye">是否删除猫眼</string>
+    <!--是否删除停车场? -->
+    <string name="is_remove_park">是否删除停车场</string>
     <!--解除绑定 -->
     <string name="confirm_relieve_bind">该小区是默认小区，是否删除?</string>
     <!--该栋数未绑定设备-->

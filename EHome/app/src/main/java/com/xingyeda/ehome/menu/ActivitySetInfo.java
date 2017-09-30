@@ -89,8 +89,6 @@ public class ActivitySetInfo extends BaseActivity {
 //    private String mName;// 呢称
 //    private String mAlternate;// 备用号码
 
-    // 图片压缩进的文件
-    private File mFile;
     // 上传图片的file
 //    private List<File> mFiles;
     private Bitmap mBitmap;
@@ -604,7 +602,7 @@ public class ActivitySetInfo extends BaseActivity {
      * @param fromFile
      */
     private void startPhotoZoom(Uri fromFile) {
-        Intent intent = new Intent("com.android.Camera.action.CROP");
+        Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(fromFile, "image/*");
         // crop为true是设置在开启的intent中设置显示的view可以剪裁
         intent.putExtra("crop", "true");
@@ -627,7 +625,6 @@ public class ActivitySetInfo extends BaseActivity {
      * @param data
      */
     private void sentPicToNext(Intent data) {
-        file();
         Bundle extras = data.getExtras();
         if (extras != null) {
             Bitmap photo = extras.getParcelable("data");
@@ -637,20 +634,7 @@ public class ActivitySetInfo extends BaseActivity {
         }
     }
 
-    @SuppressLint("SimpleDateFormat")
-    private void file() {
-        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
-        mFile = new File(Environment.getExternalStorageDirectory(),
-                df.format(new java.util.Date()) + ".zip");
-        if (!mFile.exists()) {
-            try {
-                mFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return;
-        }
-    }
+
 
     private void uploadHead() {
         Map<String, String> params = new HashMap<String, String>();

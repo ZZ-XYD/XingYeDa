@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#EFEFEF" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
     
     <RelativeLayout
             android:layout_width="match_parent"
@@ -79,6 +85,32 @@
             android:layout_marginRight="10dp"
             />
         </RelativeLayout>
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/change_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:descendantFocusability="afterDescendants"
+        android:background="#50000000">
+        <ProgressBar
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:indeterminateDrawable="@drawable/login_animdraw"
+            >
+        </ProgressBar>
+        <TextView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:text="@string/loadin"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="#EBA660"/>
+
+    </FrameLayout>
     
 
-</LinearLayout>
+</RelativeLayout>
