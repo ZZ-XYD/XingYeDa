@@ -39,6 +39,8 @@ import com.xingyeda.ehome.bean.HomeBean;
 import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
 import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.information.PersonalActivity;
 import com.xingyeda.ehome.menu.ActivityChangeInfo;
@@ -72,6 +74,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.R.attr.isDefault;
 import static android.R.attr.path;
 import static android.app.Activity.RESULT_OK;
 import static com.xingyeda.ehome.R.string.share;
@@ -303,7 +306,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                                     HomeBean bean = new HomeBean();
                                     JSONObject jobj = jan1.getJSONObject(i);
                                     bean.setmType("5");
-                                    bean.setmParkId(jobj.has("id") ? jobj.getString("id") : "");
+                                    bean.setmParkId(jobj.has("cplid") ? jobj.getString("cplid") : "");
                                     bean.setmCommunityId(jobj.has("xiaoqu") ? jobj.getString("xiaoqu") : "");
                                     bean.setmParkName(jobj.has("address") ? jobj.getString("address") : "");
                                     mXiaoqu_List.add(bean);
@@ -587,84 +590,22 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
             public boolean onMenuItemClick(final int position, SwipeMenu menu, int index) {
                 HomeBean bean = mApplication.getmCurrentUser().getmXiaoquList().get(position);
                 if (bean.getmType().equals("1")) {
-                    final String isDefault = bean.getmIsDefault();
-                    final NormalDialog dialog = DialogShow.showSelectDialog(mContext, getResources().getString(
-                            R.string.whether_relieve_bind));
-                    dialog.setOnBtnClickL(new OnBtnClickL() {
-
-                        @Override
-                        public void onBtnClick() {
-                            dialog.dismiss();
-                        }
-
-                    }, new OnBtnClickL() {
-
-                        @Override
-                        public void onBtnClick() {
-                            dialog.dismiss();
-                            if (isDefault.equals("1")) {
-
-                                final NormalDialog ensure_dialog = DialogShow
-                                        .showSelectDialog(
-                                                mContext,
-                                                getResources()
-                                                        .getString(
-                                                                R.string.confirm_relieve_bind));
-                                ensure_dialog.setOnBtnClickL(
-                                        new OnBtnClickL() {
-
-                                            @Override
-                                            public void onBtnClick() {
-                                                ensure_dialog.dismiss();
-                                            }
-                                        }, new OnBtnClickL() {
-
-                                            @Override
-                                            public void onBtnClick() {
-                                                ensure_dialog.dismiss();
-                                                relieveBind(position, isDefault);
-                                            }
-                                        });
-                            } else {
-                                relieveBind(position, isDefault);
-                            }
-
-                        }
-                    });
+                    dialog(1,R.string.whether_relieve_bind,bean);
                 } else if (bean.getmType().equals("2")) {
-                    MaoYanSetActivity.updateCameraName(mContext, "delete", bean.getmCameraId(), "");
-//                    JVBase.delDev(bean.getmCameraId());
+                    dialog(2,R.string.is_remove_camera,bean);
                 } else if (bean.getmType().equals("3")) {
-                    MaoYanSetActivity.updateCameraName(mContext, "delete", bean.getmCameraId(), "");
-//                    JVBase.delDev(bean.getmCameraId());
+                    dialog(2,R.string.is_remove_camera,bean);
                 } else if (bean.getmType().equals("4")) {
-                    MaoYanSetActivity.updateCameraName(mContext, "delete", bean.getmCameraId(), "");
-//                    JVBase.delDev(bean.getmCameraId());
+                    dialog(2,R.string.is_remove_cateye,bean);
                 } else if (bean.getmType().equals("5")) {
-                    Map<String, String> params = new HashMap<String, String>();
-                    OkHttp.get(mContext,ConnectPath.LOCK_CAR,params,new BaseStringCallback(mContext, new CallbackHandler<String>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-
-                        }
-
-                        @Override
-                        public void parameterError(JSONObject response) {
-
-                        }
-
-                        @Override
-                        public void onFailure() {
-
-                        }
-                    }));
-
+                    dialog(3,R.string.is_remove_park,bean);
                 }
 
 
                 return false;
             }
         });
+
         // 操作ListView左滑时的手势操作，这里用于处理上下左右滑动冲突：开始滑动时则禁止下拉刷新和上拉加载手势操作，结束滑动后恢复上下拉操作
         swipeMenuListView
                 .setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
@@ -680,16 +621,75 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                 });
 
     }
+    private void dialog(final int type, int comtent, final HomeBean bean){
+        final NormalDialog dialog = DialogShow.showSelectDialog(mContext,  getResources().getString(comtent));
+        dialog.setOnBtnClickL(new OnBtnClickL() {
+
+            @Override
+            public void onBtnClick() {
+                dialog.dismiss();
+            }
+
+        }, new OnBtnClickL() {
+
+            @Override
+            public void onBtnClick() {
+                dialog.dismiss();
+                switch (type){
+                    case 1 :
+                        final String isDefault = bean.getmIsDefault();
+                        if (isDefault.equals("1")) {
+
+                            final NormalDialog ensure_dialog = DialogShow
+                                    .showSelectDialog(
+                                            mContext,
+                                            getResources()
+                                                    .getString(
+                                                            R.string.confirm_relieve_bind));
+                            ensure_dialog.setOnBtnClickL(
+                                    new OnBtnClickL() {
+
+                                        @Override
+                                        public void onBtnClick() {
+                                            ensure_dialog.dismiss();
+                                        }
+                                    }, new OnBtnClickL() {
+
+                                        @Override
+                                        public void onBtnClick() {
+                                            ensure_dialog.dismiss();
+                                            relieveBind(bean, isDefault);
+                                        }
+                                    });
+                        } else {
+                            relieveBind(bean, isDefault);
+                        }
+                        break;
+                    case 2 :
+                        MaoYanSetActivity.updateCameraName(mContext, "delete", bean.getmCameraId(), "");
+                        break;
+                    case 3 :
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("cpkId",bean.getmParkId());
+                        OkHttp.get(mContext,ConnectPath.CAR_REMOVE,params,new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+
+                            }
+                        }));
+                        break;
+
+                }
+            }
+        });
+    }
 
     // 解除绑定
-    private void relieveBind(int position, String isDefault) {
+    private void relieveBind(HomeBean bean, String isDefault) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("uid", mApplication.getmCurrentUser().getmId());
-        params.put("dongshu", mApplication.getmCurrentUser().getmXiaoquList()
-                .get(position).getmUnitId());
-        params.put("hid",
-                mApplication.getmCurrentUser().getmXiaoquList().get(position)
-                        .getmHouseNumberId());
+        params.put("dongshu", bean.getmUnitId());
+        params.put("hid",bean.getmHouseNumberId());
         OkHttp.get(mContext, ConnectPath.CLEARBIND_PATH, params,
                 new BaseStringCallback(mContext, new CallbackHandler<String>() {
 

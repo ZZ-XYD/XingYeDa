@@ -164,7 +164,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="30dp"
                     android:background="@mipmap/login_hidepwd"
                     android:contentDescription="@null"
                     android:visibility="gone" />

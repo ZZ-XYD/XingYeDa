@@ -18,6 +18,7 @@
         android:orientation="horizontal" 
         android:layout_marginBottom="20dp"
         />
+
     <!-- <Button 
         android:id="@+id/guide_into"
         android:layout_width="@dimen/x120"

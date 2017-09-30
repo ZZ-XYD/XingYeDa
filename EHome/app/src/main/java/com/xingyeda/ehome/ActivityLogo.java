@@ -9,14 +9,18 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 import butterknife.Bind;
@@ -47,6 +51,7 @@ import com.jovision.Utils.ResourcesUnusualUtil;
 import com.jovision.server.AccountServiceImpl;
 import com.jovision.server.utils.DnsXmlUtils;
 import com.ldl.imageloader.core.ImageLoader;
+import com.xingyeda.ehome.assist.Shortcut;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.base.PhoneBrand;
@@ -60,6 +65,7 @@ import com.xingyeda.ehome.util.LogUtils;
 import com.xingyeda.ehome.util.MD5Utils;
 import com.xingyeda.ehome.util.NetUtils;
 import com.xingyeda.ehome.util.SharedPreUtil;
+import com.xingyeda.ehome.wifiOnOff.MainActivity;
 
 
 import static com.xingyeda.ehome.base.PhoneBrand.SYS_EMUI;
@@ -163,14 +169,11 @@ public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, O
         option.setScanSpan(1000);
         mLocClient.setLocOption(option);
         mLocClient.start();
-//	        }else {              //没有权限
-//		      }
 
 
-//	getSystemTime();
-        if (SharedPreUtil.getBoolean(mContext, "shortcut_icon")) {
-        	createShortCut();
-		}
+
+		Shortcut.createShortCut(mContext);//一键开门
+
 	JPushInterface.init(mContext);
 	SharedPreUtil.put(mContext, "isUpdate", true);
 	SharedPreUtil.put(mContext, "isDoor_Upload", true);
@@ -343,23 +346,6 @@ public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, O
 		ButterKnife.unbind(this);
     }
 
-    private void createShortCut() {
-    	SharedPreUtil.put(mContext, "shortcut_icon", false);
-	Intent addIntent = new Intent(
-		"com.android.launcher.action.INSTALL_SHORTCUT");
-	addIntent.putExtra("duplicate", false);
-	Parcelable icon = Intent.ShortcutIconResource.fromContext(mContext,
-		R.mipmap.open_the_door);
-	Intent myIntent = new Intent(this, ActivityGuide.class);
-	myIntent.putExtra("type", "openDoor");
-	addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "一键开门");
-	addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
-	addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, myIntent);
-	addIntent.putExtra("type", "openDoor");
-	sendBroadcast(addIntent);
-
-
-    }
 	private void initAccount() {
 		// DNS检查
 		if (DnsXmlUtils.isUpdateLocalDnsFile()) {
@@ -393,7 +379,4 @@ public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, O
 			return false;
 		}
 	}
-
-
-
 }

@@ -27,58 +27,13 @@ import static android.R.id.list;
  */
 
 public class SeekAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-//        extends RecyclerView.Adapter<SeekAdapter.ItemHolder> {
-//        private Context mContext;
-//        private List<SeekHistoryBase> mList;
-//
-//    public SeekAdapter(List<SeekHistoryBase> list) {
-//        mList = list;
-//    }
-//    @Override
-//    public ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        if (mContext==null){
-//            mContext=parent.getContext();
-//        }
-//        View view = LayoutInflater.from(mContext).inflate(R.layout.item_history_seek, parent, false);
-////        ItemHolder holder = new ItemHolder(view);
-//        return  new ItemHolder(view);
-//    }
-//
-//    @Override
-//    public void onBindViewHolder(ItemHolder holder, int position) {
-//        SeekHistoryBase bean = mList.get(position);
-//        holder.name.setText(bean.getName());
-//
-//    }
-//
-//    @Override
-//    public int getItemCount() {
-//        return mList.size();
-//    }
-//
-//    class ItemHolder extends RecyclerView.ViewHolder {
-//        @Bind(R.id.seek_item_text)
-//        TextView name;
-//
-//        public ItemHolder(View view) {
-//            super(view);
-//            ButterKnife.bind(this, view);
-////            view.setOnClickListener(new View.OnClickListener() {
-////                @Override
-////                public void onClick(View v) {
-////                    if (mViewClick != null) {
-////                        mViewClick.onclick(v, getLayoutPosition());
-////                    }
-////                }
-////            });
-//        }
-//    }
 
 
 
     private Context mContext;
     private List<SeekHistoryBase> mList;
     private ClickItem mViewClick;
+    private LongClickItem mLongClick;
     private Delete mDelete;
 
 //    // 判断布局类型
@@ -96,6 +51,13 @@ public class SeekAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public interface ClickItem {
         public void onclick(View view, int position);
+    }
+
+    public void longClickItem(LongClickItem clickItem) {
+        mLongClick = clickItem;
+    }
+    public interface LongClickItem {
+        public void longClickItem(View view, int position);
     }
 
     public void delete(Delete delete) {
@@ -207,6 +169,16 @@ public class SeekAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     if (mViewClick != null) {
                         mViewClick.onclick(v, getLayoutPosition());
                     }
+                }
+            });
+            view.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (mLongClick!=null) {
+                        mLongClick.longClickItem(v, getLayoutPosition());
+                        return true;
+                    }
+                    return false;
                 }
             });
         }

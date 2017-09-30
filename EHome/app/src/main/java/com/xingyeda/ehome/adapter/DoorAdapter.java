@@ -193,7 +193,7 @@ public class DoorAdapter extends BaseAdapter
 //             viewHolder.mOption2.setBackgroundResource(R.drawable.but_modification);
              viewHolder.mOption1.setOnClickListener(new View.OnClickListener() {
 					@Override
-					public void onClick(View v) {
+					public void onClick(View v) {//监控
 						Bundle bundle = new Bundle();
 						bundle.putString("cameraId", bean.getmCameraId());
 						bundle.putString("cameraName", bean.getmCameraName());
@@ -204,10 +204,10 @@ public class DoorAdapter extends BaseAdapter
 							DialogShow.showHintDialog(mContext,"摄像头id为空");
 						}
 					}
-				});//监控
+				});
 		viewHolder.mOption2.setOnClickListener(new View.OnClickListener() {
 					@Override
-					public void onClick(View v) {
+					public void onClick(View v) {//修改
 						Bundle bundle = new Bundle();
 						bundle.putString("type", "camera0");
 						bundle.putString("cameraId", bean.getmCameraId());
@@ -217,7 +217,7 @@ public class DoorAdapter extends BaseAdapter
 							DialogShow.showHintDialog(mContext,"摄像头id为空");
 						}
 					}
-				});//修改
+				});
 		}else if (bean.getmType().equals("3")) {
 			viewHolder.tvXiaoqu.setText(bean.getmCameraName());
 			viewHolder.tvQishu.setText("");
@@ -244,7 +244,7 @@ public class DoorAdapter extends BaseAdapter
 //			viewHolder.mOption2.setBackgroundResource(R.drawable.but_modification);
 			viewHolder.mOption1.setOnClickListener(new View.OnClickListener() {
 				@Override
-				public void onClick(View v) {
+				public void onClick(View v) {//监控
 					Bundle bundle = new Bundle();
 					bundle.putString("cameraId", bean.getmCameraId());
 					bundle.putString("cameraName", bean.getmCameraName());
@@ -255,16 +255,16 @@ public class DoorAdapter extends BaseAdapter
 						DialogShow.showHintDialog(mContext,"摄像头id为空");
 					}
 				}
-			});//监控
+			});
 	viewHolder.mOption2.setOnClickListener(new View.OnClickListener() {
 				@Override
-				public void onClick(View v) {
+				public void onClick(View v) {//修改
 					Bundle bundle = new Bundle();
 					bundle.putString("type", "camera1");
 					bundle.putString("cameraId", bean.getmCameraId());
 					BaseUtils.startActivities(mContext, MaoYanSetActivity.class, bundle);
 				}
-			});//修改
+			});
 		}else if (bean.getmType().equals("4")) {
 			viewHolder.tvXiaoqu.setText(bean.getmCameraName());
 			viewHolder.tvQishu.setText("");
@@ -293,7 +293,7 @@ public class DoorAdapter extends BaseAdapter
 				@Override
 				public void onClick(View v) {
 					Bundle bundle = new Bundle();
-					bundle.putString("cameraId", bean.getmCameraName());
+					bundle.putString("cameraId", bean.getmCameraId());
 					bundle.putString("type","see");
 					if (bean.getmCameraId() != null) {
 						BaseUtils.startActivities(mContext,JVMaoYanActivity.class, bundle);
@@ -323,41 +323,25 @@ public class DoorAdapter extends BaseAdapter
 			drawable2.setBounds(0, 0, drawable2.getMinimumWidth(), drawable2.getMinimumHeight());
 			viewHolder.mOption0.setCompoundDrawables(null,drawable2,null,null);
 
-			Drawable drawable= mContext.getResources().getDrawable(R.drawable.but_deblocking);
+//			Drawable drawable= mContext.getResources().getDrawable(R.drawable.but_deblocking);
+			Drawable drawable= mContext.getResources().getDrawable(R.drawable.but_month_card);
 			drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
 			viewHolder.mOption1.setCompoundDrawables(null,drawable,null,null);
 
 			Drawable drawable1= mContext.getResources().getDrawable(R.drawable.but_month_card);
 			drawable1.setBounds(0, 0, drawable1.getMinimumWidth(), drawable1.getMinimumHeight());
 			viewHolder.mOption2.setCompoundDrawables(null,drawable1,null,null);
-			viewHolder.mOption0.setText("锁车");
-			viewHolder.mOption1.setText("解锁");
-			viewHolder.mOption2.setText("月卡");
+			viewHolder.mOption0.setVisibility(View.INVISIBLE);
+			viewHolder.mOption1.setText("出入记录");
+			viewHolder.mOption2.setVisibility(View.INVISIBLE);
 //			viewHolder.mOption1.setBackgroundResource(R.drawable.but_examine);
 //			viewHolder.mOption2.setBackgroundResource(R.drawable.but_modification);
 			viewHolder.mOption1.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					BaseUtils.startActivity(mContext, ParkHistoryActivity.class);
-//					Map<String, String> params = new HashMap<String, String>();
-//					OkHttp.get(mContext,ConnectPath.DEBLOCKING_CAR,params,new BaseStringCallback(mContext, new CallbackHandler<String>() {
-//						@Override
-//						public void onResponse(JSONObject response) {
-//
-//						}
-//
-//						@Override
-//						public void parameterError(JSONObject response) {
-//
-//						}
-//
-//						@Override
-//						public void onFailure() {
-//
-//						}
-//					}));
 				}
-			});//解锁
+			});//出入记录
 			viewHolder.mOption2.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {

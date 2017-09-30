@@ -215,6 +215,26 @@ public class ActivityShareSeek extends BaseActivity {
                 });
             }
         });
+        adapter.longClickItem(new SeekAdapter.LongClickItem() {
+            @Override
+            public void longClickItem(View view, final int position) {
+                final NormalDialog dialog = DialogShow.showSelectDialog(mContext,"是否删除数据",2,new String[] { getResources().getString(R.string.cancel),getResources().getString(R.string.confirm)});
+                dialog.setOnBtnClickL(new OnBtnClickL() {
+
+                    @Override
+                    public void onBtnClick() {
+                        dialog.dismiss();
+                    }
+                },new OnBtnClickL() {
+                    @Override
+                    public void onBtnClick() {
+                        DataSupport.deleteAll(SeekHistoryBase.class,"name=?",allSeek.get(position).getName());
+                        query();
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
 
     }
 

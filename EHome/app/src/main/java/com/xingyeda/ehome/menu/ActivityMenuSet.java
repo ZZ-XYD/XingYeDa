@@ -21,6 +21,7 @@ import butterknife.OnClick;
 import com.xingyeda.ehome.ActivityGuide;
 import com.xingyeda.ehome.ActivityHomepage;
 import com.xingyeda.ehome.R;
+import com.xingyeda.ehome.assist.Shortcut;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
@@ -174,42 +175,16 @@ public class ActivityMenuSet extends BaseActivity {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.menu_set_Back:
-//			BaseUtils.startActivity(mContext, ActivityHomepage.class);
 			ActivityMenuSet.this.finish();
 			break;
 		case R.id.set_add_opendoor:
-			createShortCut();
+			Shortcut.createShortCut(mContext);
 			BaseUtils.showShortToast(mContext, R.string.already_add);
 			break;
 		}
 	}
 
-	private void createShortCut() {
-		Intent addIntent = new Intent(
-				"com.android.launcher.action.INSTALL_SHORTCUT");
-		addIntent.putExtra("duplicate", false);
-		Parcelable icon = Intent.ShortcutIconResource.fromContext(this,
-				R.mipmap.open_the_door); // 获取快捷键的图标
-		Intent myIntent = new Intent(this, ActivityGuide.class);
-		myIntent.putExtra("type", "openDoor");
-		addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "一键开门");// 快捷方式的标题
-		addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);// 快捷方式的图标
-		addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, myIntent);// 快捷方式的动作
-		addIntent.putExtra("type", "openDoor");
-		sendBroadcast(addIntent);// 发送广播
-	}
 
-/*	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-			BaseUtils.startActivity(ActivityMenuSet.this,
-					ActivityHomepage.class);
-			ActivityMenuSet.this.finish();
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
-	}*/
-	
 
 	@Override
 	protected void onDestroy() {
