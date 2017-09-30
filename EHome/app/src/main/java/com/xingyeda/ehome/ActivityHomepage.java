@@ -70,7 +70,7 @@ public class ActivityHomepage extends FragmentActivity {
 
 	@Bind(R.id.tabhost)
 	public FragmentTabHost mTabHost;
-	private String mTabTexts[] = { "门禁", "物业", "商圈","我" };
+	private String mTabTexts[] = { "门禁", "物业", "直播","我" };
 	private int mTabImage[] = { R.drawable.door_image,R.drawable.property_image, R.drawable.life_image, R.drawable.me_image };
 	@SuppressWarnings("rawtypes")
 	private Class mFragmentArray[] = { DoorFragment.class,TenementFragment.class, ShareFragment.class,MeFragment.class };

@@ -27,7 +27,38 @@
         app:layout_marginRightPercent="5%"
         />
 
-
+    <LinearLayout
+        android:id="@+id/share_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/share_annunciate">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_weight="1"
+            android:background="@color/theme_orange"
+            android:layout_gravity="center_vertical"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="直播"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_30"
+            android:textColor="@color/theme_orange"
+            android:textStyle="bold"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:background="@color/theme_orange"
+            />
+    </LinearLayout>
 
 
 
@@ -35,7 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_marginTopPercent="1%"
-        android:layout_below="@id/share_annunciate"
+        android:layout_below="@id/share_title"
         >
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
