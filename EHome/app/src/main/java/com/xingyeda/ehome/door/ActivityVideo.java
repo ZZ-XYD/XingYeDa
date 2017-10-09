@@ -47,6 +47,8 @@ import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.bean.InformationBase;
 import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
 import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.LogUtils;
@@ -823,18 +825,9 @@ public class ActivityVideo extends BaseActivity {
 	private void restartRtmp() {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("eid", mEquipmentId);
-		OkHttp.get(mContext,ConnectPath.RESTARTRTMP_PATH, params, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-
-			@Override
-			public void parameterError(JSONObject response) {
-			}
-
+		OkHttp.get(mContext,ConnectPath.RESTARTRTMP_PATH, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
 			@Override
 			public void onResponse(JSONObject response) {
-			}
-
-			@Override
-			public void onFailure() {
 			}
 		}));
 	}
@@ -849,18 +842,9 @@ public class ActivityVideo extends BaseActivity {
 	}
 
 	private void connectRtmp(String jie) {
-		OkHttp.get(mContext,jie, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-
-			@Override
-			public void parameterError(JSONObject response) {
-			}
-
+		OkHttp.get(mContext,jie, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
 			@Override
 			public void onResponse(JSONObject response) {
-			}
-
-			@Override
-			public void onFailure() {
 			}
 		}));
 	}
@@ -987,18 +971,9 @@ public class ActivityVideo extends BaseActivity {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
 		params.put("eid", mEquipmentId);
-		OkHttp.get(mContext,ConnectPath.NOTIFICATION_CLIENT_PATH, params, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-
-			@Override
-			public void parameterError(JSONObject response) {
-			}
-
+		OkHttp.get(mContext,ConnectPath.NOTIFICATION_CLIENT_PATH, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
 			@Override
 			public void onResponse(JSONObject response) {
-			}
-
-			@Override
-			public void onFailure() {
 			}
 		}));
 	}
@@ -1058,22 +1033,13 @@ public class ActivityVideo extends BaseActivity {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("uid", SharedPreUtil.getString(mContext, "userId"));
 		params.put("eid", mEquipmentId);
-		OkHttp.get(mContext,ConnectPath.CLOSEDOOR_PATH, params, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-
-			@Override
-			public void parameterError(JSONObject response) {
-			}
-
+		OkHttp.get(mContext,ConnectPath.CLOSEDOOR_PATH, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
 			@Override
 			public void onResponse(JSONObject response) {
 				if (mCallId != null) {
 					ECDevice.getECVoIPCallManager()
 							.releaseCall(mCallId);
 				}
-			}
-
-			@Override
-			public void onFailure() {
 			}
 		}));
 	}
@@ -1096,20 +1062,11 @@ public class ActivityVideo extends BaseActivity {
 			params.put("eid", mEquipmentId);
 			params.put("dongshu", mDongshuId);
 			params.put("housenum", mHousenum);
-			OkHttp.get(mContext,ConnectPath.OPENDOOR_PATH, params, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-
-				@Override
-				public void parameterError(JSONObject response) {
-				}
-
+			OkHttp.get(mContext,ConnectPath.OPENDOOR_PATH, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
 				@Override
 				public void onResponse(JSONObject response) {
 					BaseUtils.showShortToast(mContext,R.string.open_door_prosperity);
 					mOpenDoor.setImageDrawable(getResources().getDrawable(R.mipmap.open_door_open));
-				}
-
-				@Override
-				public void onFailure() {
 				}
 			}));
 

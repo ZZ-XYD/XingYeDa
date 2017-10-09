@@ -31,8 +31,8 @@ import com.xingyeda.ehome.adapter.ConvenientAdapter;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.bean.ConvenientBean;
-import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
-import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 
 public class ConvenientActivity extends BaseActivity {
@@ -62,13 +62,7 @@ public class ConvenientActivity extends BaseActivity {
 		if (mEhomeApplication.getmCurrentUser().getmXiaoqu().getmCommunityId() == null || "".equals(mEhomeApplication.getmCurrentUser().getmXiaoqu().getmCommunityId())) {
 			params.put("xid", mEhomeApplication.getmCurrentUser().getmXiaoqu().getmCommunityId());
 		}
-		OkHttp.get(mContext, ConnectPath.CONVENIENCE_PATH, params, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-
-			@Override
-			public void parameterError(JSONObject response) {
-
-			}
-
+		OkHttp.get(mContext, ConnectPath.CONVENIENCE_PATH, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
 			@Override
 			public void onResponse(JSONObject response) {
 				try {
@@ -95,11 +89,6 @@ public class ConvenientActivity extends BaseActivity {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-			}
-
-			@Override
-			public void onFailure() {
-
 			}
 		}));
 

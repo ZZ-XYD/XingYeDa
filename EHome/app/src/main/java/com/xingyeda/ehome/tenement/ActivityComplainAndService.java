@@ -54,8 +54,8 @@ import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.dialog.DialogShow;
-import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
-import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.ldl.okhttp.OkHttpUtils;
@@ -434,12 +434,7 @@ public class ActivityComplainAndService extends BaseActivity {
 	private void typeDatas(String type) {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("type", type);
-		OkHttp.get(mContext,ConnectPath.COMPLAINANDSERVICE_PATH, params, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-			
-			@Override
-			public void parameterError(JSONObject response) {
-			}
-			
+		OkHttp.get(mContext,ConnectPath.COMPLAINANDSERVICE_PATH, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
 			@Override
 			public void onResponse(JSONObject response) {
 				try {
@@ -457,10 +452,6 @@ public class ActivityComplainAndService extends BaseActivity {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}				
-			}
-			
-			@Override
-			public void onFailure() {
 			}
 		}));
 		

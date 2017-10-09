@@ -27,8 +27,8 @@ import com.xingyeda.ehome.adapter.SeekAdapter;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.bean.Xiaoqu;
-import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
-import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 
 public class ActivityXiaoquSeek extends BaseActivity {
@@ -56,12 +56,7 @@ public class ActivityXiaoquSeek extends BaseActivity {
 	}
 
 	private void init() {
-		OkHttp.get(mContext,ConnectPath.XIAOQU_PATH, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-			
-			@Override
-			public void parameterError(JSONObject response) {
-			}
-			
+		OkHttp.get(mContext,ConnectPath.XIAOQU_PATH, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
 			@Override
 			public void onResponse(JSONObject response) {
 				try {
@@ -86,10 +81,6 @@ public class ActivityXiaoquSeek extends BaseActivity {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-			}
-			
-			@Override
-			public void onFailure() {
 			}
 		}));
 

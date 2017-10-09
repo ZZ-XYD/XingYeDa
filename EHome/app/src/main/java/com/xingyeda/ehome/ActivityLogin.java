@@ -96,19 +96,12 @@ public class ActivityLogin extends BaseActivity {
         if (AccountServiceImpl.getInstance().isLogin) {
             AccountServiceImpl.getInstance().logout();
         }
-//		ImageLoader.getInstance().displayImage("drawable://" + R.mipmap.csr_qd_pad,mBackground);
         mBackground.setBackgroundDrawable(getResources().getDrawable(R.mipmap.login_background));
 
-//	mBackground.setScaleType(ScaleType.FIT_XY);
         SharedPreUtil.put(mContext, "isDoor_Upload", true);
         SharedPreUtil.put(mContext, "isTenement_Upload", true);
         SharedPreUtil.put(mContext, "isLoad_More", true);
         SharedPreUtil.put(mContext, "isLife_Upload", true);
-//	SharedPreUtil.put(mContext, "isLogin", true);
-//	if (!(getIntent().getExtras().getString("cause").equals("timeout"))) {
-//	    SharedPreUtil.put(mContext, "userName", "");
-//	    SharedPreUtil.put(mContext, "userPwd", "");
-//	}
         mEditName.setText(SharedPreUtil.getString(mContext, "userName"));
         mEditPwd.setText(SharedPreUtil.getString(mContext, "userPwd"));
     }
@@ -125,10 +118,8 @@ public class ActivityLogin extends BaseActivity {
                 mPwd = mEditPwd.getText().toString();
                 if (mName.length() == 0) {
                     DialogShow.showHintDialog(mContext, getResources().getString(R.string.enter_account));
-//		DialogUtils.getHintDialog(mContext, R.string.enter_account);
                 } else if (mPwd.length() == 0) {
                     DialogShow.showHintDialog(mContext, getResources().getString(R.string.enter_pwd));
-//		DialogUtils.getHintDialog(mContext, R.string.enter_pwd);
                 } else if (!NetUtils.isConnected(mContext)) {
                     DialogShow.showHintDialog(mContext, "网络异常，请检查网络");
                 } else {
@@ -144,9 +135,6 @@ public class ActivityLogin extends BaseActivity {
                 bundle.putString("type", "register");
                 startActivities(AcivityRegister.class, bundle);
                 break;
-//	case R.id.login_loading:
-//	    mProgressBar.setVisibility(View.GONE);
-//	    break;
             case R.id.login_show_pwd:
                 mEditPwd.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                 etable = mEditPwd.getText();
@@ -230,22 +218,6 @@ public class ActivityLogin extends BaseActivity {
                             dialog.dismiss();
                         }
                     });
-//	    DialogUtils.getDialog(this,R.string.is_quit)
-//		    .setPositiveButton(R.string.quit,new DialogInterface.OnClickListener() {
-//				@Override
-//				public void onClick(DialogInterface dialog,int which) {
-//				    mEhomeApplication.AppExit();
-//				}
-//			    })
-//		    .setNegativeButton(R.string.cancel,
-//			    new DialogInterface.OnClickListener() {
-//
-//				@Override
-//				public void onClick(DialogInterface dialog,
-//					int which) {
-//				}
-//
-//			    }).show();
             return true;
         }
         return super.onKeyDown(keyCode, event);

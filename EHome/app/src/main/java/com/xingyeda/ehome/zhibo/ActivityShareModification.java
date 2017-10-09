@@ -4,10 +4,13 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 
 import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
+import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
+import com.xingyeda.ehome.http.okhttp.CallbackHandler;
 import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
 import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
@@ -22,13 +25,13 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.xingyeda.ehome.R.string.submit;
-
 public class ActivityShareModification extends BaseActivity {
     @Bind(R.id.share_title)
     EditText shareTitle;
     @Bind(R.id.share_describe)
     EditText shareDescribe;
+    @Bind(R.id.share_loading)
+    FrameLayout shareLoading;
     private String mRoomId;
     private String mTitle;
     private String mDescribe;
@@ -54,26 +57,39 @@ public class ActivityShareModification extends BaseActivity {
                 break;
             case R.id.share_submit:
                 if (TextUtils.isEmpty(shareTitle.getText())) {
-                    BaseUtils.showShortToast(mContext,"标题不能为空");
-                }else if(TextUtils.isEmpty(shareDescribe.getText())){
-                    BaseUtils.showShortToast(mContext,"描述不能为空");
-                }else{
-                submit();
+                    BaseUtils.showShortToast(mContext, "标题不能为空");
+                } else if (TextUtils.isEmpty(shareDescribe.getText())) {
+                    BaseUtils.showShortToast(mContext, "描述不能为空");
+                } else {
+                    submit();
                 }
                 break;
         }
     }
-    private void submit(){
-        Map<String,String> params = new HashMap<>();
-        params.put("uid",mEhomeApplication.getmCurrentUser().getmId());
-        params.put("id",mRoomId);
-        params.put("describe",shareDescribe.getText().toString());
-        params.put("title",shareTitle.getText().toString());
-        OkHttp.get(mContext, ConnectPath.CAMERA_UPDATE_SHARE,params,new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
+
+    private void submit() {
+        shareLoading.setVisibility(View.VISIBLE);
+        Map<String, String> params = new HashMap<>();
+        params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
+        params.put("id", mRoomId);
+        params.put("describe", shareDescribe.getText().toString());
+        params.put("title", shareTitle.getText().toString());
+        OkHttp.get(mContext, ConnectPath.CAMERA_UPDATE_SHARE, params, new BaseStringCallback(mContext, new CallbackHandler<String>() {
             @Override
             public void onResponse(JSONObject response) {
-                BaseUtils.showShortToast(mContext,"修改成功");
+                shareLoading.setVisibility(View.GONE);
+                BaseUtils.showShortToast(mContext, "修改成功");
                 finish();
+            }
+
+            @Override
+            public void parameterError(JSONObject response) {
+                shareLoading.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure() {
+                shareLoading.setVisibility(View.GONE);
             }
         }));
     }

@@ -32,8 +32,8 @@ import com.xingyeda.ehome.bean.PushBean;
 import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.door.ActivityVideo;
 import com.xingyeda.ehome.door.DoorFragment;
-import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
-import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.tenement.Notice_Activity;
 import com.xingyeda.ehome.util.BaseUtils;
@@ -297,36 +297,18 @@ public class HuaWeiPushReceiver extends PushReceiver {
 
     private void videoCallBack(Context context,String mEcho) {
         Looper.prepare();
-        OkHttp.get(context,mEcho, new BaseStringCallback(context, new CallbackHandler<String>() {
-
-            @Override
-            public void parameterError(JSONObject response) {
-            }
-
+        OkHttp.get(context,mEcho, new ConciseStringCallback(context, new ConciseCallbackHandler<String>() {
             @Override
             public void onResponse(JSONObject response) {
-            }
-
-            @Override
-            public void onFailure() {
             }
         }));
     }
     private void msgCallBack(String id) {
         Map<String,String> params = new HashMap<>();
         params.put("id",id);
-        OkHttp.get(EHomeApplication.getmContext(), ConnectPath.PUSHMSG_PATH,params, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-
-            @Override
-            public void parameterError(JSONObject response) {
-            }
-
+        OkHttp.get(EHomeApplication.getmContext(), ConnectPath.PUSHMSG_PATH,params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
             @Override
             public void onResponse(JSONObject response) {
-            }
-
-            @Override
-            public void onFailure() {
             }
         }));
     }

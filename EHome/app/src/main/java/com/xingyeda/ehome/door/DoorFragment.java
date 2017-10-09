@@ -693,12 +693,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
         params.put("dongshu", bean.getmUnitId());
         params.put("hid",bean.getmHouseNumberId());
         OkHttp.get(mContext, ConnectPath.CLEARBIND_PATH, params,
-                new BaseStringCallback(mContext, new CallbackHandler<String>() {
-
-                    @Override
-                    public void parameterError(JSONObject response) {
-                    }
-
+                new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         BaseUtils.showShortToast(mContext,
@@ -709,10 +704,6 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                         // // 发送广播
                         // mContext.sendBroadcast(mIntent);
                     }
-
-                    @Override
-                    public void onFailure() {
-                    }
                 }));
     }
 
@@ -721,12 +712,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
         params.put("eid", mApplication.getmCurrentUser().getmXiaoqu()
                 .getmEquipmentId());
         OkHttp.get(mContext, ConnectPath.MENUHINT_PATH, params,
-                new BaseStringCallback(mContext, new CallbackHandler<String>() {
-
-                    @Override
-                    public void parameterError(JSONObject response) {
-                    }
-
+                new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
@@ -747,10 +733,6 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                    }
-
-                    @Override
-                    public void onFailure() {
                     }
                 }));
 
@@ -922,7 +904,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
     }
 
     private void shareAdd(String url){
-        OkHttp.get(mContext, url, new BaseStringCallback(mContext, new CallbackHandler<String>() {
+        OkHttp.get(mContext, url, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
                             @Override
                             public void onResponse(JSONObject response) {
                                 try {
@@ -933,16 +915,6 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                            }
-
-                            @Override
-                            public void parameterError(JSONObject response) {
-
-                            }
-
-                            @Override
-                            public void onFailure() {
-
                             }
                         }));
     }

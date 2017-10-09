@@ -18,8 +18,8 @@ import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
 
-import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
-import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 
 
@@ -125,20 +125,11 @@ public class HeartbeatService extends Service implements Runnable
     {
     	Map<String, String> params = new HashMap<String, String>();
         params.put("uid",mId);
-        OkHttp.get(mContext,msg, params, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-			
-			@Override
-			public void parameterError(JSONObject response) {
-			}
-			
+        OkHttp.get(mContext,msg, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
 			@Override
 			public void onResponse(JSONObject response) {
 				 count = 0;
 	                isTip = true;
-			}
-			
-			@Override
-			public void onFailure() {
 			}
 		}));
 

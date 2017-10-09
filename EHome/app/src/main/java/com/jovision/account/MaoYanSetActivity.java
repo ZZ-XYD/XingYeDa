@@ -20,8 +20,8 @@ import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.door.DoorFragment;
-import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
-import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.SharedPreUtil;
@@ -210,19 +210,10 @@ public class MaoYanSetActivity extends BaseActivity {
         params.put("num", id);
         params.put("name", name);
         OkHttp.get(mContext, ConnectPath.ADD_CAMERA, params,
-                new BaseStringCallback(mContext, new CallbackHandler<String>() {
-
-                    @Override
-                    public void parameterError(JSONObject response) {
-                    }
-
+                new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         finish();
-                    }
-
-                    @Override
-                    public void onFailure() {
                     }
                 }));
     }
@@ -299,12 +290,7 @@ public class MaoYanSetActivity extends BaseActivity {
             params.put("name", name);
         }
          OkHttp.get(mEhomeApplication.getmContext(), ConnectPath.ADD_CAMERA, params,
-                new BaseStringCallback(mEhomeApplication.getmContext(), new CallbackHandler<String>() {
-
-                    @Override
-                    public void parameterError(JSONObject response) {
-                    }
-
+                new ConciseStringCallback(mEhomeApplication.getmContext(), new ConciseCallbackHandler<String>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Intent mIntent = new Intent(DoorFragment.ACTION_NAME);
@@ -329,10 +315,6 @@ public class MaoYanSetActivity extends BaseActivity {
                             }
                             BaseUtils.showShortToast(mEhomeApplication.getmContext(), "删除成功");
                         }
-                    }
-
-                    @Override
-                    public void onFailure() {
                     }
                 }));
     }

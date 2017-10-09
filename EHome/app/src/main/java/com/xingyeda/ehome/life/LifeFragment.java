@@ -30,13 +30,9 @@ import butterknife.OnClick;
 
 import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.adapter.LifeAdpater;
-import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.base.EHomeApplication;
 import com.xingyeda.ehome.bean.LifeBean;
 import com.xingyeda.ehome.dialog.DialogShow;
-import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
-import com.xingyeda.ehome.http.okhttp.CallbackHandler;
-import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.tenement.AdvertisementActivity;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.view.LineGridView;

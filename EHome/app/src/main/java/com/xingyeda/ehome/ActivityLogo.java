@@ -58,6 +58,8 @@ import com.xingyeda.ehome.base.PhoneBrand;
 import com.xingyeda.ehome.http.ConnectHttpUtils;
 import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
 import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.AppUtils;
 import com.xingyeda.ehome.util.BaseUtils;
@@ -303,13 +305,7 @@ public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, O
 //		    ActivityLogo.this.finish();
 		}
     	else {
-    OkHttp.get(mContext,ConnectPath.LOGINIMAGE_PATH, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-
-		@Override
-		public void parameterError(JSONObject response) {
-//			ActivityLogo.this.finish();
-		}
-
+    OkHttp.get(mContext,ConnectPath.LOGINIMAGE_PATH, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
 		@Override
 		public void onResponse(JSONObject response) {
 			try {
@@ -323,11 +319,6 @@ public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, O
 			} catch (JSONException e) {
 			    e.printStackTrace();
 			}
-
-		}
-		@Override
-		public void onFailure() {
-
 		}
 	}));
     	}

@@ -16,20 +16,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.aochn.cat110appsdk.Cat110SDKActivity;
-import com.jovision.JVBase;
-import com.xingyeda.ehome.ActivityHomepage;
 import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.base.EHomeApplication;
 import com.xingyeda.ehome.dialog.DialogShow;
-import com.xingyeda.ehome.door.DoorFragment;
-import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
-import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.SharedPreUtil;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -324,21 +320,10 @@ public class OnOffAddActivity extends Cat110SDKActivity {
         params.put("num", id);
         params.put("type", "switch");
 
-        OkHttp.get(mContext, ConnectPath.ADD_CAMERA, params, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-
-            @Override
-            public void parameterError(JSONObject response) {
-            }
-
+        OkHttp.get(mContext, ConnectPath.ADD_CAMERA, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
             @Override
             public void onResponse(JSONObject response) {
                     BaseUtils.startActivity(mContext, SmartHomeActivity.class);
-            }
-
-            @Override
-            public void onFailure() {
-                // TODO Auto-generated method stub
-
             }
         }));
     }

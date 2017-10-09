@@ -51,11 +51,11 @@ public class UploadImageAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent)
     {
             View view = mInflater.inflate(R.layout.upload_image_adapter, null);
-            
+
             final ImageView image = (ImageView) view.findViewById(R.id.uploadImage);
 //            ImageLoader.getInstance().displayImage(mImageList.get(position),image);
             if (!mImageList.get(position).equals("")) {
-				
+
 //            	OkHttp.getImage(mContext, mImageList.get(position), image);
                 ImageLoader.getInstance().displayImage(mImageList.get(position),image);
            /* OkHttpUtils
@@ -73,11 +73,11 @@ public class UploadImageAdapter extends BaseAdapter{
 
 		@Override
 		public void onError(Call call, Exception e) {
-		    
+
 		}
 
             });*/
-            
+
             }
         return view;
     }
