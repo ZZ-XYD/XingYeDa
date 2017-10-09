@@ -40,6 +40,8 @@ import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.door.DoorFragment;
 import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
 import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
 
@@ -195,6 +197,7 @@ public class AcitivitySoundWave extends BaseActivity implements  IHandlerNotify,
 				@Override
 				public void onBtnClick() {
 					dialog.dismiss();
+					start();
 					if (mType.equals("cateye")) {
 					PlayUtil.searchDevice();
 					}else{
@@ -491,12 +494,7 @@ final NormalListDialog dialog = DialogShow.showListDialog(mContext, idList);
 				 params.put("type", "maoyan");
 			 }
 			}
-	 		 OkHttp.get(mContext, ConnectPath.ADD_CAMERA, params, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-
-				@Override
-				public void parameterError(JSONObject response) {
-				}
-
+	 		 OkHttp.get(mContext, ConnectPath.ADD_CAMERA, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
 				@Override
 				public void onResponse(JSONObject response) {
 					if (id.substring(0,1).equals("h")||id.substring(0,1).equals("H")) {
@@ -522,11 +520,6 @@ final NormalListDialog dialog = DialogShow.showListDialog(mContext, idList);
 					}
 				}
 
-				@Override
-				public void onFailure() {
-					// TODO Auto-generated method stub
-
-				}
 			}));
 		 }
 
