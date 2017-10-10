@@ -26,6 +26,7 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
+import retrofit2.http.HEAD;
 
 
 import com.baidu.location.BDLocation;
@@ -312,40 +313,7 @@ public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, O
         if (!NetUtils.isConnected(mContext)) {
             BaseUtils.startActivity(mContext, ActivityLogin.class);
 //		    ActivityLogo.this.finish();
-<<<<<<< HEAD
-        } else {
-            OkHttp.get(mContext, ConnectPath.LOGINIMAGE_PATH, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-
-                @Override
-                public void parameterError(JSONObject response) {
-//			ActivityLogo.this.finish();
-                }
-
-                @Override
-                public void onResponse(JSONObject response) {
-                    try {
-                        JSONObject jobj = response.getJSONObject("obj");
-                        mImagePath = jobj.has("strvalue") ? jobj.getString("strvalue") : "";
-
-                        Message msg = new Message();
-                        msg.obj = mImagePath;
-                        msg.what = IMAGE;
-                        mHandler.sendMessage(msg);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-
-                @Override
-                public void onFailure() {
-
-                }
-            }));
-        }
-=======
-		}
-    	else {
+		}else {
     OkHttp.get(mContext,ConnectPath.LOGINIMAGE_PATH, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
 		@Override
 		public void onResponse(JSONObject response) {
@@ -363,7 +331,6 @@ public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, O
 		}
 	}));
     	}
->>>>>>> d5d0b124b0c8541bb16b91c50f9abd8452ff9de0
     }
 
 
