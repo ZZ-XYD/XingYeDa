@@ -32,6 +32,7 @@ import com.xingyeda.ehome.ActivityHomepage;
 import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
+import com.xingyeda.ehome.bean.HomeBean;
 import com.xingyeda.ehome.bean.SentryBean;
 import com.xingyeda.ehome.bean.Xiaoqu;
 import com.xingyeda.ehome.dialog.DialogShow;
@@ -119,6 +120,8 @@ public class AddParkActivity extends BaseActivity {
         mXiaoquPosition = 0;
         parkCarData.setOnTouchListener(onTouchListener);
         getXiaoqu();
+        parkName.setText(mEhomeApplication.getmCurrentUser().getmName());
+        parkPhone.setText(mEhomeApplication.getmCurrentUser().getmPhone());
         parkCarNumber.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -180,7 +183,11 @@ public class AddParkActivity extends BaseActivity {
                 }
                 break;
             case R.id.park_next_step://下一步
-                if (parkName.getText().toString().equals("")) {
+                if (mCommunityId == null) {
+                    DialogShow.showHintDialog(mContext, "小区不能为空");
+                }else if(mSentryId == null){
+                    DialogShow.showHintDialog(mContext, "岗亭不能为空");
+                } else if (parkName.getText().toString().equals("")) {
                     DialogShow.showHintDialog(mContext, "姓名不能为空");
                 } else if (parkPhone.getText().toString().equals("")) {
                     DialogShow.showHintDialog(mContext, "电话号码不能为空");
@@ -262,8 +269,15 @@ public class AddParkActivity extends BaseActivity {
                                     .getString("name") : "");
                             mDatas.add(xiaoqu);
                         }
-                        parkXiaoquText.setText(mDatas.get(0).getmName());
-                        mCommunityId = mDatas.get(0).getmId();
+                        if (mEhomeApplication.getmCurrentUser().getmXiaoqu()!=null) {
+                            HomeBean bean = mEhomeApplication.getmCurrentUser().getmXiaoqu();
+                            parkXiaoquText.setText(bean.getmCommunity());
+                            mCommunityId = bean.getmCommunityId();
+                            parkAddress.setText(bean.getmCommunity()+bean.getmPeriods()+bean.getmUnit()+bean.getmHouseNumber());
+                        }else{
+                            parkXiaoquText.setText(mDatas.get(0).getmName());
+                            mCommunityId = mDatas.get(0).getmId();
+                        }
 //                        mHandler.sendEmptyMessage(XIAOQU);
                         getSentry(mCommunityId);
                     }

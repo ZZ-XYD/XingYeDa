@@ -89,7 +89,9 @@ public class ShareFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        getShareList("1", "10");
+        if (cameraList == null || cameraList.isEmpty()) {
+            getShareList("1", "10");
+        }
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         if (mApplication.getmAd() != null) {
@@ -269,9 +271,9 @@ public class ShareFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (cameraList != null && !cameraList.isEmpty()) {
-            getShareList("1", "10");
-        }
+//        if (cameraList != null && !cameraList.isEmpty()) {
+//            getShareList("1", "10");
+//        }
     }
 
 
