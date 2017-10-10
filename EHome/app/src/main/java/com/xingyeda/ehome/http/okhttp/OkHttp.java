@@ -17,6 +17,7 @@ import com.xingyeda.ehome.base.EHomeApplication;
 import com.xingyeda.ehome.dialog.DialogShow;
 
 import com.xingyeda.ehome.util.LogUtils;
+import com.xingyeda.ehome.util.MyLog;
 import com.xingyeda.ehome.util.NetUtils;
 import com.ldl.okhttp.OkHttpUtils;
 import com.ldl.okhttp.callback.BitmapCallback;
@@ -37,6 +38,7 @@ public class OkHttp {
 		if (!NetUtils.isConnected(context)) {
 			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
+			MyLog.i("连接:"+url);
 			Map<String,String> params = new HashMap<>();
 			params.put("intefaceKey", EHomeApplication.getInstance().getKey());
 			OkHttpUtils.post().url(url).params(params).build().execute(callback);
@@ -52,6 +54,7 @@ public class OkHttp {
 		if (!NetUtils.isConnected(context)) {
 			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
+			MyLog.i("连接:"+url+";参数:"+params.toString());
 			params.put("intefaceKey", EHomeApplication.getInstance().getKey());
 			OkHttpUtils.post().url(url).params(params).build().execute(new StringCallback() {
 				@Override
@@ -77,6 +80,7 @@ public class OkHttp {
 		if (!NetUtils.isConnected(context)) {
 			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
+			MyLog.i("连接:"+url+";参数:"+params.toString());
 			params.put("intefaceKey", EHomeApplication.getInstance().getKey());
 			OkHttpUtils.post().url(url).params(params).build().execute(callback);
 		}
@@ -92,6 +96,7 @@ public class OkHttp {
 		if (!NetUtils.isConnected(context)) {
 			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
+			MyLog.i("连接:"+url);
 			Map<String,String> params = new HashMap<>();
 			params.put("intefaceKey", EHomeApplication.getInstance().getKey());
 			OkHttpUtils.post().url(url).params(params).build().execute(callback);
@@ -108,6 +113,7 @@ public class OkHttp {
 		if (!NetUtils.isConnected(context)) {
 			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
+			MyLog.i("连接:"+url+";参数:"+params.toString());
 			params.put("intefaceKey", EHomeApplication.getInstance().getKey());
 			OkHttpUtils.post().url(url).params(params).build().execute(callback);
 		}
@@ -123,6 +129,7 @@ public class OkHttp {
 		if (!NetUtils.isConnected(context)) {
 			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
+			MyLog.i("连接:"+url);
 			Map<String,String> params = new HashMap<>();
 			params.put("intefaceKey", EHomeApplication.getInstance().getKey());
 			OkHttpUtils.post().url(url).params(params).build().execute(callback);
@@ -140,6 +147,7 @@ public class OkHttp {
 		if (!NetUtils.isConnected(context)) {
 			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
+			MyLog.i("连接:"+url+";参数:"+params.toString());
 			params.put("intefaceKey", EHomeApplication.getInstance().getKey());
 			OkHttpUtils.post().url(url).params(params).build().execute(callback);
 		}
@@ -155,6 +163,7 @@ public class OkHttp {
 		if (!NetUtils.isConnected(context)) {
 			DialogShow.showHintDialog(context,"网络异常，请检查网络");
 		} else {
+			MyLog.i("连接:"+url);
 			Map<String,String> params = new HashMap<>();
 			params.put("intefaceKey", EHomeApplication.getInstance().getKey());
 			OkHttpUtils.post().url(url).params(params).build().execute(callback);
@@ -172,6 +181,7 @@ public class OkHttp {
 		if (!NetUtils.isConnected(context)) {
 			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
+			MyLog.i("连接:"+url+";参数:"+params.toString());
 			params.put("intefaceKey", EHomeApplication.getInstance().getKey());
 			OkHttpUtils.post().url(url).params(params).build().execute(callback);
 		}
@@ -264,6 +274,7 @@ public class OkHttp {
 		if (!NetUtils.isConnected(context)) {
 			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
+			MyLog.i("连接:"+url);
 			url = url+"?intefaceKey="+EHomeApplication.getInstance().getKey();
 			OkHttpUtils.postString().url(url).content(new Gson().toJson(obj))
 					.build().execute(callback);
@@ -305,6 +316,7 @@ public class OkHttp {
 				Toast.makeText(context, "文件不存在，请修改文件路径", Toast.LENGTH_SHORT).show();
 				return;
 			}
+			MyLog.i("连接:"+url+";文件名:"+file.getPath().toString());
 			url = url+"?intefaceKey="+EHomeApplication.getInstance().getKey();
 			OkHttpUtils.postFile().url(url).file(file).build().execute(callback);
 		}
@@ -352,6 +364,7 @@ public class OkHttp {
 				Toast.makeText(context, "文件不存在，请修改文件路径", Toast.LENGTH_SHORT).show();
 				return;
 			}
+			MyLog.i("连接:"+url+";文件名:"+file.getPath().toString());
 			Map<String,String> params = new HashMap<>();
 			params.put("intefaceKey", EHomeApplication.getInstance().getKey());
 			OkHttpUtils.post().addFile(name, fileName, file).url(url).params(params).build()
@@ -378,6 +391,7 @@ public class OkHttp {
 				Toast.makeText(context, "文件不存在，请修改文件路径", Toast.LENGTH_SHORT).show();
 				return;
 			}
+			MyLog.i("连接:"+url+";文件名:"+file.getPath().toString()+";参数:"+params.toString());
 			params.put("intefaceKey", EHomeApplication.getInstance().getKey());
 			OkHttpUtils.post().addFile(name, fileName, file).url(url)
 					.params(params).build().execute(callback);
@@ -396,6 +410,7 @@ public class OkHttp {
 		if (!NetUtils.isConnected(context)) {
 			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
+			MyLog.i("连接:"+url);
 			Map<String,String> params = new HashMap<>();
 			params.put("intefaceKey", EHomeApplication.getInstance().getKey());
 			OkHttpUtils.post().url(url).params(params).build().execute(callback);
@@ -415,6 +430,7 @@ public class OkHttp {
 		if (!NetUtils.isConnected(context)) {
 			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
+			MyLog.i("连接:"+url+";参数:"+params.toString());
 			params.put("intefaceKey", EHomeApplication.getInstance().getKey());
 			OkHttpUtils.post().url(url).params(params).build().execute(callback);
 		}
