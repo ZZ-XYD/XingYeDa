@@ -756,22 +756,24 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
                 if (mEhomeApplication.getmCurrentUser() != null) {
                     mUserName = mEhomeApplication.getmCurrentUser().getmUsername();//获取用户昵称
                     String uid = mEhomeApplication.getmCurrentUser().getmId();
-                    Log.v("SharePlay_uid",uid);
+//                    Log.v("SharePlay_uid",uid);
                     mEquipmentId = getIntent().getExtras().getString("equipmentId");
-                    Log.v("SharePlaymEquipmentId",mEquipmentId);
+//                    Log.v("SharePlaymEquipmentId",mEquipmentId);
                     mRoomId = getIntent().getExtras().getString("roomId");
-                    Log.v("SharePlaymmRoomId",mRoomId);
+//                    Log.v("SharePlaymmRoomId",mRoomId);
                     String sharePassword = mEquipmentId + "|" + uid + "|" + mRoomId;
-                    Log.v("SharePlaymsharePassword",sharePassword);
+//                    Log.v("SharePlaymsharePassword",sharePassword);
                     try {
                         enSharePassword = AESUtils.Encrypt(sharePassword, "1234567890123456");
-                        Log.v("SharePlayPassword",enSharePassword);
+//                        Log.v("SharePlayPassword",enSharePassword);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }
-                if (!enSharePassword.equals("")) {
-                    showShare();
+                    if (!enSharePassword.equals("")) {
+                        showShare();
+                    }
+                } else {
+                    showShortToast("请登录后再尝试进行分享");
                 }
                 break;
         }
