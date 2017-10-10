@@ -6,7 +6,10 @@ import static android.os.FileObserver.CREATE;
 public class ConnectPath
 {
     //Ip地址
+<<<<<<< HEAD
 //    public static final String IP = "http://192.168.10.200:8080/";
+=======
+>>>>>>> d5d0b124b0c8541bb16b91c50f9abd8452ff9de0
     public static final String IP = "http://192.168.10.250:8080/";
 //    public static final String IP = "http://service.xyd999.com:8080/";
 

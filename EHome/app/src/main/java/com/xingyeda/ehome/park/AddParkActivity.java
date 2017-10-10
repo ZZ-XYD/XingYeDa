@@ -36,12 +36,11 @@ import com.xingyeda.ehome.bean.SentryBean;
 import com.xingyeda.ehome.bean.Xiaoqu;
 import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.door.ActivityXiaoquSeek;
-import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
-import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.view.PriorityDialog;
-import com.xingyeda.ehome.wifiOnOff.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -244,13 +243,8 @@ public class AddParkActivity extends BaseActivity {
         Map<String, String> params = new HashMap<String, String>();
         params.put("longitude", mEhomeApplication.getLongitude() + "");
         params.put("latitude", mEhomeApplication.getLatitude() + "");
-        OkHttp.get(mContext, ConnectPath.XIAOQU_PATH, params, new BaseStringCallback(
-                mContext, new CallbackHandler<String>() {
-
-            @Override
-            public void parameterError(JSONObject response) {
-            }
-
+        OkHttp.get(mContext, ConnectPath.XIAOQU_PATH, params, new ConciseStringCallback(
+                mContext, new ConciseCallbackHandler<String>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -278,17 +272,13 @@ public class AddParkActivity extends BaseActivity {
                     e.printStackTrace();
                 }
             }
-
-            @Override
-            public void onFailure() {
-            }
         }));
     }
 
     private void getSentry(String id) {
         Map<String, String> params = new HashMap<>();
         params.put("xiaoqu", id);
-        OkHttp.get(mContext, ConnectPath.QUERY_SENTRY, params, new BaseStringCallback(mContext, new CallbackHandler<String>() {
+        OkHttp.get(mContext, ConnectPath.QUERY_SENTRY, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -312,16 +302,6 @@ public class AddParkActivity extends BaseActivity {
                     e.printStackTrace();
                 }
             }
-
-            @Override
-            public void parameterError(JSONObject response) {
-
-            }
-
-            @Override
-            public void onFailure() {
-
-            }
         }));
 
     }
@@ -338,7 +318,7 @@ public class AddParkActivity extends BaseActivity {
         params.put("carType",parkCarType.getText().toString());//车辆型号
         params.put("carNumber",parkCarNumber.getText().toString());//车牌号
         params.put("carData",parkCarData.getText().toString());//登记日期
-       OkHttp.uploadFile(mContext,ConnectPath.BIND_SENTRY,"drivingLicense",pathImage,params,mFile,new BaseStringCallback(mContext, new CallbackHandler<String>() {
+       OkHttp.uploadFile(mContext,ConnectPath.BIND_SENTRY,"drivingLicense",pathImage,params,mFile,new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -349,16 +329,6 @@ public class AddParkActivity extends BaseActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }
-
-            @Override
-            public void parameterError(JSONObject response) {
-
-            }
-
-            @Override
-            public void onFailure() {
-
             }
         }));
 
@@ -392,6 +362,9 @@ public class AddParkActivity extends BaseActivity {
     View.OnTouchListener onTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View arg0, MotionEvent arg1) {
+            if (keyboardUtil.isShow()) {
+            keyboardUtil.hideKeyboard();
+            }
             if (MotionEvent.ACTION_DOWN == arg1.getAction()) {
                 new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
                     public void onDateSet(DatePicker arg0, int y, int m, int d) {

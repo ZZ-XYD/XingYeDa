@@ -22,6 +22,8 @@ import com.xingyeda.ehome.bean.HomeBean;
 import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
 import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.SharedPreUtil;
@@ -37,6 +39,8 @@ import java.util.regex.Pattern;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.xingyeda.ehome.AcivityRegister.isPhoneNumberValid;
 
 
 public class ActivityChangeInfo extends BaseActivity {
@@ -126,11 +130,6 @@ public class ActivityChangeInfo extends BaseActivity {
         params.put("hid", bean.getmHouseNumberId());
         OkHttp.get(mContext, ConnectPath.CHANGEXIAOQU_PATH, params,
                 new BaseStringCallback(mContext, new CallbackHandler<String>() {
-
-                    @Override
-                    public void parameterError(JSONObject response) {
-                    }
-
                     @Override
                     public void onResponse(JSONObject response) {
                         changeLoading.setVisibility(View.GONE);
@@ -145,7 +144,13 @@ public class ActivityChangeInfo extends BaseActivity {
                     }
 
                     @Override
+                    public void parameterError(JSONObject response) {
+                        changeLoading.setVisibility(View.GONE);
+                    }
+
+                    @Override
                     public void onFailure() {
+                        changeLoading.setVisibility(View.GONE);
                     }
                 }));
 
@@ -170,11 +175,18 @@ public class ActivityChangeInfo extends BaseActivity {
                             DialogShow.showHintDialog(mContext, "用户名过长");
                         }
                     } else if (mStrContent.equals("beiyong")) {
-                        if (mContent.getText().toString().length() != 11) {
-                            DialogShow.showHintDialog(mContext, "输入号码错误");
-                        } else {
+                        if (mContent.getText().toString().equals("")) {
+                            DialogShow.showHintDialog(mContext, "电话号码不能为空");
+                        }else if (!isPhoneNumberValid(mContent.getText().toString())){
+                            DialogShow.showHintDialog(mContext, "请输入正确的手机号码!");
+                        }else {
                             modification();
                         }
+//                        if (mContent.getText().toString().length() != 11) {
+//                            DialogShow.showHintDialog(mContext, "输入号码错误");
+//                        } else {
+//                            modification();
+//                        }
                     }
                 } else {
                     if (mStrContent.equals("name")) {

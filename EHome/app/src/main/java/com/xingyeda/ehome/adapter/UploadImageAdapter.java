@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ldl.imageloader.core.ImageLoader;
 import com.xingyeda.ehome.R;
@@ -51,34 +52,18 @@ public class UploadImageAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent)
     {
             View view = mInflater.inflate(R.layout.upload_image_adapter, null);
-            
-            final ImageView image = (ImageView) view.findViewById(R.id.uploadImage);
-//            ImageLoader.getInstance().displayImage(mImageList.get(position),image);
+
+            ImageView image = (ImageView) view.findViewById(R.id.uploadImage);
+            TextView content = (TextView) view.findViewById(R.id.notice_content);
+        if (position==0) {
+            content.setText(mImageList.get(position));
+        }else{
+            image.setVisibility(View.VISIBLE);
             if (!mImageList.get(position).equals("")) {
-				
-//            	OkHttp.getImage(mContext, mImageList.get(position), image);
                 ImageLoader.getInstance().displayImage(mImageList.get(position),image);
-           /* OkHttpUtils
-            .get()//
-            .url(mImageList.get(position))//
-            .build()//
-            .execute(new BitmapCallback()
-            {
-
-                @Override
-                public void onResponse(Bitmap bitmap)
-                {
-                    image.setImageBitmap(bitmap);
-                }
-
-		@Override
-		public void onError(Call call, Exception e) {
-		    
-		}
-
-            });*/
-            
             }
+        }
+
         return view;
     }
     

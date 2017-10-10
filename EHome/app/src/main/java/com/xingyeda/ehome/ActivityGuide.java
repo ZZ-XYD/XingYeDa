@@ -97,12 +97,6 @@ public class ActivityGuide extends BaseActivity {
             }
         }
 
-//	SharedPreUtil.put(mContext, "vocality", true);
-//	SharedPreUtil.put(mContext, "shake", true);
-//	SharedPreUtil.put(mContext, "wifi", true);
-//	SharedPreUtil.put(mContext, "3gAnd4g", false);
-//	SharedPreUtil.put(mContext, "receivecall", true);
-
 
         SharedPreUtil.put(mContext, "time_difference", 0l);
 
@@ -184,11 +178,9 @@ public class ActivityGuide extends BaseActivity {
                 try {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
                     Date systemTime = sdf.parse(response.has("obj") ? response.getString("obj") : "");
-//				    long systemTime = response.has("obj") ? response.getLong("obj") : -1;
 
                     Date curDate = new Date(System.currentTimeMillis());
-                    LogUtils.i("服务器时间  : " + systemTime + "手机时间 : " + curDate + "时间差 : "
-                            + (systemTime.getTime() - curDate.getTime()));
+                    LogUtils.i("服务器时间  : " + systemTime + "手机时间 : " + curDate + "时间差 : " + (systemTime.getTime() - curDate.getTime()));
                     SharedPreUtil.put(mContext, "time_difference", systemTime.getTime() - curDate.getTime());
 
                 } catch (Exception e) {
@@ -220,7 +212,6 @@ public class ActivityGuide extends BaseActivity {
 
     private void imageData() {
         mImageViews = new ArrayList<ImageView>();
-// 		ImageLoader imageLoader = ImageLoader.getInstance(3, Type.LIFO);
         for (int i = 0; i < mImgIds.length; i++) {
             ImageView imageview = new ImageView(mContext);
             imageview.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
@@ -348,7 +339,6 @@ public class ActivityGuide extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        ButterKnife.unbind(this);
     }
 
     public void initVoipSDK() {

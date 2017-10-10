@@ -580,6 +580,7 @@ public class JVPlayActivity extends BaseActivity implements IHandlerNotify, IHan
         super.onPause();
     }
 
+
     @OnClick({R.id.jv_voice, R.id.jv_talkback, R.id.jv_talkbacks, R.id.jv_up, R.id.jv_down, R.id.jv_left, R.id.jv_right
             , R.id.play_code_rate_text, R.id.play_super_definition, R.id.play_high_definition, R.id.play_fluency_definition,R.id.jv_play_rewind})
     public void onViewClicked(View view) {

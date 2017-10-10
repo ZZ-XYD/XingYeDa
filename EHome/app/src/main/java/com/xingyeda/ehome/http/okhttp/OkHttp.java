@@ -35,7 +35,7 @@ public class OkHttp {
 	 */
 	public static void get(Context context,String url, Callback callback) {
 		if (!NetUtils.isConnected(context)) {
-			DialogShow.showHintDialog(context,"网络异常，请检查网络");
+			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
 			Map<String,String> params = new HashMap<>();
 			params.put("intefaceKey", EHomeApplication.getInstance().getKey());
@@ -50,7 +50,7 @@ public class OkHttp {
 	 */
 	public static void get(Context context,String url,Map params) {
 		if (!NetUtils.isConnected(context)) {
-			DialogShow.showHintDialog(context,"网络异常，请检查网络");
+			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
 			params.put("intefaceKey", EHomeApplication.getInstance().getKey());
 			OkHttpUtils.post().url(url).params(params).build().execute(new StringCallback() {
@@ -75,7 +75,7 @@ public class OkHttp {
 	 */
 	public static void get(Context context,String url, Map params, Callback callback) {
 		if (!NetUtils.isConnected(context)) {
-			DialogShow.showHintDialog(context,"网络异常，请检查网络");
+			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
 			params.put("intefaceKey", EHomeApplication.getInstance().getKey());
 			OkHttpUtils.post().url(url).params(params).build().execute(callback);
@@ -90,7 +90,7 @@ public class OkHttp {
 	 */
 	public static void get(Context context,String url, BaseStringCallback callback) {
 		if (!NetUtils.isConnected(context)) {
-			DialogShow.showHintDialog(context,"网络异常，请检查网络");
+			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
 			Map<String,String> params = new HashMap<>();
 			params.put("intefaceKey", EHomeApplication.getInstance().getKey());
@@ -106,7 +106,7 @@ public class OkHttp {
 	 */
 	public static void get(Context context,String url, Map params, BaseStringCallback callback) {
 		if (!NetUtils.isConnected(context)) {
-			DialogShow.showHintDialog(context,"网络异常，请检查网络");
+			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
 			params.put("intefaceKey", EHomeApplication.getInstance().getKey());
 			OkHttpUtils.post().url(url).params(params).build().execute(callback);
@@ -121,7 +121,7 @@ public class OkHttp {
 	 */
 	public static void getJson(Context context,String url, JsonCallback callback) {
 		if (!NetUtils.isConnected(context)) {
-			DialogShow.showHintDialog(context,"网络异常，请检查网络");
+			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
 			Map<String,String> params = new HashMap<>();
 			params.put("intefaceKey", EHomeApplication.getInstance().getKey());
@@ -138,7 +138,7 @@ public class OkHttp {
 	 */
 	public static void getJson(Context context,String url, Map params, JsonCallback callback) {
 		if (!NetUtils.isConnected(context)) {
-			DialogShow.showHintDialog(context,"网络异常，请检查网络");
+			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
 			params.put("intefaceKey", EHomeApplication.getInstance().getKey());
 			OkHttpUtils.post().url(url).params(params).build().execute(callback);
@@ -170,7 +170,7 @@ public class OkHttp {
 	 */
 	public static void getObjects(Context context,String url, Map params, Callback<?> callback) {
 		if (!NetUtils.isConnected(context)) {
-			DialogShow.showHintDialog(context,"网络异常，请检查网络");
+			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
 			params.put("intefaceKey", EHomeApplication.getInstance().getKey());
 			OkHttpUtils.post().url(url).params(params).build().execute(callback);
@@ -262,7 +262,7 @@ public class OkHttp {
 	 */
 	public static void postString(Context context,String url, Object obj, Callback<?> callback) {
 		if (!NetUtils.isConnected(context)) {
-			DialogShow.showHintDialog(context,"网络异常，请检查网络");
+			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
 			url = url+"?intefaceKey="+EHomeApplication.getInstance().getKey();
 			OkHttpUtils.postString().url(url).content(new Gson().toJson(obj))
@@ -299,7 +299,7 @@ public class OkHttp {
 	public static void postFile(Context context, String url, File file,
 								Callback<?> callback) {
 		if (!NetUtils.isConnected(context)) {
-			DialogShow.showHintDialog(context,"网络异常，请检查网络");
+			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
 			if (!file.exists()) {
 				Toast.makeText(context, "文件不存在，请修改文件路径", Toast.LENGTH_SHORT).show();
@@ -346,7 +346,7 @@ public class OkHttp {
 	public static void uploadFile(Context context, String url, String name,
 								  String fileName, File file, Callback<?> callback) {
 		if (!NetUtils.isConnected(context)) {
-			DialogShow.showHintDialog(context,"网络异常，请检查网络");
+			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
 			if (!file.exists()) {
 				Toast.makeText(context, "文件不存在，请修改文件路径", Toast.LENGTH_SHORT).show();
@@ -372,7 +372,7 @@ public class OkHttp {
 	public static void uploadFile(Context context, String url, String name,
 								  String fileName, Map params, File file, Callback<?> callback) {
 		if (!NetUtils.isConnected(context)) {
-			DialogShow.showHintDialog(context,"网络异常，请检查网络");
+			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
 			if (!file.exists()) {
 				Toast.makeText(context, "文件不存在，请修改文件路径", Toast.LENGTH_SHORT).show();
@@ -394,7 +394,7 @@ public class OkHttp {
 	public static void downloadFile(Context context, String url,
 									Callback<?> callback) {
 		if (!NetUtils.isConnected(context)) {
-			DialogShow.showHintDialog(context,"网络异常，请检查网络");
+			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
 			Map<String,String> params = new HashMap<>();
 			params.put("intefaceKey", EHomeApplication.getInstance().getKey());
@@ -413,7 +413,7 @@ public class OkHttp {
 	public static void downloadFile(Context context, String url, Map params,
 									Callback<?> callback) {
 		if (!NetUtils.isConnected(context)) {
-			DialogShow.showHintDialog(context,"网络异常，请检查网络");
+			BaseUtils.showShortToast(context,"网络异常，请检查网络");
 		} else {
 			params.put("intefaceKey", EHomeApplication.getInstance().getKey());
 			OkHttpUtils.post().url(url).params(params).build().execute(callback);

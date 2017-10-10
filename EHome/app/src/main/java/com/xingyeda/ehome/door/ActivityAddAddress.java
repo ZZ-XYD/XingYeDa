@@ -37,8 +37,8 @@ import com.xingyeda.ehome.bean.DongshuData;
 import com.xingyeda.ehome.bean.QishuData;
 import com.xingyeda.ehome.bean.XiaoquData;
 import com.xingyeda.ehome.dialog.DialogShow;
-import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
-import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.view.PriorityDialog;
@@ -114,13 +114,8 @@ public class ActivityAddAddress extends BaseActivity {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("longitude", mEhomeApplication.getLongitude() + "");
 		params.put("latitude", mEhomeApplication.getLatitude() + "");
-		OkHttp.get(mContext,ConnectPath.XIAOQU_PATH, params, new BaseStringCallback(
-				mContext, new CallbackHandler<String>() {
-
-					@Override
-					public void parameterError(JSONObject response) {
-					}
-
+		OkHttp.get(mContext,ConnectPath.XIAOQU_PATH, params, new ConciseStringCallback(
+				mContext, new ConciseCallbackHandler<String>() {
 					@Override
 					public void onResponse(JSONObject response) {
 						try {
@@ -147,23 +142,14 @@ public class ActivityAddAddress extends BaseActivity {
 							e.printStackTrace();
 						}
 					}
-
-					@Override
-					public void onFailure() {
-					}
 				}));
 	}
 
 	private void getQishu(String id) {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("id", id);
-		OkHttp.get(mContext,ConnectPath.QISHU_PATH, params, new BaseStringCallback(
-				mContext, new CallbackHandler<String>() {
-
-					@Override
-					public void parameterError(JSONObject response) {
-					}
-
+		OkHttp.get(mContext,ConnectPath.QISHU_PATH, params, new ConciseStringCallback(
+				mContext, new ConciseCallbackHandler<String>() {
 					@Override
 					public void onResponse(JSONObject response) {
 						try {
@@ -194,23 +180,14 @@ public class ActivityAddAddress extends BaseActivity {
 							e.printStackTrace();
 						}
 					}
-
-					@Override
-					public void onFailure() {
-					}
 				}));
 	}
 
 	private void getDongshu(String xiaoquId, String qishuId) {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("id", qishuId);
-		OkHttp.get(mContext,ConnectPath.DONGSHU_PATH, params, new BaseStringCallback(
-				mContext, new CallbackHandler<String>() {
-
-					@Override
-					public void parameterError(JSONObject response) {
-					}
-
+		OkHttp.get(mContext,ConnectPath.DONGSHU_PATH, params, new ConciseStringCallback(
+				mContext, new ConciseCallbackHandler<String>() {
 					@Override
 					public void onResponse(JSONObject response) {
 						try {
@@ -241,10 +218,6 @@ public class ActivityAddAddress extends BaseActivity {
 						} catch (JSONException e) {
 							e.printStackTrace();
 						}
-					}
-
-					@Override
-					public void onFailure() {
 					}
 				}));
 	}
@@ -426,13 +399,8 @@ public class ActivityAddAddress extends BaseActivity {
 			params.put("sNcode", mCode.getText().toString());
 		}
 		params.put("clientType", "1");
-		OkHttp.get(mContext,ConnectPath.BIND_PATH, params, new BaseStringCallback(
-				mContext, new CallbackHandler<String>() {
-
-					@Override
-					public void parameterError(JSONObject response) {
-					}
-
+		OkHttp.get(mContext,ConnectPath.BIND_PATH, params, new ConciseStringCallback(
+				mContext, new ConciseCallbackHandler<String>() {
 					@Override
 					public void onResponse(JSONObject response) {
 						try {
@@ -448,28 +416,10 @@ public class ActivityAddAddress extends BaseActivity {
 										startActivity(ActivityHomepage.class);
 									}
 								});
-								// DialogUtils
-								// .getDialog(mContext,
-								// R.string.wait_check)
-								// .setNeutralButton(R.string.confirm,
-								// new OnClickListener() {
-								//
-								// @Override
-								// public void onClick(
-								// DialogInterface dialog,
-								// int which) {
-								// startActivity(ActivityHomepage.class);
-								// }
-								// }).show();
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
 						}
-					}
-
-					@Override
-					public void onFailure() {
-
 					}
 				}));
 

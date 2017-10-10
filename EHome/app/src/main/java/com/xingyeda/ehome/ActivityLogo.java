@@ -59,6 +59,8 @@ import com.xingyeda.ehome.base.PhoneBrand;
 import com.xingyeda.ehome.http.ConnectHttpUtils;
 import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
 import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.AppUtils;
 import com.xingyeda.ehome.util.BaseUtils;
@@ -310,6 +312,7 @@ public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, O
         if (!NetUtils.isConnected(mContext)) {
             BaseUtils.startActivity(mContext, ActivityLogin.class);
 //		    ActivityLogo.this.finish();
+<<<<<<< HEAD
         } else {
             OkHttp.get(mContext, ConnectPath.LOGINIMAGE_PATH, new BaseStringCallback(mContext, new CallbackHandler<String>() {
 
@@ -340,6 +343,27 @@ public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, O
                 }
             }));
         }
+=======
+		}
+    	else {
+    OkHttp.get(mContext,ConnectPath.LOGINIMAGE_PATH, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
+		@Override
+		public void onResponse(JSONObject response) {
+			try {
+			JSONObject jobj = response.getJSONObject("obj");
+		    mImagePath = jobj.has("strvalue") ? jobj.getString("strvalue") : "";
+
+		    Message msg = new Message();
+		    msg.obj = mImagePath;
+		    msg.what = IMAGE;
+		    mHandler.sendMessage(msg);
+			} catch (JSONException e) {
+			    e.printStackTrace();
+			}
+		}
+	}));
+    	}
+>>>>>>> d5d0b124b0c8541bb16b91c50f9abd8452ff9de0
     }
 
 

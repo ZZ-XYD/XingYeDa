@@ -15,16 +15,13 @@ import okhttp3.Call;
 
 public class ConciseStringCallback extends StringCallback {
 
-    private static final int SUCCEED = 1;
     private ConciseCallbackHandler<String> mCallbackHandler;
-    private Message mMessage;
     private Context mContext;
 
 
     public ConciseStringCallback(Context context, ConciseCallbackHandler<String> handler) {
 	mContext = context;
 	mCallbackHandler = handler;
-	mMessage = new Message();
     }
     @Override
     public void onError(Call call, Exception e,int id) {
@@ -40,27 +37,11 @@ public class ConciseStringCallback extends StringCallback {
 		}
 		return;
 	    }
-	    mMessage.what = SUCCEED;
-	    mMessage.obj = response;
-	    mHandler.sendMessage(mMessage);	 
+
+		mCallbackHandler.onResponse(new JSONObject(response));
 
 	} catch (JSONException e) {
 	    e.printStackTrace();
 	}
     }
-    @SuppressLint("HandlerLeak")
-    private Handler mHandler = new Handler() {
-	public void handleMessage(Message msg) {
-		try {
-	    switch (msg.what) {
-	    case SUCCEED:
-				mCallbackHandler.onResponse(new JSONObject((String) msg.obj));
-		break;
-
-	    }
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-	}
-    };
 }

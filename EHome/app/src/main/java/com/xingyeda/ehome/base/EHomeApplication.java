@@ -44,25 +44,17 @@ import com.xingyeda.ehome.bean.BeanComplainHistory;
 import com.xingyeda.ehome.bean.BeanMaintainHistory;
 import com.xingyeda.ehome.bean.LifeBean;
 import com.xingyeda.ehome.bean.UserInfo;
-import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
-import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.push.TagAliasOperatorHelper;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.LogUtils;
 import com.xingyeda.ehome.util.LogcatHelper;
 import com.ldl.okhttp.OkHttpUtils;
-import com.yuntongxun.ecsdk.ECDevice;
-import com.yuntongxun.ecsdk.ECError;
-import com.yuntongxun.ecsdk.ECInitParams;
-import com.yuntongxun.ecsdk.SdkErrorCode;
-
-import static com.xingyeda.ehome.base.ConnectPath.CREATE_KEY;
 import static com.xingyeda.ehome.base.PhoneBrand.SYS_EMUI;
-import static com.xingyeda.ehome.push.TagAliasOperatorHelper.ACTION_ADD;
 import static com.xingyeda.ehome.push.TagAliasOperatorHelper.ACTION_CLEAN;
 import static com.xingyeda.ehome.push.TagAliasOperatorHelper.ACTION_DELETE;
-import static com.xingyeda.ehome.push.TagAliasOperatorHelper.ACTION_GET;
 import static com.xingyeda.ehome.push.TagAliasOperatorHelper.sequence;
 
 @SuppressLint("HandlerLeak")
@@ -520,18 +512,9 @@ public class EHomeApplication extends CoreApplication implements IHandlerLikeNot
 //		stopService(intent);
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("uid", mCurrentUser.getmId());
-		OkHttp.get(mContext,ConnectPath.REPETITIONLOGIN_PATH, params, new BaseStringCallback(getApplicationContext(),new CallbackHandler<String>() {
-			
-			@Override
-			public void parameterError(JSONObject response) {
-			}
-			
+		OkHttp.get(mContext,ConnectPath.REPETITIONLOGIN_PATH, params, new ConciseStringCallback(getApplicationContext(),new ConciseCallbackHandler<String>() {
 			@Override
 			public void onResponse(JSONObject response) {
-			}
-			
-			@Override
-			public void onFailure() {
 			}
 		}));
 	}

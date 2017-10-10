@@ -11,8 +11,8 @@ import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.door.DoorFragment;
-import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
-import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
 
@@ -88,12 +88,7 @@ public class JVLogin extends BaseActivity {
         }else if (mType.equals("cateye")) {
             params.put("type", "maoyan");
         }
-        OkHttp.get(mContext, ConnectPath.ADD_CAMERA, params, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-
-            @Override
-            public void parameterError(JSONObject response) {
-            }
-
+        OkHttp.get(mContext, ConnectPath.ADD_CAMERA, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -105,12 +100,6 @@ public class JVLogin extends BaseActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }
-
-            @Override
-            public void onFailure() {
-                // TODO Auto-generated method stub
-
             }
         }));
     }

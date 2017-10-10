@@ -32,8 +32,8 @@ import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.base.EHomeApplication;
 import com.xingyeda.ehome.bean.AdvertisementBean;
 import com.xingyeda.ehome.bean.AnnunciateBean;
-import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
-import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.life.ConvenientActivity;
 import com.xingyeda.ehome.util.BaseUtils;
@@ -156,12 +156,7 @@ public class TenementFragment extends Fragment {
 		params.put("uid", mApplication.getmCurrentUser().getmId());
 		params.put("pageIndex", "1");
 		params.put("pageSize", "10");
-		OkHttp.get(mContext,ConnectPath.ANNUNCIATE_PATH, params, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-			
-			@Override
-			public void parameterError(JSONObject response) {
-			}
-			
+		OkHttp.get(mContext,ConnectPath.ANNUNCIATE_PATH, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
 			@Override
 			public void onResponse(JSONObject response) {
 				try {
@@ -189,10 +184,6 @@ public class TenementFragment extends Fragment {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}				
-			}
-			
-			@Override
-			public void onFailure() {
 			}
 		}));
 	}
@@ -247,40 +238,5 @@ public class TenementFragment extends Fragment {
 		OkHttpUtils.getInstance().cancelTag(this);
 		ButterKnife.unbind(getActivity());
 	}
-//	public  void ad(Context context){
-//		OkHttp.get(context, ConnectPath.ADVERTISEMENT_PATH, new BaseStringCallback(context, new CallbackHandler<String>() {
-//
-//			@Override
-//			public void parameterError(JSONObject response) {
-//
-//			}
-//
-//			@Override
-//			public void onResponse(JSONObject response) {
-//				try {
-//					if (response.has("obj"))
-//                    {
-//						AdvertisementBean bean = new AdvertisementBean();
-//                    JSONObject jobj = (JSONObject) response.get("obj");
-//                            bean.setmImagePath(jobj.has("url")?jobj.getString("url"):"");
-//                            if (jobj.has("url")) {
-////                            	OkHttp.getImage(mContext, jobj.getString("url"), mAdBg);
-//								ImageLoader.getInstance().displayImage(jobj.getString("url"),mAdBg);
-//							}
-//                            bean.setmAdPath(jobj.has("href")?jobj.getString("href"):"");
-//                            mApplication.setmAd(bean);
-//                    }
-//
-//				} catch (JSONException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//
-//			@Override
-//			public void onFailure() {
-//
-//			}
-//		}));
-//	}
 
 }

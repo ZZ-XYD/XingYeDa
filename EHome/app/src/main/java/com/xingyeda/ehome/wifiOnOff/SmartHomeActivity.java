@@ -1,7 +1,6 @@
 package com.xingyeda.ehome.wifiOnOff;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -16,11 +15,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aochn.cat110appsdk.Cat110SDKActivity;
-import com.jovision.JVBase;
-import com.jovision.account.JVMaoYanActivity;
 import com.jovision.account.MaoYanSetActivity;
 import com.ldl.dialogshow.dialog.listener.OnBtnClickL;
 import com.ldl.dialogshow.dialog.widget.NormalDialog;
@@ -33,12 +29,10 @@ import com.xingyeda.ehome.base.EHomeApplication;
 import com.xingyeda.ehome.bean.OnOffBean;
 import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.door.DoorFragment;
-import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
-import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
-import com.xingyeda.ehome.util.LogUtils;
-import com.xingyeda.ehome.util.SharedPreUtil;
 import com.xingyeda.ehome.util.SpaceItemDecoration;
 import com.xingyeda.ehome.view.PercentLinearLayout;
 
@@ -123,7 +117,7 @@ public class SmartHomeActivity extends Cat110SDKActivity {
 //        init();
         Map<String, String> params = new HashMap<>();
         params.put("uid", mApplication.getmCurrentUser().getmId());
-        OkHttp.get(mContext, ConnectPath.QUERY_ON_OFF, params, new BaseStringCallback(mContext, new CallbackHandler<String>() {
+        OkHttp.get(mContext, ConnectPath.QUERY_ON_OFF, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -149,16 +143,6 @@ public class SmartHomeActivity extends Cat110SDKActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-            }
-
-            @Override
-            public void parameterError(JSONObject response) {
-
-            }
-
-            @Override
-            public void onFailure() {
 
             }
         }));
@@ -369,19 +353,10 @@ public class SmartHomeActivity extends Cat110SDKActivity {
                                 params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
                                 params.put("flag", "delete");
                                 params.put("num", pid + "");
-                                OkHttp.get(mContext, ConnectPath.ADD_CAMERA, params, new BaseStringCallback(mEhomeApplication.getmContext(), new CallbackHandler<String>() {
-
-                                    @Override
-                                    public void parameterError(JSONObject response) {
-                                    }
-
+                                OkHttp.get(mContext, ConnectPath.ADD_CAMERA, params, new ConciseStringCallback(mEhomeApplication.getmContext(), new ConciseCallbackHandler<String>() {
                                     @Override
                                     public void onResponse(JSONObject response) {
                                         even();
-                                    }
-
-                                    @Override
-                                    public void onFailure() {
                                     }
                                 }));
                             }else{
@@ -671,12 +646,7 @@ public class SmartHomeActivity extends Cat110SDKActivity {
         params.put("num", id);
         params.put("type", "switch");
 
-        OkHttp.get(mContext, ConnectPath.ADD_CAMERA, params, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-
-            @Override
-            public void parameterError(JSONObject response) {
-            }
-
+        OkHttp.get(mContext, ConnectPath.ADD_CAMERA, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
             @Override
             public void onResponse(JSONObject response) {
                 page = 0;
@@ -689,11 +659,6 @@ public class SmartHomeActivity extends Cat110SDKActivity {
                     imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
                 }
                 even();
-
-            }
-
-            @Override
-            public void onFailure() {
 
             }
         }));

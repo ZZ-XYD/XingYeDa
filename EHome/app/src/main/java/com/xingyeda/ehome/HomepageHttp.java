@@ -24,13 +24,10 @@ import com.xingyeda.ehome.bean.AdvertisementBean;
 import com.xingyeda.ehome.bean.AnnunciateBean;
 import com.xingyeda.ehome.bean.HomeBean;
 import com.xingyeda.ehome.bean.LifeBean;
-import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
-import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.SharedPreUtil;
-import com.ldl.okhttp.callback.BitmapCallback;
-
-import static android.R.attr.bitmap;
 
 public class HomepageHttp {
 
@@ -39,13 +36,7 @@ public class HomepageHttp {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("uid", id);
 		OkHttp.get(context, ConnectPath.RETURN_HOUSE_PATH, params,
-				new BaseStringCallback(context, new CallbackHandler<String>() {
-
-					@Override
-					public void parameterError(JSONObject response) {
-
-					}
-
+				new ConciseStringCallback(context, new ConciseCallbackHandler<String>() {
 					@Override
 					public void onResponse(JSONObject response) {
 						try {
@@ -116,10 +107,6 @@ public class HomepageHttp {
 							e.printStackTrace();
 						}
 					}
-
-					@Override
-					public void onFailure() {
-					}
 				}));
 		return mXiaoqu_List;
 
@@ -129,13 +116,8 @@ public class HomepageHttp {
 		final List<AnnunciateBean> list = new ArrayList<AnnunciateBean>();
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("eid", id);
-		OkHttp.get(context, ConnectPath.MENUHINT_PATH, params, new BaseStringCallback(
-				context, new CallbackHandler<String>() {
-
-			@Override
-			public void parameterError(JSONObject response) {
-			}
-
+		OkHttp.get(context, ConnectPath.MENUHINT_PATH, params, new ConciseStringCallback(
+				context, new ConciseCallbackHandler<String>() {
 			@Override
 			public void onResponse(JSONObject response) {
 				try {
@@ -156,10 +138,6 @@ public class HomepageHttp {
 					e.printStackTrace();
 				}
 			}
-
-			@Override
-			public void onFailure() {
-			}
 		}));
 		return list;
 
@@ -169,13 +147,7 @@ public class HomepageHttp {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("uid", id);
 		OkHttp.get(context, ConnectPath.RETURN_HOUSE_PATH, params,
-				new BaseStringCallback(context, new CallbackHandler<String>() {
-
-					@Override
-					public void parameterError(JSONObject response) {
-
-					}
-
+				new ConciseStringCallback(context, new ConciseCallbackHandler<String>() {
 					@Override
 					public void onResponse(JSONObject response) {
 						try {
@@ -240,9 +212,6 @@ public class HomepageHttp {
 									}
 								}
 								mApplication.getmCurrentUser().setmXiaoquList(mXiaoqu_List);
-//								Intent mIntent = new Intent(DoorFragment.ACTION_REFRESH);  
-//								 mIntent.putExtra("yaner", "refresh");  
-//								 context.sendBroadcast(mIntent);
 							} else {
 								SharedPreUtil.put(context, "xiaoqu", false);
 							}
@@ -250,10 +219,6 @@ public class HomepageHttp {
 						} catch (JSONException e) {
 							e.printStackTrace();
 						}
-					}
-
-					@Override
-					public void onFailure() {
 					}
 				}));
 
@@ -267,12 +232,7 @@ public class HomepageHttp {
 		params.put("uid", id);
 		params.put("pageIndex", "1");
 		params.put("pageSize", "10");
-		OkHttp.get(context, ConnectPath.ANNUNCIATE_PATH, params, new BaseStringCallback(context, new CallbackHandler<String>() {
-
-			@Override
-			public void parameterError(JSONObject response) {
-			}
-
+		OkHttp.get(context, ConnectPath.ANNUNCIATE_PATH, params, new ConciseStringCallback(context, new ConciseCallbackHandler<String>() {
 			@Override
 			public void onResponse(JSONObject response) {
 				try {
@@ -298,23 +258,13 @@ public class HomepageHttp {
 					e.printStackTrace();
 				}
 			}
-
-			@Override
-			public void onFailure() {
-			}
 		}));
 		return List;
 	}
 
 	public static AdvertisementBean ad(final Context context) {
 		final AdvertisementBean bean = new AdvertisementBean();
-		OkHttp.get(context, ConnectPath.ADVERTISEMENT_PATH, new BaseStringCallback(context, new CallbackHandler<String>() {
-
-			@Override
-			public void parameterError(JSONObject response) {
-
-			}
-
+		OkHttp.get(context, ConnectPath.ADVERTISEMENT_PATH, new ConciseStringCallback(context, new ConciseCallbackHandler<String>() {
 			@Override
 			public void onResponse(JSONObject response) {
 				try {
@@ -334,11 +284,6 @@ public class HomepageHttp {
 					e.printStackTrace();
 				}
 			}
-
-			@Override
-			public void onFailure() {
-
-			}
 		}));
 		return bean;
 //		return bean;
@@ -350,13 +295,8 @@ public class HomepageHttp {
 		if (!"".equals(id)) {
 			params.put("xId", id);
 		}
-		OkHttp.get(context, ConnectPath.LIFETAG_PATH, params, new BaseStringCallback(
-				context, new CallbackHandler<String>() {
-
-			@Override
-			public void parameterError(JSONObject response) {
-			}
-
+		OkHttp.get(context, ConnectPath.LIFETAG_PATH, params, new ConciseStringCallback(
+				context, new ConciseCallbackHandler<String>() {
 			@Override
 			public void onResponse(JSONObject response) {
 				try {
@@ -380,10 +320,6 @@ public class HomepageHttp {
 					e.printStackTrace();
 				}
 
-			}
-
-			@Override
-			public void onFailure() {
 			}
 		}));
 
@@ -489,14 +425,8 @@ public class HomepageHttp {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("uId", id);
 		params.put("type", "get");
-		OkHttp.get(context, ConnectPath.GETSETUP_PATH, params, new BaseStringCallback(
-				context, new CallbackHandler<String>() {
-
-			@Override
-			public void parameterError(JSONObject response) {
-
-			}
-
+		OkHttp.get(context, ConnectPath.GETSETUP_PATH, params, new ConciseStringCallback(
+				context, new ConciseCallbackHandler<String>() {
 			@Override
 			public void onResponse(JSONObject response) {
 				try {
@@ -509,11 +439,6 @@ public class HomepageHttp {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-			}
-
-			@Override
-			public void onFailure() {
-
 			}
 		}));
 	}

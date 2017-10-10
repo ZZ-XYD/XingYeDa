@@ -24,8 +24,8 @@ import cn.jpush.android.api.JPushInterface;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.dialog.DialogShow;
-import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
-import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.MD5Utils;
@@ -51,7 +51,6 @@ public class ActivitySetNewPwd extends BaseActivity {
     ImageView mHidePwd;
 
     private String mPhone;
-//    private static final int LOGIN = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,20 +59,6 @@ public class ActivitySetNewPwd extends BaseActivity {
 	ButterKnife.bind(this);
 	mPhone = getIntent().getExtras().getString("Phone");
     }
-
-//    @SuppressLint("HandlerLeak")
-//    private Handler mHandler = new Handler() {
-//	@SuppressLint("HandlerLeak")
-//	public void handleMessage(Message msg) {
-//
-//	    switch (msg.what) {
-//	    case LOGIN:
-//		login(mPhone, (String) msg.obj);
-//		break;
-//	    }
-//
-//	};
-//    };
 
     @OnClick({ R.id.setnewpwd_submit, R.id.setnewpwd_back,
 	    R.id.setnewpwd_show_pwd, R.id.setnewpwd_hide_pwd })
@@ -87,10 +72,8 @@ public class ActivitySetNewPwd extends BaseActivity {
 	case R.id.setnewpwd_submit:
 	    if (pwd == null) {
 	    	DialogShow.showHintDialog(mContext, getResources().getString(R.string.enter_pwd));
-//		DialogUtils.getHintDialog(mContext, R.string.enter_pwd);
 	    } else if (pwd2 == null) {
 	    	DialogShow.showHintDialog(mContext, getResources().getString(R.string.enter_pwd_again));
-//		DialogUtils.getHintDialog(mContext, R.string.enter_pwd_again);
 	    } else if (pwd.length()<6 || pwd2.length()<6 ) {
         	DialogShow.showHintDialog(mContext, getResources().getString(R.string.pwd_not_enough));
 		}else {
@@ -98,7 +81,6 @@ public class ActivitySetNewPwd extends BaseActivity {
 		    setNewPwd(pwd, mPhone);
 		} else {
 			DialogShow.showHintDialog(mContext, getResources().getString(R.string.wrong_pwd));
-//		    DialogUtils.getHintDialog(mContext, R.string.wrong_pwd);
 		}
 	    }
 	    break;
@@ -144,49 +126,14 @@ public class ActivitySetNewPwd extends BaseActivity {
 	params.put("pwd", MD5Utils.MD5(pwd));
 	params.put("uid", mPhone);
 	params.put("regkey", JPushInterface.getRegistrationID(ActivitySetNewPwd.this));
-	OkHttp.get(mContext,ConnectPath.NEWPWD_PATH, params, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-		
-		@Override
-		public void parameterError(JSONObject response) {}
+	OkHttp.get(mContext,ConnectPath.NEWPWD_PATH, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
 		@Override
 		public void onResponse(JSONObject response) {
 			BaseUtils.showLongToast(mContext, "注册成功");
 			BaseUtils.startActivity(mContext, ActivityLogin.class);
-//			Message message = new Message();
-//			message.what = LOGIN;
-//			message.obj = pwd;
-//			mHandler.sendMessage(message);
 		}
-		@Override
-		public void onFailure() {}
 	}));
     }
-
-//    private void login(final String mPhone, final String pwd) {
-//    Map<String, String> params = new HashMap<String, String>();
-//	params.put("userName", mPhone);
-//	params.put("userPwd", MD5Utils.MD5(pwd));
-//	params.put("AndroidSdk", mEhomeApplication.sdk);
-//	params.put("AndroidModel", mEhomeApplication.model);
-//	params.put("AndroidRelease", mEhomeApplication.release);
-//	params.put("regkey", JPushInterface.getRegistrationID(mContext));
-//	params.put("AppVersions", AppUtils.getVersionName(mContext));
-//	OkHttp .get(mContext,ConnectPath.LOGIN_PATH, params, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-//		
-//		@Override
-//		public void parameterError(JSONObject response) {}
-//		
-//		@Override
-//		public void onResponse(JSONObject response) {
-//			SharedPreUtil.put(mContext, "userName", mPhone);
-//            SharedPreUtil.put(mContext, "userPwd", pwd);
-//			ConnectHttpUtils.loginUtils(response,mContext, mPhone, pwd,ActivityHomepage.class);
-//		}
-//		
-//		@Override
-//		public void onFailure() {}
-//	}));
-//    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

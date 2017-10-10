@@ -24,8 +24,8 @@ import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.assist.Shortcut;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
-import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
-import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.SharedPreUtil;
@@ -90,14 +90,8 @@ public class ActivityMenuSet extends BaseActivity {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("uId", mEhomeApplication.getmCurrentUser().getmId());
 		params.put("type", "get");
-		OkHttp.get(mContext,ConnectPath.GETSETUP_PATH, params, new BaseStringCallback(
-				mContext, new CallbackHandler<String>() {
-
-					@Override
-					public void parameterError(JSONObject response) {
-
-					}
-
+		OkHttp.get(mContext,ConnectPath.GETSETUP_PATH, params, new ConciseStringCallback(
+				mContext, new ConciseCallbackHandler<String>() {
 					@Override
 					public void onResponse(JSONObject response) {
 						try {
@@ -113,35 +107,12 @@ public class ActivityMenuSet extends BaseActivity {
 							 mSetCallSet = mSetCallGet;
 							 mWIFISet = mWIFIGet;
 							 m3gAnd4gSet = m3gAnd4gGet;
-//									mHandler.sendEmptyMessage(SETDATA);
 						} catch (JSONException e) {
 							e.printStackTrace();
 						}
 					}
-
-					@Override
-					public void onFailure() {
-
-					}
 				}));
 	}
-//	private Handler mHandler = new Handler(){
-//		@Override
-//		public void handleMessage(Message msg) {
-//			super.handleMessage(msg);
-//			// 初始化设置
-//			 mVocality.setmSetSwitch(mVocalityGet);
-//			 mShake.setmSetSwitch(mShakeGet);
-//			 mWIFI.setmSetSwitch(mWIFIGet);
-//			 m3gAnd4g.setmSetSwitch(m3gAnd4gGet);
-//			 mSetCall.setmSetSwitch(true);
-//			 mVocalitySet = mVocalityGet;
-//			 mShakeSet = mShakeGet;
-//			 mSetCallSet = mSetCallGet;
-//			 mWIFISet = mWIFIGet;
-//			 m3gAnd4gSet = m3gAnd4gGet;
-//		}
-//	};
 
 	private SwitchButton.OnChangeListener changeListener = new SwitchButton.OnChangeListener() {
 
@@ -198,13 +169,7 @@ public class ActivityMenuSet extends BaseActivity {
 			params.put("wifi", mWIFISet+"");
 			params.put("mobileNetwork", m3gAnd4gSet+"");
 			params.put("type", "update");
-			OkHttp.get(mContext,ConnectPath.GETSETUP_PATH, params, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-				
-				@Override
-				public void parameterError(JSONObject response) {
-					System.out.println();
-				}
-				
+			OkHttp.get(mContext,ConnectPath.GETSETUP_PATH, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
 				@Override
 				public void onResponse(JSONObject response) {
 					SharedPreUtil.put(mContext, "vocality", mVocalitySet);
@@ -213,11 +178,6 @@ public class ActivityMenuSet extends BaseActivity {
 					SharedPreUtil.put(mContext, "3gAnd4g", m3gAnd4gSet);
 					SharedPreUtil.put(mContext, "receivecall", mSetCallSet);
 					BaseUtils.showShortToast(mContext, "修改成功");
-				}
-				
-				@Override
-				public void onFailure() {
-					
 				}
 			}));
 		}

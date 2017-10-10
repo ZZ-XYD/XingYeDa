@@ -33,14 +33,11 @@ import com.xingyeda.ehome.base.EHomeApplication;
 import com.xingyeda.ehome.bean.HomeBean;
 import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.door.ActivityVideo;
-import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
-import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
-import com.xingyeda.ehome.information.PersonalActivity;
-import com.xingyeda.ehome.menu.ActivityChangeInfo;
 import com.xingyeda.ehome.park.ParkHistoryActivity;
 import com.xingyeda.ehome.util.BaseUtils;
-import com.xingyeda.ehome.zxing.encode.CodeCreator;
 
 public class DoorAdapter extends BaseAdapter
 {
@@ -346,19 +343,9 @@ public class DoorAdapter extends BaseAdapter
 				@Override
 				public void onClick(View v) {
 					Map<String, String> params = new HashMap<String, String>();
-					OkHttp.get(mContext,ConnectPath.CAR_MONTH_CARD,params,new BaseStringCallback(mContext, new CallbackHandler<String>() {
+					OkHttp.get(mContext,ConnectPath.CAR_MONTH_CARD,params,new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
 						@Override
 						public void onResponse(JSONObject response) {
-
-						}
-
-						@Override
-						public void parameterError(JSONObject response) {
-
-						}
-
-						@Override
-						public void onFailure() {
 
 						}
 					}));
@@ -413,20 +400,11 @@ public class DoorAdapter extends BaseAdapter
 		params.put("dongshu", dongshu);
 		params.put("housenum", housenum);
 		OkHttp.get(mContext, ConnectPath.OPENDOOR_PATH, params,
-				new BaseStringCallback(mContext, new CallbackHandler<String>() {
-
-					@Override
-					public void parameterError(JSONObject response) {
-					}
-
+				new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
 					@Override
 					public void onResponse(JSONObject response) {
 						BaseUtils.showShortToast(mContext,
 								R.string.open_door_prosperity);
-					}
-
-					@Override
-					public void onFailure() {
 					}
 				}));
 

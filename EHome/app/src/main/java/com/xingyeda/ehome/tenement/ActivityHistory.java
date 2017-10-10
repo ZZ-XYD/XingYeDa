@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -31,8 +32,8 @@ import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.bean.AnnunciateBean;
 import com.xingyeda.ehome.bean.BeanComplainHistory;
 import com.xingyeda.ehome.bean.BeanMaintainHistory;
-import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
-import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.view.CustomListView;
@@ -47,10 +48,6 @@ import com.xingyeda.ehome.view.CustomListView.OnRefreshListener;
 @SuppressLint("HandlerLeak")
 public class ActivityHistory extends BaseActivity
 {
-//    this.mTitle = (TextView) findViewById(R.id.hisory_title);
-//    this.mBack = (TextView) findViewById(R.id.history_back);
-//    this.mHint = (TextView) findViewById(R.id.history_hint);
-//    this.mHisListview = (CustomListView) findViewById(R.id.history_listview);
    @Bind(R.id.hisory_title)
      TextView mTitle;
    @Bind(R.id.history_listview)
@@ -58,7 +55,7 @@ public class ActivityHistory extends BaseActivity
    @Bind(R.id.history_back)
      TextView mBack;
    @Bind(R.id.history_hint)
-     TextView mHint;
+   ImageView mHint;
     private static String TYPE;
     private String mPath;
     private List<BeanComplainHistory> mComplainList;
@@ -130,12 +127,7 @@ public class ActivityHistory extends BaseActivity
         params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
         params.put("pageIndex", pageIndex);
         params.put("pageSize", pageSize);
-        OkHttp.get(mContext,ConnectPath.ANNUNCIATE_PATH, params, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-			
-			@Override
-			public void parameterError(JSONObject response) {
-			}
-			
+        OkHttp.get(mContext,ConnectPath.ANNUNCIATE_PATH, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
 			@Override
 			public void onResponse(JSONObject response) {
 				 try
@@ -183,10 +175,6 @@ public class ActivityHistory extends BaseActivity
                  {
                      e.printStackTrace();
                  }
-			}
-			
-			@Override
-			public void onFailure() {
 			}
 		}));
         
@@ -491,12 +479,7 @@ public class ActivityHistory extends BaseActivity
         params.put("pageIndex", pageIndex);
         params.put("pageSize", pageSize);
         params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
-        OkHttp.get(mContext,path, params, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-			
-			@Override
-			public void parameterError(JSONObject response) {
-			}
-			
+        OkHttp.get(mContext,path, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
 			@Override
 			public void onResponse(JSONObject response) {
 				 try
@@ -553,10 +536,6 @@ public class ActivityHistory extends BaseActivity
                      e.printStackTrace();
                  }
 			}
-			
-			@Override
-			public void onFailure() {
-			}
 		}));
     }
 
@@ -568,12 +547,7 @@ public class ActivityHistory extends BaseActivity
         params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
         params.put("pageIndex", pageIndex);
         params.put("pageSize", pageSize);
-        OkHttp.get(mContext,path, params, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-			
-			@Override
-			public void parameterError(JSONObject response) {
-			}
-			
+        OkHttp.get(mContext,path, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
 			@Override
 			public void onResponse(JSONObject response) {
 				try
@@ -636,10 +610,6 @@ public class ActivityHistory extends BaseActivity
                 {
                     e.printStackTrace();
                 }
-			}
-			
-			@Override
-			public void onFailure() {
 			}
 		}));
    }

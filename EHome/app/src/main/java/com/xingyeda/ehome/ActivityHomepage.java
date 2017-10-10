@@ -40,8 +40,8 @@ import com.xingyeda.ehome.base.PhoneBrand;
 import com.xingyeda.ehome.bean.UserInfo;
 import com.xingyeda.ehome.door.DoorFragment;
 import com.xingyeda.ehome.http.ConnectHttpUtils;
-import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
-import com.xingyeda.ehome.http.okhttp.CallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.life.LifeFragment;
 import com.xingyeda.ehome.menu.MeFragment;
@@ -50,10 +50,6 @@ import com.xingyeda.ehome.util.LogUtils;
 import com.xingyeda.ehome.util.SharedPreUtil;
 import com.ldl.okhttp.OkHttpUtils;
 import com.xingyeda.ehome.zhibo.ShareFragment;
-import com.yuntongxun.ecsdk.ECDevice;
-import com.yuntongxun.ecsdk.ECError;
-import com.yuntongxun.ecsdk.ECInitParams;
-import com.yuntongxun.ecsdk.SdkErrorCode;
 
 import static com.xingyeda.ehome.base.PhoneBrand.SYS_EMUI;
 
@@ -70,7 +66,7 @@ public class ActivityHomepage extends FragmentActivity {
 
 	@Bind(R.id.tabhost)
 	public FragmentTabHost mTabHost;
-	private String mTabTexts[] = { "门禁", "物业", "商圈","我" };
+	private String mTabTexts[] = { "门禁", "物业", "直播","我" };
 	private int mTabImage[] = { R.drawable.door_image,R.drawable.property_image, R.drawable.life_image, R.drawable.me_image };
 	@SuppressWarnings("rawtypes")
 	private Class mFragmentArray[] = { DoorFragment.class,TenementFragment.class, ShareFragment.class,MeFragment.class };
@@ -93,14 +89,12 @@ public class ActivityHomepage extends FragmentActivity {
 		
 
         
-//		initVoipSDK();
 		tabHost();
 		SharedPreUtil.put(mContext, "isLife_Upload", true);
 		SharedPreUtil.put(mContext, "isTenement_Upload", true);
 		SharedPreUtil.put(mContext, "isDoor_Upload", true);
 
 		if (mApplication.getmCurrentUser()!=null) {
-//			mApplication.getmCurrentUser().setmXiaoquList(HomepageHttp.uploadXiaoqu(mApplication.getmCurrentUser().getmId(), mContext, mApplication));
 			mApplication.setmAc_List(HomepageHttp.annunciate(mApplication.getmCurrentUser().getmId(), mContext));
 			mApplication.setmAd(HomepageHttp.ad(mContext));
 			if (mApplication.getmCurrentUser().getmXiaoqu()==null) {
@@ -123,19 +117,11 @@ public class ActivityHomepage extends FragmentActivity {
 		this.event();
 		// 版本更新
 		this.versionsUpdate();
-//		if (mApplication.getmLife_List()!=null) {
-//			for (int i = 0; i < mApplication.getmLife_List().size(); i++) {
-//				mApplication.getmLife_List().get(i).setmImage(OkHttp.getImage(mContext,mApplication.getmLife_List().get(i).getmPath()));
-//			}
-//		}
 
 	}
 	@Override
 	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
-//		if (mApplication.getmCurrentUser()!=null) {
-//			mApplication.getmCurrentUser().setmXiaoquList(HomepageHttp.uploadXiaoqu(mApplication.getmCurrentUser().getmId(), mContext, mApplication));
-//		}
 	}
 
 	private void tabHost() {
@@ -207,12 +193,7 @@ public class ActivityHomepage extends FragmentActivity {
 	@SuppressWarnings("static-access")
 	private void init() {
 		if (0 != SharedPreUtil.getLong(mContext, "time_difference")) {
-			OkHttp.get(mContext,ConnectPath.SYSTEMTIME_PATH, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-				
-				@Override
-				public void parameterError(JSONObject response) {
-				}
-				
+			OkHttp.get(mContext,ConnectPath.SYSTEMTIME_PATH, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
 				@Override
 				public void onResponse(JSONObject response) {
 					try {
@@ -225,10 +206,6 @@ public class ActivityHomepage extends FragmentActivity {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-				}
-				
-				@Override
-				public void onFailure() {
 				}
 			}));
 		}
