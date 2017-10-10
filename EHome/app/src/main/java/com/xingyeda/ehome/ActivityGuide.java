@@ -20,6 +20,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.telecom.TelecomManager;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -43,6 +45,7 @@ import com.xingyeda.ehome.Service.SharePasswordService;
 import com.xingyeda.ehome.adapter.AdapterGuidePager;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
+import com.xingyeda.ehome.bean.UserInfo;
 import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
 import com.xingyeda.ehome.http.okhttp.CallbackHandler;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
@@ -82,12 +85,6 @@ public class ActivityGuide extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Intent startIntent = new Intent(mContext, SharePasswordService.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("id", mEhomeApplication.getmCurrentUser().getmId());
-        startIntent.putExtras(bundle);
-        startService(startIntent);
 
         if (!this.isTaskRoot()) {
             Intent intent = getIntent();
