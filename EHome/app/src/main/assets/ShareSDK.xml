@@ -72,7 +72,7 @@
         SortId="3"
 		AppId="1106376385"
 		AppKey="zWLqf68TKsqWbPUC"
-		BypassApproval="true"
+		BypassApproval="false"
         Enable="true" />
     
     <!-- 
@@ -90,26 +90,26 @@
     <Wechat
         Id="4"
         SortId="4"
-        AppId="wx4868b35061f87885"
-        AppSecret="64020361b8ec4c99936c0e3999a9f249"
+        AppId="wxa66b8a82eaf1fa61"
+        AppSecret="b88400398b9ed05bce58e5c7563735fe"
 		userName="gh_afb25ac019c9"
 		path="pages/index/index.html?id=1"
-        BypassApproval="true"
+        BypassApproval="false"
         Enable="true" />
     
     <WechatMoments
         Id="5"
         SortId="5"
-        AppId="wx4868b35061f87885"
-        AppSecret="64020361b8ec4c99936c0e3999a9f249"
-        BypassApproval="true"
+        AppId="wxa66b8a82eaf1fa61"
+        AppSecret="b88400398b9ed05bce58e5c7563735fe"
+        BypassApproval="false"
         Enable="true" />
         
 	<WechatFavorite
         Id="6"
         SortId="6"
-        AppId="wx4868b35061f87885"
-        AppSecret="64020361b8ec4c99936c0e3999a9f249"
+        AppId="wxa66b8a82eaf1fa61"
+        AppSecret="b88400398b9ed05bce58e5c7563735fe"
         Enable="true" />
     
 	<!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
@@ -119,8 +119,8 @@
         SortId="7"
 		AppId="1106376385"
 		AppKey="zWLqf68TKsqWbPUC"
-		BypassApproval="true"
-        ShareByAppClient="true"
+		BypassApproval="false"
+        ShareByAppClient="false"
         Enable="true" />
 
     <Facebook
