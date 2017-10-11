@@ -40,7 +40,7 @@ public class SharePasswordService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        timer.schedule(task, 0, 3000);
+        timer.schedule(task, 0, 5000);//5秒循环一次
     }
 
     @Override
