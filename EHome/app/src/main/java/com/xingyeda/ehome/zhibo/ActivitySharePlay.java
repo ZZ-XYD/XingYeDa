@@ -4,9 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.RequiresApi;
 import android.support.percent.PercentRelativeLayout;
 import android.text.TextUtils;
 import android.util.Log;
@@ -61,6 +63,7 @@ import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import okhttp3.Call;
 
+import static android.R.attr.lines;
 import static com.xingyeda.ehome.push.TagAliasOperatorHelper.ACTION_ADD;
 import static com.xingyeda.ehome.push.TagAliasOperatorHelper.ACTION_DELETE;
 import static com.xingyeda.ehome.push.TagAliasOperatorHelper.ACTION_GET;
@@ -710,7 +713,8 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
         super.onPause();
     }
 
-    @OnClick({R.id.zb_play_code_rate_text, R.id.zb_play_super_definition, R.id.zb_play_high_definition, R.id.zb_play_fluency_definition, R.id.zb_send, R.id.share_play_back, R.id.share_play_share})
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @OnClick({R.id.zb_play_code_rate_text, R.id.zb_play_super_definition, R.id.zb_play_high_definition, R.id.zb_play_fluency_definition, R.id.zb_send, R.id.share_play_back, R.id.share_play_share, R.id.describe})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.zb_play_code_rate_text:
@@ -752,20 +756,22 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
             case R.id.share_play_back:
                 onBackPressed();
                 break;
+            case R.id.describe:
+                if (describe.getMaxLines()==2) {
+                    describe.setMaxLines(999);
+                }else{
+                    describe.setMaxLines(2);
+                }
+                break;
             case R.id.share_play_share:
                 if (mEhomeApplication.getmCurrentUser() != null) {
                     mUserName = mEhomeApplication.getmCurrentUser().getmUsername();//获取用户昵称
                     String uid = mEhomeApplication.getmCurrentUser().getmId();
-//                    Log.v("SharePlay_uid",uid);
                     mEquipmentId = getIntent().getExtras().getString("equipmentId");
-//                    Log.v("SharePlaymEquipmentId",mEquipmentId);
                     mRoomId = getIntent().getExtras().getString("roomId");
-//                    Log.v("SharePlaymmRoomId",mRoomId);
                     String sharePassword = mEquipmentId + "|" + uid + "|" + mRoomId;
-//                    Log.v("SharePlaymsharePassword",sharePassword);
                     try {
                         enSharePassword = AESUtils.Encrypt(sharePassword, "1234567890123456");
-//                        Log.v("SharePlayPassword",enSharePassword);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

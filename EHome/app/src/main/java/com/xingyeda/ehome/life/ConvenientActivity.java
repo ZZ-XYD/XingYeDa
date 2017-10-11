@@ -102,19 +102,9 @@ public class ConvenientActivity extends BaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 									int position, long id) {
-//				Uri uri = Uri.parse("tel:" + mLists.get(position).getmPhoneNumber());
-//				Intent intent = new Intent(Intent.ACTION_CALL, uri);
-//				startActivity(intent);
 				Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mLists.get(position).getmPhoneNumber()));
 				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-					// TODO: Consider calling
-					//    ActivityCompat#requestPermissions
-					// here to request the missing permissions, and then overriding
-					//   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-					//                                          int[] grantResults)
-					// to handle the case where the user grants the permission. See the documentation
-					// for ActivityCompat#requestPermissions for more details.
 					return;
 				}
 				startActivity(intent);

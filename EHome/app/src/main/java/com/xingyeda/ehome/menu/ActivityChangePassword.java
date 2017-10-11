@@ -91,8 +91,6 @@ public class ActivityChangePassword extends BaseActivity {
 		}
 	    break;
 	case R.id.change_pwd_Back:
-//	    BaseUtils.startActivity(ActivityChangePassword.this,
-//		    ActivityHomepage.class);
 	    ActivityChangePassword.this.finish();
 	    break;
 	case R.id.changenewpwd_show_pwd:

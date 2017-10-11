@@ -31,6 +31,7 @@ import com.xingyeda.ehome.bean.HomeBean;
 import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.door.ActivityAddAddress;
 import com.xingyeda.ehome.util.BaseUtils;
+import com.xingyeda.ehome.util.MyLog;
 import com.xingyeda.ehome.util.SharedPreUtil;
 import com.xingyeda.ehome.view.MaskedImage;
 import com.xingyeda.ehome.zxing.android.CaptureActivity;
@@ -164,7 +165,7 @@ public class ActivitySetInfo extends BaseActivity {
 
     private void init() {
         mBean = mEhomeApplication.getmCurrentUser().getmXiaoqu();
-//	this.mFiles = new ArrayList<File>();
+        MyLog.i("个人信息数据初始化："+mEhomeApplication.getmCurrentUser());
         if (mBean != null) {
             mCommunity.setText(mBean.getmCommunity() + mBean.getmPeriods() + mBean.getmUnit() + mBean.getmHouseNumber());
         } else {
@@ -206,105 +207,14 @@ public class ActivitySetInfo extends BaseActivity {
 
                         }
                     });
-//				OkHttp.getImage(mContext, mEhomeApplication.getmCurrentUser()
-//						.getmHeadPhotoUrl(), new BitmapCallback() {
-//					@Override
-//					public void onResponse(Bitmap bitmap, int id) {
-//						mEhomeApplication.getmCurrentUser().setmHeadPhoto(bitmap);
-//						if (mInfo_Photo!=null) {
-//							mInfo_Photo.setImageBitmap(bitmap);
-//						}
-//					}
-//
-//					@Override
-//					public void onError(Call call, Exception e, int id) {
-////						mHead.setImageResource(R.drawable.head);
-//					}
-//
-//				});
                 }
 
             }
         }
-//    	if (mEhomeApplication.getmCurrentUser().getmHeadPhoto() != null) {
-//    	    mInfo_Photo.setImageBitmap(mEhomeApplication.getmCurrentUser().getmHeadPhoto());
-//    	} else if (mEhomeApplication.getmCurrentUser().getmHeadPhotoUrl() == null) {
-//	    mInfo_Photo.setImageResource(R.drawable.head);
-//    	} else {
-//	    OkHttpUtils.get().url(mEhomeApplication.getmCurrentUser().getmHeadPhotoUrl())
-//            .build().execute(new BitmapCallback()
-//            {
-//
-//                @Override
-//                public void onResponse(Bitmap bitmap)
-//                {
-//                    mEhomeApplication.getmCurrentUser().setmHeadPhoto(bitmap);
-//                    mInfo_Photo.setImageBitmap(bitmap);
-//                }
-//
-//		@Override
-//		public void onError(Call call, Exception e) {
-//		    
-//		}
-//
-//            });
-//	    
-//    	}
-//	    ImageLoader.getInstance().displayImage(
-//		    ConnectPath.IMAGE_PATH
-//			    + mEhomeApplication.getmCurrentUser()
-//				    .getmHeadPhotoUrl(), mInfo_Photo);
-
-        // if (mEhomeApplication.getmCurrentUser().getmXiaoquList()==null)
-        // {
-        // mEhomeApplication.getmCurrentUser().getmXiaoquList().add(new
-        // Xiaoqu("暂无数据", null));
-        // }
-//	if (mEhomeApplication.getmCurrentUser().getmXiaoquList() != null
-//		&& mEhomeApplication.getmCurrentUser().getmXiaoquList().size() != 0) {
-//	    this.mAdapter = new ArrayAdapter<HomeBean>(this,
-//		    R.layout.spinner_item, mEhomeApplication.getmCurrentUser()
-//			    .getmXiaoquList());
-//	    mCommunity.setAdapter(mAdapter);
-//	    for (int i = 0; i < mEhomeApplication.getmCurrentUser()
-//		    .getmXiaoquList().size(); i++) {
-//		if (mEhomeApplication
-//			.getmCurrentUser()
-//			.getmXiaoquList()
-//			.get(i)
-//			.equals(mEhomeApplication.getmCurrentUser()
-//				.getmXiaoqu())) {
-//		    mCommunity.setSelection(i, true);
-//		}
-//	    }
-//	    mCommunity.setOnItemSelectedListener(spnListener);
-//	    // mCommunity.setSelection(R.id.info_community);
-//	}
-
     }
 
-//    private AdapterView.OnItemSelectedListener spnListener = new AdapterView.OnItemSelectedListener() {
-//
-//	@Override
-//	public void onItemSelected(AdapterView<?> parent, View view,
-//		int position, long id) {
-//	    mBean = mEhomeApplication.getmCurrentUser().getmXiaoquList()
-//		    .get(position);
-//	    if (!mBean.equals(mEhomeApplication.getmCurrentUser().getmXiaoqu())) {
-//			changeXiaoqu();
-//		}
-//	    mEhomeApplication.getmCurrentUser().setmXiaoqu(mBean);
-//	}
 
-//	@Override
-//	public void onNothingSelected(AdapterView<?> parent) {
-//	}
-//
-//    };
-
-    @OnClick({R.id.info_user_photo, R.id.info_name, R.id.info_alternate, R.id.setinfo_back,R.id.share_type_layout
-            //R.id.info_community
-    })
+    @OnClick({R.id.info_user_photo, R.id.info_name, R.id.info_alternate, R.id.setinfo_back,R.id.share_type_layout})
     public void onClick(View v) {
         Bundle bundle = new Bundle();
         switch (v.getId()) {
@@ -322,36 +232,7 @@ public class ActivitySetInfo extends BaseActivity {
             case R.id.info_alternate:
                 bundle.putString("type", "beiyong");
                 BaseUtils.startActivities(mContext, ActivityChangeInfo.class, bundle);
-//	    setInfo(R.id.info_alternate);
                 break;
-//	case R.id.info_community:
-//		if (mEhomeApplication.getmCurrentUser().getmXiaoquList().size()==0) {
-//			DialogShow.showHintDialog(mContext, "请先绑定小区");
-//		}else if (mEhomeApplication.getmCurrentUser().getmXiaoquList().size()==1) {
-//			DialogShow.showHintDialog(mContext, "不可修改当前默认小区");
-//		}else {
-//			bundle.putString("type", "community");
-//			BaseUtils.startActivities(mContext, ActivityChangeInfo.class, bundle);
-//		}
-//		break;
-            // // 修改密码
-            // case R.id.info_change_pwd:
-            // EHomeUtils.startActivity(ActivitySetInfo.this,
-            // ActivityChangePassword.class);
-            // break;
-            // 提交修改
-//	case R.id.info_amend:
-//	    if (mEhomeApplication.getmCurrentUser().getmXiaoquList() != null
-//		    && mEhomeApplication.getmCurrentUser().getmXiaoquList()
-//			    .size() != 0) {
-//		changeXiaoqu();// 更改默认小区
-//		mEhomeApplication.getmCurrentUser().setmXiaoqu(mBean);
-//	    }
-//	    modification();// 修改资料
-            // EHomeUtils.startActivity(ActivitySetInfo.this,
-            // ActivityHomepage.class);
-            // ActivitySetInfo.this.finish();
-//	    break;
             // 返回
             case R.id.setinfo_back:
                 BaseUtils.startActivity(mContext, ActivityHomepage.class);
@@ -400,72 +281,7 @@ public class ActivitySetInfo extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-//    private void setInfo(final int id) {
-//	final EditText msg = new EditText(this);
-//	new AlertDialog.Builder(this).setTitle(R.string.input)
-//		.setIcon(android.R.drawable.ic_dialog_info).setView(msg)
-//		.setPositiveButton(R.string.confirm, new OnClickListener() {
-//		    @Override
-//		    public void onClick(DialogInterface dialog, int which) {
-//			String info = msg.getText().toString();
-//			switch (id) {
-//			// 修改呢称
-//			case R.id.info_name:
-//			    mName = info;
-//			    // mEhomeApplication.getmCurrentUser().setmName(info);
-//			    mNameText.setText(info);
-//			    break;
-//			// 修改备用号码
-//			case R.id.info_alternate:
-//			    // mEhomeApplication.getmCurrentUser().setmRemarksPhone(info);
-//			    mAlternate = info;
-//			    mAlternateText.setText(info);
-//			    break;
-//
-//			}
-//		    }
-//		}).setNegativeButton(R.string.cancel, new OnClickListener() {
-//		    @Override
-//		    public void onClick(DialogInterface dialog, int which) {
-//
-//		    }
-//		}).show();
-//    }
-
-//    // 修改信息
-//    private void modification() {
-//    	Map<String, String> params = new HashMap<String, String>();
-//	params.put("id", mEhomeApplication.getmCurrentUser().getmId());
-//	params.put("name", mName);
-//	params.put("beiyong", mAlternate);
-//	OkHttp.get(ConnectPath.MODIFICATION_PATH, params, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-//		
-//		@Override
-//		public void parameterError(JSONObject response) {
-//			ActivitySetInfo.this.finish();
-//		}
-//		
-//		@Override
-//		public void onResponse(JSONObject response) {
-//			mEhomeApplication.getmCurrentUser().setmName(
-//					mName);
-//				mEhomeApplication.getmCurrentUser()
-//					.setmRemarksPhone(mAlternate);
-//				BaseUtils.startActivity(ActivitySetInfo.this,
-//					ActivityHomepage.class);
-//				ActivitySetInfo.this.finish();
-//		}
-//		
-//		@Override
-//		public void onFailure() {
-//			
-//		}
-//	}));
-//
-//    }
-
     private void uploadHeadPhoto() {
-//	final String[] items = new String[] { "从相册选择","拍照" };
         ArrayList<DialogMenuItem> list = new ArrayList<DialogMenuItem>();
         list.add(new DialogMenuItem("从相册选择", R.mipmap.select_image));
         list.add(new DialogMenuItem("拍照", R.mipmap.photograph));
@@ -504,49 +320,6 @@ public class ActivitySetInfo extends BaseActivity {
                 dialog.dismiss();
             }
         });
-//	new AlertDialog.Builder(this)
-//		.setTitle(R.string.set_head_portrait)
-//		.setItems(items, new DialogInterface.OnClickListener() {
-//
-//		    @Override
-//		    public void onClick(DialogInterface arg0, int which) {
-//			switch (which) {
-//			case 0:
-//			    // 从相册中选择
-//			    Intent intent = new Intent(
-//				    Intent.ACTION_PICK,
-//				    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//			    startActivityForResult(intent, IMAGE_REQUEST_CODE);
-//			    break;
-//			case 1:
-//			    // 拍照
-//			    Intent intentFromCamera = new Intent(
-//				    MediaStore.ACTION_IMAGE_CAPTURE);
-//			    if (hasSdcard()) {
-//				// 指定调用相机拍照后照片的储存路径
-//				tempFile = new File(Environment
-//					.getExternalStorageDirectory(),
-//					getPhotoFileName());
-//				intentFromCamera.putExtra(
-//					MediaStore.EXTRA_OUTPUT,
-//					Uri.fromFile(tempFile));
-//
-//			    }
-//			    startActivityForResult(intentFromCamera,
-//				    CAMERA_REQUEST_CODE);
-//			    break;
-//			}
-//		    }
-//		})
-//		.setNegativeButton(R.string.cancel,
-//			new DialogInterface.OnClickListener() {
-//
-//			    @Override
-//			    public void onClick(DialogInterface arg0, int arg1) {
-//				// 隐藏对话框,释放对话框所占的资源
-//				arg0.dismiss();
-//			    }
-//			}).show();
     }
 
     /**
@@ -690,32 +463,6 @@ public class ActivitySetInfo extends BaseActivity {
         return path;
     }
 
-    //    // 修改默认小区
-//    private void changeXiaoqu() {
-//    	Map<String, String> params = new HashMap<String, String>();
-//	params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
-//	params.put("hid", mBean.getmHouseNumberId());
-//	OkHttp.get(ConnectPath.CHANGEXIAOQU_PATH, params, new BaseStringCallback(mContext, new CallbackHandler<String>() {
-//		
-//		@Override
-//		public void parameterError(JSONObject response) {
-//		}
-//		
-//		@Override
-//		public void onResponse(JSONObject response) {
-//			mEhomeApplication.getmCurrentUser().setmXiaoqu(mBean);
-//			BaseUtils.showShortToast(mContext,R.string.set_prosperity);
-//			SharedPreUtil.put(mContext, "eid",mBean.getmEquipmentId());
-//			SharedPreUtil.put(mContext, "dongshu",mBean.getmUnitId());		
-//		
-//		}
-//		
-//		@Override
-//		public void onFailure() {
-//		}
-//	}));
-//	
-//    }
     public void saveBitmapFile(File file, Bitmap bitmap) {
         try {
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));

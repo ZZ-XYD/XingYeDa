@@ -137,4 +137,25 @@ public class MyLog {
                 - SDCARD_LOG_FILE_SAVE_DAYS);
         return now.getTime();
     }
+    /**
+     * 删除指定日期前的日志文件
+     * */
+    public static void delFileToDay(int day) {
+        String needDelFiel = logfile.format(getDateBefore(day));
+        File file = new File(MYLOG_PATH_SDCARD_DIR, needDelFiel + MYLOGFILEName);
+        if (file.exists()) {
+            file.delete();
+        }
+    }
+
+    /**
+     * 得到需要删除的前几天文件名
+     * */
+    private static Date getDateBefore(int day) {
+        Date nowtime = new Date();
+        Calendar now = Calendar.getInstance();
+        now.setTime(nowtime);
+        now.set(Calendar.DATE, now.get(Calendar.DATE)- day);
+        return now.getTime();
+    }
 }

@@ -25,6 +25,7 @@ import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
 import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
+import com.xingyeda.ehome.util.MyLog;
 import com.xingyeda.ehome.wifiOnOff.MainActivity;
 
 import org.json.JSONArray;
@@ -79,6 +80,7 @@ public class ShareFragment extends Fragment {
         if (parent != null) {
             parent.removeView(rootView);
         }
+        MyLog.i("ShareFragment启动");
         mContext = this.getActivity();
         mApplication = (EHomeApplication) ((Activity) mContext).getApplication();
         init();
@@ -87,12 +89,6 @@ public class ShareFragment extends Fragment {
         mLayoutManager = new GridLayoutManager(mContext, 2);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        if (cameraList == null || cameraList.isEmpty()) {
-            getShareList("1", "10");
-        }
-
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         if (mApplication.getmAd() != null) {
             shareAnnunciate.setImageBitmap(mApplication.getmAd().getmBitmap());
@@ -104,6 +100,7 @@ public class ShareFragment extends Fragment {
         return rootView;
     }
     private void init(){
+        MyLog.i("ShareFragment初始化--1");
         mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -134,12 +131,16 @@ public class ShareFragment extends Fragment {
         mSwipeLayout.post(new Runnable() {
             @Override
             public void run() {
+                getShareList("1", "10");
                 mSwipeLayout.setRefreshing(true);
             }
         });
+
+        MyLog.i("ShareFragment初始化--0");
     }
 
     private void getShareList(String pageIndex, String pageSize) {
+        MyLog.i("分享直播列表获取--1");
         Map<String, String> params = new HashMap<>();
         params.put("index", pageIndex);
         params.put("size", pageSize);
@@ -166,27 +167,16 @@ public class ShareFragment extends Fragment {
 
                             }
                         }
-                        mSwipeLayout.setRefreshing(false);
+                        if (mSwipeLayout!=null) {
+                            mSwipeLayout.setRefreshing(false);
+                        }
                         if (cameraList != null && !cameraList.isEmpty()) {
-                            adapter = new CameraAdapter(cameraList);
-                            recyclerView.setVisibility(View.VISIBLE);
-                            shareNoDatas.setVisibility(View.GONE);
-                            recyclerView.setAdapter(adapter);
-                            adapter.clickItem(new CameraAdapter.ClickItem() {
-                                @Override
-                                public void onclick(View view, int position) {
-                                    Camera camera = cameraList.get(position);
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("name", camera.getmName());
-                                    bundle.putString("equipmentId", camera.getmEquipmentId());
-                                    bundle.putString("roomId", camera.getmRoomId());
-                                    bundle.putString("describe", camera.getmDescribe());
-                                    BaseUtils.startActivities(mContext, ActivitySharePlay.class, bundle);
-                                }
-                            });
+                            setAdapter();
                         } else {
-                            recyclerView.setVisibility(View.GONE);
-                            shareNoDatas.setVisibility(View.VISIBLE);
+                            if (recyclerView!=null && shareNoDatas!=null) {
+                                recyclerView.setVisibility(View.GONE);
+                                shareNoDatas.setVisibility(View.VISIBLE);
+                            }
                         }
                     }
 
@@ -196,8 +186,30 @@ public class ShareFragment extends Fragment {
 
             }
         }));
+        MyLog.i("分享直播列表获取--0");
+    }
+    private void setAdapter(){
+        adapter = new CameraAdapter(cameraList);
+        if (recyclerView!=null && shareNoDatas!=null) {
+            recyclerView.setVisibility(View.VISIBLE);
+            shareNoDatas.setVisibility(View.GONE);
+            recyclerView.setAdapter(adapter);
+        }
+        adapter.clickItem(new CameraAdapter.ClickItem() {
+            @Override
+            public void onclick(View view, int position) {
+                Camera camera = cameraList.get(position);
+                Bundle bundle = new Bundle();
+                bundle.putString("name", camera.getmName());
+                bundle.putString("equipmentId", camera.getmEquipmentId());
+                bundle.putString("roomId", camera.getmRoomId());
+                bundle.putString("describe", camera.getmDescribe());
+                BaseUtils.startActivities(mContext, ActivitySharePlay.class, bundle);
+            }
+        });
     }
     private void addShareList(String pageIndex, String pageSize) {
+        MyLog.i("分享直播列表加载更多--1");
         Map<String, String> params = new HashMap<>();
         params.put("index", pageIndex);
         params.put("size", pageSize);
@@ -224,27 +236,6 @@ public class ShareFragment extends Fragment {
                             adapter.notifyItemInserted(cameraList.size());
                             }
                         }
-//                        if (cameraList != null && !cameraList.isEmpty()) {
-//                            adapter = new CameraAdapter(cameraList);
-//                            recyclerView.setVisibility(View.VISIBLE);
-//                            shareNoDatas.setVisibility(View.GONE);
-//                            recyclerView.setAdapter(adapter);
-//                            adapter.clickItem(new CameraAdapter.ClickItem() {
-//                                @Override
-//                                public void onclick(View view, int position) {
-//                                    Camera camera = cameraList.get(position);
-//                                    Bundle bundle = new Bundle();
-//                                    bundle.putString("name", camera.getmName());
-//                                    bundle.putString("equipmentId", camera.getmEquipmentId());
-//                                    bundle.putString("roomId", camera.getmRoomId());
-//                                    bundle.putString("describe", camera.getmDescribe());
-//                                    BaseUtils.startActivities(mContext, ActivitySharePlay.class, bundle);
-//                                }
-//                            });
-//                        } else {
-//                            recyclerView.setVisibility(View.GONE);
-//                            shareNoDatas.setVisibility(View.VISIBLE);
-//                        }
                     }
 
                 } catch (JSONException e) {
@@ -253,6 +244,7 @@ public class ShareFragment extends Fragment {
 
             }
         }));
+        MyLog.i("分享直播列表加载更多--0");
     }
 
 
@@ -271,9 +263,12 @@ public class ShareFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-//        if (cameraList != null && !cameraList.isEmpty()) {
-//            getShareList("1", "10");
-//        }
+        if (mSwipeLayout!=null) {
+            if (mSwipeLayout.isRefreshing()) {
+            mSwipeLayout.setRefreshing(false);
+                getShareList("1", "10");
+            }
+        }
     }
 
 
@@ -282,6 +277,7 @@ public class ShareFragment extends Fragment {
         super.onDestroyView();
         OkHttpUtils.getInstance().cancelTag(this);
         ButterKnife.unbind(this);
+        MyLog.i("ShareFragment销毁");
     }
 
 

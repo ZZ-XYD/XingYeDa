@@ -19,6 +19,7 @@ import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
 import com.xingyeda.ehome.http.okhttp.CallbackHandler;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
+import com.xingyeda.ehome.util.MyLog;
 import com.xingyeda.ehome.util.SharedPreUtil;
 
 
@@ -53,6 +54,7 @@ public class ActivityOpenDoor extends BaseActivity
         }  
     };
     private void openDoor(){
+        MyLog.i("一键开门");
     	Map<String, String> params = new HashMap<String, String>();
         params.put("uid", SharedPreUtil.getString(mContext, "userId"));
         params.put("eid", SharedPreUtil.getString(mContext, "eid"));

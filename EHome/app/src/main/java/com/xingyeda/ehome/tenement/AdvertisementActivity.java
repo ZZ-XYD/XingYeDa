@@ -99,11 +99,6 @@ public class AdvertisementActivity extends BaseActivity
     }
     //Web视图  
     private class HelloWebViewClient extends WebViewClient {
-//        @Override
-//        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//            view.loadUrl(url);
-//            return true;
-//        }
 @Override
 public boolean shouldOverrideUrlLoading(WebView view, String url) {
 

@@ -27,6 +27,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -68,6 +69,7 @@ import com.xingyeda.ehome.push.TagAliasOperatorHelper;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.LogUtils;
 import com.xingyeda.ehome.util.LogcatHelper;
+import com.xingyeda.ehome.util.MyLog;
 import com.xingyeda.ehome.view.MaskedImage;
 import com.xingyeda.ehome.wifiOnOff.MainActivity;
 import com.xingyeda.ehome.wifiOnOff.OnOffAddActivity;
@@ -112,6 +114,7 @@ public class MeFragment extends Fragment {
 			Bundle savedInstanceState) {
 		this.mView = inflater.inflate(R.layout.fragment_me, container, false);
 		ButterKnife.bind(this, mView);
+		MyLog.i("MeFragment启动");
 		mHead.setImageResource(R.mipmap.head);
 		mContext = this.getActivity();
 		mApplication = (EHomeApplication) ((Activity) mContext)
@@ -119,7 +122,6 @@ public class MeFragment extends Fragment {
 		init();
 		return mView;
 	}
-
 	private void init() {
 		if (mApplication.getmCurrentUser() != null) {
 			if (mApplication.getmCurrentUser().getmHeadPhotoUrl() == null) {
@@ -448,6 +450,6 @@ public class MeFragment extends Fragment {
 		super.onDestroyView();
 		OkHttpUtils.getInstance().cancelTag(this);
 		ButterKnife.unbind(this);
+		MyLog.i("MeFragment销毁");
 	}
-
 }

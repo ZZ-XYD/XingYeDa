@@ -52,6 +52,7 @@ import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.AESUtils;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.LogUtils;
+import com.xingyeda.ehome.util.MyLog;
 import com.xingyeda.ehome.util.SharedPreUtil;
 import com.yuntongxun.ecsdk.ECDevice;
 import com.yuntongxun.ecsdk.ECError;
@@ -441,6 +442,7 @@ public class ActivityGuide extends BaseActivity {
                     // mSpnTitle.getChildAt(0).setEnabled(true);
                     // }
                     LogUtils.i("云通讯 ： 登陆成功");
+                    MyLog.i("云通讯 ： 登陆成功");
                 }
             }
         });

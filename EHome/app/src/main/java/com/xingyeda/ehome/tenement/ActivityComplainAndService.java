@@ -71,14 +71,11 @@ import com.ldl.okhttp.callback.StringCallback;
 @SuppressLint("HandlerLeak")
 public class ActivityComplainAndService extends BaseActivity {
 	private static final int TYPES = 1;
-	// private static final int IMAGES = 2;
 
 	@Bind(R.id.RT_cas_spin)
 	Spinner mSpinType;
 	@Bind(R.id.RT_cas_content)
 	EditText mAdd_Content;
-	//@Bind((R.id.image_upload)
-	// ImageView mUpload;
 	@Bind(R.id.RT_cas_submit)
 	Button mBut_Submit;
 	@Bind(R.id.RT_cas_title)
@@ -95,17 +92,9 @@ public class ActivityComplainAndService extends BaseActivity {
 	@Bind(R.id.RT_cas_gridView)
 	GridView mGvImage;
 
-	//@Bind((R.id.listview_image)
-	// ListView mListView_Image;
-
-	// private List<ImageView> mImages;
-	// private UploadImageAdapter mImageAdapter;
-
 	private List<String> mType;
 	// 下拉框适配器
 	private ArrayAdapter<String> mTypeAdapter;
-	// type的key
-	// private String mKey = "1";
 
 	private final int IMAGE_OPEN = 1;
 	private final int IMAGE_CAMERA = 2;
@@ -115,8 +104,6 @@ public class ActivityComplainAndService extends BaseActivity {
 	private SimpleAdapter simpleAdapter; // 适配器
 	// 上传图片的file
 	private List<File> mImageFile;
-	// //图片压缩进的文件
-	// private File mFile;
 
 	private static String TYPE;
 
@@ -125,35 +112,15 @@ public class ActivityComplainAndService extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.complain_and_service);
 		ButterKnife.bind(this);
-		// this.file();
 
 		this.init();
 	}
 
-	// @SuppressLint("SimpleDateFormat")
-	// private void file()
-	// {
-	// SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
-	// mFile = new File(Environment.getExternalStorageDirectory(),df.format(new
-	// Date())+".zip");
-	// if(!mFile.exists()){
-	// try
-	// {
-	// mFile.createNewFile();
-	// }
-	// catch (IOException e)
-	// {
-	// e.printStackTrace();
-	// }
-	// return;
-	// }
-	// }
 	@SuppressWarnings("static-access")
 	private void init() {
 		this.TYPE = getIntent().getExtras().getString("type");
 		this.mImageFile = new ArrayList<File>();
 
-		// this.mImages = new ArrayList<ImageView>();
 
 		if (TYPE.equals("tousu")) {
 			mTitle.setText(R.string.suggested);
@@ -230,37 +197,8 @@ public class ActivityComplainAndService extends BaseActivity {
 							dialog.dismiss();
 						}
 					});
-//					new AlertDialog.Builder(mContext).setItems(items,
-//							new DialogInterface.OnClickListener() {
-//								@Override
-//								public void onClick(DialogInterface dialog,
-//										int which) {
-//									Intent intent;
-//									switch (which) {
-//									case 0:
-//										// 选择图片
-//										intent = new Intent(
-//												Intent.ACTION_PICK,
-//												android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//										startActivityForResult(intent,
-//												IMAGE_OPEN);
-//										// 通过onResume()刷新数据
-//										break;
-//									case 1:
-//										intent = new Intent(
-//												MediaStore.ACTION_IMAGE_CAPTURE);
-//										startActivityForResult(intent,
-//												IMAGE_CAMERA);
-//										break;
-//									}
-//								}
-//							}).show();
-
 				} else {
 					dialog(position);
-					// Toast.makeText(MainActivity.this, "点击第" + (position + 1)
-					// + " 号图片",
-					// Toast.LENGTH_SHORT).show();
 				}
 
 			}
@@ -328,12 +266,8 @@ public class ActivityComplainAndService extends BaseActivity {
 		case R.id.RT_cas_submit:
 			if (title == null || title.trim().equals("")) {
 				DialogShow.showHintDialog(mContext, getResources().getString(R.string.RT_cas_title_hint));
-//				DialogUtils.getHintDialog(ActivityComplainAndService.this,
-//						R.string.RT_cas_title_hint);
 			} else if (content == null || title.trim().equals("")) {
 				DialogShow.showHintDialog(mContext, getResources().getString(R.string.input_content));
-//				DialogUtils.getHintDialog(ActivityComplainAndService.this,
-//						R.string.input_content);
 			} else {
 				mProgressBar.setVisibility(View.VISIBLE);
 				// 投诉
@@ -365,9 +299,6 @@ public class ActivityComplainAndService extends BaseActivity {
 			switch (msg.what) {
 			case TYPES:
 				spinnerType((List<String>) msg.obj);
-				break;
-
-			default:
 				break;
 			}
 		}
@@ -475,114 +406,8 @@ public class ActivityComplainAndService extends BaseActivity {
 				dialog.dismiss();
 			}
 		});
-//		DialogUtils
-//				.getDialog(ActivityComplainAndService.this,
-//						R.string.remove_picture)
-//				.setPositiveButton(R.string.confirm,
-//						new DialogInterface.OnClickListener() {
-//							@Override
-//							public void onClick(DialogInterface dialog,
-//									int which) {
-//								dialog.dismiss();
-//								imageItem.remove(position);
-//								simpleAdapter.notifyDataSetChanged();
-//							}
-//						})
-//				.setNegativeButton(R.string.cancel,
-//						new DialogInterface.OnClickListener() {
-//							@Override
-//							public void onClick(DialogInterface dialog,
-//									int which) {
-//								dialog.dismiss();
-//							}
-//						}).show();
 	}
 
-	/*
-	 * private void upload(String title,String content) { Gson g = new Gson();
-	 * RequestParams params = new RequestParams(); File file = new File(
-	 * Environment.getExternalStorageDirectory(), "message.txt");
-	 * BeanComplainAndService bean = new BeanComplainAndService();
-	 * bean.setmId(""+mEhomeApplication.getmCurrentUser().getmId());
-	 * bean.setmContent(content); bean.setmTitle(title);
-	 * 
-	 * //投诉 if (TYPE.equals("tousu")) {
-	 * 
-	 * bean.setmType("1"); bean.setmData(mKey); try { file.delete();
-	 * file.createNewFile();
-	 * 
-	 * FileWriter pw = new FileWriter(file, true); pw.write(g.toJson(bean));
-	 * pw.flush(); pw.close(); mImageFile.add(file.getAbsoluteFile());
-	 * 
-	 * ZipUtil.zipFiles(mImageFile, mFile);
-	 * 
-	 * params.put("upload_image", mFile.getAbsoluteFile());
-	 * params.setContentEncoding(HTTP.UTF_8);
-	 * HttpUtil.post(mContext,ConnectPath.UPLOAD_PATH, params,new
-	 * BaseAsyncHttpResponseHandler(new AsyncResponseHandler() {
-	 * 
-	 * @Override public void onSuccess() { BaseUtils.showShortToast(mContext,
-	 * R.string.uploaded_successfully); mProgressBar.setVisibility(View.GONE);
-	 * ActivityComplainAndService.this.finish(); mFile.delete(); }
-	 * 
-	 * @Override public void onFailure() { mFile.delete();
-	 * mProgressBar.setVisibility(View.GONE); BaseUtils.showShortToast(mContext,
-	 * R.string.connection_timeout); }
-	 * 
-	 * @Override public void onFailure(int statusCode) { mFile.delete();
-	 * mProgressBar.setVisibility(View.GONE); BaseUtils.showShortToast(mContext,
-	 * R.string.upload_failed); } }));
-	 * 
-	 * new AsyncHttpResponseHandler() {
-	 * 
-	 * @Override public void onSuccess(int statusCode, Header[] headers, byte[]
-	 * responseBody) { if (statusCode != 200) { return; }
-	 * EHomeUtils.showShortToast(ActivityComplainAndService.this, "上传成功");
-	 * ActivityComplainAndService.this.finish(); mFile.delete(); }
-	 * 
-	 * @Override public void onFailure(int statusCode, Header[] headers, byte[]
-	 * responseBody, Throwable error) { // 上传失败后要做到工作
-	 * DialogUtils.getHintDialog(ActivityComplainAndService.this,"上传失败"); }
-	 * 
-	 * @Override public void onRetry(int retryNo) { super.onRetry(retryNo); }
-	 * 
-	 * }); } catch (IOException e1) { e1.printStackTrace(); } } //维修 else if
-	 * (TYPE.equals("weixiutype")) { bean.setmType("2"); bean.setmData(mKey);
-	 * try { file.delete(); file.createNewFile();
-	 * 
-	 * FileWriter pw = new FileWriter(file, true); pw.write(g.toJson(bean));
-	 * pw.flush(); pw.close(); mImageFile.add(file.getAbsoluteFile());
-	 * 
-	 * ZipUtil.zipFiles(mImageFile, mFile);
-	 * 
-	 * params.put("upload_image", mFile.getAbsoluteFile());
-	 * HttpUtil.post(mContext,ConnectPath.UPLOAD_PATH, params, new
-	 * BaseAsyncHttpResponseHandler(new AsyncResponseHandler() {
-	 * 
-	 * @Override public void onSuccess() { BaseUtils.showShortToast(mContext,
-	 * R.string.uploaded_successfully);
-	 * ActivityComplainAndService.this.finish(); mFile.delete(); }
-	 * 
-	 * @Override public void onFailure() { mFile.delete();
-	 * BaseUtils.showShortToast(mContext, R.string.connection_timeout); }
-	 * 
-	 * @Override public void onFailure(int statusCode) { mFile.delete();
-	 * BaseUtils.showShortToast(mContext, R.string.upload_failed); } })); new
-	 * AsyncHttpResponseHandler() {
-	 * 
-	 * @Override public void onSuccess(int statusCode, Header[] headers, byte[]
-	 * responseBody) {
-	 * EHomeUtils.showShortToast(ActivityComplainAndService.this,"上传成功" );
-	 * ActivityComplainAndService.this.finish(); mFile.delete(); }
-	 * 
-	 * @Override public void onFailure(int statusCode, Header[] headers, byte[]
-	 * responseBody, Throwable error) { // 上传失败后要做到工作 mFile.delete();
-	 * EHomeUtils.showShortToast(ActivityComplainAndService.this,"上传失败" ); }
-	 * 
-	 * @Override public void onRetry(int retryNo) { super.onRetry(retryNo); }
-	 * 
-	 * }); } catch (IOException e1) { e1.printStackTrace(); } } }
-	 */
 	private void upload(String url, String title, String content) {
 		 Map<String, String> params = new HashMap<String, String>();
 		 params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
@@ -590,10 +415,6 @@ public class ActivityComplainAndService extends BaseActivity {
 		 params.put("content", content);
 
 		if (mImageFile.size() > 0) {
-//			Map<String, String> params = new HashMap<String, String>();
-//			params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
-//			params.put("title", getURLEncoderString(title));
-//			params.put("content", content);
 				PostFormBuilder postBuilder = OkHttpUtils.post();
 				for (int i = 0; i < mImageFile.size(); i++) {
 					File file = new File(mImageFile.get(i), "");
@@ -663,12 +484,6 @@ public class ActivityComplainAndService extends BaseActivity {
 		ButterKnife.unbind(this);
 	}
 
-	/*
-	 * public static String toUtf8(String str) { String result = null; try {
-	 * result = new String(str.getBytes("UTF-8"), "UTF-8"); } catch
-	 * (UnsupportedEncodingException e) { e.printStackTrace(); } return result;
-	 * }
-	 */
 
 	private final static String ENCODE = "UTF-8";
 

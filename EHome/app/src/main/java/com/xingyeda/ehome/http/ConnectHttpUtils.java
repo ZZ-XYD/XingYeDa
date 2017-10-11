@@ -118,7 +118,6 @@ public class ConnectHttpUtils
                      {
                          ActivityHomepage.isFlHint = false;
                  	boolean isImposd =Boolean.valueOf(version.has("imposed")?version.getString("imposed"):"false");
-//                 	DoorFragment.isFlHint = !(Float.valueOf(AppUtils.getVersionName(context)) < Float.valueOf(version.getString("versionNum")));
                  	final NormalDialog dialog ;
                  	if (isImposd) {
                  		

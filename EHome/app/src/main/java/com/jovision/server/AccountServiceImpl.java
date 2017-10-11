@@ -29,6 +29,7 @@ import com.xingyeda.ehome.menu.ActivityAbout;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.LogUtils;
 import com.xingyeda.ehome.util.LogcatHelper;
+import com.xingyeda.ehome.util.MyLog;
 import com.xingyeda.ehome.util.SharedPreUtil;
 
 import java.io.File;
@@ -385,7 +386,7 @@ public class AccountServiceImpl {
             if (jobj==null) {
                 return 0;
             }
-
+            MyLog.i("中维push："+jobj.toString());
 
            String aType  = jobj.has("atype")?jobj.getString("atype"):"";
             String id = jobj.has("dguid")?jobj.getString("dguid"):"";

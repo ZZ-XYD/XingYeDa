@@ -325,12 +325,12 @@ public class DoorAdapter extends BaseAdapter
 			drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
 			viewHolder.mOption1.setCompoundDrawables(null,drawable,null,null);
 
-			Drawable drawable1= mContext.getResources().getDrawable(R.drawable.but_month_card);
+			Drawable drawable1= mContext.getResources().getDrawable(R.drawable.but_modification);
 			drawable1.setBounds(0, 0, drawable1.getMinimumWidth(), drawable1.getMinimumHeight());
 			viewHolder.mOption2.setCompoundDrawables(null,drawable1,null,null);
-			viewHolder.mOption0.setVisibility(View.INVISIBLE);
+			viewHolder.mOption0.setText("锁车");
 			viewHolder.mOption1.setText("出入记录");
-			viewHolder.mOption2.setVisibility(View.INVISIBLE);
+			viewHolder.mOption2.setText("设置");
 //			viewHolder.mOption1.setBackgroundResource(R.drawable.but_examine);
 //			viewHolder.mOption2.setBackgroundResource(R.drawable.but_modification);
 			viewHolder.mOption1.setOnClickListener(new View.OnClickListener() {

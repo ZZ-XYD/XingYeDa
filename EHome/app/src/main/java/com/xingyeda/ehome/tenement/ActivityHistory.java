@@ -87,9 +87,9 @@ public class ActivityHistory extends BaseActivity
     private void init()
     {
         this.TYPE = getIntent().getExtras().getString("type");
-        this.mComplainList = new ArrayList<BeanComplainHistory>();
-        this.mMaintainList = new ArrayList<BeanMaintainHistory>();
-        this.mAnnunciateList = new ArrayList<AnnunciateBean>();
+        this.mComplainList = new ArrayList<>();
+        this.mMaintainList = new ArrayList<>();
+        this.mAnnunciateList = new ArrayList<>();
         if (TYPE.equals("tousu"))
         {
             mTitle.setText(R.string.suggested_history);
@@ -207,17 +207,14 @@ public class ActivityHistory extends BaseActivity
                 if (mComplainAdapter != null)
                 {
                     complainDatasLoad((List<BeanComplainHistory>) msg.obj,0);
-//                    mComplainAdapter.notifyDataSetChanged();
                 }
                 else if (mMaintainAdapter!=null)
                 {
                     maintainDatasLoad((List<BeanMaintainHistory>) msg.obj,0);
-//                    mMaintainAdapter.notifyDataSetChanged();
                 }
                 else if (mAnnunciateAdapter!=null)
                 {
                     AnnunciateDatasLoad((List<AnnunciateBean>) msg.obj,0);
-//                    mAnnunciateAdapter.notifyDataSetChanged();
                 }
                 mHisListview.onRefreshComplete(); // 下拉刷新完成
                 break;
@@ -225,17 +222,14 @@ public class ActivityHistory extends BaseActivity
                 if (mComplainAdapter != null)
                 {
                     complainDatasLoad((List<BeanComplainHistory>) msg.obj,1);
-//                    mComplainAdapter.notifyDataSetChanged();
                 }
                 else if (mMaintainAdapter!=null)
                 {
                     maintainDatasLoad((List<BeanMaintainHistory>) msg.obj,1);
-//                    mMaintainAdapter.notifyDataSetChanged();
                 }
                 else if (mAnnunciateAdapter!=null)
                 {
                     AnnunciateDatasLoad((List<AnnunciateBean>) msg.obj,1);
-//                    mAnnunciateAdapter.notifyDataSetChanged();
                 }
                 mHisListview.onLoadMoreComplete(); // 加载更多完成
                 break;
@@ -475,7 +469,6 @@ public class ActivityHistory extends BaseActivity
             String pageIndex, String pageSize, final int time)
     {
     	Map<String,String> params = new HashMap<String, String>();
-        // params.put("uid","1");
         params.put("pageIndex", pageIndex);
         params.put("pageSize", pageSize);
         params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
@@ -484,7 +477,6 @@ public class ActivityHistory extends BaseActivity
 			public void onResponse(JSONObject response) {
 				 try
                  {
-//                         String[] path;
                          JSONArray obj = (JSONArray) response.get("obj");
                          if (obj != null && obj.length() != 0)
                          {
@@ -552,7 +544,6 @@ public class ActivityHistory extends BaseActivity
 			public void onResponse(JSONObject response) {
 				try
                 {
-//                        String[] path;
                         BeanMaintainHistory bean;
                         JSONArray obj = (JSONArray) response.get("obj");
                         if (obj != null && obj.length() != 0)

@@ -37,6 +37,7 @@ import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.life.ConvenientActivity;
 import com.xingyeda.ehome.util.BaseUtils;
+import com.xingyeda.ehome.util.MyLog;
 import com.xingyeda.ehome.view.listview.PullToRefreshBase;
 import com.xingyeda.ehome.view.listview.PullToRefreshBase.OnRefreshListener;
 import com.xingyeda.ehome.view.listview.PullToRefreshMenuView;
@@ -76,6 +77,7 @@ public class TenementFragment extends Fragment {
 		if (parent != null) {
 			parent.removeView(rootView);
 		}
+		MyLog.i("TenementFragment启动");
 		this.mContext = this.getActivity();
 		mApplication = (EHomeApplication) ((Activity) mContext)
 				.getApplication();
@@ -151,7 +153,7 @@ public class TenementFragment extends Fragment {
 	}
 	// 小区物业通告
 	private void annunciate() {
-
+		MyLog.i("小区通告接口---1");
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("uid", mApplication.getmCurrentUser().getmId());
 		params.put("pageIndex", "1");
@@ -186,10 +188,12 @@ public class TenementFragment extends Fragment {
 				}				
 			}
 		}));
+		MyLog.i("小区通告接口---0");
 	}
 	// 小区物业通告数据
   private void annunciateDatas()
   {
+	  MyLog.i("小区通告适配器---1");
       List<AnnunciateBean> list = mApplication.getmAc_List();
       
       if (list != null && !list.isEmpty())
@@ -212,7 +216,7 @@ public class TenementFragment extends Fragment {
       {
     	  mNoData.setVisibility(View.VISIBLE);
       }
-
+	  MyLog.i("小区通告适配器---0");
   }
   private AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener()
 {
@@ -237,6 +241,7 @@ public class TenementFragment extends Fragment {
 		super.onDestroyView();
 		OkHttpUtils.getInstance().cancelTag(this);
 		ButterKnife.unbind(getActivity());
+		MyLog.i("TenementFragment销毁");
 	}
 
 }

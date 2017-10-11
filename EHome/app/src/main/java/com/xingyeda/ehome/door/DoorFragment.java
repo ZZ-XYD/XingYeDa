@@ -47,6 +47,7 @@ import com.xingyeda.ehome.information.PersonalActivity;
 import com.xingyeda.ehome.menu.ActivityChangeInfo;
 import com.xingyeda.ehome.park.AddParkActivity;
 import com.xingyeda.ehome.util.BaseUtils;
+import com.xingyeda.ehome.util.MyLog;
 import com.xingyeda.ehome.util.NetUtils;
 import com.xingyeda.ehome.util.SharedPreUtil;
 import com.xingyeda.ehome.view.listview.PullToRefreshBase;
@@ -148,6 +149,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
             parent.removeView(rootView);
         }
         ButterKnife.bind(this, rootView);
+        MyLog.i("DoorFragment启动");
 //		isFlHint = true;
         // mHead.setImageResource(R.drawable.head);
         mAnnunciateList = new ArrayList<AnnunciateBean>();
@@ -257,6 +259,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
     }
 
     public void uploadXiaoqu(final String delete) {
+        MyLog.i("设备数据列表加载--1，type = "+delete);
         if (null == mApplication.getmCurrentUser()) {
             return;
         }
@@ -277,6 +280,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                             frozenAccount.setVisibility(View.GONE);
                             JSONArray jan2 = (JSONArray) response.get("camera");
                             if (jan2 != null && jan2.length() != 0) {
+                                MyLog.i("加载摄像头猫眼："+jan2);
                                 for (int i = 0; i < jan2.length(); i++) {
                                     HomeBean bean = new HomeBean();
                                     mApplication.getmCurrentUser().setmCameraAdd(true);
@@ -303,6 +307,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                         try {
                             JSONArray jan1 = (JSONArray) response.get("pllist");
                             if (jan1 != null && jan1.length() != 0) {
+                                MyLog.i("加载停车场："+jan1);
                                 for (int i = 0; i < jan1.length(); i++) {
                                     HomeBean bean = new HomeBean();
                                     JSONObject jobj = jan1.getJSONObject(i);
@@ -319,6 +324,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                         try {
                             JSONArray jan = (JSONArray) response.get("obj");
                             if (jan != null && jan.length() != 0) {
+                                MyLog.i("加载门禁："+jan);
                                 for (int i = 0; i < jan.length(); i++) {
                                     HomeBean bean = new HomeBean();
                                     JSONObject jobj = jan.getJSONObject(i);
@@ -406,11 +412,13 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                         mList.onRefreshComplete();
                     }
                 }));
+        MyLog.i("设备数据列表加载--0");
 
     }
 
 
     private void upload() {
+        MyLog.i("设备数据列表适配器加载--1");
         if (mApplication.getmCurrentUser().getmXiaoquList() != null
                 && mApplication.getmCurrentUser().getmXiaoquList().size() != 0) {
             mAdapter = new DoorAdapter(mContext, mApplication
@@ -426,6 +434,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
             mAdapter.share(new DoorAdapter.ShareClickItem() {
                 @Override
                 public void onclick(View view, int position) {
+                    MyLog.i("分享按钮");
                     final HomeBean bean = mApplication.getmCurrentUser().getmXiaoquList().get(position);
                     String url = null;
                     if (bean.getmType().equals("1")) { //门禁
@@ -507,6 +516,8 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
 
                             }
                         });
+                    }else if (bean.getmType().equals("5")){
+
                     }else{
                         if (url != null) {
                             ViewGroup.LayoutParams para = shareImg.getLayoutParams();
@@ -543,6 +554,8 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                 menuHint();
             }
         }
+        if (mApplication.getmCurrentUser().getmXiaoquList()!=null&&!mApplication.getmCurrentUser().getmXiaoquList().isEmpty()) {
+
         if (mApplication.getmCurrentUser().getmXiaoquList().size() == 0) {
             mModification.setText("请先绑定小区");
         } else {
@@ -551,7 +564,8 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                 mModification.setText(bean.getmCommunity() + bean.getmPeriods() + bean.getmUnit() + bean.getmHouseNumber());
             }
         }
-
+    }
+        MyLog.i("设备数据列表适配器加载--0");
     }
 
 
@@ -637,6 +651,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
             @Override
             public void onBtnClick() {
                 dialog.dismiss();
+                MyLog.i("设备删除选择--1");
                 switch (type){
                     case 1 :
                         final String isDefault = bean.getmIsDefault();
@@ -676,18 +691,20 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                         OkHttp.get(mContext,ConnectPath.CAR_REMOVE,params,new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
                             @Override
                             public void onResponse(JSONObject response) {
-
+                                uploadXiaoqu("0");
                             }
                         }));
                         break;
 
                 }
+                MyLog.i("设备删除选择--0");
             }
         });
     }
 
     // 解除绑定
     private void relieveBind(HomeBean bean, String isDefault) {
+        MyLog.i("设备删除接口--1;bean = "+bean.toString());
         Map<String, String> params = new HashMap<String, String>();
         params.put("uid", mApplication.getmCurrentUser().getmId());
         params.put("dongshu", bean.getmUnitId());
@@ -705,9 +722,11 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                         // mContext.sendBroadcast(mIntent);
                     }
                 }));
+        MyLog.i("设备删除接口--0");
     }
 
     private void menuHint() {
+        MyLog.i("通知弹出--1");
         Map<String, String> params = new HashMap<String, String>();
         params.put("eid", mApplication.getmCurrentUser().getmXiaoqu()
                 .getmEquipmentId());
@@ -735,10 +754,11 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                         }
                     }
                 }));
-
+        MyLog.i("通知弹出--0");
     }
 
     private void setMenuHint() {
+        MyLog.i("设置弹出通知内容--1");
         if (ActivityHomepage.isFlHint) {
             if (mAnnunciateList != null && !mAnnunciateList.isEmpty()) {
                 ActivityHomepage.isFlHint = false;
@@ -798,6 +818,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
         // if (hintText.equals("")) {
         // mDesc.setVisibility(View.GONE);
         // }
+        MyLog.i("设置弹出通知内容--0");
 
     }
 
@@ -807,6 +828,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
         mContext.unregisterReceiver(mBroadcastReceiver);
         OkHttpUtils.getInstance().cancelTag(this);
         ButterKnife.unbind(this);
+        MyLog.i("DoorFragment销毁");
     }
 
     @Override
@@ -853,6 +875,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        MyLog.i("扫描返回--1");
         // 扫描二维码/条码回传
         if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
             if (data != null) {
@@ -876,34 +899,15 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                     shareIcon.setBackgroundResource(R.mipmap.cat_eye_logo);
                     shareHint.setText("是否添加设备" + spStr[1]);
                 }
-
-
-
-//                final NormalDialog dialog = DialogShow.showSelectDialog(mContext, "是否添加" + spStr[1], 2, new String[]{getResources().getString(R.string.cancel), getResources().getString(R.string.confirm)});
-//                dialog.setOnBtnClickL(new OnBtnClickL() {
-//
-//                    @Override
-//                    public void onBtnClick() {
-//                        dialog.dismiss();
-//                    }
-//                }, new OnBtnClickL() {
-//                    @Override
-//                    public void onBtnClick() {
-//
-////                BaseUtils.showLongToast(mContext, url);
-//
-//                        dialog.dismiss();
-//
-//                    }
-//                });
-
             }
 
         }
+        MyLog.i("扫描返回--0");
 
     }
 
     private void shareAdd(String url){
+        MyLog.i("扫描快速添加--1");
         OkHttp.get(mContext, url, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
                             @Override
                             public void onResponse(JSONObject response) {
@@ -917,6 +921,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                                 }
                             }
                         }));
+        MyLog.i("扫描快速添加--0");
     }
 
 }

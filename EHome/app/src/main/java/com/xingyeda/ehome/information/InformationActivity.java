@@ -69,7 +69,6 @@ public class InformationActivity extends BaseActivity {
     private String mMessageStatusText;
     private String mDoorStatusText;
     private String mInitiatorText;
-//    private String mReceiverText;
 
     private static final int LOAD_IMAGE = 0;
 
@@ -93,7 +92,6 @@ public class InformationActivity extends BaseActivity {
 	mDoorStatusText = bundle.getString("door");
 	mInitiatorText = bundle.getString("initiator");
 		mImaggType = bundle.getString("imageType");
-//	mReceiverText = bundle.getString("receiver");
     }
 
     private void event() {
@@ -105,9 +103,6 @@ public class InformationActivity extends BaseActivity {
 
 	if (mImaggPath != null) {
 	    mImage.setVisibility(View.VISIBLE);
-//	    String path = mEhomeApplication.getmImageFile().getPath()+"/"+mImaggPath;
-//	    Bitmap bm = BitmapFactory.decodeFile(path);  
-//	    mImage.setImageBitmap(bm);
 		if ("1".equals(mImaggType)) {
 			mImage.setImageBitmap(getLoacalBitmap(mImaggPath));
 		}else{
@@ -150,29 +145,8 @@ public class InformationActivity extends BaseActivity {
 	public void handleMessage(Message msg) {
 	    switch (msg.what) {
 	    case LOAD_IMAGE:
-//	    	OkHttp.getImage(mContext, (String) msg.obj, mImage);
 		ImageLoader.getInstance().displayImage((String) msg.obj, mImage);
-//		OkHttpUtils
-//		    .get()//
-//		    .url((String) msg.obj)//
-//		    .build()//
-//		    .execute(new BitmapCallback()
-//		    {
-//
-//		        @Override
-//		        public void onResponse(Bitmap bitmap)
-//		        {
-//		            mImage.setImageBitmap(bitmap);
-//		        }
-//
-//			@Override
-//			public void onError(Call call, Exception e) {
-//			    // TODO Auto-generated method stub
-//			    
-//			}
-//
-//		    });
-		LogUtils.i("图片地址"+(String) msg.obj);
+		LogUtils.i("图片地址"+msg.obj);
 		break;
 
 	    default:

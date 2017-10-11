@@ -20,15 +20,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ldl.dialogshow.dialog.entity.DialogMenuItem;
-import com.ldl.dialogshow.dialog.listener.OnBtnClickL;
 import com.ldl.dialogshow.dialog.listener.OnOperItemClickL;
-import com.ldl.dialogshow.dialog.widget.NormalDialog;
 import com.ldl.dialogshow.dialog.widget.NormalListDialog;
-import com.xingyeda.ehome.ActivityHomepage;
 import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
@@ -37,10 +35,13 @@ import com.xingyeda.ehome.bean.SentryBean;
 import com.xingyeda.ehome.bean.Xiaoqu;
 import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.door.ActivityXiaoquSeek;
+import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
+import com.xingyeda.ehome.http.okhttp.CallbackHandler;
 import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
 import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
+import com.xingyeda.ehome.util.MyLog;
 import com.xingyeda.ehome.view.PriorityDialog;
 
 import org.json.JSONArray;
@@ -95,6 +96,8 @@ public class AddParkActivity extends BaseActivity {
     PercentRelativeLayout parkCarInformation;//车辆信息页面
     @Bind(R.id.park_driving_license)
     ImageView parkDrivingLicense;
+    @Bind(R.id.park_loading)
+    FrameLayout parkLoading;
 
 
     private List<Xiaoqu> mDatas;
@@ -122,11 +125,11 @@ public class AddParkActivity extends BaseActivity {
         getXiaoqu();
         parkName.setText(mEhomeApplication.getmCurrentUser().getmName());
         parkPhone.setText(mEhomeApplication.getmCurrentUser().getmPhone());
-        parkCarNumber.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener() {
+        parkCarNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
 
-                if(hasFocus) {
+                if (hasFocus) {
 //                    // 此处为得到焦点时的处理内容
 //                    if (imm != null) {
 //                        imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
@@ -141,7 +144,7 @@ public class AddParkActivity extends BaseActivity {
 //                    }
                 } else {
                     // 此处为失去焦点时的处理内容
-                    if(keyboardUtil.isShow()){
+                    if (keyboardUtil.isShow()) {
                         keyboardUtil.hideKeyboard();
                     }
                 }
@@ -151,23 +154,23 @@ public class AddParkActivity extends BaseActivity {
         });
         parkCarNumber.setOnTouchListener(new View.OnTouchListener() {
 
-			@Override
-			public boolean onTouch(View view, MotionEvent event) {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
                 // 此处为得到焦点时的处理内容
                 if (imm != null) {
                     imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
                 }
-                if(keyboardUtil == null){
+                if (keyboardUtil == null) {
                     keyboardUtil = new KeyboardUtil(AddParkActivity.this, parkCarNumber);
                     keyboardUtil.hideSoftInputMethod();
                     keyboardUtil.showKeyboard();
-                }else{
+                } else {
                     keyboardUtil.hideSoftInputMethod();
                     keyboardUtil.showKeyboard();
                 }
-				return false;
-			}
-		});
+                return false;
+            }
+        });
     }
 
     @OnClick({R.id.park_back, R.id.park_next_step, R.id.park_driving_license, R.id.park_submit, R.id.park_xiaoqu, R.id.park_watchhouse})
@@ -185,15 +188,15 @@ public class AddParkActivity extends BaseActivity {
             case R.id.park_next_step://下一步
                 if (mCommunityId == null) {
                     DialogShow.showHintDialog(mContext, "小区不能为空");
-                }else if(mSentryId == null){
+                } else if (mSentryId == null) {
                     DialogShow.showHintDialog(mContext, "岗亭不能为空");
                 } else if (parkName.getText().toString().equals("")) {
                     DialogShow.showHintDialog(mContext, "姓名不能为空");
                 } else if (parkPhone.getText().toString().equals("")) {
                     DialogShow.showHintDialog(mContext, "电话号码不能为空");
-                }else if (!isPhoneNumberValid(parkPhone.getText().toString())){
+                } else if (!isPhoneNumberValid(parkPhone.getText().toString())) {
                     DialogShow.showHintDialog(mContext, "请输入正确的手机号码!");
-                }else if (parkAddress.getText().toString().equals("")) {
+                } else if (parkAddress.getText().toString().equals("")) {
                     DialogShow.showHintDialog(mContext, "住址不能为空");
                 } else {
                     parkPersonageInformation.setVisibility(View.GONE);
@@ -214,7 +217,7 @@ public class AddParkActivity extends BaseActivity {
                     DialogShow.showHintDialog(mContext, "车牌号不能为空");
                 } else if (parkCarData.getText().toString().equals("")) {
                     DialogShow.showHintDialog(mContext, "登记日期不能为空");
-                }else if (pathImage.equals("")) {
+                } else if (pathImage.equals("")) {
                     DialogShow.showHintDialog(mContext, "行驶证图片不能为空");
                 } else {
                     parkAdd();
@@ -269,12 +272,12 @@ public class AddParkActivity extends BaseActivity {
                                     .getString("name") : "");
                             mDatas.add(xiaoqu);
                         }
-                        if (mEhomeApplication.getmCurrentUser().getmXiaoqu()!=null) {
+                        if (mEhomeApplication.getmCurrentUser().getmXiaoqu() != null) {
                             HomeBean bean = mEhomeApplication.getmCurrentUser().getmXiaoqu();
                             parkXiaoquText.setText(bean.getmCommunity());
                             mCommunityId = bean.getmCommunityId();
-                            parkAddress.setText(bean.getmCommunity()+bean.getmPeriods()+bean.getmUnit()+bean.getmHouseNumber());
-                        }else{
+                            parkAddress.setText(bean.getmCommunity() + bean.getmPeriods() + bean.getmUnit() + bean.getmHouseNumber());
+                        } else {
                             parkXiaoquText.setText(mDatas.get(0).getmName());
                             mCommunityId = mDatas.get(0).getmId();
                         }
@@ -319,30 +322,44 @@ public class AddParkActivity extends BaseActivity {
         }));
 
     }
-    private void parkAdd(){
-        Map<String,String> params = new HashMap<>();
-        params.put("uid",mEhomeApplication.getmCurrentUser().getmId());//用户id
-        params.put("communityId",mCommunityId);//小区id
-        params.put("pid",mSentryId);//岗亭id
-        params.put("parkName",parkName.getText().toString());//姓名
-        params.put("parkPhone",parkPhone.getText().toString());//电话
-        params.put("parkAddress",parkAddress.getText().toString());//地址
-        params.put("carBrand",parkCarBrand.getText().toString());//车辆品牌
-        params.put("carColour",parkCarColour.getText().toString());//车辆颜色
-        params.put("carType",parkCarType.getText().toString());//车辆型号
-        params.put("carNumber",parkCarNumber.getText().toString());//车牌号
-        params.put("carData",parkCarData.getText().toString());//登记日期
-       OkHttp.uploadFile(mContext,ConnectPath.BIND_SENTRY,"drivingLicense",pathImage,params,mFile,new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
+
+    private void parkAdd() {
+        MyLog.i("停车场添加");
+        parkLoading.setVisibility(View.VISIBLE);
+        Map<String, String> params = new HashMap<>();
+        params.put("uid", mEhomeApplication.getmCurrentUser().getmId());//用户id
+        params.put("communityId", mCommunityId);//小区id
+        params.put("pid", mSentryId);//岗亭id
+        params.put("parkName", parkName.getText().toString());//姓名
+        params.put("parkPhone", parkPhone.getText().toString());//电话
+        params.put("parkAddress", parkAddress.getText().toString());//地址
+        params.put("carBrand", parkCarBrand.getText().toString());//车辆品牌
+        params.put("carColour", parkCarColour.getText().toString());//车辆颜色
+        params.put("carType", parkCarType.getText().toString());//车辆型号
+        params.put("carNumber", parkCarNumber.getText().toString());//车牌号
+        params.put("carData", parkCarData.getText().toString());//登记日期
+        OkHttp.uploadFile(mContext, ConnectPath.BIND_SENTRY, "drivingLicense", pathImage, params, mFile, new BaseStringCallback(mContext, new CallbackHandler<String>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
                     if (response.getString("status").equals("200")) {
-                        BaseUtils.showShortToast(mContext,R.string.add_prosperity);
+                        parkLoading.setVisibility(View.GONE);
+                        BaseUtils.showShortToast(mContext, R.string.add_prosperity);
                         finish();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+
+            @Override
+            public void parameterError(JSONObject response) {
+                parkLoading.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure() {
+                parkLoading.setVisibility(View.GONE);
             }
         }));
 
@@ -377,7 +394,7 @@ public class AddParkActivity extends BaseActivity {
         @Override
         public boolean onTouch(View arg0, MotionEvent arg1) {
             if (keyboardUtil.isShow()) {
-            keyboardUtil.hideKeyboard();
+                keyboardUtil.hideKeyboard();
             }
             if (MotionEvent.ACTION_DOWN == arg1.getAction()) {
                 new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
@@ -413,14 +430,14 @@ public class AddParkActivity extends BaseActivity {
                         cursor.moveToFirst();
                         pathImage = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
                         mFile = new File(pathImage);
-                        parkDrivingLicense.setImageBitmap( BitmapFactory.decodeFile(pathImage));
+                        parkDrivingLicense.setImageBitmap(BitmapFactory.decodeFile(pathImage));
                     }
                     break;
 
                 case IMAGE_CAMERA:
                     Bundle bundle = data.getExtras();
                     Bitmap bitmap = (Bitmap) bundle.get("data");
-                    mFile = new File(Environment.getExternalStorageDirectory(),System.currentTimeMillis() + ".jpg");
+                    mFile = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + ".jpg");
                     try {
                         BufferedOutputStream bos = new BufferedOutputStream(
                                 new FileOutputStream(mFile));
@@ -432,7 +449,7 @@ public class AddParkActivity extends BaseActivity {
                     }
                     // mUpload.setImageBitmap(bitmap);
                     pathImage = mFile.getAbsoluteFile().toString();
-                    parkDrivingLicense.setImageBitmap( BitmapFactory.decodeFile(pathImage));
+                    parkDrivingLicense.setImageBitmap(BitmapFactory.decodeFile(pathImage));
                     break;
             }
 
@@ -450,18 +467,18 @@ public class AddParkActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (keyboardUtil!=null) {
-            if(keyboardUtil.isShow()){
-                keyboardUtil.hideKeyboard();
-            }else{
-            if (parkPersonageInformation.isShown()) {
-                finish();
+            if (keyboardUtil != null) {
+                if (keyboardUtil.isShow()) {
+                    keyboardUtil.hideKeyboard();
+                } else {
+                    if (parkPersonageInformation.isShown()) {
+                        finish();
+                    } else {
+                        parkPersonageInformation.setVisibility(View.VISIBLE);
+                        parkCarInformation.setVisibility(View.GONE);
+                    }
+                }
             } else {
-                parkPersonageInformation.setVisibility(View.VISIBLE);
-                parkCarInformation.setVisibility(View.GONE);
-            }
-            }
-            }else{
                 if (parkPersonageInformation.isShown()) {
                     finish();
                 } else {

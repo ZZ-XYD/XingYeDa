@@ -32,6 +32,7 @@ import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
 import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
+import com.xingyeda.ehome.util.MyLog;
 import com.xingyeda.ehome.view.PercentLinearLayout;
 
 import org.json.JSONArray;
@@ -176,8 +177,6 @@ public class ActivityShareSeek extends BaseActivity {
     }
     private List<SeekHistoryBase> allSeek;
     private void query(){
-//        allSeek = DataSupport.where("mUserId = ?", mEhomeApplication.getmCurrentUser().getmId()).find(SeekHistoryBase.class);
-//        allSeek = DataSupport.findAll(SeekHistoryBase.class);
         allSeek = DataSupport.order("mTime desc").find(SeekHistoryBase.class);
         SeekAdapter adapter = new SeekAdapter(allSeek);
         recyclerview.setAdapter(adapter);
@@ -239,9 +238,8 @@ public class ActivityShareSeek extends BaseActivity {
     }
 
     private void getShareList(String pageIndex, String pageSize, String content) {
+        MyLog.i("分享直播搜索:"+content);
         shareSeekBut.setVisibility(View.GONE);
-//        recyclerview.setVisibility(View.GONE);
-//        shareSeekLayout.setVisibility(View.VISIBLE);
         Map<String, String> params = new HashMap<>();
         params.put("index", pageIndex);
         params.put("size", pageSize);
@@ -302,6 +300,7 @@ public class ActivityShareSeek extends BaseActivity {
     }
 
     private void addShareList(String pageIndex, String pageSize, String content) {
+        MyLog.i("分享直播搜索加载更多:"+content);
         Map<String, String> params = new HashMap<>();
         params.put("index", pageIndex);
         params.put("size", pageSize);
@@ -393,49 +392,4 @@ public class ActivityShareSeek extends BaseActivity {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return sf.format(d);
     }
-
-    //
-//    @Override
-//    public boolean dispatchTouchEvent(MotionEvent ev) {
-//        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-//            View v = getCurrentFocus();
-//            if (isShouldHideInput(v, ev)) {
-//                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//                if (imm != null) {
-//                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-//                }
-//            }
-//            return super.dispatchTouchEvent(ev);
-//        } // 必不可少，否则所有的组件都不会有TouchEvent了
-//        if (getWindow().superDispatchTouchEvent(ev)) {
-//            return true;
-//        }
-//        return onTouchEvent(ev);
-//    }
-//
-//    public boolean isShouldHideInput(View v, MotionEvent event) {
-//        if (v != null && (v instanceof EditText)) {
-//            int[] leftTop = {0, 0};
-//            //获取输入框当前的location位置
-//            v.getLocationInWindow(leftTop);
-//            int left = leftTop[0];
-//            int top = leftTop[1];
-//            int bottom = top + v.getHeight();
-//            int right = left + v.getWidth();
-//            if (event.getX() > left && event.getX() < right
-//                    && event.getY() > top && event.getY() < bottom) {
-//                // 点击的是输入框区域，保留点击EditText的事件
-//                return false;
-//            } else {
-//                //使EditText触发一次失去焦点事件
-//                v.setFocusable(false);
-////                v.setFocusable(true); //这里不需要是因为下面一句代码会同时实现这个功能
-//                v.setFocusableInTouchMode(true);
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
-
 }

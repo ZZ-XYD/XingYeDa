@@ -51,6 +51,7 @@ import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.tenement.Notice_Activity;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.LogUtils;
+import com.xingyeda.ehome.util.MyLog;
 import com.xingyeda.ehome.util.SharedPreUtil;
 import com.xingyeda.ehome.wifiOnOff.MainActivity;
 import com.xingyeda.ehome.zhibo.ActivityShareMain;
@@ -119,6 +120,7 @@ public class JPushReceiver extends BroadcastReceiver {
 	if (message != null&& !message.equals("")) {
 	    ReceivePush rBean = gson.fromJson(message, ReceivePush.class);
 	    bean = rBean.getPushObject();
+		MyLog.i("JPush信息："+bean.toString());
 		LogUtils.i("JPushMsgId   "+bean.getmMsgId());
 		LogUtils.i("JPushMsgId   "+bean.toString());
 		if (mApplication.getmPushMap()!=null) {

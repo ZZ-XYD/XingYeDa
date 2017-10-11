@@ -26,6 +26,7 @@ import com.xingyeda.ehome.Test;
 import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.base.EHomeApplication;
 import com.xingyeda.ehome.bean.InformationBase;
+import com.xingyeda.ehome.bean.ParkBean;
 import com.xingyeda.ehome.bean.PushBean;
 import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.door.ActivityVideo;
@@ -36,7 +37,10 @@ import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.tenement.Notice_Activity;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.LogUtils;
+import com.xingyeda.ehome.util.MyLog;
 import com.xingyeda.ehome.util.SharedPreUtil;
+import com.xingyeda.ehome.zhibo.ActivityShareMain;
+import com.xingyeda.ehome.zhibo.ActivitySharePlay;
 
 import org.json.JSONObject;
 
@@ -74,25 +78,25 @@ public class MiPushReceiver extends PushMessageReceiver {
         mContext = context;
         mApplication = (EHomeApplication) mContext.getApplicationContext();
 
-        if (mApplication.getActivityStack()!=null) {
-            if (!mApplication.getActivityStack().isEmpty()) {
-                boolean isStart = false;
-                boolean isReturn = true;
-                for (Activity activity : mApplication.getActivityStack()) {
-                    if (activity.getClass().equals(ActivityLogin.class)) {
-                        return ;
-                    }
+        if (mApplication.getActivityStack()!=null&&!mApplication.getActivityStack().isEmpty()) {
+            boolean isStart = false;
+            boolean isReturn = true;
+            for (Activity activity : mApplication.getActivityStack()) {
+                if (activity.getClass().equals(ActivityLogin.class)) {
+                    return;
                 }
-                for (Activity activity : mApplication.getActivityStack()) {
-                    if (activity.getClass().equals(ActivityHomepage.class)) {
-                        isReturn = false;
-                    }
-                    isStart = true;
+            }
+            for (Activity activity : mApplication.getActivityStack()) {
+                if (activity.getClass().equals(ActivityHomepage.class)) {
+                    isReturn = false;
+                }else if(activity.getClass().equals(ActivityShareMain.class)){
+                    isReturn = false;
                 }
-                if (isStart) {
-                    if (isReturn) {
-                        return ;
-                    }
+                isStart = true;
+            }
+            if (isStart) {
+                if (isReturn) {
+                    return;
                 }
             }
         }
@@ -109,6 +113,7 @@ public class MiPushReceiver extends PushMessageReceiver {
 
 //            BaseUtils.showLongToast(mContext,"mipush");
              bean = gson.fromJson(msg, PushBean.class);
+            MyLog.i("MiPush信息："+bean.toString());
             LogUtils.i("MiPushMsgId   "+bean.getmMsgId());
             LogUtils.i("MiPushMsgId   "+bean.toString());
             if (mApplication.getmPushMap()!=null) {
@@ -139,20 +144,14 @@ public class MiPushReceiver extends PushMessageReceiver {
                     return ;
                 }
             }
-            if (!bean.getmType().equals("3") && !bean.getmType().equals("6")) {
+            if (!bean.getmType().equals("3") && !bean.getmType().equals("6") && !bean.getmType().equals("8") && !bean.getmType().equals("11")) {
                 if (bean.getmType().equals("2")) {
-                    // mImagePath = getPhotoFileName();
-                    if (mApplication.getmCurrentUser() != null) {
-//                        mApplication.getmManager().addScore(new InformationBase(Integer.valueOf(mApplication.getmCurrentUser().getmId()), bean.getmAdminName(), bean.getEaddress(),
-//                                  bean.getTitle(), bean.getAlertContent(), bean.getTime(), Integer.valueOf(bean.getSendType()), 0, bean.getPhotograph(),0, 0));
+                    if (mApplication.getmCurrentUser()!=null) {
                         InformationBase informationBase = new InformationBase(mApplication.getmCurrentUser().getmId(),bean.getmAdminName(),
                                 bean.getEaddress(), bean.getTitle(), bean.getAlertContent(), bean.getTime(), Integer.valueOf(bean .getSendType()), 0, bean.getPhotograph(),0, 0);
                         informationBase.save();
                     }
-                    // getImagePath(bean.getPhotograph());
                 } else {
-//                    mApplication.getmManager().addScore(new InformationBase(Integer.valueOf(mApplication.getmCurrentUser().getmId()), bean.getmAdminName(), bean.getEaddress(),
-//                            bean.getTitle(), bean.getAlertContent(), bean.getTime(), Integer.valueOf(bean.getSendType()), 0, null, -1, -1));
                     InformationBase informationBase = new InformationBase(mApplication.getmCurrentUser().getmId(),bean.getmAdminName(), bean.getEaddress(), bean.getTitle(),
                             bean.getAlertContent(), bean.getTime(), Integer.valueOf(bean.getSendType()), 0, null, -1, -1);
                     informationBase.save();
@@ -291,6 +290,18 @@ public class MiPushReceiver extends PushMessageReceiver {
 
                         }
                     });
+                }else if (bean.getmType().equals("9")){//停车场出入消息
+                    ParkBean parkBean= new ParkBean(mApplication.getmCurrentUser().getmId(),bean.getTitle(),bean.getmMsg(),bean.getTime(),bean.getPhotograph(),0);
+                    parkBean.save();
+                } else if (bean.getmType().equals("11")){//聊天室消息
+                    String name = bean.getmCode();
+                    String content = bean.getAlertContent();
+                    String time = bean.getTime();
+                    Intent msgIntent = new Intent(ActivitySharePlay.ACTION_NAME);
+                    msgIntent.putExtra("name", name);
+                    msgIntent.putExtra("content", content);
+                    msgIntent.putExtra("time", time);
+                    mContext.sendBroadcast(msgIntent);
                 }
             }
 

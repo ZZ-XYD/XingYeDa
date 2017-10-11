@@ -29,6 +29,7 @@ public class BaseUtils
      */
     public static void startActivities(Context context,Class<?> cls, Bundle bdl)
     {
+
         if(mIntent==null)
         {
             mIntent = new Intent(context, cls);
@@ -37,6 +38,7 @@ public class BaseUtils
         if(bdl!=null)
         {
             mIntent.putExtras(bdl);
+            MyLog.i("跳转界面："+cls+";参数:"+bdl.toString());
         }
         mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
         context.startActivity(mIntent);

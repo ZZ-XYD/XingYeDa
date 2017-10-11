@@ -21,6 +21,7 @@ import com.ldl.imageloader.utils.L;
 import com.umeng.analytics.MobclickAgent;
 import com.xingyeda.ehome.util.LogUtils;
 import com.ldl.okhttp.OkHttpUtils;
+import com.xingyeda.ehome.util.MyLog;
 
 //自定义父类
 public class BaseActivity extends Activity {
@@ -47,6 +48,7 @@ public class BaseActivity extends Activity {
         mScreenH = outMetrics.heightPixels;
 
         LogUtils.d(this.getClass().getSimpleName() + "...onCreate.......");
+        MyLog.i(this.getClass().getSimpleName()+"启动");
         mEhomeApplication = (EHomeApplication) getApplication();
     }
 
@@ -85,6 +87,7 @@ public class BaseActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        MyLog.i(this.getClass().getSimpleName()+"销毁");
         OkHttpUtils.getInstance().cancelTag(this);
         EHomeApplication.getInstance().finishActivity(this);
         mActivitieList.remove(this);

@@ -18,6 +18,7 @@ import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.tenement.ActivityComplainAndService;
 import com.xingyeda.ehome.util.BaseUtils;
+import com.xingyeda.ehome.util.MyLog;
 
 public class SetActivity extends BaseActivity {
 	@Bind(R.id.my_suggest_maintain)
@@ -68,6 +69,7 @@ public class SetActivity extends BaseActivity {
 		},new OnBtnClickL() {
 			@Override
 			public void onBtnClick() {
+				MyLog.i("退出用户");
 				mEhomeApplication.offLine();
 				mEhomeApplication.clearData();
 				mEhomeApplication.closemTimer();

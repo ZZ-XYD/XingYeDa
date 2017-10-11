@@ -28,6 +28,7 @@ import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
 import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
+import com.xingyeda.ehome.util.MyLog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -135,6 +136,7 @@ public class ActivityShareMain extends BaseActivity {
     }
 
     private void getShareList(String pageIndex, String pageSize) {
+        MyLog.i("获取分享直播列表：pageIndex"+pageIndex+";pageSize:"+pageSize);
         Map<String, String> params = new HashMap<>();
         params.put("index", pageIndex);
         params.put("size", pageSize);
@@ -194,6 +196,7 @@ public class ActivityShareMain extends BaseActivity {
     }
 
     private void addShareList(String pageIndex, String pageSize) {
+        MyLog.i("加载分享直播列表：pageIndex"+pageIndex+";pageSize:"+pageSize);
         Map<String, String> params = new HashMap<>();
         params.put("index", pageIndex);
         params.put("size", pageSize);

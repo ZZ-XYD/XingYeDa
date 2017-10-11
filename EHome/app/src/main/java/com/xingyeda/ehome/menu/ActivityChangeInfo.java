@@ -182,11 +182,6 @@ public class ActivityChangeInfo extends BaseActivity {
                         }else {
                             modification();
                         }
-//                        if (mContent.getText().toString().length() != 11) {
-//                            DialogShow.showHintDialog(mContext, "输入号码错误");
-//                        } else {
-//                            modification();
-//                        }
                     }
                 } else {
                     if (mStrContent.equals("name")) {

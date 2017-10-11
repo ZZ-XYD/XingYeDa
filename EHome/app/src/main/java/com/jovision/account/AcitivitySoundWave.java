@@ -44,6 +44,7 @@ import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
 import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
+import com.xingyeda.ehome.util.MyLog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -471,6 +472,7 @@ final NormalListDialog dialog = DialogShow.showListDialog(mContext, idList);
 
 		private void AddSound(final String id){
 //			mIsAdd = false;
+			MyLog.i("中维添加："+id);
 			 final Map<String, String> params = new HashMap<String, String>();
 			 params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
 			 params.put("num", id);

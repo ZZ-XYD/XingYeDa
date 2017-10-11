@@ -47,6 +47,7 @@ import com.xingyeda.ehome.life.LifeFragment;
 import com.xingyeda.ehome.menu.MeFragment;
 import com.xingyeda.ehome.tenement.TenementFragment;
 import com.xingyeda.ehome.util.LogUtils;
+import com.xingyeda.ehome.util.MyLog;
 import com.xingyeda.ehome.util.SharedPreUtil;
 import com.ldl.okhttp.OkHttpUtils;
 import com.xingyeda.ehome.zhibo.ShareFragment;
@@ -285,13 +286,14 @@ public class ActivityHomepage extends FragmentActivity {
 			String logs ;
 			switch (code) {
 				case 0:
-					logs = "Set tag and alias success";
+					logs = "设置标记和别名成功";
 					LogUtils.i(logs);
+					MyLog.i("极光初始化成功");
 					// 建议这里往 SharePreference 里写一个成功设置的状态。成功设置一次后，以后不必再次设置了。
 					SharedPreUtil.put(mContext,"push",code+"   "+alias+"   "+tags);
 					break;
 				case 6002:
-					logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
+					logs = "由于超时未能设置别名和标记。60年代后再试一次。";
 					// 延迟 60 秒来调用 Handler 设置别名
 					PushAliasAndTags bean = new PushAliasAndTags(alias,tags);
 					mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_SET_ALIAS, bean), 1000 * 60);
