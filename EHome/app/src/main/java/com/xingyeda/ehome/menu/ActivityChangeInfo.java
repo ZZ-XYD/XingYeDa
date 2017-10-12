@@ -217,6 +217,7 @@ public class ActivityChangeInfo extends BaseActivity {
 
                                 @Override
                                 public void onBtnClick() {
+                                    dialog.superDismiss();
                                     ActivityChangeInfo.this.finish();
                                 }
 
@@ -228,6 +229,7 @@ public class ActivityChangeInfo extends BaseActivity {
 
                                 @Override
                                 public void onBtnClick() {
+                                    dialog.superDismiss();
                                     ActivityChangeInfo.this.finish();
                                 }
 
