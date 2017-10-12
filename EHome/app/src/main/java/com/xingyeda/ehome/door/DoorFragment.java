@@ -37,6 +37,7 @@ import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.base.EHomeApplication;
 import com.xingyeda.ehome.bean.AnnunciateBean;
 import com.xingyeda.ehome.bean.HomeBean;
+import com.xingyeda.ehome.bean.InformationBase;
 import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
 import com.xingyeda.ehome.http.okhttp.CallbackHandler;
@@ -66,6 +67,7 @@ import com.xingyeda.ehome.zxing.encode.CodeCreator;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -78,6 +80,7 @@ import butterknife.OnClick;
 
 import static android.R.attr.isDefault;
 import static android.R.attr.path;
+import static android.R.id.list;
 import static android.app.Activity.RESULT_OK;
 import static com.xingyeda.ehome.R.string.share;
 import static com.xingyeda.ehome.base.BaseActivity.mEhomeApplication;
@@ -315,7 +318,27 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                                     bean.setmParkId(jobj.has("cplid") ? jobj.getString("cplid") : "");
                                     bean.setmCommunityId(jobj.has("xiaoqu") ? jobj.getString("xiaoqu") : "");
                                     bean.setmParkName(jobj.has("address") ? jobj.getString("address") : "");
-                                    mXiaoqu_List.add(bean);
+                                    List<HomeBean> list = DataSupport.findAll(HomeBean.class);
+                                    HomeBean baseBean = null;
+                                    if (list!=null&&!list.isEmpty()) {
+                                        for (HomeBean homeBean : list) {
+                                            if (homeBean.getmParkId().equals(bean.getmParkId())) {
+                                                baseBean=homeBean;
+                                            }
+                                        }
+                                    }else{
+                                        bean.setmParkNickName(bean.getmParkName());
+                                        bean.save();
+                                        baseBean = bean;
+                                    }
+                                    if (baseBean==null) {
+                                        bean.setmParkNickName(bean.getmParkName());
+                                        mXiaoqu_List.add(bean);
+                                    }else{
+                                        mXiaoqu_List.add(baseBean);
+                                    }
+
+
                                 }
                             }
                         } catch (JSONException e) {

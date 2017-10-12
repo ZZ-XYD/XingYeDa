@@ -1,7 +1,8 @@
 package com.xingyeda.ehome.bean;
 
-public class HomeBean 
-{
+import org.litepal.crud.DataSupport;
+
+public class HomeBean extends DataSupport {
     //小区logo
     private int mId;
     private String state;//用户是否冻结
@@ -33,6 +34,24 @@ public class HomeBean
 
     private String mParkName;
     private String mParkId;
+    private String mParkNickName;
+
+    public HomeBean() {
+    }
+
+    public HomeBean(String mParkName, String mParkId, String mParkNickName) {
+        this.mParkName = mParkName;
+        this.mParkId = mParkId;
+        this.mParkNickName = mParkNickName;
+    }
+
+    public String getmParkNickName() {
+        return mParkNickName;
+    }
+
+    public void setmParkNickName(String mParkNickName) {
+        this.mParkNickName = mParkNickName;
+    }
 
     public String getmParkName() {
         return mParkName;

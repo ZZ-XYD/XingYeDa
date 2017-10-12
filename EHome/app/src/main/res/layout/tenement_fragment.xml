@@ -84,17 +84,24 @@
             android:background="@color/theme_orange"
             />
     </LinearLayout>
-    <RelativeLayout 
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <com.xingyeda.ehome.view.listview.PullToRefreshMenuView 
-        android:id="@+id/ad_listview"
+    <android.support.percent.PercentRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        />
+
+        app:layout_marginTopPercent="1%">
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/ad_swipereLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_marginLeftPercent="5%"
+            app:layout_marginRightPercent="5%"
+            >
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/ad_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
         <ImageView 
             android:id="@+id/ad_no_data"
             android:layout_width="match_parent"
@@ -103,7 +110,7 @@
             android:visibility="gone"
             android:contentDescription="@null"/>
         
-    </RelativeLayout>
+    </android.support.percent.PercentRelativeLayout>
     
 
 

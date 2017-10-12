@@ -32,6 +32,8 @@ public class ConciseStringCallback extends StringCallback {
     @Override
     public void onResponse(String response,int id) {
 		MyLog.i("返回数据："+response);
+		if (response!=null) {
+
 	try {
 	    JSONObject jobj= new JSONObject(response);
 	    if (!jobj.get("status").equals("200")) {
@@ -41,10 +43,12 @@ public class ConciseStringCallback extends StringCallback {
 		return;
 	    }
 
-		mCallbackHandler.onResponse(new JSONObject(response));
+		mCallbackHandler.onResponse(jobj);
 
 	} catch (JSONException e) {
 	    e.printStackTrace();
 	}
+
+		}
     }
 }

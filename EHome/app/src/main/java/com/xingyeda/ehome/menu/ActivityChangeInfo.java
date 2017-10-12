@@ -19,6 +19,7 @@ import com.xingyeda.ehome.adapter.XiaoquAdapter;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.bean.HomeBean;
+import com.xingyeda.ehome.bean.InformationBase;
 import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
 import com.xingyeda.ehome.http.okhttp.CallbackHandler;
@@ -59,6 +60,7 @@ public class ActivityChangeInfo extends BaseActivity {
     FrameLayout changeLoading;
 
     private String mStrContent;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class ActivityChangeInfo extends BaseActivity {
         ButterKnife.bind(this);
 
         mStrContent = getIntent().getExtras().getString("type");
+        id = getIntent().getExtras().getString("id");
         if (mStrContent.equals("name")) {
             mTitle.setText("修改姓名");
             mContent.setHint("请输入新名字");
@@ -80,6 +83,9 @@ public class ActivityChangeInfo extends BaseActivity {
             mView.setVisibility(View.GONE);
             mSave.setVisibility(View.GONE);
             init();
+        }else if(mStrContent.equals("park")){
+            mTitle.setText("修改停车场呢称");
+            mContent.setHint("请输入停车场呢称");
         }
 
         changeLoading.setOnTouchListener(new View.OnTouchListener(){
@@ -182,12 +188,24 @@ public class ActivityChangeInfo extends BaseActivity {
                         }else {
                             modification();
                         }
+                    }else if(mStrContent.equals("park")){
+                        if (Stringlength(mContent.getText().toString()) <= 16) {
+                            HomeBean homeBean = new HomeBean();
+                            homeBean.setmParkNickName(mContent.getText().toString());
+                            homeBean.updateAll("mParkId = ?", id);
+                            BaseUtils.showShortToast(mContext,"修改成功");
+                            ActivityChangeInfo.this.finish();
+                        } else {
+                            DialogShow.showHintDialog(mContext, "呢称过长");
+                        }
                     }
-                } else {
+                } else  {
                     if (mStrContent.equals("name")) {
                         DialogShow.showHintDialog(mContext, "输入名字为空");
                     } else if (mStrContent.equals("beiyong")) {
                         DialogShow.showHintDialog(mContext, "输入号码为空");
+                    }else if(mStrContent.equals("park")){
+                        DialogShow.showHintDialog(mContext, "输入呢称为空");
                     }
 
                 }

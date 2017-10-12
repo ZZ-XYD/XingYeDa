@@ -2,13 +2,14 @@
 <litepal>
     <dbname value="EHome" ></dbname>
 
-    <version value="3" ></version>
+    <version value="4" ></version>
 
 
     <list>
         <mapping class="com.xingyeda.ehome.bean.InformationBase"></mapping>
         <mapping class="com.xingyeda.ehome.bean.SeekHistoryBase"></mapping>
         <mapping class="com.xingyeda.ehome.bean.ParkBean"></mapping>
+        <mapping class="com.xingyeda.ehome.bean.HomeBean"></mapping>
     </list>
 
 </litepal>

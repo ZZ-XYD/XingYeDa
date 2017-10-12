@@ -27,6 +27,8 @@ import butterknife.ButterKnife;
 import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.bean.InformationBase;
 
+import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
+
 @SuppressLint("SimpleDateFormat")
 public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.ViewHolder> {
 
@@ -67,21 +69,21 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
 
 		holder.tvContent.setTextColor(mContext.getResources().getColor(R.color.black));
 		holder.tvTitle.setText(bean.getmTitle());
-		String imagePath ;
 		if (bean.getmZhongWeiType()!=null) {
-			imagePath = bean.getmZhongWeiImage();
+			String imagePath = bean.getmZhongWeiImage();
+			holder.info_img_content.setBackgroundResource(R.mipmap.information_bgm);
 			holder.tvContent.setVisibility(View.GONE);
 			holder.info_img_content.setVisibility(View.VISIBLE);
-			holder.info_img_content.setBackgroundResource(R.mipmap.information_bgm);
 			if (imagePath!=null) {
-				holder.tvContent.setVisibility(View.GONE);
-				holder.info_img_content.setVisibility(View.VISIBLE);
 				if (isExist(imagePath)) {
 					holder.info_img_content.setImageBitmap(getLoacalBitmap(imagePath));
 				}
 			}
+		}else{
+			holder.tvContent.setVisibility(View.VISIBLE);
+			holder.info_img_content.setVisibility(View.GONE);
+			holder.tvContent.setText("\t\t"+bean.getmContent());
 		}
-		holder.tvContent.setText("\t\t"+bean.getmContent());
 		if (isToday(bean.getmTime())) {
 			holder.tvTime.setText(dateFormaterTime.get().format(toDate(bean.getmTime())));
 		}

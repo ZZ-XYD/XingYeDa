@@ -66,10 +66,8 @@ public class Notice_Activity extends BaseActivity
         
     }
         @OnClick(R.id.RT_notice_back)
-        public void onClick(View v)
-        {
-                Notice_Activity.this.finish();
-
+        public void onClick(View v) {
+            Notice_Activity.this.finish();
         }
     
     //数据加载

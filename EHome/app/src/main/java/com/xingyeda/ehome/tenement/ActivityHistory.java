@@ -60,9 +60,7 @@ public class ActivityHistory extends BaseActivity
     private String mPath;
     private List<BeanComplainHistory> mComplainList;
     private List<BeanMaintainHistory> mMaintainList;
-    private List<AnnunciateBean> mAnnunciateList;
     private ComplainAdapter mComplainAdapter;
-    private AnnunciateAdapter mAnnunciateAdapter;
     private MaintainAdapter mMaintainAdapter;
 
     private static final int TOUSU = 1;
@@ -89,7 +87,6 @@ public class ActivityHistory extends BaseActivity
         this.TYPE = getIntent().getExtras().getString("type");
         this.mComplainList = new ArrayList<>();
         this.mMaintainList = new ArrayList<>();
-        this.mAnnunciateList = new ArrayList<>();
         if (TYPE.equals("tousu"))
         {
             mTitle.setText(R.string.suggested_history);
@@ -102,84 +99,10 @@ public class ActivityHistory extends BaseActivity
             this.mPath = ConnectPath.GETSERVICE_PATH;
             maintainDataLoad(TYPE, mPath, "0", "15", 0);
         }
-        else if (TYPE.equals("annunciate"))
-        {
-            mTitle.setText(R.string.notification);
-            this.mPath = ConnectPath.ANNUNCIATE_PATH;
-            annunciateDataLoad(TYPE, mPath, "0", "15", 0);
-
-        }
 
     }
 
-    /**
-     * 通知
-     * @param type
-     * @param path
-     * @param pageIndex
-     * @param pageSize
-     * @param time
-     */
-    private void annunciateDataLoad(String type, String path, String pageIndex,
-            String pageSize, final int time)
-    {
-    	Map<String,String> params = new HashMap<String, String>();
-        params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
-        params.put("pageIndex", pageIndex);
-        params.put("pageSize", pageSize);
-        OkHttp.get(mContext,ConnectPath.ANNUNCIATE_PATH, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
-			@Override
-			public void onResponse(JSONObject response) {
-				 try
-                 {
-                         JSONObject jsonObject = (JSONObject) response
-                                 .get("obj");
-                         JSONArray ad_List = (JSONArray) jsonObject
-                                 .get("list");
-                         if (ad_List != null && ad_List.length() != 0)
-                         {
-                             for (int i = 0; i < ad_List.length(); i++)
-                             {
-                                 JSONObject jobj = ad_List
-                                         .getJSONObject(i);
-                                 AnnunciateBean bean = new AnnunciateBean();
-                                 bean.setmTitle(jobj.getString("title"));
-                                 bean.setmContent(jobj
-                                         .getString("content"));
-                                 bean.setmTime(jobj
-                                         .getString("createTime"));
-                                 mAnnunciateList.add(bean);
-                             }
-                             if (ad_List.length()!=0)
-                             {
-                                 mSum+=15;
-                             }
-                         }
-                         Message msg = new Message();
-                         msg.obj = mAnnunciateList;
-                         if (time == 0)
-                         {
-                             msg.what = AC_DATA;
-                         }
-                         else if (time == 1)
-                         {
-                             msg.what = REFRESH_DATA_FINISH;
-                         }
-                         else if (time == 2)
-                         {
-                             msg.what = LOAD_DATA_FINISH;
-                         }
-                         mHandler.sendMessage(msg);
-                 }
-                 catch (JSONException e)
-                 {
-                     e.printStackTrace();
-                 }
-			}
-		}));
-        
-       
-    }
+
         @OnClick(R.id.history_back)
         public void onClick(View v)
         {
@@ -200,9 +123,6 @@ public class ActivityHistory extends BaseActivity
             case WEIXIU:
                 maintainDatasLoad((List<BeanMaintainHistory>) msg.obj,0);
                 break;
-            case AC_DATA:
-                AnnunciateDatasLoad((List<AnnunciateBean>) msg.obj,0);
-                break;
             case REFRESH_DATA_FINISH:
                 if (mComplainAdapter != null)
                 {
@@ -211,10 +131,6 @@ public class ActivityHistory extends BaseActivity
                 else if (mMaintainAdapter!=null)
                 {
                     maintainDatasLoad((List<BeanMaintainHistory>) msg.obj,0);
-                }
-                else if (mAnnunciateAdapter!=null)
-                {
-                    AnnunciateDatasLoad((List<AnnunciateBean>) msg.obj,0);
                 }
                 mHisListview.onRefreshComplete(); // 下拉刷新完成
                 break;
@@ -227,73 +143,12 @@ public class ActivityHistory extends BaseActivity
                 {
                     maintainDatasLoad((List<BeanMaintainHistory>) msg.obj,1);
                 }
-                else if (mAnnunciateAdapter!=null)
-                {
-                    AnnunciateDatasLoad((List<AnnunciateBean>) msg.obj,1);
-                }
                 mHisListview.onLoadMoreComplete(); // 加载更多完成
                 break;
             }
         }
 
     };
-    private void AnnunciateDatasLoad(List<AnnunciateBean> list,int type)
-    {
-        if (list != null && list.size() !=0)
-        {
-            mHisListview.setVisibility(View.VISIBLE);
-            mHint.setVisibility(View.GONE);
-        }
-        else
-        {
-            mHisListview.setVisibility(View.GONE);
-            mHint.setVisibility(View.VISIBLE);
-        }
-        
-        if (type == 0) {
-            mAnnunciateAdapter = new AnnunciateAdapter(ActivityHistory.this, list);
-            mHisListview.setAdapter(mAnnunciateAdapter);
-	}
-        mAnnunciateAdapter.notifyDataSetChanged();
-        mHisListview.setOnItemClickListener(itemClickListener);
-
-        if (mAnnunciateList.size() !=0 && mAnnunciateList.size() >= mSum)
-        {
-            if (list.size()>14)
-            {
-        // 加载更多
-        mHisListview.setOnLoadListener(new OnLoadMoreListener()
-        {
-
-            @Override
-            public void onLoadMore()
-            {
-                mPageIndex += 1;
-                annunciateDataLoad(TYPE, mPath, mPageIndex + "", "15", 2);
-            }
-        });
-            }
-        }
-        else {
-            if (mAnnunciateList.size() !=0 && list.size()>14) {
-        	mHisListview.setOnLoadMoreText();
-        	mHisListview.removeFooteView();
-	    }
-        }
-        // 下拉刷新
-        mHisListview.setOnRefreshListener(new OnRefreshListener()
-        {
-
-            @Override
-            public void onRefresh()
-            {
-                int size = mAnnunciateList.size();
-                mAnnunciateList.clear();
-                annunciateDataLoad(TYPE, mPath, "0", size + "", 1);
-            }
-        });
-        
-    }
 
     private void complainDatasLoad(List<BeanComplainHistory> list,int type)
     {
@@ -442,16 +297,7 @@ public class ActivityHistory extends BaseActivity
                 bundle.putString("time", bean.getmTime());
                 bundle.putStringArrayList("imageList", bean.getmImageList());
             }
-            else if (TYPE.equals("annunciate"))
-            {
-                AnnunciateBean bean = (AnnunciateBean) mHisListview
-                        .getItemAtPosition(position);
-                bundle.putString("title", bean.getmTitle());
-                bundle.putString("content", bean.getmContent());
-                bundle.putString("time", bean.getmTime());
-                bundle.putString("bean", "annunciate");
-                bundle.putStringArrayList("imageList", null);
-            }
+
             BaseUtils.startActivities(ActivityHistory.this,Notice_Activity.class, bundle);
         }
 

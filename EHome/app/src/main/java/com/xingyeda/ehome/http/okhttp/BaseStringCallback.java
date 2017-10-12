@@ -14,6 +14,8 @@ import com.ldl.okhttp.callback.StringCallback;
 import com.xingyeda.ehome.base.EHomeApplication;
 import com.xingyeda.ehome.util.MyLog;
 
+import static com.baidu.location.b.c.bn;
+
 
 public class BaseStringCallback extends StringCallback {
 
@@ -35,19 +37,23 @@ public class BaseStringCallback extends StringCallback {
     @Override
     public void onResponse(String response,int id) {
 		MyLog.i("返回数据："+response);
+		if (response!=null) {
+
 	try {
 	    JSONObject jobj= new JSONObject(response);
 	    if (!jobj.get("status").equals("200")) {
 		if (jobj.has("msg")) {
 			BaseUtils.showShortToast(mContext, jobj.getString("msg"));
 		}
-			mCallbackHandler.parameterError(new JSONObject(response));
+			mCallbackHandler.parameterError(jobj);
 		return;
 	    }
-		mCallbackHandler.onResponse(new JSONObject(response));
+		mCallbackHandler.onResponse(jobj);
 
 	} catch (JSONException e) {
 	    e.printStackTrace();
 	}
+
+		}
     }
 }

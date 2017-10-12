@@ -52,6 +52,8 @@ import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.LogUtils;
 import com.xingyeda.ehome.util.LogcatHelper;
 import com.ldl.okhttp.OkHttpUtils;
+import com.xingyeda.ehome.util.MyLog;
+
 import static com.xingyeda.ehome.base.PhoneBrand.SYS_EMUI;
 import static com.xingyeda.ehome.push.TagAliasOperatorHelper.ACTION_CLEAN;
 import static com.xingyeda.ehome.push.TagAliasOperatorHelper.ACTION_DELETE;
@@ -410,6 +412,8 @@ public class EHomeApplication extends CoreApplication implements IHandlerLikeNot
 		mIsDownload = false;
 //		OkHttpClient client = OkHttpUtils.getInstance().getOkHttpClient();
 		OkHttpUtils.getInstance().setConnectTimeout(100000, TimeUnit.MILLISECONDS);
+		initErrorHandler();
+		MyLog.delFile();
 
 		if (!SYS_EMUI.equals(PhoneBrand.getSystem())){
 		//小米推送
@@ -436,6 +440,11 @@ public class EHomeApplication extends CoreApplication implements IHandlerLikeNot
 		filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);// 整个网格连接状态改变（wifi/34g）
 		this.registerReceiver(wifBC, filter);
 	}
+	private void initErrorHandler(){
+		CrashHandler handler = CrashHandler.getInstance();
+		handler.init(this);
+	}
+
 
 	private static String PATH_LOGCAT;
 

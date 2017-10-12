@@ -29,12 +29,12 @@
             android:paddingBottom="50dp"
             android:paddingLeft="10dp"
          />
-    <RelativeLayout 
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-        
-    <com.xingyeda.ehome.view.CustomListView 
+
+    <com.xingyeda.ehome.view.CustomListView
         android:id="@+id/history_listview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -43,7 +43,7 @@
         android:layout_marginRight="10dp"
         android:visibility="gone"
         android:background="@null"
-        android:divider="#00000000" 
+        android:divider="#00000000"
         />
     <ImageView
         android:id="@+id/history_hint"

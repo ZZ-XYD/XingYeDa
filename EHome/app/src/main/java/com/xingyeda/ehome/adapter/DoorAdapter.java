@@ -36,6 +36,7 @@ import com.xingyeda.ehome.door.ActivityVideo;
 import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
 import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
+import com.xingyeda.ehome.menu.ActivityChangeInfo;
 import com.xingyeda.ehome.park.ParkHistoryActivity;
 import com.xingyeda.ehome.util.BaseUtils;
 
@@ -309,7 +310,7 @@ public class DoorAdapter extends BaseAdapter
 				}
 			});//修改
 		}else if (bean.getmType().equals("5")) {
-			viewHolder.tvXiaoqu.setText(bean.getmParkName());
+			viewHolder.tvXiaoqu.setText(bean.getmParkNickName());
 			viewHolder.tvQishu.setText("");
 			viewHolder.tvDongshu.setText("");
 			viewHolder.tvDoorplate.setText("");
@@ -342,13 +343,10 @@ public class DoorAdapter extends BaseAdapter
 			viewHolder.mOption2.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Map<String, String> params = new HashMap<String, String>();
-					OkHttp.get(mContext,ConnectPath.CAR_MONTH_CARD,params,new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
-						@Override
-						public void onResponse(JSONObject response) {
-
-						}
-					}));
+					Bundle bundle = new Bundle();
+					bundle.putString("type", "park");
+					bundle.putString("id", bean.getmParkId());
+					BaseUtils.startActivities(mContext, ActivityChangeInfo.class, bundle);
 				}
 			});//月卡
 		}

@@ -7,18 +7,14 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.Map;
-import java.util.Set;
 
 
 import butterknife.Bind;
 import okhttp3.Call;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -27,30 +23,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-
-import com.google.gson.Gson;
-import com.jovision.CatFile;
-import com.jovision.JVBase;
-import com.jovision.PlayUtil;
-import com.jovision.account.JVMaoYanActivity;
-import com.jovision.account.MaoYanSetActivity;
-import com.jovision.account.TestPlay;
 import com.ldl.dialogshow.dialog.entity.DialogMenuItem;
 import com.ldl.dialogshow.dialog.listener.OnOperItemClickL;
 import com.ldl.dialogshow.dialog.widget.NormalListDialog;
@@ -58,37 +39,23 @@ import com.ldl.imageloader.core.ImageLoader;
 import com.ldl.imageloader.core.assist.FailReason;
 import com.ldl.imageloader.core.listener.ImageLoadingListener;
 import com.xingyeda.ehome.R;
-import com.xingyeda.ehome.alipay.ALiPayActivity;
-import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.base.EHomeApplication;
 import com.xingyeda.ehome.bean.PushBean;
 import com.xingyeda.ehome.dialog.DialogShow;
-import com.xingyeda.ehome.push.ExampleUtil;
-import com.xingyeda.ehome.push.TagAliasOperatorHelper;
+import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
+import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
+import com.xingyeda.ehome.http.okhttp.OkHttp;
+import com.xingyeda.ehome.util.AppUtils;
 import com.xingyeda.ehome.util.BaseUtils;
-import com.xingyeda.ehome.util.LogUtils;
-import com.xingyeda.ehome.util.LogcatHelper;
 import com.xingyeda.ehome.util.MyLog;
 import com.xingyeda.ehome.view.MaskedImage;
-import com.xingyeda.ehome.wifiOnOff.MainActivity;
-import com.xingyeda.ehome.wifiOnOff.OnOffAddActivity;
 import com.ldl.okhttp.OkHttpUtils;
 import com.ldl.okhttp.callback.StringCallback;
-import com.xingyeda.ehome.wifiOnOff.SmartHomeActivity;
-import com.xingyeda.ehome.zhibo.ActivityShareMain;
-import com.xingyeda.ehome.zhibo.ActivitySharePlay;
-import com.xingyeda.ehome.zhibo.ActivityVideoShare;
 
-import static com.jovision.PlayUtil.startStreamCatDownload;
-import static com.jovision.PlayUtil.streamCatConnect2;
-import static com.xingyeda.ehome.R.id.linkState;
-import static com.xingyeda.ehome.R.string.share;
-import static com.xingyeda.ehome.push.TagAliasOperatorHelper.ACTION_ADD;
-import static com.xingyeda.ehome.push.TagAliasOperatorHelper.ACTION_DELETE;
-import static com.xingyeda.ehome.push.TagAliasOperatorHelper.ACTION_GET;
-import static com.xingyeda.ehome.push.TagAliasOperatorHelper.sequence;
+import org.json.JSONObject;
 
+import static com.xingyeda.ehome.base.BaseActivity.mEhomeApplication;
 
 public class MeFragment extends Fragment {
 	private View mView;
@@ -157,22 +124,6 @@ public class MeFragment extends Fragment {
 
 							}
 						});
-//				OkHttp.getImage(mContext, mApplication.getmCurrentUser()
-//						.getmHeadPhotoUrl(), new BitmapCallback() {
-//					@Override
-//					public void onResponse(Bitmap bitmap, int id) {
-//						mApplication.getmCurrentUser().setmHeadPhoto(bitmap);
-//						if (mHead!=null) {
-//							mHead.setImageBitmap(bitmap);
-//						}
-//					}
-//
-//					@Override
-//					public void onError(Call call, Exception e, int id) {
-////						mHead.setImageResource(R.drawable.head);
-//					}
-//
-//				});
 					}
 
 			}
@@ -208,20 +159,17 @@ public class MeFragment extends Fragment {
 			break;
 		case R.id.me_set:
 			bundle.putString("type","set");
-//			BaseUtils.startActivity(mContext, ActivityMenuSet.class);
 			BaseUtils.startActivities(mContext,SetActivity.class, bundle);
 			break;
 		case R.id.my_suggest:
 			bundle.putString("type","suggest");
 			BaseUtils.startActivities(mContext,SetActivity.class, bundle);
-//			BaseUtils.startActivity(mContext, ActivityChangePassword.class);
 			break;
 		case R.id.me_about:
 			BaseUtils.startActivity(mContext, ActivityAbout.class);
 			break;
 		case R.id.my_pay_fees:
 			DialogShow.showHintDialog(mContext, "该功能暂未开放，敬请期待");
-//			BaseUtils.startActivity(mContext, ALiPayActivity.class);
 			break;
 		case R.id.me_head:
 			uploadHeadPhoto();
@@ -231,7 +179,6 @@ public class MeFragment extends Fragment {
 
 	}
 	private void uploadHeadPhoto() {
-		// final String[] items = new String[] { "从相册选择","拍照" };
 		ArrayList<DialogMenuItem> list = new ArrayList<DialogMenuItem>();
 		list.add(new DialogMenuItem("从相册选择", R.mipmap.select_image));
 		list.add(new DialogMenuItem("拍照", R.mipmap.photograph));
@@ -245,23 +192,16 @@ public class MeFragment extends Fragment {
 				switch (position) {
 				case 0:
 					// 从相册中选择
-					Intent intent = new Intent(
-							Intent.ACTION_PICK,
-							MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+					Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 					startActivityForResult(intent, IMAGE_REQUEST_CODE);
 					break;
 				case 1:
 					// 拍照
-					Intent intentFromCamera = new Intent(
-							MediaStore.ACTION_IMAGE_CAPTURE);
+					Intent intentFromCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 					if (hasSdcard()) {
 						// 指定调用相机拍照后照片的储存路径
-						tempFile = new File(Environment
-								.getExternalStorageDirectory(),
-								getPhotoFileName());
-						intentFromCamera.putExtra(MediaStore.EXTRA_OUTPUT,
-								Uri.fromFile(tempFile));
-
+						tempFile = new File(Environment.getExternalStorageDirectory(), getPhotoFileName());
+						intentFromCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));
 					}
 					startActivityForResult(intentFromCamera,
 							CAMERA_REQUEST_CODE);
@@ -302,13 +242,10 @@ public class MeFragment extends Fragment {
 		case IMAGE_REQUEST_CODE:
 			if (data != null) {
 				startPhotoZoom(data.getData());
-//				startPhotoZoom(Uri.parse(ImageUtil.compressImage(data.getData().toString(), "0", 10)));
 				mImageFile = new File(getRealPathFromURI(data.getData()));
-//				mImageFile = new File(ImageUtil.compressImage(getRealPathFromURI(data.getData()), "0", 10));
 			}
 			break;
 		case CAMERA_REQUEST_CODE:
-//			startPhotoZoom(Uri.parse(ImageUtil.compressImage(Uri.fromFile(tempFile).toString(), "0", 10)));
 			startPhotoZoom(Uri.fromFile(tempFile));
 			mImageFile = tempFile;
 			break;
@@ -352,39 +289,21 @@ public class MeFragment extends Fragment {
 	 * @param data
 	 */
 	private void sentPicToNext(Intent data) {
-//		file();
-//		mImageFile = new File(getRealPathFromURI(data.getData()));
 		Bundle extras = data.getExtras();
 		if (extras != null) {
 			Bitmap photo = extras.getParcelable("data");
-			saveBitmapFile(mImageFile, photo);
+//			saveBitmapFile(mImageFile, photo);
 			mBitmap = photo;
-//			uploadHead();// 上传头像
+			uploadHead();// 上传头像
 		}
 	}
-
-//	@SuppressLint("SimpleDateFormat")
-//	private void file() {
-//		SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
-//		mFile = new File(Environment.getExternalStorageDirectory(),
-//				df.format(new java.util.Date()) + ".zip");
-//		if (!mFile.exists()) {
-//			try {
-//				mFile.createNewFile();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//			return;
-//		}
-//	}
 
 	private void uploadHead() {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("uid", mApplication.getmCurrentUser().getmId());
 		File file = new File(mImageFile, "");
 		if (!file.exists()) {
-			Toast.makeText(mContext, "文件不存在，请修改文件路径", Toast.LENGTH_SHORT)
-					.show();
+			Toast.makeText(mContext, "文件不存在，请修改文件路径", Toast.LENGTH_SHORT).show();
 			return;
 		}
 
@@ -433,17 +352,17 @@ public class MeFragment extends Fragment {
 			return null;
 		}
 	}
-	public void saveBitmapFile(File file,Bitmap bitmap){ 
-		 try { 
-		 BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file)); 
-		 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos); 
-		 bos.flush(); 
-		 bos.close();
-		 } catch (IOException e) { 
-		 e.printStackTrace(); 
-		 } 
-		 uploadHead();// 上传头像
-		 }
+//	public void saveBitmapFile(File file,Bitmap bitmap){
+//		 try {
+//		 BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+//		 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+//		 bos.flush();
+//		 bos.close();
+//		 } catch (IOException e) {
+//		 e.printStackTrace();
+//		 }
+//		 uploadHead();// 上传头像
+//		 }
 
 	@Override
 	public void onDestroyView() {

@@ -149,7 +149,28 @@ public class MyLog {
     }
 
     /**
-     * 得到需要删除的前几天文件名
+     *
+     * @param day
+     * @return
+     */
+    public static String fileName(int day) {
+        String needDelFiel = logfile.format(getDateBefore(day));
+//        File file = new File(MYLOG_PATH_SDCARD_DIR, needDelFiel + MYLOGFILEName);
+        return needDelFiel + MYLOGFILEName;
+    }
+    /**
+     *
+     * @param day
+     * @return
+     */
+    public static File getFile(int day) {
+        String needDelFiel = logfile.format(getDateBefore(day));
+        File file = new File(MYLOG_PATH_SDCARD_DIR, needDelFiel + MYLOGFILEName);
+        return file;
+    }
+
+    /**
+     * 得到需要的前几天文件名
      * */
     private static Date getDateBefore(int day) {
         Date nowtime = new Date();

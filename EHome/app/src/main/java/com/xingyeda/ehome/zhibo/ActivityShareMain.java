@@ -91,7 +91,6 @@ public class ActivityShareMain extends BaseActivity {
 
         getShareList("1", "10");
 
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
         if (mEhomeApplication.getmAd() != null) {
             mAnnunciate.setImageBitmap(mEhomeApplication.getmAd().getmBitmap());
         } else {

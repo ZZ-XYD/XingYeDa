@@ -402,8 +402,8 @@ public class ActivitySetInfo extends BaseActivity {
         if (extras != null) {
             Bitmap photo = extras.getParcelable("data");
             mBitmap = photo;
-            saveBitmapFile(mImageFile, photo);
-//	    uploadHead();// 上传头像
+//            saveBitmapFile(mImageFile, photo);
+	    uploadHead();// 上传头像
         }
     }
 
@@ -463,17 +463,17 @@ public class ActivitySetInfo extends BaseActivity {
         return path;
     }
 
-    public void saveBitmapFile(File file, Bitmap bitmap) {
-        try {
-            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
-            bos.flush();
-            bos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        uploadHead();// 上传头像
-    }
+//    public void saveBitmapFile(File file, Bitmap bitmap) {
+//        try {
+//            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+//            bos.flush();
+//            bos.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        uploadHead();// 上传头像
+//    }
 
     @Override
     protected void onDestroy() {
