@@ -31,8 +31,10 @@ import java.util.TimerTask;
 
 public class SharePasswordService extends Service {
 
-    String id;
-    Context mContext = this;
+    private String id;
+    private Context mContext = this;
+    private ActivityManager am;
+    private ClipboardManager cm;
 
     public SharePasswordService() {
     }
@@ -40,6 +42,8 @@ public class SharePasswordService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         timer.schedule(task, 0, 5000);//5秒循环一次
     }
 
@@ -66,14 +70,12 @@ public class SharePasswordService extends Service {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
-                ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
                 List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
                 if (!tasks.isEmpty()) {
                     ComponentName cn = tasks.get(0).topActivity;
                     if (cn.getPackageName().equals("com.xingyeda.ehome")) {
                         String sharePassword = "";
                         String deSharePassword = "";//解密后的设备号,用户ID,房间号字符串
-                        ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                         if (cm.hasPrimaryClip()) {
                             if (cm.getPrimaryClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
                                 ClipData.Item item = null;
