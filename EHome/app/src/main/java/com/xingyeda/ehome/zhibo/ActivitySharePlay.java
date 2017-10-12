@@ -757,10 +757,12 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
                 onBackPressed();
                 break;
             case R.id.describe:
-                if (describe.getMaxLines()==2) {
+                if (describe.getMaxLines() == 2) {
                     describe.setMaxLines(999);
-                }else{
+                    describe.postInvalidate();
+                } else {
                     describe.setMaxLines(2);
+                    describe.postInvalidate();
                 }
                 break;
             case R.id.share_play_share:
