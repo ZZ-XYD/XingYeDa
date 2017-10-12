@@ -138,7 +138,8 @@ public class ActivityLogin extends BaseActivity {
             case R.id.login_show_pwd:
                 mEditPwd.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                 etable = mEditPwd.getText();
-                Selection.setSelection(etable, etable.length());
+                mEditPwd.setSelection(etable.length());
+//                Selection.setSelection(etable, etable.length());
                 mShowPwd.setVisibility(View.GONE);
                 mHidePwd.setVisibility(View.VISIBLE);
                 break;
@@ -146,7 +147,8 @@ public class ActivityLogin extends BaseActivity {
                 mEditPwd.setInputType(InputType.TYPE_CLASS_TEXT
                         | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 etable = mEditPwd.getText();
-                Selection.setSelection(etable, etable.length());
+                mEditPwd.setSelection(etable.length());
+//                Selection.setSelection(etable, etable.length());
                 mHidePwd.setVisibility(View.GONE);
                 mShowPwd.setVisibility(View.VISIBLE);
                 break;
