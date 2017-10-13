@@ -20,6 +20,8 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.mob.MobSDK;
+import com.mob.commons.SHARESDK;
 import com.mob.tools.RxMob;
 import com.xingyeda.ehome.AcivityRegister;
 import com.xingyeda.ehome.util.AESUtils;
@@ -45,7 +47,7 @@ public class SharePasswordService extends Service {
         super.onCreate();
         am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
         cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        timer.schedule(task, 0, 5000);//5秒循环一次
+        timer.schedule(task, 5000, 5000);//5秒循环一次,阻塞5秒再执行
     }
 
     @Override
@@ -74,6 +76,7 @@ public class SharePasswordService extends Service {
                 List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
                 if (!tasks.isEmpty()) {
                     ComponentName cn = tasks.get(0).topActivity;
+                    Log.v("SharePasswordService", cn.getPackageName());
                     if (cn.getPackageName().equals("com.xingyeda.ehome")) {
                         String sharePassword = "";
                         String deSharePassword = "";//解密后的设备号,用户ID,房间号字符串
