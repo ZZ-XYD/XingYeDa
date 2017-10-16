@@ -58,10 +58,10 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             @Override
             public void run() {
                 Looper.prepare();//程序崩溃了
-                MyLog.i("SDK:"+mEhomeApplication.sdk+";手机型号:"+mEhomeApplication.model+";android版本:"+mEhomeApplication.release+";AppVersions:"+ AppUtils.getVersionName(mContext));
-                Map<String,String> params = new HashMap<>();
+                MyLog.i("SDK:" + mEhomeApplication.sdk + ";手机型号:" + mEhomeApplication.model + ";android版本:" + mEhomeApplication.release + ";AppVersions:" + AppUtils.getVersionName(mContext));
+                Map<String, String> params = new HashMap<>();
                 params.put("model", mEhomeApplication.model);
-                OkHttp.uploadFile(mContext,ConnectPath.LOG_UPDATE,"log", MyLog.fileName(0),params,MyLog.getFile(0),new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
+                OkHttp.uploadFile(mContext, ConnectPath.LOG_UPDATE, "log", MyLog.fileName(0), params, MyLog.getFile(0), new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
                     @Override
                     public void onResponse(JSONObject response) {
 
