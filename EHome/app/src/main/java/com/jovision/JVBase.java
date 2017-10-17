@@ -12,6 +12,7 @@ import com.jovision.server.AccountServiceImpl;
 import com.jovision.server.WebApiImpl;
 import com.jovision.server.exception.RequestError;
 import com.jovision.server.listener.ResponseListener;
+import com.xingyeda.ehome.base.EHomeApplication;
 
 import java.util.Locale;
 
@@ -93,13 +94,13 @@ public class JVBase {
                         public void onSuccess(JSONObject result) {
                             Log.e("webApi", "registerWithoutValidateCode: onSuccess = "+result);
                             detectionJVId(context,account);
-//                            Toast.makeText(context, "注册成功", Toast.LENGTH_LONG).show();
+                            Toast.makeText(context, "中维注册成功", Toast.LENGTH_LONG).show();
                         }
 
                         @Override
                         public void onError(RequestError error) {
                             Log.e("webApi", "registerWithoutValidateCode: onError = "+error.errmsg);
-                            Toast.makeText(context, "注册失败："+error.errmsg, Toast.LENGTH_LONG).show();
+//                            Toast.makeText(context, "中维注册失败："+error.errmsg, Toast.LENGTH_LONG).show();
                         }
                     });
         }

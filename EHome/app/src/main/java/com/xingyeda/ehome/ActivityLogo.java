@@ -209,6 +209,7 @@ public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, O
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("userName", name);
                     params.put("userPwd", MD5Utils.MD5(pwd));
+                    params.put("flag", SharedPreUtil.getString(mContext, "flag"));
                     params.put("AndroidSdk", mEhomeApplication.sdk);
                     params.put("AndroidModel", mEhomeApplication.model);
                     params.put("AndroidRelease", mEhomeApplication.release);
