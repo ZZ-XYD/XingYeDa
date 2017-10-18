@@ -67,6 +67,7 @@ import com.xingyeda.ehome.util.AppUtils;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.LogUtils;
 import com.xingyeda.ehome.util.MD5Utils;
+import com.xingyeda.ehome.util.MyLog;
 import com.xingyeda.ehome.util.NetUtils;
 import com.xingyeda.ehome.util.SharedPreUtil;
 import com.xingyeda.ehome.wifiOnOff.MainActivity;
@@ -115,9 +116,12 @@ public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, O
         setContentView(R.layout.activity_logo);
         ButterKnife.bind(this);
 
+        MyLog.i("ActivityLogo:Service--1");
         Intent startIntent = new Intent(mContext, SharePasswordService.class);
         startService(startIntent);
+        MyLog.i("ActivityLogo:Service--0");
 
+        MyLog.i("ActivityLogo:中维初始化--1");
         JniUtil.createDirectory(AppConsts.LOG_PATH);
         JniUtil.createDirectory(AppConsts.CAPTURE_PATH);
         JniUtil.createDirectory(AppConsts.VIDEO_PATH);
@@ -132,15 +136,20 @@ public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, O
 
             e.printStackTrace();
         }
+        MyLog.i("ActivityLogo:中维初始化--0");
+        MyLog.i("ActivityLogo:华为push-1");
         if (SYS_EMUI.equals(PhoneBrand.getSystem())) {
             huaweiApiClient = new HuaweiApiClient.Builder(this).addApi(HuaweiPush.PUSH_API).addConnectionCallbacks(this).addOnConnectionFailedListener(this).build();
             huaweiApiClient.connect();
         }
+        MyLog.i("ActivityLogo:华为push-0");
 
-
+        MyLog.i("ActivityLogo:中维帐号库--1");
         initAccount();
         ResourcesUnusualUtil.register(this);
+        MyLog.i("ActivityLogo:中维帐号库--0");
         bundle = new Bundle();
+        MyLog.i("ActivityLogo:图片");
         loginImage();
 //	imageLoader = ImageLoader.getInstance(3, Type.LIFO);
 //	PackageManager pm = getPackageManager();

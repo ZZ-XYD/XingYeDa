@@ -115,13 +115,19 @@ public class TenementFragment extends Fragment {
         });
 
         adSwipereLayout.setColorSchemeResources(R.color.theme_orange);
-        adSwipereLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                adSwipereLayout.setRefreshing(true);
-                annunciate(addmoreTimes+"","10",0);
-            }
-        });
+            adSwipereLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (mApplication.getmAc_List()==null||mApplication.getmAc_List().isEmpty()) {
+                        adSwipereLayout.setRefreshing(true);
+                        annunciate(addmoreTimes+"","10",0);
+                    }else{
+                        annunciateDatas();
+                    }
+
+                }
+            });
+
     }
 
 

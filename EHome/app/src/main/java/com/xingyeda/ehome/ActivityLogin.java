@@ -244,11 +244,13 @@ public class ActivityLogin extends BaseActivity {
 
             @Override
             public void onError(Platform platform, int action, Throwable throwable) {
-                Toast.makeText(mContext, "错误", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "授权失败", Toast.LENGTH_SHORT).show();
+                mProgressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onCancel(Platform platform, int action) {
+                mProgressBar.setVisibility(View.GONE);
 
             }
         });

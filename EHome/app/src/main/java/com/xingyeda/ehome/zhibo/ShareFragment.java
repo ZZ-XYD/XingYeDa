@@ -131,8 +131,11 @@ public class ShareFragment extends Fragment {
         mSwipeLayout.post(new Runnable() {
             @Override
             public void run() {
-                getShareList("1", "10");
-                mSwipeLayout.setRefreshing(true);
+                if (cameraList==null||cameraList.isEmpty()) {
+                    getShareList("1", "10");
+                    mSwipeLayout.setRefreshing(true);
+                }
+
             }
         });
 
@@ -251,7 +254,6 @@ public class ShareFragment extends Fragment {
     @OnClick({R.id.share_more})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-
             case R.id.share_more:
                 PopWindow popWindow = new PopWindow((Activity) mContext);
                 popWindow.showPopupWindow(shareMore);

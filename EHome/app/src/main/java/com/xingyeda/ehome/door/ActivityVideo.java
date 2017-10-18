@@ -1058,7 +1058,7 @@ public class ActivityVideo extends BaseActivity {
 				}
 			}, 5000);
 			Map<String,String> params = new HashMap<String, String>();
-			params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
+			params.put("uid", SharedPreUtil.getString(mContext, "userId"));
 			params.put("eid", mEquipmentId);
 			params.put("dongshu", mDongshuId);
 			params.put("housenum", mHousenum);
