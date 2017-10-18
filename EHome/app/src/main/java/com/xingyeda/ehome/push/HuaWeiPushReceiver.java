@@ -152,8 +152,6 @@ public class HuaWeiPushReceiver extends PushReceiver {
                     if (bean != null) {
                         // 拨号
                         if (bean.getmType().equals("2")) {
-                            Intent mIntent = new Intent(Test.ACTION_JPUSH1);
-                            mContext.sendBroadcast(mIntent);
 
                             if (SharedPreUtil.getBoolean(mContext, "receivecall")) {
                                 try {

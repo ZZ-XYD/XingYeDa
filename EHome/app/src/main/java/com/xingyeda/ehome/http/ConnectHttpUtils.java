@@ -42,7 +42,7 @@ public class ConnectHttpUtils
     public static void loginUtils(JSONObject response, Context context,
             String name, String pwd,Class<?> cls)
     {
-        JVBase.detectionJVId(context,name);
+//        JVBase.detectionJVId(context,name);
         EHomeApplication mApplication = (EHomeApplication) ((Activity) context)
                 .getApplication();
         try
@@ -52,6 +52,7 @@ public class ConnectHttpUtils
             {
                 JSONObject userInfo = response.getJSONObject("obj");
                 UserInfo info = new UserInfo();
+                JVBase.detectionJVId(context, userInfo.getString("id"));
                 info.setmId(userInfo.getString("id"));// 账号id
                 info.setmUsername(userInfo.has("username")?userInfo.getString("username"):"");// 用户名
                 info.setmPhone(userInfo.has("mobilephone")?userInfo.getString("mobilephone"):"");// 电话号码

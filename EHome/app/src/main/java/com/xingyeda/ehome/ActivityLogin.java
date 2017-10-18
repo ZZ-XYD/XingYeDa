@@ -32,14 +32,21 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.PlatformDb;
+import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
+import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.tencent.qzone.QZone;
+import cn.sharesdk.wechat.friends.Wechat;
 
 import com.jovision.server.AccountServiceImpl;
 import com.ldl.dialogshow.dialog.listener.OnBtnClickL;
 import com.ldl.dialogshow.dialog.widget.NormalDialog;
 import com.ldl.imageloader.core.ImageLoader;
+import com.mob.MobSDK;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.base.PhoneBrand;
@@ -87,6 +94,8 @@ public class ActivityLogin extends BaseActivity {
     private String mName;
     private String mPwd;
 
+    private PlatformDb platDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,11 +113,12 @@ public class ActivityLogin extends BaseActivity {
         SharedPreUtil.put(mContext, "isLife_Upload", true);
         mEditName.setText(SharedPreUtil.getString(mContext, "userName"));
         mEditPwd.setText(SharedPreUtil.getString(mContext, "userPwd"));
+        MobSDK.init(mContext,"214357362328d","ac5f9099ffb9fe286b9c8e7d99a99b44");
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @OnClick({R.id.login_button, R.id.losepwd, R.id.register,
-            R.id.login_show_pwd, R.id.login_hide_pwd, R.id.login_sightseer})
+            R.id.login_show_pwd, R.id.login_hide_pwd, R.id.login_sightseer,R.id.qq_login})
     public void onClick(View view) {
         Bundle bundle = new Bundle();
         Editable etable;
@@ -124,7 +134,8 @@ public class ActivityLogin extends BaseActivity {
                     DialogShow.showHintDialog(mContext, "网络异常，请检查网络");
                 } else {
                     mProgressBar.setVisibility(View.VISIBLE);
-                    login(mName, MD5Utils.MD5(mPwd));
+                    SharedPreUtil.put(mContext, "flag", "0");
+                    login(mName, MD5Utils.MD5(mPwd),"");
                 }
                 break;
             case R.id.losepwd:
@@ -157,13 +168,97 @@ public class ActivityLogin extends BaseActivity {
                 BaseUtils.startActivity(mContext, ActivityShareMain.class);
                 finish();
                 break;
+            case R.id.qq_login://qq登陆
+                mProgressBar.setVisibility(View.VISIBLE);
+                Platform qq= ShareSDK.getPlatform(QQ.NAME);
+                authorize(qq);
+                break;
         }
     }
 
-    private void login(final String name, final String pwd) {
+    /**
+     * 执行授权,获取用户信息
+     *
+     * @param plat
+     */
+    private void authorize(Platform plat) {
+        if (plat == null) {
+            return;
+        }
+
+        // 使用SSO授权。有客户端的都会优先启用客户端授权，没客户端的则任然使用网页版进行授权。
+        plat.SSOSetting(false);
+//        plat.authorize();
+        // 参数null表示获取当前授权用户资料
+        plat.showUser(null);
+        plat.setPlatformActionListener(new PlatformActionListener() {
+            @Override
+            public void onComplete(Platform platform, int action, HashMap<String, Object> hashMap) {
+                String headImageUrl = null;//头像
+                String token;//token
+                String gender;//年龄
+                String userId;
+                String name = null;//用户名
+
+                // 用户资源都保存到res
+                // 通过打印res数据看看有哪些数据是你想要的
+                if (action == Platform.ACTION_USER_INFOR) {
+                    platDB = platform.getDb(); // 获取数平台数据DB
+                    if (platform.getName().equals(Wechat.NAME)) {
+
+                        // 通过DB获取各种数据
+                        token = platDB.getToken();
+                        userId = platDB.getUserId();
+                        name = platDB.getUserName();
+                        gender = platDB.getUserGender();
+                        headImageUrl = platDB.getUserIcon();
+                        if ("m".equals(gender)) {
+                            gender = "1";
+                        } else {
+                            gender = "2";
+                        }
+
+                    } else if (platform.getName().equals(SinaWeibo.NAME)) {
+                        // 微博登录
+                    } else if (platform.getName().equals(QQ.NAME)) {
+                        // QQ登录
+                        token = platDB.getToken();
+                        userId = platDB.getUserId();
+                        name = hashMap.get("nickname").toString(); // 名字
+                        gender = hashMap.get("gender").toString(); // 年龄
+                        headImageUrl = hashMap.get("figureurl_qq_2").toString(); // 头像figureurl_qq_2 中等图，figureurl_qq_1缩略图
+                        String city = hashMap.get("city").toString(); // 城市
+                        String province = hashMap.get("province").toString(); // 省份
+//                        getUserInfo(name, headImageUrl);
+                        SharedPreUtil.put(mContext, "flag", "1");
+                        login(userId, "",name);
+
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void onError(Platform platform, int action, Throwable throwable) {
+                Toast.makeText(mContext, "错误", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancel(Platform platform, int action) {
+
+            }
+        });
+        plat.removeAccount(true);
+
+    }
+
+    private void login(final String userName, final String pwd,String name) {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("userName", name);
+        params.put("userName", userName);
         params.put("userPwd", pwd);
+        params.put("flag", SharedPreUtil.getString(mContext, "flag"));
+        params.put("name", name);
         params.put("AndroidSdk", mEhomeApplication.sdk);
         params.put("AndroidModel", mEhomeApplication.model);
         params.put("AndroidRelease", mEhomeApplication.release);
@@ -185,7 +280,7 @@ public class ActivityLogin extends BaseActivity {
             public void onResponse(JSONObject response) {
                 SharedPreUtil.put(mContext, "userName", mName);
                 SharedPreUtil.put(mContext, "userPwd", mPwd);
-                ConnectHttpUtils.loginUtils(response, mContext, name, pwd, ActivityHomepage.class);
+                ConnectHttpUtils.loginUtils(response, mContext, userName, pwd, ActivityHomepage.class);
                 if (SYS_EMUI.equals(PhoneBrand.getSystem())) {
                     getToken();
                 }

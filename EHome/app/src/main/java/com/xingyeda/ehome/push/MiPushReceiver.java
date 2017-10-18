@@ -160,8 +160,7 @@ public class MiPushReceiver extends PushMessageReceiver {
             if (bean != null) {
                 // 拨号
                 if (bean.getmType().equals("2")) {
-                    Intent mIntent = new Intent(Test.ACTION_MI1);
-                    mContext.sendBroadcast(mIntent);
+
                     if (SharedPreUtil.getBoolean(mContext, "receivecall")) {
                         try {
                             Bundle bundle = new Bundle();
