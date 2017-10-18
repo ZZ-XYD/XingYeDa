@@ -113,12 +113,12 @@ public class ActivityLogin extends BaseActivity {
         SharedPreUtil.put(mContext, "isLife_Upload", true);
         mEditName.setText(SharedPreUtil.getString(mContext, "userName"));
         mEditPwd.setText(SharedPreUtil.getString(mContext, "userPwd"));
-        MobSDK.init(mContext,"214357362328d","ac5f9099ffb9fe286b9c8e7d99a99b44");
+        MobSDK.init(mContext, "214357362328d", "ac5f9099ffb9fe286b9c8e7d99a99b44");
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @OnClick({R.id.login_button, R.id.losepwd, R.id.register,
-            R.id.login_show_pwd, R.id.login_hide_pwd, R.id.login_sightseer,R.id.qq_login})
+            R.id.login_show_pwd, R.id.login_hide_pwd, R.id.login_sightseer, R.id.qq_login})
     public void onClick(View view) {
         Bundle bundle = new Bundle();
         Editable etable;
@@ -135,7 +135,7 @@ public class ActivityLogin extends BaseActivity {
                 } else {
                     mProgressBar.setVisibility(View.VISIBLE);
                     SharedPreUtil.put(mContext, "flag", "0");
-                    login(mName, MD5Utils.MD5(mPwd),"");
+                    login(mName, MD5Utils.MD5(mPwd), "");
                 }
                 break;
             case R.id.losepwd:
@@ -149,8 +149,9 @@ public class ActivityLogin extends BaseActivity {
             case R.id.login_show_pwd:
                 mEditPwd.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                 etable = mEditPwd.getText();
-                mEditPwd.setSelection(etable.length());
-//                Selection.setSelection(etable, etable.length());
+                if (etable.length() < 16) {
+                    mEditPwd.setSelection(etable.length());
+                }
                 mShowPwd.setVisibility(View.GONE);
                 mHidePwd.setVisibility(View.VISIBLE);
                 break;
@@ -158,8 +159,10 @@ public class ActivityLogin extends BaseActivity {
                 mEditPwd.setInputType(InputType.TYPE_CLASS_TEXT
                         | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 etable = mEditPwd.getText();
-                mEditPwd.setSelection(etable.length());
-//                Selection.setSelection(etable, etable.length());
+                if (etable.length() < 16) {
+                    mEditPwd.setSelection(etable.length());
+
+                }
                 mHidePwd.setVisibility(View.GONE);
                 mShowPwd.setVisibility(View.VISIBLE);
                 break;
@@ -170,7 +173,7 @@ public class ActivityLogin extends BaseActivity {
                 break;
             case R.id.qq_login://qq登陆
                 mProgressBar.setVisibility(View.VISIBLE);
-                Platform qq= ShareSDK.getPlatform(QQ.NAME);
+                Platform qq = ShareSDK.getPlatform(QQ.NAME);
                 authorize(qq);
                 break;
         }
@@ -231,7 +234,7 @@ public class ActivityLogin extends BaseActivity {
                         String province = hashMap.get("province").toString(); // 省份
 //                        getUserInfo(name, headImageUrl);
                         SharedPreUtil.put(mContext, "flag", "1");
-                        login(userId, "",name);
+                        login(userId, "", name);
 
                     }
                 }
@@ -253,7 +256,7 @@ public class ActivityLogin extends BaseActivity {
 
     }
 
-    private void login(final String userName, final String pwd,String name) {
+    private void login(final String userName, final String pwd, String name) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("userName", userName);
         params.put("userPwd", pwd);
