@@ -136,7 +136,11 @@ public class ConnectHttpUtils
                                 mProgressDialog.setMax((int) length);// 设置进度条的最大值
                                 progress = (progress > 0) ? progress : 0;
                                 mProgressDialog.setProgress(progress);
-                                downloadUpdate(ConnectPath.IP+path,context);
+                                if (path.contains("xydServer")) {
+                                    downloadUpdate(ConnectPath.IP+path,context);
+                                }else{
+                                    downloadUpdate(path,context);
+                                }
                                 dialog.dismiss();
 							}
 						});
@@ -162,7 +166,11 @@ public class ConnectHttpUtils
 											mProgressDialog.setMax((int) length);// 设置进度条的最大值
 											progress = (progress > 0) ? progress : 0;
 											mProgressDialog.setProgress(progress);
-											downloadUpdate(ConnectPath.IP+ path, context);
+                                            if (path.contains("xydServer")) {
+                                                downloadUpdate(ConnectPath.IP+path,context);
+                                            }else{
+                                                downloadUpdate(path,context);
+                                            }
 											dialog.dismiss();
 
 							}
