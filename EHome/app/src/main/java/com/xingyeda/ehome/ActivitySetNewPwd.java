@@ -99,10 +99,12 @@ public class ActivitySetNewPwd extends BaseActivity {
                 // 使光标始终在最后位置
                 edit_pwd = mNewPwd.getText();
                 edit_pwd_again = mNewPwd_Again.getText();
-                mNewPwd.setSelection(edit_pwd.length());
-                mNewPwd_Again.setSelection(edit_pwd_again.length());
-//                Selection.setSelection(edit_pwd, edit_pwd.length());
-//                Selection.setSelection(edit_pwd_again, edit_pwd_again.length());
+                if (edit_pwd.length() < 16) {
+                    mNewPwd.setSelection(edit_pwd.length());
+                }
+                if (edit_pwd_again.length() < 16) {
+                    mNewPwd_Again.setSelection(edit_pwd_again.length());
+                }
                 mShowPwd.setVisibility(View.GONE);
                 mHidePwd.setVisibility(View.VISIBLE);
                 break;
@@ -116,10 +118,12 @@ public class ActivitySetNewPwd extends BaseActivity {
                 // 使光标始终在最后位置
                 edit_pwd = mNewPwd.getText();
                 edit_pwd_again = mNewPwd_Again.getText();
-                mNewPwd.setSelection(edit_pwd.length());
-                mNewPwd_Again.setSelection(edit_pwd_again.length());
-//                Selection.setSelection(edit_pwd, edit_pwd.length());
-//                Selection.setSelection(edit_pwd_again, edit_pwd_again.length());
+                if (edit_pwd.length() < 16) {
+                    mNewPwd.setSelection(edit_pwd.length());
+                }
+                if (edit_pwd_again.length() < 16) {
+                    mNewPwd_Again.setSelection(edit_pwd_again.length());
+                }
                 mHidePwd.setVisibility(View.GONE);
                 mShowPwd.setVisibility(View.VISIBLE);
                 break;
