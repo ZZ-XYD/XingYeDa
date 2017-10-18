@@ -84,7 +84,6 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             return false;
         }
         final StringBuffer sb = getTraceInfo(ex);
-        Log.e(TAG, String.valueOf(sb));
         new Thread() {
             @Override
             public void run() {
