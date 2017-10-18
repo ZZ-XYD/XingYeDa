@@ -100,12 +100,15 @@ public class ActivityChangePassword extends BaseActivity {
                 mAgainNewPwd
                         .setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                 // 使光标始终在最后位置
-                mOldPwd.setSelection(edit_oldpwd.length());
-                mNewPwd.setSelection(edit_newpwd.length());
-                mAgainNewPwd.setSelection(edit_newpwd_again.length());
-//                Selection.setSelection(edit_oldpwd, edit_oldpwd.length());
-//                Selection.setSelection(edit_newpwd, edit_newpwd.length());
-//                Selection.setSelection(edit_newpwd_again, edit_newpwd_again.length());
+                if (edit_oldpwd.length() < 16) {
+                    mOldPwd.setSelection(edit_oldpwd.length());
+                }
+                if (edit_newpwd.length() < 16) {
+                    mNewPwd.setSelection(edit_newpwd.length());
+                }
+                if (edit_newpwd_again.length() < 16) {
+                    mAgainNewPwd.setSelection(edit_newpwd_again.length());
+                }
                 mShowPwd.setVisibility(View.GONE);
                 mHidePwd.setVisibility(View.VISIBLE);
                 break;
@@ -121,16 +124,18 @@ public class ActivityChangePassword extends BaseActivity {
                 edit_oldpwd = mOldPwd.getText();
                 edit_newpwd = mNewPwd.getText();
                 edit_newpwd_again = mAgainNewPwd.getText();
-                mOldPwd.setSelection(edit_oldpwd.length());
-                mNewPwd.setSelection(edit_newpwd.length());
-                mAgainNewPwd.setSelection(edit_newpwd_again.length());
-//                Selection.setSelection(edit_oldpwd, edit_oldpwd.length());
-//                Selection.setSelection(edit_newpwd, edit_newpwd.length());
-//                Selection.setSelection(edit_newpwd_again, edit_newpwd_again.length());
+                if (edit_oldpwd.length() < 16) {
+                    mOldPwd.setSelection(edit_oldpwd.length());
+                }
+                if (edit_newpwd.length() < 16) {
+                    mNewPwd.setSelection(edit_newpwd.length());
+                }
+                if (edit_newpwd_again.length() < 16) {
+                    mAgainNewPwd.setSelection(edit_newpwd_again.length());
+                }
                 mHidePwd.setVisibility(View.GONE);
                 mShowPwd.setVisibility(View.VISIBLE);
                 break;
-
         }
     }
 
