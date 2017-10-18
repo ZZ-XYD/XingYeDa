@@ -11,19 +11,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.telephony.TelephonyManager;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.mob.MobSDK;
-import com.mob.commons.SHARESDK;
-import com.mob.tools.RxMob;
-import com.xingyeda.ehome.AcivityRegister;
 import com.xingyeda.ehome.util.AESUtils;
 import com.xingyeda.ehome.util.SharedPreUtil;
 import com.xingyeda.ehome.zhibo.ActivitySharePlay;
@@ -76,7 +68,6 @@ public class SharePasswordService extends Service {
                 List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
                 if (!tasks.isEmpty()) {
                     ComponentName cn = tasks.get(0).topActivity;
-                    Log.v("SharePasswordService", cn.getPackageName());
                     if (cn.getPackageName().equals("com.xingyeda.ehome")) {
                         String sharePassword = "";
                         String deSharePassword = "";//解密后的设备号,用户ID,房间号字符串
