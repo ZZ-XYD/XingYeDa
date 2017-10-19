@@ -2,19 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#EFEFEF" >
+    android:background="#EFEFEF"
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
 
-    
-    <RelativeLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/theme_orange" >
+            android:background="@color/theme_orange">
 
             <TextView
                 android:id="@+id/change_info_back"
@@ -37,54 +37,56 @@
                 android:layout_marginTop="15dp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size_25" />
-             <TextView
+
+            <TextView
                 android:id="@+id/change_info_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
                 android:gravity="center"
                 android:text="@string/save"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_20" 
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="15dp"/>
+                android:textSize="@dimen/text_size_20" />
         </RelativeLayout>
-        <RelativeLayout 
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-            
-        <EditText 
-            android:id="@+id/change_edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="20dp"
-            android:hint=""
-            android:background="@null"
-            android:layout_marginTop="50dp"
-            android:textSize="@dimen/text_size_20"
-            android:maxLength="11"
-            />
-        <View 
-            android:id="@+id/change_view"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@color/theme_orange"
-            android:layout_below="@id/change_edit"/>
-        <ListView 
-            android:id="@+id/change_listview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            android:divider="#00000000"
-            android:dividerHeight="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            />
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/change_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="50dp"
+                android:background="@null"
+                android:hint=""
+                android:inputType="textNoSuggestions"
+                android:maxLength="11"
+                android:textSize="@dimen/text_size_20" />
+
+            <View
+                android:id="@+id/change_view"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/change_edit"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/theme_orange" />
+
+            <ListView
+                android:id="@+id/change_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:divider="#00000000"
+                android:dividerHeight="10dp"
+                android:visibility="gone" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -93,25 +95,25 @@
         android:id="@+id/change_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:background="#50000000"
         android:descendantFocusability="afterDescendants"
-        android:background="#50000000">
+        android:visibility="gone">
+
         <ProgressBar
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:indeterminateDrawable="@drawable/login_animdraw"
-            >
-        </ProgressBar>
+            android:indeterminateDrawable="@drawable/login_animdraw"></ProgressBar>
+
         <TextView
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:text="@string/loadin"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textColor="#EBA660"/>
+            android:text="@string/loadin"
+            android:textColor="#EBA660" />
 
     </FrameLayout>
-    
+
 
 </RelativeLayout>

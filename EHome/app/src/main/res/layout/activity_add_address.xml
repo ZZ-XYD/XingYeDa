@@ -261,7 +261,7 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/layout_theme"
             android:gravity="center"
-            android:inputType="number"
+            android:inputType="number|textNoSuggestions"
             android:maxLength="4"
             android:textSize="18sp" 
             android:hint="@string/house_number_hint"

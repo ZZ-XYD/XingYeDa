@@ -50,9 +50,9 @@
                 android:layout_marginLeft="20dp"
                 android:background="@null"
                 android:hint="@string/register_phone_hint"
-                android:inputType="phone"
+                android:inputType="phone|textNoSuggestions"
                 android:maxLength="@string/edittext_length_11"
-                android:singleLine="true" 
+                android:singleLine="true"
                 android:paddingBottom="10dp"
             android:paddingTop="10dp"/>
         </RelativeLayout>
@@ -88,7 +88,7 @@
                 android:layout_toLeftOf="@+id/register_getCode"
                 android:background="@null"
                 android:hint="@string/register_code_hint"
-                android:inputType="number"
+                android:inputType="number|textNoSuggestions"
                 android:maxLength="@string/edittext_length_6"
                 android:singleLine="true"
                 android:paddingBottom="10dp"

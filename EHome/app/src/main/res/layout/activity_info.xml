@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/info_back"
@@ -36,13 +36,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                 >
+                android:layout_marginTop="20dp">
 
                 <TextView
                     android:layout_width="80dp"
@@ -50,34 +49,33 @@
                     android:layout_marginLeft="15dp"
                     android:gravity="center"
                     android:text="@string/info_name_text"
-                    android:textSize="@dimen/text_size_18"
-                    android:textColor="@color/theme_orange" />
+                    android:textColor="@color/theme_orange"
+                    android:textSize="@dimen/text_size_18" />
 
-                
 
                 <EditText
                     android:id="@+id/info_userName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:paddingLeft="15dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/layout_theme_orange"
                     android:gravity="center_vertical"
                     android:hint="@string/info_name_hint"
-                    android:singleLine="true"
-                    android:textSize="@dimen/text_size_15" 
-                    android:background="@drawable/layout_theme_orange"
+                    android:inputType="textNoSuggestions"
+                    android:maxLength="8"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="15dp"
                     android:paddingTop="8dp"
-                        android:paddingBottom="8dp"
-                        android:layout_marginRight="20dp"
-                    android:maxLength="8"/>
+                    android:singleLine="true"
+                    android:textSize="@dimen/text_size_15" />
             </LinearLayout>
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                 >
+                android:layout_marginTop="20dp">
 
                 <TextView
                     android:layout_width="80dp"
@@ -85,40 +83,37 @@
                     android:layout_marginLeft="15dp"
                     android:gravity="center"
                     android:text="@string/info_pwd_text"
-                    android:textSize="@dimen/text_size_18" 
-                    android:textColor="@color/theme_orange"/>
+                    android:textColor="@color/theme_orange"
+                    android:textSize="@dimen/text_size_18" />
 
-                
 
                 <EditText
                     android:id="@+id/info_pwd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                     android:layout_marginLeft="5dp"
-                     android:paddingLeft="15dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="20dp"
                     android:background="@drawable/layout_theme_orange"
                     android:gravity="center_vertical"
                     android:hint="@string/info_pwd_hint"
-                    android:inputType="textPassword"
-                    android:singleLine="true"
-                    android:textSize="@dimen/text_size_15"
-                    android:paddingTop="8dp"
-                        android:paddingBottom="8dp"
+                    android:inputType="textPassword|textNoSuggestions"
                     android:maxLength="@string/edittext_length_16"
-                        android:layout_marginRight="20dp"/>
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="8dp"
+                    android:singleLine="true"
+                    android:textSize="@dimen/text_size_15" />
             </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                    android:layout_marginTop="20dp"
-                >
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                     >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="80dp"
@@ -126,8 +121,8 @@
                         android:layout_marginLeft="15dp"
                         android:gravity="center"
                         android:text="@string/info_OKpwd_text"
-                        android:textSize="@dimen/text_size_18"
-                        android:textColor="@color/theme_orange" />
+                        android:textColor="@color/theme_orange"
+                        android:textSize="@dimen/text_size_18" />
 
 
                     <EditText
@@ -135,17 +130,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:paddingLeft="15dp"
+                        android:layout_marginRight="20dp"
                         android:background="@drawable/layout_theme_orange"
                         android:gravity="center_vertical"
                         android:hint="@string/info_OKpwd_hint"
-                        android:inputType="textPassword"
-                        android:singleLine="true"
-                        android:textSize="@dimen/text_size_15"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="8dp"
+                        android:inputType="textPassword|textNoSuggestions"
                         android:maxLength="@string/edittext_length_16"
-                        android:layout_marginRight="20dp" />
+                        android:paddingBottom="8dp"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="8dp"
+                        android:singleLine="true"
+                        android:textSize="@dimen/text_size_15" />
                 </LinearLayout>
 
                 <ImageView
@@ -173,8 +168,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                >
+                android:layout_marginTop="20dp">
 
                 <TextView
                     android:layout_width="80dp"
@@ -182,8 +176,8 @@
                     android:layout_marginLeft="15dp"
                     android:gravity="center"
                     android:text="@string/info_sex_text"
-                    android:textSize="@dimen/text_size_18"
-                    android:textColor="@color/theme_orange" />
+                    android:textColor="@color/theme_orange"
+                    android:textSize="@dimen/text_size_18" />
 
 
                 <RadioGroup
@@ -192,7 +186,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/info_men"
@@ -217,10 +211,10 @@
                 android:id="@+id/info_submit"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/button_theme"
                 android:text="@string/submit"
-                android:layout_gravity="center_horizontal"
                 android:textColor="@color/white" />
         </LinearLayout>
     </LinearLayout>
@@ -231,14 +225,13 @@
         android:layout_height="match_parent"
         android:background="#50000000"
         android:descendantFocusability="afterDescendants"
-        android:visibility="gone" >
+        android:visibility="gone">
 
         <ProgressBar
             android:layout_width="80dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
-            android:indeterminateDrawable="@drawable/login_animdraw" >
-        </ProgressBar>
+            android:indeterminateDrawable="@drawable/login_animdraw"></ProgressBar>
     </FrameLayout>
 
 </RelativeLayout>

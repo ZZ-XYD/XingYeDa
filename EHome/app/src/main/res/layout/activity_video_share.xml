@@ -1,185 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.percent.PercentRelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
+
     <com.xingyeda.ehome.view.PercentLinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <android.support.percent.PercentRelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_heightPercent="10%"
-        android:background="@color/theme_orange"
-        >
-        <TextView
-            android:id="@+id/share_headline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_25"
-            android:text="@string/share_equipment"
-            />
-        <TextView
-            android:id="@+id/share_back"
-            android:layout_width="wrap_content"
+        <android.support.percent.PercentRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/theme_orange"
+            app:layout_heightPercent="10%">
+
+            <TextView
+                android:id="@+id/share_headline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/share_equipment"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_25" />
+
+            <TextView
+                android:id="@+id/share_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:drawableLeft="@mipmap/back"
+                android:gravity="center"
+                android:text="@string/back"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_20" />
+
+        </android.support.percent.PercentRelativeLayout>
+
+
+        <com.xingyeda.ehome.view.PercentLinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/back"
-            android:drawableLeft="@mipmap/back"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_20"
-            android:layout_marginLeft="10dp"
-            android:gravity="center"
-            />
+            android:orientation="vertical">
 
-    </android.support.percent.PercentRelativeLayout>
+            <com.xingyeda.ehome.view.PercentLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                app:layout_heightPercent="10%"
+                app:layout_marginLeftPercent="10%"
+                app:layout_marginRightPercent="10%"
+                app:layout_marginTopPercent="5%">
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="@string/device_yst_num"
+                    android:textColor="@color/theme_orange"
+                    android:textSize="@dimen/text_size_20" />
 
-    <com.xingyeda.ehome.view.PercentLinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+                <EditText
+                    android:id="@+id/share_equipment"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@drawable/button_black_lucency"
+                    android:focusable="false"
+                    android:hint="请输入设备号"
+                    android:padding="2dp"
+                    android:textColorHint="@color/transparentgray" />
+            </com.xingyeda.ehome.view.PercentLinearLayout>
 
-        <com.xingyeda.ehome.view.PercentLinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_heightPercent="10%"
-            android:orientation="horizontal"
-            app:layout_marginTopPercent="5%"
-            app:layout_marginLeftPercent="10%"
-            app:layout_marginRightPercent="10%">
+            <com.xingyeda.ehome.view.PercentLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                app:layout_heightPercent="10%"
+                app:layout_marginLeftPercent="10%"
+                app:layout_marginRightPercent="10%"
+                app:layout_marginTopPercent="2%">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:text="@string/device_yst_num"
-                android:textSize="@dimen/text_size_20"
-                android:textColor="@color/theme_orange"/>
-            <EditText
-                android:id="@+id/share_equipment"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:padding="2dp"
-                android:focusable="false"
-                android:hint="请输入设备号"
-                android:textColorHint="@color/transparentgray"
-                android:background="@drawable/button_black_lucency"
-                />
-        </com.xingyeda.ehome.view.PercentLinearLayout>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="@string/RT_cas_title_text"
+                    android:textColor="@color/theme_orange"
+                    android:textSize="@dimen/text_size_20" />
 
-        <com.xingyeda.ehome.view.PercentLinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_heightPercent="10%"
-            app:layout_marginLeftPercent="10%"
-            app:layout_marginRightPercent="10%"
-            android:orientation="horizontal"
-            app:layout_marginTopPercent="2%">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:text="@string/RT_cas_title_text"
-                android:textSize="@dimen/text_size_20"
-                android:textColor="@color/theme_orange"/>
-            <EditText
-                android:id="@+id/share_title"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:padding="2dp"
-                android:hint="请输入标题分享"
-                android:maxLength="9"
-                android:maxLines="1"
-                android:textColorHint="@color/transparentgray"
-                android:background="@drawable/button_black_lucency"
-            />
-    </com.xingyeda.ehome.view.PercentLinearLayout>
-        <com.xingyeda.ehome.view.PercentLinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_heightPercent="30%"
-            android:orientation="horizontal"
-            app:layout_marginTopPercent="2%"
-            app:layout_marginLeftPercent="10%"
-            app:layout_marginRightPercent="10%">
+                <EditText
+                    android:id="@+id/share_title"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@drawable/button_black_lucency"
+                    android:hint="请输入标题分享"
+                    android:inputType="textNoSuggestions"
+                    android:maxLength="9"
+                    android:maxLines="1"
+                    android:padding="2dp"
+                    android:textColorHint="@color/transparentgray" />
+            </com.xingyeda.ehome.view.PercentLinearLayout>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:text="@string/describe"
-                android:textColor="@color/theme_orange"
-                android:textSize="@dimen/text_size_20"/>
+            <com.xingyeda.ehome.view.PercentLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                app:layout_heightPercent="30%"
+                app:layout_marginLeftPercent="10%"
+                app:layout_marginRightPercent="10%"
+                app:layout_marginTopPercent="2%">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="@string/describe"
+                    android:textColor="@color/theme_orange"
+                    android:textSize="@dimen/text_size_20" />
+
                 <EditText
                     android:id="@+id/share_describe"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
                     android:background="@drawable/button_black_lucency"
-                    android:padding="3dp"
                     android:ems="10"
                     android:enabled="true"
                     android:gravity="top"
+                    android:hint="请输入分享设备的描述"
                     android:inputType="textMultiLine"
                     android:maxLines="8"
                     android:minLines="6"
-                    android:hint="请输入分享设备的描述"
-                    android:textColorHint="@color/transparentgray"
-                    />
+                    android:padding="3dp"
+                    android:textColorHint="@color/transparentgray" />
+
+            </com.xingyeda.ehome.view.PercentLinearLayout>
+
+            <Button
+                android:id="@+id/share_submit"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@drawable/button_blue_lucency"
+                android:text="@string/submit"
+                android:textColor="@color/white"
+                app:layout_heightPercent="10%"
+                app:layout_marginLeftPercent="10%"
+                app:layout_marginRightPercent="10%"
+                app:layout_marginTopPercent="3%" />
 
         </com.xingyeda.ehome.view.PercentLinearLayout>
-
-        <Button
-            android:id="@+id/share_submit"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_heightPercent="10%"
-            app:layout_marginTopPercent="3%"
-            app:layout_marginLeftPercent="10%"
-            app:layout_marginRightPercent="10%"
-            android:text="@string/submit"
-            android:background="@drawable/button_blue_lucency"
-            android:textColor="@color/white"
-            />
-
-    </com.xingyeda.ehome.view.PercentLinearLayout>
     </com.xingyeda.ehome.view.PercentLinearLayout>
 
     <FrameLayout
         android:id="@+id/share_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:background="#50000000"
         android:descendantFocusability="afterDescendants"
-        android:background="#50000000">
+        android:visibility="gone">
+
         <ProgressBar
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:indeterminateDrawable="@drawable/login_animdraw"
-            >
-        </ProgressBar>
+            android:indeterminateDrawable="@drawable/login_animdraw"></ProgressBar>
+
         <TextView
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:text="@string/loadin"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textColor="#EBA660"/>
+            android:text="@string/loadin"
+            android:textColor="#EBA660" />
 
     </FrameLayout>
-
 
 
 </android.support.percent.PercentRelativeLayout>

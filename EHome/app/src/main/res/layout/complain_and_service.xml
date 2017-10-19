@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white" >
+    android:background="@color/white">
+
     <LinearLayout
         android:id="@+id/RT_cas_headline"
         android:layout_width="match_parent"
@@ -10,45 +11,45 @@
         android:background="@mipmap/menu_background"
         android:orientation="horizontal">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" >
-
-        <TextView
-            android:id="@+id/RT_cas_back"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/back"
-              android:layout_marginLeft="10dp"
-            android:drawableLeft="@mipmap/back"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:layout_centerVertical="true"
-            android:textSize="@dimen/text_size_20"  />
+            android:layout_marginTop="10dp">
 
-        <TextView
-            android:id="@+id/RT_cas_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_25"/>
+            <TextView
+                android:id="@+id/RT_cas_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:drawableLeft="@mipmap/back"
+                android:gravity="center"
+                android:text="@string/back"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_20" />
 
-        <TextView
-            android:id="@+id/RT_cas_history"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_alignParentRight="true"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:layout_centerVertical="true"
-            android:textSize="@dimen/text_size_20" />
-    </RelativeLayout>
-    
+            <TextView
+                android:id="@+id/RT_cas_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_25" />
+
+            <TextView
+                android:id="@+id/RT_cas_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_20" />
+        </RelativeLayout>
+
     </LinearLayout>
-    
+
 
     <!--
          <ScrollView 
@@ -68,44 +69,44 @@
         android:layout_below="@+id/RT_cas_headline"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_gravity="center_vertical"
+                android:gravity="center"
                 android:text="@string/RT_cas_type_text"
-                android:textSize="@dimen/text_size_18" 
-                android:textStyle="bold"/>
+                android:textSize="@dimen/text_size_18"
+                android:textStyle="bold" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" 
-                    android:layout_marginLeft="5dp"
-                >
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp">
 
                 <Spinner
                     android:id="@+id/RT_cas_spin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/layout_theme" 
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"/>
+                    android:background="@drawable/layout_theme"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp" />
+
                 <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:contentDescription="@null"
-                android:src="@mipmap/down" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:contentDescription="@null"
+                    android:src="@mipmap/down" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -113,37 +114,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_gravity="center_vertical"
+                android:gravity="center"
                 android:text="@string/RT_cas_title_text"
-                android:textSize="@dimen/text_size_18" 
-                android:textStyle="bold"/>
+                android:textSize="@dimen/text_size_18"
+                android:textStyle="bold" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:background="@drawable/layout_theme" 
-                >
+                android:background="@drawable/layout_theme">
 
                 <EditText
                     android:id="@+id/RT_cas_title_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:background="@null"
                     android:gravity="center"
                     android:hint="@string/RT_cas_title_hint"
+                    android:inputType="textNoSuggestions"
                     android:maxLength="10"
-                    android:singleLine="true"
                     android:paddingTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:textSize="@dimen/text_size_18"
-                     />
+                    android:singleLine="true"
+                    android:textSize="@dimen/text_size_18" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -151,24 +151,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:layout_gravity="center_vertical"
+                android:gravity="center"
                 android:text="@string/RT_cas_content_text"
-                android:textSize="@dimen/text_size_18" 
-                android:textStyle="bold"/>
+                android:textSize="@dimen/text_size_18"
+                android:textStyle="bold" />
 
             <!-- android:background="@android:drawable/edit_text" -->
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_theme_lucency" 
-                android:layout_marginLeft="5dp">
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/button_theme_lucency">
 
                 <EditText
                     android:id="@+id/RT_cas_content"
@@ -190,33 +190,32 @@
             </RelativeLayout>
         </LinearLayout>
 
-       <!--  <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/y5"
-            android:orientation="horizontal" > -->
+        <!--  <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:layout_marginTop="@dimen/y5"
+             android:orientation="horizontal" > -->
 
-            <!-- <TextView
-                android:layout_width="@dimen/x60"
-                android:layout_height="@dimen/y50"
-                android:text="@string/RT_cas_upload_text"
-                android:gravity="center"
-                android:textSize="14sp" 
-                android:textStyle="bold"/>
- -->
+        <!-- <TextView
+            android:layout_width="@dimen/x60"
+            android:layout_height="@dimen/y50"
+            android:text="@string/RT_cas_upload_text"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textStyle="bold"/>
+-->
 
         <GridView
             android:id="@+id/RT_cas_gridView"
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:gravity="center_vertical"
-            android:layout_marginTop="5dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="10dp"
-            android:numColumns="3" >
-        </GridView>
+            android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
+            android:numColumns="3"></GridView>
 
-       <!--  </LinearLayout> -->
+        <!--  </LinearLayout> -->
     </LinearLayout>
     <!-- </ScrollView> -->
 
@@ -231,28 +230,29 @@
         android:background="@drawable/button_theme"
         android:text="@string/submit"
         android:textColor="@color/white" />
-     <FrameLayout
+
+    <FrameLayout
         android:id="@+id/RT_loading"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" 
-        android:visibility="gone"
+        android:layout_height="match_parent"
+        android:background="#50000000"
         android:descendantFocusability="afterDescendants"
-        android:background="#50000000">
-            <ProgressBar
-                android:layout_width="100dp"
-                android:layout_height="100dp" 
-                android:layout_gravity="center"
-                android:indeterminateDrawable="@drawable/login_animdraw"
-                >
-            </ProgressBar>
-             <TextView 
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:text="@string/loadin"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textColor="#EBA660"/>
-            
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:indeterminateDrawable="@drawable/login_animdraw"></ProgressBar>
+
+        <TextView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/loadin"
+            android:textColor="#EBA660" />
+
     </FrameLayout>
 
 </RelativeLayout>
