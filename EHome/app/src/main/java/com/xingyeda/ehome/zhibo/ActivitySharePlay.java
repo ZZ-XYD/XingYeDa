@@ -194,7 +194,7 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
     //进入
     private void enter() {
         Map<String, String> params = new HashMap<>();
-        if (mEhomeApplication.getmCurrentUser() != null) {
+        if (mEhomeApplication.getmCurrentUser().getmId() != null) {
             params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
         } else {
             params.put("uid", "");
