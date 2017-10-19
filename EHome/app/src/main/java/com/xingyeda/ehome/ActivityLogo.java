@@ -1,6 +1,10 @@
 package com.xingyeda.ehome;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +14,7 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -26,6 +31,7 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
+import okhttp3.Call;
 import retrofit2.http.HEAD;
 
 
@@ -52,6 +58,7 @@ import com.jovision.Utils.ResourcesUnusualUtil;
 import com.jovision.server.AccountServiceImpl;
 import com.jovision.server.utils.DnsXmlUtils;
 import com.ldl.imageloader.core.ImageLoader;
+import com.ldl.okhttp.callback.FileCallBack;
 import com.xingyeda.ehome.Service.SharePasswordService;
 import com.xingyeda.ehome.assist.Shortcut;
 import com.xingyeda.ehome.base.BaseActivity;
@@ -66,6 +73,7 @@ import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.AppUtils;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.LogUtils;
+import com.xingyeda.ehome.util.LogcatHelper;
 import com.xingyeda.ehome.util.MD5Utils;
 import com.xingyeda.ehome.util.MyLog;
 import com.xingyeda.ehome.util.NetUtils;
@@ -304,19 +312,6 @@ public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, O
     }
 
 
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case IMAGE:
-                    if (mBackground != null) {
-//				OkHttp.getImage(mContext,ConnectPath.IMAGE_PATH + (String) msg.obj, mBackground);
-                        ImageLoader.getInstance().displayImage(ConnectPath.IMAGE_PATH + (String) msg.obj, mBackground);
-                    }
-                    break;
-            }
-        }
-    };
 
     private void loginImage() {
 
@@ -329,12 +324,23 @@ public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, O
 		public void onResponse(JSONObject response) {
 			try {
 			JSONObject jobj = response.getJSONObject("obj");
-		    mImagePath = jobj.has("strvalue") ? jobj.getString("strvalue") : "";
+                String fileMd5 = getFileMD5(new File(LogcatHelper.getPATH_LOGCAT()+"/logo.png"));
+                if (fileMd5==null||!fileMd5.equals(jobj.has("md5") ? jobj.getString("md5") : "")) {//没有这张图片  fileMd5.equals(null)
+                    mImagePath = jobj.has("strvalue") ? jobj.getString("strvalue") : "";
+                    OkHttp.downloadFile(mContext, ConnectPath.IMAGE_PATH + mImagePath, new FileCallBack(LogcatHelper.getPATH_LOGCAT(),"logo.png") {
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            ImageLoader.getInstance().displayImage(ConnectPath.IMAGE_PATH + mImagePath, mBackground);
+                        }
 
-		    Message msg = new Message();
-		    msg.obj = mImagePath;
-		    msg.what = IMAGE;
-		    mHandler.sendMessage(msg);
+                        @Override
+                        public void onResponse(File response, int id) {
+                            mBackground.setImageBitmap(BitmapFactory.decodeFile(LogcatHelper.getPATH_LOGCAT()+"/logo.png"));
+                        }
+                    });
+                }else{
+                    mBackground.setImageBitmap(BitmapFactory.decodeFile(LogcatHelper.getPATH_LOGCAT()+"/logo.png"));
+                }
 			} catch (JSONException e) {
 			    e.printStackTrace();
 			}
@@ -389,5 +395,35 @@ public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, O
         } else {
             return false;
         }
+    }
+
+    /**
+     * 获取单个文件的MD5值！
+
+     * @param file
+     * @return
+     */
+
+    public static String getFileMD5(File file) {
+        if (!file.isFile()) {
+            return null;
+        }
+        MessageDigest digest = null;
+        FileInputStream in = null;
+        byte buffer[] = new byte[1024];
+        int len;
+        try {
+            digest = MessageDigest.getInstance("MD5");
+            in = new FileInputStream(file);
+            while ((len = in.read(buffer, 0, 1024)) != -1) {
+                digest.update(buffer, 0, len);
+            }
+            in.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        BigInteger bigInt = new BigInteger(1, digest.digest());
+        return bigInt.toString(16);
     }
 }
