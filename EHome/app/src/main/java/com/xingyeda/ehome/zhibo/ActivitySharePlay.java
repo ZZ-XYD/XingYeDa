@@ -10,6 +10,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.RequiresApi;
 import android.support.percent.PercentRelativeLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -21,7 +24,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,15 +47,17 @@ import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.push.ExampleUtil;
 import com.xingyeda.ehome.push.TagAliasOperatorHelper;
 import com.xingyeda.ehome.util.AESUtils;
-import com.xingyeda.ehome.util.SharedPreUtil;
+import com.xingyeda.ehome.util.SpaceItemDecoration;
 import com.xingyeda.ehome.view.PercentLinearLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -64,7 +68,6 @@ import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import okhttp3.Call;
 
-import static android.R.attr.lines;
 import static com.xingyeda.ehome.push.TagAliasOperatorHelper.ACTION_ADD;
 import static com.xingyeda.ehome.push.TagAliasOperatorHelper.ACTION_DELETE;
 import static com.xingyeda.ehome.push.TagAliasOperatorHelper.ACTION_GET;
@@ -77,16 +80,18 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
     protected MyHandler handler = new MyHandler(this);
     @Bind(R.id.zb_playsurface_layout)
     PercentRelativeLayout zbPlaysurfaceLayout;
-    @Bind(R.id.zb_content)
-    TextView zbContent;
-    @Bind(R.id.zb_scrollview)
-    ScrollView zbScrollview;
+    //    @Bind(R.id.zb_content)
+//    TextView zbContent;
+//    @Bind(R.id.zb_scrollview)
+//    ScrollView zbScrollview;
     @Bind(R.id.zb_edit)
     EditText zbEdit;
     @Bind(R.id.share_play_title)
     TextView sharePlayTitle;
     @Bind(R.id.describe)
     TextView describe;
+    @Bind(R.id.zb_play_recylerView)
+    RecyclerView mRecyclerView;
     private IHandlerNotify handlerNotify = this;
     @Bind(R.id.zb_play_code_rate_show)
     PercentLinearLayout playCodeRateShow;
@@ -114,6 +119,9 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
 
     public static final String ACTION_NAME = "chatMessage";
 
+    private List<MessageBean> mList = new ArrayList<>();
+    private MessageAdapter mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,6 +130,8 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
         mTitle = getIntent().getExtras().getString("name");
         mRoomId = getIntent().getExtras().getString("roomId");
         mDescribe = getIntent().getExtras().getString("describe");
+
+
         setTag(1, "room_" + mRoomId);
 //        setTag(1, "q123456");
         registerBoradcastReceiver();
@@ -196,7 +206,7 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
     private void enter() {
         Map<String, String> params = new HashMap<>();
         if (mEhomeApplication.getmCurrentUser() != null) {
-            params.put("uid", SharedPreUtil.getString(mContext, "userId", ""));
+            params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
         } else {
             params.put("uid", "");
             params.put("regKey", JPushInterface.getRegistrationID(mContext));
@@ -215,7 +225,7 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
     private void exit() {
         Map<String, String> params = new HashMap<>();
         if (mEhomeApplication.getmCurrentUser() != null) {
-            params.put("uid", SharedPreUtil.getString(mContext, "userId", ""));
+            params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
         } else {
             params.put("uid", "");
             params.put("regKey", JPushInterface.getRegistrationID(mContext));
@@ -233,7 +243,7 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
     private void sendMessage(String msg) {
         Map<String, String> params = new HashMap<>();
         if (mEhomeApplication.getmCurrentUser() != null) {
-            params.put("uid", SharedPreUtil.getString(mContext, "userId", ""));
+            params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
         } else {
             params.put("uid", "");
             params.put("regKey", JPushInterface.getRegistrationID(mContext));
@@ -265,8 +275,15 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
                 String name = intent.getExtras().getString("name");
                 String content = intent.getExtras().getString("content");
                 String time = intent.getExtras().getString("time");
-                zbContent.append(name + ":" + content + "\n");
+                //接受消息
+//                zbContent.append(name + ":" + content + "\n");
+                mList.add(new MessageBean(name,content));
+                mAdapter = new MessageAdapter(mList);
+                mRecyclerView.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
+
             }
+
         }
 
     };
@@ -370,6 +387,10 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
         setContentView(R.layout.activity_share_play);
         ButterKnife.bind(this);
 
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.addItemDecoration(new SpaceItemDecoration(10));
 
         sharePlayTitle.setText(mTitle);
         describe.setText(mDescribe);
@@ -751,7 +772,6 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
                 String comtent = zbEdit.getText().toString();
                 if (comtent != null && !"".equals(comtent)) {
                     sendMessage(comtent);
-                    zbScrollview.fullScroll(ScrollView.FOCUS_DOWN);
                 }
                 break;
             case R.id.share_play_back:
@@ -769,7 +789,7 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
             case R.id.share_play_share:
                 if (mEhomeApplication.getmCurrentUser() != null) {
                     mUserName = mEhomeApplication.getmCurrentUser().getmUsername();//获取用户昵称
-                    String uid = SharedPreUtil.getString(mContext, "userId", "");
+                    String uid = mEhomeApplication.getmCurrentUser().getmId();
                     mEquipmentId = getIntent().getExtras().getString("equipmentId");
                     mRoomId = getIntent().getExtras().getString("roomId");
                     String sharePassword = mEquipmentId + "|" + uid + "|" + mRoomId;

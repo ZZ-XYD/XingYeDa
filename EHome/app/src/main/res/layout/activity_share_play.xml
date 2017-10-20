@@ -224,18 +224,12 @@
                 app:layout_marginRightPercent="5%" />
 
         </android.support.percent.PercentRelativeLayout>
-        <ScrollView
-            android:id="@+id/zb_scrollview"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/zb_play_recylerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp">
-
-            <TextView
-                android:id="@+id/zb_content"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-        </ScrollView>
-
+            android:layout_marginTop="10dp"
+            />
     </com.xingyeda.ehome.view.PercentLinearLayout>
 
     <!--</android.support.percent.PercentRelativeLayout>-->

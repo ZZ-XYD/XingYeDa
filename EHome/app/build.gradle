@@ -81,4 +81,5 @@ dependencies {
     compile files('libs/MobCommons-2017.0914.1125.jar')
     compile files('libs/MobTools-2017.0914.1125.jar')
     compile files('libs/ShareSDK-Core-3.1.0.jar')
+    compile files('libs/YTX_Android_Full_SDK_v5.4.0r.jar')
 }

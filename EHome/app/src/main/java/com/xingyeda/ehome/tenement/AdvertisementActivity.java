@@ -37,7 +37,7 @@ public class AdvertisementActivity extends BaseActivity
                          public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error){
                              //handler.cancel(); // Android默认的处理方式
                              handler.proceed();  // 接受所有网站的证书
-                             //handleMessage(Message msg); // 进行其他处理
+                             //handleMessage(MessageBean msg); // 进行其他处理
                          }
                     });
 

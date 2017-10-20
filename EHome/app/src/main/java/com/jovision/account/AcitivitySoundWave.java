@@ -327,7 +327,7 @@ public class AcitivitySoundWave extends BaseActivity implements  IHandlerNotify,
 	    }
 //	    private Handler mHandler = new Handler(){
 //	    	@Override
-//	    	public void handleMessage(Message msg) {
+//	    	public void handleMessage(MessageBean msg) {
 //	    		super.handleMessage(msg);
 //	    		switch (msg.what) {
 //				case 0:
@@ -424,7 +424,7 @@ final NormalListDialog dialog = DialogShow.showListDialog(mContext, idList);
 									 }
 									 idList.add(new DialogMenuItem(ystNum,0));
 //									 if (mIsAdd) {
-//										 Message msg = new Message();
+//										 MessageBean msg = new MessageBean();
 //										 msg.what = 0;
 //										 msg.obj = ystNum;
 //										 mHandler.sendMessage(msg);
@@ -441,7 +441,7 @@ final NormalListDialog dialog = DialogShow.showListDialog(mContext, idList);
 							 }
 							 idList.add(new DialogMenuItem(ystNum,0));
 //							 if (mIsAdd) {
-//								 Message msg = new Message();
+//								 MessageBean msg = new MessageBean();
 //								 msg.what = 0;
 //								 msg.obj = ystNum;
 //								 mHandler.sendMessage(msg);
