@@ -282,6 +282,7 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
                 mAdapter = new MessageAdapter(mList);
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
+                mRecyclerView.scrollToPosition(mRecyclerView.getAdapter().getItemCount()-1);
 
             }
 
