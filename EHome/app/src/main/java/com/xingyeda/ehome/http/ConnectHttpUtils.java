@@ -30,6 +30,7 @@ import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
 import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
+import com.xingyeda.ehome.menu.ActivityChangeInfo;
 import com.xingyeda.ehome.util.AppUtils;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.LogUtils;
@@ -89,13 +90,19 @@ public class ConnectHttpUtils
 
                 SharedPreUtil.put(context, "isLogin", false);
                 SharedPreUtil.put(context, "userId", userInfo.getString("id"));
-                if (!SharedPreUtil.getBoolean(context, "isFirstExplain")) {
-                    BaseUtils.startActivity(context, cls);
-		}else {
-			Bundle bundle = new Bundle();
-			bundle.putString("type", "login");
-		    BaseUtils.startActivities(context, ActivityExplain.class,bundle);
-		}
+                Bundle bundle = new Bundle();
+                if (info.getmPhone().equals("")) {
+                    bundle.putString("type", "login");
+                    bundle.putString("id", info.getmId());
+                    BaseUtils.startActivities(context, ActivityChangeInfo.class,bundle);
+                }else{
+                    if (!SharedPreUtil.getBoolean(context, "isFirstExplain")) {
+                        BaseUtils.startActivity(context, cls);
+                    }else {
+                        bundle.putString("type", "login");
+                        BaseUtils.startActivities(context, ActivityExplain.class,bundle);
+                    }
+                }
                 ((Activity)context).finish();
             }
         }

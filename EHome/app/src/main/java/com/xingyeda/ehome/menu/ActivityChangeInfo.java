@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.ldl.dialogshow.dialog.listener.OnBtnClickL;
 import com.ldl.dialogshow.dialog.widget.NormalDialog;
+import com.xingyeda.ehome.ActivityHomepage;
+import com.xingyeda.ehome.ActivityLogin;
 import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.adapter.XiaoquAdapter;
 import com.xingyeda.ehome.base.BaseActivity;
@@ -86,6 +88,9 @@ public class ActivityChangeInfo extends BaseActivity {
         } else if (mStrContent.equals("park")) {
             mTitle.setText("修改停车场呢称");
             mContent.setHint("请输入停车场呢称");
+        }else if (mStrContent.equals("login")) {
+            mTitle.setText("完善信息");
+            mContent.setHint("请输入手机号码");
         }
 
         changeLoading.setOnTouchListener(new View.OnTouchListener() {
@@ -165,7 +170,10 @@ public class ActivityChangeInfo extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.change_info_back:
-                ActivityChangeInfo.this.finish();
+                if (mStrContent.equals("login")) {
+                    BaseUtils.startActivity(mContext, ActivityLogin.class);
+                }
+                    ActivityChangeInfo.this.finish();
                 break;
             case R.id.change_info_save:
                 if (mContent.getText().toString() != null && mContent.getText().toString().length() != 0) {
@@ -197,6 +205,14 @@ public class ActivityChangeInfo extends BaseActivity {
                         } else {
                             DialogShow.showHintDialog(mContext, "呢称过长");
                         }
+                    }else if (mStrContent.equals("login")) {
+                        if (mContent.getText().toString().equals("")) {
+                            DialogShow.showHintDialog(mContext, "电话号码不能为空");
+                        } else if (!isPhoneNumberValid(mContent.getText().toString())) {
+                            DialogShow.showHintDialog(mContext, "请输入正确的手机号码!");
+                        } else {
+                            uploadphone();
+                        }
                     }
                 } else {
                     if (mStrContent.equals("name")) {
@@ -205,11 +221,48 @@ public class ActivityChangeInfo extends BaseActivity {
                         DialogShow.showHintDialog(mContext, "输入号码为空");
                     } else if (mStrContent.equals("park")) {
                         DialogShow.showHintDialog(mContext, "输入呢称为空");
+                    }else if (mStrContent.equals("login")) {
+                        DialogShow.showHintDialog(mContext, "输入号码为空");
                     }
 
                 }
                 break;
         }
+    }
+
+    private void uploadphone() {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("id", id);
+        params.put("phone", mContent.getText().toString());
+        OkHttp.get(mContext, ConnectPath.UPDATEPHONE_PATH, params,
+                new BaseStringCallback(mContext, new CallbackHandler<String>() {
+
+                    @Override
+                    public void parameterError(JSONObject response) {
+                        ActivityChangeInfo.this.finish();
+                    }
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                            mEhomeApplication.getmCurrentUser().setmName(mContent.getText().toString());
+                            final NormalDialog dialog = DialogShow.showSelectDialog(mContext, "上传成功", 1, new String[]{"确定"});
+                            dialog.setOnBtnClickL(new OnBtnClickL() {
+                                @Override
+                                public void onBtnClick() {
+                                    mEhomeApplication.getmCurrentUser().setmPhone(mContent.getText().toString());
+                                    BaseUtils.startActivity(mContext, ActivityHomepage.class);
+                                    dialog.superDismiss();
+                                    ActivityChangeInfo.this.finish();
+                                }
+
+                            });
+                    }
+
+                    @Override
+                    public void onFailure() {
+
+                    }
+                }));
     }
 
     private void modification() {
@@ -272,6 +325,9 @@ public class ActivityChangeInfo extends BaseActivity {
                 changeLoading.setVisibility(View.GONE);
                 return false;
             } else {
+                if (mStrContent.equals("login")) {
+                    BaseUtils.startActivity(mContext, ActivityLogin.class);
+                }
                 finish();
                 return true;
             }

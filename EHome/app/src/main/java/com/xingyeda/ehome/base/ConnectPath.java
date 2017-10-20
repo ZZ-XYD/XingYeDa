@@ -6,8 +6,8 @@ import static android.os.FileObserver.CREATE;
 public class ConnectPath
 {
     //Ip地址
-    public static final String IP = "http://192.168.10.250:8080/";
-//    public static final String IP = "http://service.xyd999.com:8080/";
+//    public static final String IP = "http://192.168.10.250:8080/";
+    public static final String IP = "http://service.xyd999.com:8080/";
 
     //IP路径
 //    public static final String IP_PATH = IP+"intefaces/servlet/";
@@ -114,13 +114,16 @@ public class ConnectPath
     
     //修改默认小区
     public static final String CHANGEXIAOQU_PATH = IP_PATH + "updateDefault";
+    //修补信息
+    public static final String UPDATEPHONE_PATH = IP_PATH + "userUpdatePhone";
 
-    
-    
-    
-    
-    
-//    //物业投诉接口
+
+
+
+
+
+
+    //    //物业投诉接口
 //    public static final String PROPERTY_COMLAINTS_PATH = IP_PATH+"";
     //广告接口
     public static final String ADVERTISEMENT_PATH = IP_PATH+"guangao?flag=select&type=img";

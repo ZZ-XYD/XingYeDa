@@ -233,10 +233,10 @@ public class ActivityHomepage extends FragmentActivity {
             String mipush = null;
             UserInfo userInfo = mApplication.getmCurrentUser();
             if (!SYS_EMUI.equals(PhoneBrand.getSystem())) {
-                MiPushClient.setAlias(mContext, userInfo.getmRemarksPhone(), null);
+                MiPushClient.setAlias(mContext, userInfo.getmPhone(), null);
                 MiPushClient.subscribe(mContext, "p_" + userInfo.getmPhone(), null);
                 MiPushClient.subscribe(mContext, "n_" + userInfo.getmUsername(), null);
-                mipush = userInfo.getmRemarksPhone() + "  p_" + userInfo.getmPhone() + " n_" + userInfo.getmUsername();
+                mipush = userInfo.getmPhone() + "  p_" + userInfo.getmPhone() + " n_" + userInfo.getmUsername();
             }
 
             Set<String> set = new HashSet<String>();
@@ -265,8 +265,8 @@ public class ActivityHomepage extends FragmentActivity {
                 JPushInterface.resumePush(this);
 
             isStop = JPushInterface.isPushStopped(this);
-            PushAliasAndTags pushAliasAndTags = new PushAliasAndTags(userInfo.getmRemarksPhone(), set);
-            SharedPreUtil.put(mContext, "jpush", userInfo.getmRemarksPhone() + set.toString());
+            PushAliasAndTags pushAliasAndTags = new PushAliasAndTags(userInfo.getmPhone(), set);
+            SharedPreUtil.put(mContext, "jpush", userInfo.getmPhone() + set.toString());
 //			JPushinit(set,userInfo.getmRemarksPhone());
             mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, pushAliasAndTags));
         }

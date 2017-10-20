@@ -283,12 +283,14 @@ public class ActivityLogin extends BaseActivity {
 
             @Override
             public void onResponse(JSONObject response) {
-                SharedPreUtil.put(mContext, "userName", mName);
+                SharedPreUtil.put(mContext, "userName", userName);
                 SharedPreUtil.put(mContext, "userPwd", mPwd);
+                mProgressBar.setVisibility(View.GONE);
                 ConnectHttpUtils.loginUtils(response, mContext, userName, pwd, ActivityHomepage.class);
                 if (SYS_EMUI.equals(PhoneBrand.getSystem())) {
                     getToken();
                 }
+                mProgressBar.setVisibility(View.GONE);
             }
 
             @Override
