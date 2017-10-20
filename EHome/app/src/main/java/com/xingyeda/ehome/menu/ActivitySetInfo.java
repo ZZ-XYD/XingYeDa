@@ -113,11 +113,11 @@ public class ActivitySetInfo extends BaseActivity {
         this.setContentView(R.layout.activity_information);
         ButterKnife.bind(this);
 
-        if (SharedPreUtil.getString(mContext,"share_type").equals("")) {
-            SharedPreUtil.put(mContext,"share_type",2+"");
+        if (SharedPreUtil.getString(mContext, "share_type").equals("")) {
+            SharedPreUtil.put(mContext, "share_type", 2 + "");
             infoShareType.setText(R.string.door_add_relation);
-        }else{
-           String shareType = SharedPreUtil.getString(mContext,"share_type");
+        } else {
+            String shareType = SharedPreUtil.getString(mContext, "share_type");
             if (shareType.equals("2")) {
                 infoShareType.setText(R.string.door_add_relation);
             } else if (shareType.equals("3")) {
@@ -165,7 +165,7 @@ public class ActivitySetInfo extends BaseActivity {
 
     private void init() {
         mBean = mEhomeApplication.getmCurrentUser().getmXiaoqu();
-        MyLog.i("个人信息数据初始化："+mEhomeApplication.getmCurrentUser());
+        MyLog.i("个人信息数据初始化：" + mEhomeApplication.getmCurrentUser());
         if (mBean != null) {
             mCommunity.setText(mBean.getmCommunity() + mBean.getmPeriods() + mBean.getmUnit() + mBean.getmHouseNumber());
         } else {
@@ -214,7 +214,7 @@ public class ActivitySetInfo extends BaseActivity {
     }
 
 
-    @OnClick({R.id.info_user_photo, R.id.info_name, R.id.info_alternate, R.id.setinfo_back,R.id.share_type_layout})
+    @OnClick({R.id.info_user_photo, R.id.info_name, R.id.info_alternate, R.id.setinfo_back, R.id.share_type_layout})
     public void onClick(View v) {
         Bundle bundle = new Bundle();
         switch (v.getId()) {
@@ -253,11 +253,11 @@ public class ActivitySetInfo extends BaseActivity {
                         Bundle bundle = new Bundle();
                         switch (positions) {
                             case 0:// 家属
-                                SharedPreUtil.put(mContext,"share_type",2+"");
+                                SharedPreUtil.put(mContext, "share_type", 2 + "");
                                 infoShareType.setText(R.string.door_add_relation);
                                 break;
                             case 1:// 租客
-                                SharedPreUtil.put(mContext,"share_type",3+"");
+                                SharedPreUtil.put(mContext, "share_type", 3 + "");
                                 infoShareType.setText(R.string.door_add_tenant);
                                 break;
                         }
@@ -403,15 +403,14 @@ public class ActivitySetInfo extends BaseActivity {
             Bitmap photo = extras.getParcelable("data");
             mBitmap = photo;
 //            saveBitmapFile(mImageFile, photo);
-	    uploadHead();// 上传头像
+            uploadHead();// 上传头像
         }
     }
 
 
-
     private void uploadHead() {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
+        params.put("uid", SharedPreUtil.getString(mContext, "userId", ""));
         File file = new File(mImageFile, "");
         if (!file.exists()) {
             Toast.makeText(mContext, "文件不存在，请修改文件路径", Toast.LENGTH_SHORT).show();

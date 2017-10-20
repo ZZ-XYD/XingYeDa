@@ -33,6 +33,7 @@ import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
 import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
+import com.xingyeda.ehome.util.SharedPreUtil;
 import com.xingyeda.ehome.util.SpaceItemDecoration;
 import com.xingyeda.ehome.view.PercentLinearLayout;
 
@@ -116,7 +117,7 @@ public class SmartHomeActivity extends Cat110SDKActivity {
 //        smartHome.setAdapter(mAdapter);
 //        init();
         Map<String, String> params = new HashMap<>();
-        params.put("uid", mApplication.getmCurrentUser().getmId());
+        params.put("uid", SharedPreUtil.getString(mContext, "userId", ""));
         OkHttp.get(mContext, ConnectPath.QUERY_ON_OFF, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -155,14 +156,14 @@ public class SmartHomeActivity extends Cat110SDKActivity {
             @Override
             public void onLongclick(View view, final int position) {
                 //删除
-                final NormalDialog dialog = DialogShow.showSelectDialog(mContext,"是否删除设备",2,new String[] { getResources().getString(R.string.cancel),getResources().getString(R.string.confirm)});
+                final NormalDialog dialog = DialogShow.showSelectDialog(mContext, "是否删除设备", 2, new String[]{getResources().getString(R.string.cancel), getResources().getString(R.string.confirm)});
                 dialog.setOnBtnClickL(new OnBtnClickL() {
 
                     @Override
                     public void onBtnClick() {
                         dialog.dismiss();
                     }
-                },new OnBtnClickL() {
+                }, new OnBtnClickL() {
                     @Override
                     public void onBtnClick() {
                         socketDelete(mDatas.get(position).getId());
@@ -194,7 +195,7 @@ public class SmartHomeActivity extends Cat110SDKActivity {
 //                socketDelete(mDatas.get(position).getId());
                 Bundle bundle = new Bundle();
                 bundle.putString("type", "on_off");
-                bundle.putString("cameraId", mDatas.get(position).getId()+"");
+                bundle.putString("cameraId", mDatas.get(position).getId() + "");
                 BaseUtils.startActivities(mContext, MaoYanSetActivity.class, bundle);
 
             }
@@ -218,7 +219,7 @@ public class SmartHomeActivity extends Cat110SDKActivity {
                 } else {
                     mIsLogined = false;
                     Log.i(TAG, "登陆失败");
-                    BaseUtils.showShortToast(mContext,"账户登录失败，请核对后再试");
+                    BaseUtils.showShortToast(mContext, "账户登录失败，请核对后再试");
                     //((Button)findViewById(R.id.btnLogin)).setText("Login");
                 }
                 Log.i(TAG, "连接状态在改变 status:" + status + " reason:" + reason + " refuseReason:" + refuseReason + " flag:" + flag);
@@ -269,12 +270,12 @@ public class SmartHomeActivity extends Cat110SDKActivity {
                 Log.i(TAG, "更新配置项 pid:" + pid + " configName:" + configName);
                 if (configName.equals("_online")) {
                     if (mDatas != null && !mDatas.isEmpty()) {
-                        for (OnOffBean mData : mDatas){
+                        for (OnOffBean mData : mDatas) {
                             if (mData.getId() != pid) {
                                 AddSound(pid + "");
                             }
                         }
-                    }else {
+                    } else {
                         AddSound(pid + "");
                     }
 
@@ -350,7 +351,7 @@ public class SmartHomeActivity extends Cat110SDKActivity {
                             if (result == 0) {
 //                                MaoYanSetActivity.updateCameraName(mContext, "delete", mDatas.get(position).getId() + "", "");
                                 Map<String, String> params = new HashMap<String, String>();
-                                params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
+                                params.put("uid", SharedPreUtil.getString(mContext, "userId", ""));
                                 params.put("flag", "delete");
                                 params.put("num", pid + "");
                                 OkHttp.get(mContext, ConnectPath.ADD_CAMERA, params, new ConciseStringCallback(mEhomeApplication.getmContext(), new ConciseCallbackHandler<String>() {
@@ -359,8 +360,8 @@ public class SmartHomeActivity extends Cat110SDKActivity {
                                         even();
                                     }
                                 }));
-                            }else{
-                                BaseUtils.showLongToast(mContext,"删除失败");
+                            } else {
+                                BaseUtils.showLongToast(mContext, "删除失败");
                             }
                         }
                     });
@@ -467,7 +468,7 @@ public class SmartHomeActivity extends Cat110SDKActivity {
     private void login() {
         String oemCert = "1684ea8f2b44aa8e233b019f3e7e190056402e77d22a420fc1111d1395b79820d3412fff71bd4981e3265d758b94bd42cdee8d9c141ffce2167a0cae7897ab59eb7606442e20d180b00e13b43305e7a815a36f9e3cfc02018e4f4000a6b7876d7b24fabf9e796ca8b70473d71f7dd6380d11fdbe08c4f500fbf7425af47ce0c2";
         String username = mApplication.getmCurrentUser().getmPhone();
-        String password ="123456";
+        String password = "123456";
         String captcha = "";
         Log.i(TAG, "login username:" + username + "   password" + password);
         login(oemCert, username, password, captcha);
@@ -642,7 +643,7 @@ public class SmartHomeActivity extends Cat110SDKActivity {
 
     private void AddSound(final String id) {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("uid", mApplication.getmCurrentUser().getmId());
+        params.put("uid", SharedPreUtil.getString(mContext, "userId", ""));
         params.put("num", id);
         params.put("type", "switch");
 

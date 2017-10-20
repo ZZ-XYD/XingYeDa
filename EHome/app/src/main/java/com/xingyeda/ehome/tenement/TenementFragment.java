@@ -26,6 +26,7 @@ import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.life.ConvenientActivity;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.MyLog;
+import com.xingyeda.ehome.util.SharedPreUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -145,7 +146,7 @@ public class TenementFragment extends Fragment {
     private void annunciate(String pageIndex, String pageSize, final int type) {
         MyLog.i("小区通告接口---1");
         Map<String, String> params = new HashMap<String, String>();
-        params.put("uid", mApplication.getmCurrentUser().getmId());
+        params.put("uid", SharedPreUtil.getString(mContext, "userId", ""));
         params.put("pageIndex", pageIndex);
         params.put("pageSize", pageSize);
         OkHttp.get(mContext, ConnectPath.ANNUNCIATE_PATH, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {

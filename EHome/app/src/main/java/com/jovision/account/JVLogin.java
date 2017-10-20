@@ -15,6 +15,7 @@ import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
 import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
+import com.xingyeda.ehome.util.SharedPreUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -76,7 +77,7 @@ public class JVLogin extends BaseActivity {
 
     private void AddSound(String id,String nickname,String username,String pwd){
         Map<String, String> params = new HashMap<String, String>();
-        params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
+        params.put("uid", SharedPreUtil.getString(mContext, "userId", ""));
         params.put("num", id);
         params.put("name", nickname);
         params.put("username", username);

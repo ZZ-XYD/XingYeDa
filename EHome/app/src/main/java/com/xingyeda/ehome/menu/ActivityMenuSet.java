@@ -33,154 +33,154 @@ import com.xingyeda.ehome.view.SwitchButton;
 
 public class ActivityMenuSet extends BaseActivity {
 
-	@Bind(R.id.set_vocality)
-	SwitchButton mVocality;// 声音设置
-	@Bind(R.id.set_shake)
-	SwitchButton mShake;// 震动设置
-	@Bind(R.id.set_wifi)
-	SwitchButton mWIFI;// 无线网络设置
-	@Bind(R.id.set_3gAnd4g)
-	SwitchButton m3gAnd4g;// 移动网络设置
-	@Bind(R.id.set_call)
-	SwitchButton mSetCall;
-	@Bind(R.id.menu_set_Back)
-	TextView mBack;
-	@Bind(R.id.set_add_opendoor)
-	View mAddOpenDoor;
+    @Bind(R.id.set_vocality)
+    SwitchButton mVocality;// 声音设置
+    @Bind(R.id.set_shake)
+    SwitchButton mShake;// 震动设置
+    @Bind(R.id.set_wifi)
+    SwitchButton mWIFI;// 无线网络设置
+    @Bind(R.id.set_3gAnd4g)
+    SwitchButton m3gAnd4g;// 移动网络设置
+    @Bind(R.id.set_call)
+    SwitchButton mSetCall;
+    @Bind(R.id.menu_set_Back)
+    TextView mBack;
+    @Bind(R.id.set_add_opendoor)
+    View mAddOpenDoor;
 
-	private boolean mVocalityGet;
-	private boolean mShakeGet;
-	private boolean mSetCallGet;
-	private boolean mWIFIGet;
-	private boolean m3gAnd4gGet;
-	
-	private boolean mVocalitySet;
-	private boolean mShakeSet;
-	private boolean mSetCallSet;
-	private boolean mWIFISet;
-	private boolean m3gAnd4gSet;
-	private final static  int  SETDATA = 1;
-	
+    private boolean mVocalityGet;
+    private boolean mShakeGet;
+    private boolean mSetCallGet;
+    private boolean mWIFIGet;
+    private boolean m3gAnd4gGet;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		this.setContentView(R.layout.activity_menu_set);
-		ButterKnife.bind(this);
-		init();
-		event();
-	}
+    private boolean mVocalitySet;
+    private boolean mShakeSet;
+    private boolean mSetCallSet;
+    private boolean mWIFISet;
+    private boolean m3gAnd4gSet;
+    private final static int SETDATA = 1;
 
-	private void event() {
-		mVocality.setmSetSwitch(!SharedPreUtil.getBoolean(mContext, "vocality"));
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.setContentView(R.layout.activity_menu_set);
+        ButterKnife.bind(this);
+        init();
+        event();
+    }
+
+    private void event() {
+        mVocality.setmSetSwitch(!SharedPreUtil.getBoolean(mContext, "vocality"));
         mShake.setmSetSwitch(!SharedPreUtil.getBoolean(mContext, "shake"));
         mWIFI.setmSetSwitch(!SharedPreUtil.getBoolean(mContext, "wifi"));
         m3gAnd4g.setmSetSwitch(!SharedPreUtil.getBoolean(mContext, "3gAnd4g"));
-        mSetCall.setmSetSwitch(!SharedPreUtil.getBoolean(mContext, "receivecall"));;
-		
-		// 设置监听事件
-		mVocality.setOnChangeListener(changeListener);
-		mShake.setOnChangeListener(changeListener);
-		mWIFI.setOnChangeListener(changeListener);
-		m3gAnd4g.setOnChangeListener(changeListener);
-		mSetCall.setOnChangeListener(changeListener);
-	}
+        mSetCall.setmSetSwitch(!SharedPreUtil.getBoolean(mContext, "receivecall"));
+        ;
 
-	private void init() {
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("uId", mEhomeApplication.getmCurrentUser().getmId());
-		params.put("type", "get");
-		OkHttp.get(mContext,ConnectPath.GETSETUP_PATH, params, new ConciseStringCallback(
-				mContext, new ConciseCallbackHandler<String>() {
-					@Override
-					public void onResponse(JSONObject response) {
-						try {
-							JSONObject jobj = (JSONObject) response.get("obj");
-							mVocalityGet = jobj.has("voice") ? Boolean.valueOf(jobj.getString("voice")) : true;
-							mShakeGet = jobj.has("shock") ? Boolean.valueOf(jobj.getString("shock")): true;
-							mSetCallGet = jobj.has("accept") ? Boolean.valueOf(jobj.getString("accept")): true;
-							mWIFIGet = jobj.has("wifi") ? Boolean.valueOf(jobj.getString("wifi")): true;
-							m3gAnd4gGet = jobj.has("mobileNetwork") ? Boolean.valueOf(jobj.getString("mobileNetwork")) : true;
-							
-							 mVocalitySet = mVocalityGet;
-							 mShakeSet = mShakeGet;
-							 mSetCallSet = mSetCallGet;
-							 mWIFISet = mWIFIGet;
-							 m3gAnd4gSet = m3gAnd4gGet;
-						} catch (JSONException e) {
-							e.printStackTrace();
-						}
-					}
-				}));
-	}
+        // 设置监听事件
+        mVocality.setOnChangeListener(changeListener);
+        mShake.setOnChangeListener(changeListener);
+        mWIFI.setOnChangeListener(changeListener);
+        m3gAnd4g.setOnChangeListener(changeListener);
+        mSetCall.setOnChangeListener(changeListener);
+    }
 
-	private SwitchButton.OnChangeListener changeListener = new SwitchButton.OnChangeListener() {
+    private void init() {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("uId", SharedPreUtil.getString(mContext, "userId", ""));
+        params.put("type", "get");
+        OkHttp.get(mContext, ConnectPath.GETSETUP_PATH, params, new ConciseStringCallback(
+                mContext, new ConciseCallbackHandler<String>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONObject jobj = (JSONObject) response.get("obj");
+                    mVocalityGet = jobj.has("voice") ? Boolean.valueOf(jobj.getString("voice")) : true;
+                    mShakeGet = jobj.has("shock") ? Boolean.valueOf(jobj.getString("shock")) : true;
+                    mSetCallGet = jobj.has("accept") ? Boolean.valueOf(jobj.getString("accept")) : true;
+                    mWIFIGet = jobj.has("wifi") ? Boolean.valueOf(jobj.getString("wifi")) : true;
+                    m3gAnd4gGet = jobj.has("mobileNetwork") ? Boolean.valueOf(jobj.getString("mobileNetwork")) : true;
 
-		@Override
-		public void onChange(SwitchButton sb, boolean state) {
-			switch (sb.getId()) {
-			// 设置声音
-			case R.id.set_vocality:
-				mVocalitySet =  !state;
-				break;
-			// 设置震动
-			case R.id.set_shake:
-				mShakeSet =  !state;
-				break;
-			// 设置无线查看视频
-			case R.id.set_wifi:
-				mWIFISet =  !state;
-				break;
-			// 设置数据流量查看视频
-			case R.id.set_3gAnd4g:
-				m3gAnd4gSet =  !state;
-				break;
-			case R.id.set_call:
-				mSetCallSet =  !state;
-				break;
-			}
-		}
-	};
+                    mVocalitySet = mVocalityGet;
+                    mShakeSet = mShakeGet;
+                    mSetCallSet = mSetCallGet;
+                    mWIFISet = mWIFIGet;
+                    m3gAnd4gSet = m3gAnd4gGet;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }));
+    }
 
-	@OnClick({ R.id.menu_set_Back, R.id.set_add_opendoor })
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.menu_set_Back:
-			ActivityMenuSet.this.finish();
-			break;
-		case R.id.set_add_opendoor:
-			Shortcut.createShortCut(mContext);
-			BaseUtils.showShortToast(mContext, R.string.already_add);
-			break;
-		}
-	}
+    private SwitchButton.OnChangeListener changeListener = new SwitchButton.OnChangeListener() {
+
+        @Override
+        public void onChange(SwitchButton sb, boolean state) {
+            switch (sb.getId()) {
+                // 设置声音
+                case R.id.set_vocality:
+                    mVocalitySet = !state;
+                    break;
+                // 设置震动
+                case R.id.set_shake:
+                    mShakeSet = !state;
+                    break;
+                // 设置无线查看视频
+                case R.id.set_wifi:
+                    mWIFISet = !state;
+                    break;
+                // 设置数据流量查看视频
+                case R.id.set_3gAnd4g:
+                    m3gAnd4gSet = !state;
+                    break;
+                case R.id.set_call:
+                    mSetCallSet = !state;
+                    break;
+            }
+        }
+    };
+
+    @OnClick({R.id.menu_set_Back, R.id.set_add_opendoor})
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.menu_set_Back:
+                ActivityMenuSet.this.finish();
+                break;
+            case R.id.set_add_opendoor:
+                Shortcut.createShortCut(mContext);
+                BaseUtils.showShortToast(mContext, R.string.already_add);
+                break;
+        }
+    }
 
 
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		if (!(m3gAnd4gGet == m3gAnd4gSet && mSetCallGet == mSetCallSet && mShakeGet == mShakeSet && mVocalityGet == mVocalitySet && mWIFIGet == mWIFISet)) {
-			Map<String, String> params = new HashMap<String, String>();
-			params.put("uId", mEhomeApplication.getmCurrentUser().getmId());
-			params.put("voice", mVocalitySet+"");
-			params.put("shock", mShakeSet+"");
-			params.put("accept",mSetCallSet +"");
-			params.put("wifi", mWIFISet+"");
-			params.put("mobileNetwork", m3gAnd4gSet+"");
-			params.put("type", "update");
-			OkHttp.get(mContext,ConnectPath.GETSETUP_PATH, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
-				@Override
-				public void onResponse(JSONObject response) {
-					SharedPreUtil.put(mContext, "vocality", mVocalitySet);
-					SharedPreUtil.put(mContext, "shake", mShakeSet);
-					SharedPreUtil.put(mContext, "wifi", mWIFISet);
-					SharedPreUtil.put(mContext, "3gAnd4g", m3gAnd4gSet);
-					SharedPreUtil.put(mContext, "receivecall", mSetCallSet);
-					BaseUtils.showShortToast(mContext, "修改成功");
-				}
-			}));
-		}
-		ButterKnife.unbind(this);
-	}
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (!(m3gAnd4gGet == m3gAnd4gSet && mSetCallGet == mSetCallSet && mShakeGet == mShakeSet && mVocalityGet == mVocalitySet && mWIFIGet == mWIFISet)) {
+            Map<String, String> params = new HashMap<String, String>();
+            params.put("uId", SharedPreUtil.getString(mContext, "userId", ""));
+            params.put("voice", mVocalitySet + "");
+            params.put("shock", mShakeSet + "");
+            params.put("accept", mSetCallSet + "");
+            params.put("wifi", mWIFISet + "");
+            params.put("mobileNetwork", m3gAnd4gSet + "");
+            params.put("type", "update");
+            OkHttp.get(mContext, ConnectPath.GETSETUP_PATH, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    SharedPreUtil.put(mContext, "vocality", mVocalitySet);
+                    SharedPreUtil.put(mContext, "shake", mShakeSet);
+                    SharedPreUtil.put(mContext, "wifi", mWIFISet);
+                    SharedPreUtil.put(mContext, "3gAnd4g", m3gAnd4gSet);
+                    SharedPreUtil.put(mContext, "receivecall", mSetCallSet);
+                    BaseUtils.showShortToast(mContext, "修改成功");
+                }
+            }));
+        }
+        ButterKnife.unbind(this);
+    }
 }

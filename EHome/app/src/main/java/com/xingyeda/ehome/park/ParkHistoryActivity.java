@@ -25,6 +25,7 @@ import com.xingyeda.ehome.bean.ParkBean;
 import com.xingyeda.ehome.information.InformationActivity;
 import com.xingyeda.ehome.information.PersonalActivity;
 import com.xingyeda.ehome.util.BaseUtils;
+import com.xingyeda.ehome.util.SharedPreUtil;
 
 import org.litepal.crud.DataSupport;
 
@@ -73,7 +74,7 @@ public class ParkHistoryActivity extends BaseActivity {
     }
 
     private void init() {
-        mList = DataSupport.where("mUserId = ?", mEhomeApplication.getmCurrentUser().getmId()).order("mTime desc").find(ParkBean.class);
+        mList = DataSupport.where("mUserId = ?", SharedPreUtil.getString(mContext, "userId", "")).order("mTime desc").find(ParkBean.class);
         addAdapter(mList, 0);
         mLoad = true;
         mSwipeLayout.setOnRefreshListener(listener);
@@ -94,7 +95,7 @@ public class ParkHistoryActivity extends BaseActivity {
         public void onRefresh() {
             if (mIsRefresh) {
                 mIsRefresh = false;
-                mList = DataSupport.where("mUserId = ?", mEhomeApplication.getmCurrentUser().getmId()).order("mTime desc").find(ParkBean.class);
+                mList = DataSupport.where("mUserId = ?", SharedPreUtil.getString(mContext, "userId", "")).order("mTime desc").find(ParkBean.class);
                 addAdapter(mList, 0);
                 if (mList == null || mList.isEmpty() || mList.size() == 0) {
                     mNoDatas.setVisibility(View.VISIBLE);
@@ -119,7 +120,7 @@ public class ParkHistoryActivity extends BaseActivity {
                 public void onclick(View view, int position) {
                     DataSupport.deleteAll(ParkBean.class, "mTime = ?", mList.get(position).getmTime());
                     mList.remove(position);
-                    mList = DataSupport.where("mUserId = ?", mEhomeApplication.getmCurrentUser().getmId()).order("mTime desc").find(ParkBean.class);
+                    mList = DataSupport.where("mUserId = ?", SharedPreUtil.getString(mContext, "userId", "")).order("mTime desc").find(ParkBean.class);
                     mAdapter.notifyDataSetChanged();
                     addAdapter(mList, 0);
                     if (mList == null || mList.isEmpty() || mList.size() == 0) {
@@ -163,7 +164,7 @@ public class ParkHistoryActivity extends BaseActivity {
     public void onResume() {
         super.onResume();
         if (mLoad) {
-            List<ParkBean> list = DataSupport.where("mUserId = ?", mEhomeApplication.getmCurrentUser().getmId()).order("mTime desc").find(ParkBean.class);
+            List<ParkBean> list = DataSupport.where("mUserId = ?", SharedPreUtil.getString(mContext, "userId", "")).order("mTime desc").find(ParkBean.class);
             mList.clear();
             mList.addAll(list);
             addAdapter(mList, 1);

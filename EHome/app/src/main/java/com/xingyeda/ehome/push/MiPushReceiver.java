@@ -78,7 +78,7 @@ public class MiPushReceiver extends PushMessageReceiver {
         mContext = context;
         mApplication = (EHomeApplication) mContext.getApplicationContext();
 
-        if (mApplication.getActivityStack()!=null&&!mApplication.getActivityStack().isEmpty()) {
+        if (mApplication.getActivityStack() != null && !mApplication.getActivityStack().isEmpty()) {
             boolean isStart = false;
             boolean isReturn = true;
             for (Activity activity : mApplication.getActivityStack()) {
@@ -89,7 +89,7 @@ public class MiPushReceiver extends PushMessageReceiver {
             for (Activity activity : mApplication.getActivityStack()) {
                 if (activity.getClass().equals(ActivityHomepage.class)) {
                     isReturn = false;
-                }else if(activity.getClass().equals(ActivityShareMain.class)){
+                } else if (activity.getClass().equals(ActivityShareMain.class)) {
                     isReturn = false;
                 }
                 isStart = true;
@@ -109,28 +109,28 @@ public class MiPushReceiver extends PushMessageReceiver {
         Gson gson = new Gson();
         // JSONObject jsonObject = gson.fromJson(message, \);
 
-        if (msg != null&&!msg.equals("")) {
+        if (msg != null && !msg.equals("")) {
 
 //            BaseUtils.showLongToast(mContext,"mipush");
-             bean = gson.fromJson(msg, PushBean.class);
-            MyLog.i("MiPush信息："+bean.toString());
-            LogUtils.i("MiPushMsgId   "+bean.getmMsgId());
-            LogUtils.i("MiPushMsgId   "+bean.toString());
-            if (mApplication.getmPushMap()!=null) {
-            Iterator<Map.Entry<String, Boolean>> entries = mApplication.getmPushMap().entrySet().iterator();
-            while (entries.hasNext()) {
-                Map.Entry<String, Boolean> entry = entries.next();
-                if (bean.getmMsgId().equals(entry.getKey())) {
-                    return;
+            bean = gson.fromJson(msg, PushBean.class);
+            MyLog.i("MiPush信息：" + bean.toString());
+            LogUtils.i("MiPushMsgId   " + bean.getmMsgId());
+            LogUtils.i("MiPushMsgId   " + bean.toString());
+            if (mApplication.getmPushMap() != null) {
+                Iterator<Map.Entry<String, Boolean>> entries = mApplication.getmPushMap().entrySet().iterator();
+                while (entries.hasNext()) {
+                    Map.Entry<String, Boolean> entry = entries.next();
+                    if (bean.getmMsgId().equals(entry.getKey())) {
+                        return;
+                    }
                 }
-            }
             }
 //            Intent mIntent2 = new Intent(JVMaoYanActivity.ACTION_MI);
 //            mContext.sendBroadcast(mIntent2);
 //
 //            Intent mIntent1 = new Intent(JVMaoYanActivity.ACTION_PUSH);
 //            mContext.sendBroadcast(mIntent1);
-            mApplication.addPushMap(bean.getmMsgId(),true);
+            mApplication.addPushMap(bean.getmMsgId(), true);
 //            PushBean bean = rBean.getPushObject();
 //            DBManager manager = new DBManager(mContext);
             if (null == bean) {
@@ -141,18 +141,18 @@ public class MiPushReceiver extends PushMessageReceiver {
             }
             if (!bean.getmType().equals("8")) {
                 if (null == bean.getRegId()) {
-                    return ;
+                    return;
                 }
             }
             if (!bean.getmType().equals("3") && !bean.getmType().equals("6") && !bean.getmType().equals("8") && !bean.getmType().equals("11")) {
                 if (bean.getmType().equals("2")) {
-                    if (mApplication.getmCurrentUser()!=null) {
-                        InformationBase informationBase = new InformationBase(mApplication.getmCurrentUser().getmId(),bean.getmAdminName(),
-                                bean.getEaddress(), bean.getTitle(), bean.getAlertContent(), bean.getTime(), Integer.valueOf(bean .getSendType()), 0, bean.getPhotograph(),0, 0);
+                    if (mApplication.getmCurrentUser() != null) {
+                        InformationBase informationBase = new InformationBase(SharedPreUtil.getString(mContext, "userId", ""), bean.getmAdminName(),
+                                bean.getEaddress(), bean.getTitle(), bean.getAlertContent(), bean.getTime(), Integer.valueOf(bean.getSendType()), 0, bean.getPhotograph(), 0, 0);
                         informationBase.save();
                     }
                 } else {
-                    InformationBase informationBase = new InformationBase(mApplication.getmCurrentUser().getmId(),bean.getmAdminName(), bean.getEaddress(), bean.getTitle(),
+                    InformationBase informationBase = new InformationBase(SharedPreUtil.getString(mContext, "userId", ""), bean.getmAdminName(), bean.getEaddress(), bean.getTitle(),
                             bean.getAlertContent(), bean.getTime(), Integer.valueOf(bean.getSendType()), 0, null, -1, -1);
                     informationBase.save();
                 }
@@ -167,8 +167,8 @@ public class MiPushReceiver extends PushMessageReceiver {
                             final SimpleDateFormat sdf = new SimpleDateFormat(
                                     "yyyy-MM-dd HH:mm:ss");
                             final Date startTime = sdf.parse(bean.getTime());
-                            if (!("".equals(bean.getmUrl())) && null !=bean.getmUrl()){
-                            videoCallBack(bean.getmUrl());
+                            if (!("".equals(bean.getmUrl())) && null != bean.getmUrl()) {
+                                videoCallBack(bean.getmUrl());
                             }
                             bundle.putString("dongshu", bean.getmUtil());
                             bundle.putString("eid", bean.getEid());
@@ -254,13 +254,13 @@ public class MiPushReceiver extends PushMessageReceiver {
                         }
                     });
 
-                }else if (bean.getmType().equals("8")) {
+                } else if (bean.getmType().equals("8")) {
 
                     final MaterialDialog dialog = new MaterialDialog(context);
                     dialog.btnNum(2)
-                            .title( bean.getTitle())
+                            .title(bean.getTitle())
                             .content("\t\t" + bean.getAlertContent())
-                            .btnText(new String[]{"确定","查看详情"})
+                            .btnText(new String[]{"确定", "查看详情"})
                             .showAnim(new BounceTopEnter())
                             .dismissAnim(new SlideBottomExit());
 //			final MaterialDialog dialog = DialogShow.showMessageDialog(EHomeApplication.getmContext(), bean.getTitle(),"\t\t" + bean.getAlertContent(),2, new String[]{"确定","查看详情"});
@@ -289,10 +289,10 @@ public class MiPushReceiver extends PushMessageReceiver {
 
                         }
                     });
-                }else if (bean.getmType().equals("9")){//停车场出入消息
-                    ParkBean parkBean= new ParkBean(mApplication.getmCurrentUser().getmId(),bean.getTitle(),bean.getmMsg(),bean.getTime(),bean.getPhotograph(),0);
+                } else if (bean.getmType().equals("9")) {//停车场出入消息
+                    ParkBean parkBean = new ParkBean(SharedPreUtil.getString(mContext, "userId", ""), bean.getTitle(), bean.getmMsg(), bean.getTime(), bean.getPhotograph(), 0);
                     parkBean.save();
-                } else if (bean.getmType().equals("11")){//聊天室消息
+                } else if (bean.getmType().equals("11")) {//聊天室消息
                     String name = bean.getmCode();
                     String content = bean.getAlertContent();
                     String time = bean.getTime();
@@ -305,11 +305,9 @@ public class MiPushReceiver extends PushMessageReceiver {
             }
 
 
-
         }
 
     }
-
 
 
     @Override
@@ -385,16 +383,17 @@ public class MiPushReceiver extends PushMessageReceiver {
     }
 
     private void videoCallBack(String mEcho) {
-        OkHttp.get(mContext,mEcho, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
+        OkHttp.get(mContext, mEcho, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
             @Override
             public void onResponse(JSONObject response) {
             }
         }));
     }
+
     private void msgCallBack(String id) {
-        Map<String,String> params = new HashMap<>();
-        params.put("id",id);
-        OkHttp.get(EHomeApplication.getmContext(), ConnectPath.PUSHMSG_PATH,params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
+        Map<String, String> params = new HashMap<>();
+        params.put("id", id);
+        OkHttp.get(EHomeApplication.getmContext(), ConnectPath.PUSHMSG_PATH, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
             @Override
             public void onResponse(JSONObject response) {
             }

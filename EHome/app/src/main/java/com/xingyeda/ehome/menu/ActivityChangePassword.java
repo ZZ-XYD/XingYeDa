@@ -141,7 +141,7 @@ public class ActivityChangePassword extends BaseActivity {
 
     private void changePassword() {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
+        params.put("uid", SharedPreUtil.getString(mContext, "userId", ""));
         params.put("pwd1", MD5Utils.MD5(mOldPwd.getText().toString()));
         params.put("pwd2", MD5Utils.MD5(mNewPwd.getText().toString()));
         params.put("pwd3", MD5Utils.MD5(mAgainNewPwd.getText().toString()));

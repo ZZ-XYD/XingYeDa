@@ -205,7 +205,7 @@ public class MaoYanSetActivity extends BaseActivity {
 
     private void onOff(String name) {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
+        params.put("uid", SharedPreUtil.getString(mContext, "userId", ""));
         params.put("flag", "update");
         params.put("num", id);
         params.put("name", name);
@@ -283,13 +283,13 @@ public class MaoYanSetActivity extends BaseActivity {
     @SuppressWarnings("static-access")
     public static void updateCameraName(final Context context, final String type, final String id, String name) {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
+        params.put("uid", SharedPreUtil.getString(context, "userId", ""));
         params.put("flag", type);
         params.put("num", id);
         if (type.equals("update")) {
             params.put("name", name);
         }
-         OkHttp.get(mEhomeApplication.getmContext(), ConnectPath.ADD_CAMERA, params,
+        OkHttp.get(mEhomeApplication.getmContext(), ConnectPath.ADD_CAMERA, params,
                 new ConciseStringCallback(mEhomeApplication.getmContext(), new ConciseCallbackHandler<String>() {
                     @Override
                     public void onResponse(JSONObject response) {

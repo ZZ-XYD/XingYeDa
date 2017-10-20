@@ -45,6 +45,7 @@ import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.MyLog;
+import com.xingyeda.ehome.util.SharedPreUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -474,7 +475,7 @@ final NormalListDialog dialog = DialogShow.showListDialog(mContext, idList);
 //			mIsAdd = false;
 			MyLog.i("中维添加："+id);
 			 final Map<String, String> params = new HashMap<String, String>();
-			 params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
+			 params.put("uid", SharedPreUtil.getString(mContext, "userId", ""));
 			 params.put("num", id);
 			if (id.substring(0,1).equals("h")||id.substring(0,1).equals("H")) {
 				if (mType.equals("common")) {

@@ -15,6 +15,7 @@ import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
 import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
+import com.xingyeda.ehome.util.SharedPreUtil;
 
 import org.json.JSONObject;
 
@@ -70,7 +71,7 @@ public class ActivityShareModification extends BaseActivity {
     private void submit() {
         shareLoading.setVisibility(View.VISIBLE);
         Map<String, String> params = new HashMap<>();
-        params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
+        params.put("uid", SharedPreUtil.getString(mContext, "userId", ""));
         params.put("id", mRoomId);
         params.put("describe", shareDescribe.getText().toString());
         params.put("title", shareTitle.getText().toString());

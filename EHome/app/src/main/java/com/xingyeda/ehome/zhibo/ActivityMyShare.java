@@ -21,6 +21,7 @@ import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
 import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
+import com.xingyeda.ehome.util.SharedPreUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,7 +58,7 @@ public class ActivityMyShare extends BaseActivity {
 
     private void getShareList() {
         Map<String, String> params = new HashMap<>();
-        params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
+        params.put("uid", SharedPreUtil.getString(mContext, "userId", ""));
         OkHttp.get(mContext, ConnectPath.CAMERA_MY_SHARE, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -101,14 +102,14 @@ public class ActivityMyShare extends BaseActivity {
                                             Bundle bundle = new Bundle();
                                             switch (positions) {
                                                 case 0:// 删除
-                                                    final NormalDialog dialogDelete = DialogShow.showSelectDialog(mContext,"是否删除分享",2,new String[] { getResources().getString(R.string.cancel),getResources().getString(R.string.confirm)});
+                                                    final NormalDialog dialogDelete = DialogShow.showSelectDialog(mContext, "是否删除分享", 2, new String[]{getResources().getString(R.string.cancel), getResources().getString(R.string.confirm)});
                                                     dialogDelete.setOnBtnClickL(new OnBtnClickL() {
 
                                                         @Override
                                                         public void onBtnClick() {
                                                             dialogDelete.dismiss();
                                                         }
-                                                    },new OnBtnClickL() {
+                                                    }, new OnBtnClickL() {
                                                         @Override
                                                         public void onBtnClick() {
                                                             delete(camera.getmRoomId());
@@ -157,12 +158,12 @@ public class ActivityMyShare extends BaseActivity {
 
     private void delete(String roomId) {
         Map<String, String> params = new HashMap<>();
-        params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
+        params.put("uid", SharedPreUtil.getString(mContext, "userId", ""));
         params.put("roomId", roomId);
         OkHttp.get(mContext, ConnectPath.CAMERA_DELETE_SHARE, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
             @Override
             public void onResponse(JSONObject response) {
-                BaseUtils.showShortToast(mContext,"删除成功");
+                BaseUtils.showShortToast(mContext, "删除成功");
                 getShareList();
             }
         }));

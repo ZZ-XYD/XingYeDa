@@ -316,7 +316,7 @@ public class OnOffAddActivity extends Cat110SDKActivity {
     }
     private void AddSound(final String id){
         final Map<String, String> params = new HashMap<String, String>();
-        params.put("uid", mApplication.getmCurrentUser().getmId());
+        params.put("uid", SharedPreUtil.getString(mContext, "userId", ""));
         params.put("num", id);
         params.put("type", "switch");
 

@@ -42,6 +42,7 @@ import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.MyLog;
+import com.xingyeda.ehome.util.SharedPreUtil;
 import com.xingyeda.ehome.view.PriorityDialog;
 
 import org.json.JSONArray;
@@ -327,7 +328,7 @@ public class AddParkActivity extends BaseActivity {
         MyLog.i("停车场添加");
         parkLoading.setVisibility(View.VISIBLE);
         Map<String, String> params = new HashMap<>();
-        params.put("uid", mEhomeApplication.getmCurrentUser().getmId());//用户id
+        params.put("uid", SharedPreUtil.getString(mContext, "userId", ""));//用户id
         params.put("communityId", mCommunityId);//小区id
         params.put("pid", mSentryId);//岗亭id
         params.put("parkName", parkName.getText().toString());//姓名

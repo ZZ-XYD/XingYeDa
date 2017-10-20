@@ -16,6 +16,7 @@ import com.xingyeda.ehome.adapter.InformationAdapter;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.bean.InformationBase;
 import com.xingyeda.ehome.util.BaseUtils;
+import com.xingyeda.ehome.util.SharedPreUtil;
 
 import org.litepal.crud.DataSupport;
 
@@ -58,7 +59,7 @@ public class PersonalActivity extends BaseActivity {
     }
 
     private void init() {
-        mList = DataSupport.where("mUserId = ?", mEhomeApplication.getmCurrentUser().getmId()).order("mTime desc").find(InformationBase.class);
+        mList = DataSupport.where("mUserId = ?", SharedPreUtil.getString(mContext, "userId", "")).order("mTime desc").find(InformationBase.class);
         addAdapter(mList, 0);
         mLoad = true;
         mSwipeLayout.setOnRefreshListener(listener);
@@ -82,7 +83,7 @@ public class PersonalActivity extends BaseActivity {
         public void onRefresh() {
             if (mIsRefresh) {
                 mIsRefresh = false;
-                mList = DataSupport.where("mUserId = ?", mEhomeApplication.getmCurrentUser().getmId()).order("mTime desc").find(InformationBase.class);
+                mList = DataSupport.where("mUserId = ?", SharedPreUtil.getString(mContext, "userId", "")).order("mTime desc").find(InformationBase.class);
                 addAdapter(mList, 0);
                 if (mList == null || mList.isEmpty() || mList.size() == 0) {
                     mNoDatas.setVisibility(View.VISIBLE);
@@ -101,80 +102,81 @@ public class PersonalActivity extends BaseActivity {
             datasRecyclerview.setAdapter(mAdapter);
         }
         mAdapter.notifyDataSetChanged();
-        if (mAdapter!=null) {
+        if (mAdapter != null) {
             mAdapter.delete(new InformationAdapter.Delete() {
                 @Override
                 public void onclick(View view, int position) {
                     DataSupport.deleteAll(InformationBase.class, "mTime = ?", mList.get(position).getmTime());
                     mList.remove(position);
-                    mList = DataSupport.where("mUserId = ?", mEhomeApplication.getmCurrentUser().getmId()).order("mTime desc").find(InformationBase.class);
+                    mList = DataSupport.where("mUserId = ?", SharedPreUtil.getString(mContext, "userId", "")).order("mTime desc").find(InformationBase.class);
                     mAdapter.notifyDataSetChanged();
                     addAdapter(mList, 0);
                     if (mList == null || mList.isEmpty() || mList.size() == 0) {
-                    mNoDatas.setVisibility(View.VISIBLE);
-                } else {
-                    mNoDatas.setVisibility(View.GONE);
-                }
+                        mNoDatas.setVisibility(View.VISIBLE);
+                    } else {
+                        mNoDatas.setVisibility(View.GONE);
+                    }
                 }
             });
             mAdapter.clickItem(new InformationAdapter.ClickItem() {
                 @Override
                 public void onclick(View view, int position) {
                     if (isShow) {
-                InformationBase item = mList.get(position);
-                boolean isChecked = item.isChecked();
-                if (isChecked) {
-                    item.setChecked(false);
-                } else {
-                    item.setChecked(true);
-                }
-                mAdapter.notifyDataSetChanged();
-            } else {
-                InformationBase bean = mList.get(position);
+                        InformationBase item = mList.get(position);
+                        boolean isChecked = item.isChecked();
+                        if (isChecked) {
+                            item.setChecked(false);
+                        } else {
+                            item.setChecked(true);
+                        }
+                        mAdapter.notifyDataSetChanged();
+                    } else {
+                        InformationBase bean = mList.get(position);
 
-                InformationBase informationBase = new InformationBase();
-                informationBase.setmIsExamine(1);
-                informationBase.updateAll("mTime = ?", bean.getmTime());
+                        InformationBase informationBase = new InformationBase();
+                        informationBase.setmIsExamine(1);
+                        informationBase.updateAll("mTime = ?", bean.getmTime());
 
-                Bundle bundle = new Bundle();
-                if (bean.getmZhongWeiType() == null) {
-                    bundle.putString("type", "individual");
-                    bundle.putString("title", bean.getmTitle());
-                    bundle.putString("time", bean.getmTime());
-                    bundle.putString("content", bean.getmContent());
-                    bundle.putString("image", bean.getmImage());
-                    bundle.putString("message", bean.getmMessage_status() + "");
-                    bundle.putString("door", bean.getmDoor_status() + "");
-                    bundle.putString("initiator", bean.getmName());
-                    bundle.putString("receiver", bean.getmReceiver());
-                    BaseUtils.startActivities(mContext, InformationActivity.class,
-                            bundle);
-                } else if (bean.getmZhongWeiType().equals("2")){
-                    bundle.putString("id", bean.getmZhongWeiId());
-                    bundle.putString("title", bean.getmTitle());
-                    bundle.putString("time", bean.getmTime());
-                    bundle.putString("image", bean.getmImage());
-                    bundle.putString("imageType", bean.getImageType() + "");
-                    bundle.putString("imageSite", bean.getmZhongWeiImage());
-                    BaseUtils.startActivities(mContext, JVPlayInformationActivity.class, bundle);
-                } else{
-                    bundle.putString("id", bean.getmZhongWeiId());
-                    bundle.putString("title", bean.getmTitle());
-                    bundle.putString("time", bean.getmTime());
-                    bundle.putString("image", bean.getmImage());
-                    bundle.putString("imageType", bean.getImageType() + "");
-                    bundle.putString("imageSite", bean.getmZhongWeiImage());
-                    BaseUtils.startActivities(mContext, JVInformationActivity.class, bundle);
-                }
-            }
+                        Bundle bundle = new Bundle();
+                        if (bean.getmZhongWeiType() == null) {
+                            bundle.putString("type", "individual");
+                            bundle.putString("title", bean.getmTitle());
+                            bundle.putString("time", bean.getmTime());
+                            bundle.putString("content", bean.getmContent());
+                            bundle.putString("image", bean.getmImage());
+                            bundle.putString("message", bean.getmMessage_status() + "");
+                            bundle.putString("door", bean.getmDoor_status() + "");
+                            bundle.putString("initiator", bean.getmName());
+                            bundle.putString("receiver", bean.getmReceiver());
+                            BaseUtils.startActivities(mContext, InformationActivity.class,
+                                    bundle);
+                        } else if (bean.getmZhongWeiType().equals("2")) {
+                            bundle.putString("id", bean.getmZhongWeiId());
+                            bundle.putString("title", bean.getmTitle());
+                            bundle.putString("time", bean.getmTime());
+                            bundle.putString("image", bean.getmImage());
+                            bundle.putString("imageType", bean.getImageType() + "");
+                            bundle.putString("imageSite", bean.getmZhongWeiImage());
+                            BaseUtils.startActivities(mContext, JVPlayInformationActivity.class, bundle);
+                        } else {
+                            bundle.putString("id", bean.getmZhongWeiId());
+                            bundle.putString("title", bean.getmTitle());
+                            bundle.putString("time", bean.getmTime());
+                            bundle.putString("image", bean.getmImage());
+                            bundle.putString("imageType", bean.getImageType() + "");
+                            bundle.putString("imageSite", bean.getmZhongWeiImage());
+                            BaseUtils.startActivities(mContext, JVInformationActivity.class, bundle);
+                        }
+                    }
                 }
             });
         }
     }
+
     public void onResume() {
         super.onResume();
         if (mLoad) {
-            List<InformationBase> list = DataSupport.where("mUserId = ?", mEhomeApplication.getmCurrentUser().getmId()).order("mTime desc").find(InformationBase.class);
+            List<InformationBase> list = DataSupport.where("mUserId = ?", SharedPreUtil.getString(mContext, "userId", "")).order("mTime desc").find(InformationBase.class);
             mList.clear();
             mList.addAll(list);
             addAdapter(mList, 1);

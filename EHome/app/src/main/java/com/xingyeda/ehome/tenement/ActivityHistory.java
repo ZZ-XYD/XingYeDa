@@ -36,26 +36,27 @@ import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
 import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
+import com.xingyeda.ehome.util.SharedPreUtil;
 import com.xingyeda.ehome.view.CustomListView;
 import com.xingyeda.ehome.view.CustomListView.OnLoadMoreListener;
 import com.xingyeda.ehome.view.CustomListView.OnRefreshListener;
+
 /**
+ * @author 李达龙
  * @ClassName: ActivityHistory
  * @Description: 建议和保修历史界面
- * @author 李达龙
  * @date 2016-7-6
  */
 @SuppressLint("HandlerLeak")
-public class ActivityHistory extends BaseActivity
-{
-   @Bind(R.id.hisory_title)
-     TextView mTitle;
-   @Bind(R.id.history_listview)
-     CustomListView mHisListview;
-   @Bind(R.id.history_back)
-     TextView mBack;
-   @Bind(R.id.history_hint)
-   ImageView mHint;
+public class ActivityHistory extends BaseActivity {
+    @Bind(R.id.hisory_title)
+    TextView mTitle;
+    @Bind(R.id.history_listview)
+    CustomListView mHisListview;
+    @Bind(R.id.history_back)
+    TextView mBack;
+    @Bind(R.id.history_hint)
+    ImageView mHint;
     private static String TYPE;
     private String mPath;
     private List<BeanComplainHistory> mComplainList;
@@ -72,8 +73,7 @@ public class ActivityHistory extends BaseActivity
     private int mSum = 0;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_history);
         ButterKnife.bind(this);
@@ -82,19 +82,15 @@ public class ActivityHistory extends BaseActivity
     }
 
     @SuppressWarnings("static-access")
-    private void init()
-    {
+    private void init() {
         this.TYPE = getIntent().getExtras().getString("type");
         this.mComplainList = new ArrayList<>();
         this.mMaintainList = new ArrayList<>();
-        if (TYPE.equals("tousu"))
-        {
+        if (TYPE.equals("tousu")) {
             mTitle.setText(R.string.suggested_history);
             this.mPath = ConnectPath.GETCOMPLAIN_PATH;
             complainDataLoad(TYPE, mPath, "0", "15", 0);
-        }
-        else if (TYPE.equals("weixiutype"))
-        {
+        } else if (TYPE.equals("weixiutype")) {
             mTitle.setText(R.string.maintain_history);
             this.mPath = ConnectPath.GETSERVICE_PATH;
             maintainDataLoad(TYPE, mPath, "0", "15", 0);
@@ -103,103 +99,81 @@ public class ActivityHistory extends BaseActivity
     }
 
 
-        @OnClick(R.id.history_back)
-        public void onClick(View v)
-        {
-                ActivityHistory.this.finish();
-        }
+    @OnClick(R.id.history_back)
+    public void onClick(View v) {
+        ActivityHistory.this.finish();
+    }
 
-    private Handler mHandler = new Handler()
-    {
+    private Handler mHandler = new Handler() {
         @SuppressWarnings("unchecked")
         @Override
-        public void handleMessage(Message msg)
-        {
-            switch (msg.what)
-            {
-            case TOUSU:
-                complainDatasLoad((List<BeanComplainHistory>) msg.obj,0);
-                break;
-            case WEIXIU:
-                maintainDatasLoad((List<BeanMaintainHistory>) msg.obj,0);
-                break;
-            case REFRESH_DATA_FINISH:
-                if (mComplainAdapter != null)
-                {
-                    complainDatasLoad((List<BeanComplainHistory>) msg.obj,0);
-                }
-                else if (mMaintainAdapter!=null)
-                {
-                    maintainDatasLoad((List<BeanMaintainHistory>) msg.obj,0);
-                }
-                mHisListview.onRefreshComplete(); // 下拉刷新完成
-                break;
-            case LOAD_DATA_FINISH:
-                if (mComplainAdapter != null)
-                {
-                    complainDatasLoad((List<BeanComplainHistory>) msg.obj,1);
-                }
-                else if (mMaintainAdapter!=null)
-                {
-                    maintainDatasLoad((List<BeanMaintainHistory>) msg.obj,1);
-                }
-                mHisListview.onLoadMoreComplete(); // 加载更多完成
-                break;
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case TOUSU:
+                    complainDatasLoad((List<BeanComplainHistory>) msg.obj, 0);
+                    break;
+                case WEIXIU:
+                    maintainDatasLoad((List<BeanMaintainHistory>) msg.obj, 0);
+                    break;
+                case REFRESH_DATA_FINISH:
+                    if (mComplainAdapter != null) {
+                        complainDatasLoad((List<BeanComplainHistory>) msg.obj, 0);
+                    } else if (mMaintainAdapter != null) {
+                        maintainDatasLoad((List<BeanMaintainHistory>) msg.obj, 0);
+                    }
+                    mHisListview.onRefreshComplete(); // 下拉刷新完成
+                    break;
+                case LOAD_DATA_FINISH:
+                    if (mComplainAdapter != null) {
+                        complainDatasLoad((List<BeanComplainHistory>) msg.obj, 1);
+                    } else if (mMaintainAdapter != null) {
+                        maintainDatasLoad((List<BeanMaintainHistory>) msg.obj, 1);
+                    }
+                    mHisListview.onLoadMoreComplete(); // 加载更多完成
+                    break;
             }
         }
 
     };
 
-    private void complainDatasLoad(List<BeanComplainHistory> list,int type)
-    {
-        if (list != null && list.size()!=0)
-        {
+    private void complainDatasLoad(List<BeanComplainHistory> list, int type) {
+        if (list != null && list.size() != 0) {
             mHisListview.setVisibility(View.VISIBLE);
             mHint.setVisibility(View.GONE);
-        }
-        else
-        {
+        } else {
             mHisListview.setVisibility(View.GONE);
             mHint.setVisibility(View.VISIBLE);
         }
         if (type == 0) {
             mComplainAdapter = new ComplainAdapter(this, list);
             mHisListview.setAdapter(mComplainAdapter);
-	}
+        }
         mComplainAdapter.notifyDataSetChanged();
 
         mHisListview.setOnItemClickListener(itemClickListener);
-        if (mComplainList.size()!=0 && mComplainList.size() >= mSum)
-        {
-            if (list.size()>14)
-            {
-        // 加载更多
-        mHisListview.setOnLoadListener(new OnLoadMoreListener()
-        {
+        if (mComplainList.size() != 0 && mComplainList.size() >= mSum) {
+            if (list.size() > 14) {
+                // 加载更多
+                mHisListview.setOnLoadListener(new OnLoadMoreListener() {
 
-            @Override
-            public void onLoadMore()
-            {
-                mPageIndex += 1;
-                complainDataLoad(TYPE, mPath, mPageIndex + "", "10", 2);
+                    @Override
+                    public void onLoadMore() {
+                        mPageIndex += 1;
+                        complainDataLoad(TYPE, mPath, mPageIndex + "", "10", 2);
+                    }
+                });
             }
-        });
-            }
-        }
-        else {
-            if (mComplainList.size()!=0 && list.size()>14)
-            {
-        	mHisListview.setOnLoadMoreText();
-        	mHisListview.removeFooteView();
+        } else {
+            if (mComplainList.size() != 0 && list.size() > 14) {
+                mHisListview.setOnLoadMoreText();
+                mHisListview.removeFooteView();
             }
         }
         // 下拉刷新
-        mHisListview.setOnRefreshListener(new OnRefreshListener()
-        {
+        mHisListview.setOnRefreshListener(new OnRefreshListener() {
 
             @Override
-            public void onRefresh()
-            {
+            public void onRefresh() {
                 int size = mComplainList.size();
                 mComplainList.clear();
                 complainDataLoad(TYPE, mPath, "0", size + "", 1);
@@ -207,58 +181,46 @@ public class ActivityHistory extends BaseActivity
         });
     }
 
-    private void maintainDatasLoad(List<BeanMaintainHistory> list,int type)
-    {
-        if (list != null && list.size()!=0)
-        {
+    private void maintainDatasLoad(List<BeanMaintainHistory> list, int type) {
+        if (list != null && list.size() != 0) {
             mHisListview.setVisibility(View.VISIBLE);
             mHint.setVisibility(View.GONE);
-        }
-        else
-        {
+        } else {
             mHisListview.setVisibility(View.GONE);
             mHint.setVisibility(View.VISIBLE);
         }
         if (type == 0) {
-            mMaintainAdapter= new MaintainAdapter(this, list);
+            mMaintainAdapter = new MaintainAdapter(this, list);
             mHisListview.setAdapter(mMaintainAdapter);
-	}
+        }
         mMaintainAdapter.notifyDataSetChanged();
 
         mHisListview.setOnItemClickListener(itemClickListener);
-        if (mMaintainList.size() !=0 &&mMaintainList.size() >= mSum)
-        {
-            if (list.size()>14)
-            {
-                
-        // 加载更多
-        mHisListview.setOnLoadListener(new OnLoadMoreListener()
-        {
+        if (mMaintainList.size() != 0 && mMaintainList.size() >= mSum) {
+            if (list.size() > 14) {
 
-            @Override
-            public void onLoadMore()
-            {
-                mPageIndex += 1;
-                maintainDataLoad(TYPE, mPath, mPageIndex + "", "15", 2);
+                // 加载更多
+                mHisListview.setOnLoadListener(new OnLoadMoreListener() {
+
+                    @Override
+                    public void onLoadMore() {
+                        mPageIndex += 1;
+                        maintainDataLoad(TYPE, mPath, mPageIndex + "", "15", 2);
+                    }
+                });
             }
-        });
-            }
-        }
-        else {
-            if (mMaintainList.size() !=0 && list.size()>14)
-            {
-        	mHisListview.setOnLoadMoreText();
+        } else {
+            if (mMaintainList.size() != 0 && list.size() > 14) {
+                mHisListview.setOnLoadMoreText();
                 mHisListview.removeFooteView();
             }
         }
-        
+
         // 下拉刷新
-        mHisListview.setOnRefreshListener(new OnRefreshListener()
-        {
+        mHisListview.setOnRefreshListener(new OnRefreshListener() {
 
             @Override
-            public void onRefresh()
-            {
+            public void onRefresh() {
                 int size = mMaintainList.size();
                 mMaintainList.clear();
                 maintainDataLoad(TYPE, mPath, "0", size + "", 1);
@@ -266,16 +228,13 @@ public class ActivityHistory extends BaseActivity
         });
     }
 
-    private AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener()
-    {
+    private AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position,
-                long id)
-        {
+                                long id) {
             Bundle bundle = new Bundle();
-            if (TYPE.equals("tousu"))
-            {
+            if (TYPE.equals("tousu")) {
                 BeanComplainHistory bean = (BeanComplainHistory) mHisListview
                         .getItemAtPosition(position);
                 mEhomeApplication.setmComplaiBean(bean);
@@ -285,9 +244,7 @@ public class ActivityHistory extends BaseActivity
                 bundle.putString("time", bean.getmTime());
                 bundle.putStringArrayList("imageList", bean.getmImageList());
 
-            }
-            else if (TYPE.equals("weixiutype"))
-            {
+            } else if (TYPE.equals("weixiutype")) {
                 BeanMaintainHistory bean = (BeanMaintainHistory) mHisListview
                         .getItemAtPosition(position);
                 mEhomeApplication.setmMaintainBean(bean);
@@ -298,159 +255,134 @@ public class ActivityHistory extends BaseActivity
                 bundle.putStringArrayList("imageList", bean.getmImageList());
             }
 
-            BaseUtils.startActivities(ActivityHistory.this,Notice_Activity.class, bundle);
+            BaseUtils.startActivities(ActivityHistory.this, Notice_Activity.class, bundle);
         }
 
     };
 
     @Override
-    protected void onResume()
-    {
+    protected void onResume() {
 
         super.onResume();
     }
 
     // 投诉历史
     private void complainDataLoad(final String type, String path,
-            String pageIndex, String pageSize, final int time)
-    {
-    	Map<String,String> params = new HashMap<String, String>();
+                                  String pageIndex, String pageSize, final int time) {
+        Map<String, String> params = new HashMap<String, String>();
         params.put("pageIndex", pageIndex);
         params.put("pageSize", pageSize);
-        params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
-        OkHttp.get(mContext,path, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
-			@Override
-			public void onResponse(JSONObject response) {
-				 try
-                 {
-                         JSONArray obj = (JSONArray) response.get("obj");
-                         if (obj != null && obj.length() != 0)
-                         {
-                             for (int i = 0; i < obj.length(); i++)
-                             {
-                                 BeanComplainHistory bean = new BeanComplainHistory();
-                                 JSONObject jobj = obj.getJSONObject(i);
-                                 bean.setmTitle(jobj.getString("title"));
-                                 bean.setmTime(jobj.getString("time"));
-                                 bean.setmContent(jobj
-                                         .getString("content"));
-                                 bean.setmType(type);
-                                 if (jobj.has("fileList")) {
-                                 	JSONArray list = (JSONArray) jobj.get("fileList");
-                                 	if (list != null && list.length() != 0)
-                                     {
-                                 		List<String> paths = new ArrayList<String>();
-                                 		for (int j = 0; j < list.length(); j++) {
-                                 			JSONObject listobj = list.getJSONObject(j);
-                                 			 paths.add(listobj.has("path")?listobj.getString("path"):"");
-											}
-                                 		 bean.setmImageList(paths);
-                                     }
-				    
-                                 }
-                                 mComplainList.add(bean);
-                             }
-                             mSum+=obj.length();
-                         }
-                         Message msg = new Message();
-                         if (time == 0)
-                         {
-                             msg.what = TOUSU;
-                         }
-                         else if (time == 1)
-                         {
-                             msg.what = REFRESH_DATA_FINISH;
-                         }
-                         else if (time == 2)
-                         {
-                             msg.what = LOAD_DATA_FINISH;
-                         }
-                         msg.obj = mComplainList;
-                         mHandler.sendMessage(msg);
+        params.put("uid", SharedPreUtil.getString(mContext, "userId", ""));
+        OkHttp.get(mContext, path, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray obj = (JSONArray) response.get("obj");
+                    if (obj != null && obj.length() != 0) {
+                        for (int i = 0; i < obj.length(); i++) {
+                            BeanComplainHistory bean = new BeanComplainHistory();
+                            JSONObject jobj = obj.getJSONObject(i);
+                            bean.setmTitle(jobj.getString("title"));
+                            bean.setmTime(jobj.getString("time"));
+                            bean.setmContent(jobj
+                                    .getString("content"));
+                            bean.setmType(type);
+                            if (jobj.has("fileList")) {
+                                JSONArray list = (JSONArray) jobj.get("fileList");
+                                if (list != null && list.length() != 0) {
+                                    List<String> paths = new ArrayList<String>();
+                                    for (int j = 0; j < list.length(); j++) {
+                                        JSONObject listobj = list.getJSONObject(j);
+                                        paths.add(listobj.has("path") ? listobj.getString("path") : "");
+                                    }
+                                    bean.setmImageList(paths);
+                                }
 
-                 }
-                 catch (JSONException e)
-                 {
-                     e.printStackTrace();
-                 }
-			}
-		}));
+                            }
+                            mComplainList.add(bean);
+                        }
+                        mSum += obj.length();
+                    }
+                    Message msg = new Message();
+                    if (time == 0) {
+                        msg.what = TOUSU;
+                    } else if (time == 1) {
+                        msg.what = REFRESH_DATA_FINISH;
+                    } else if (time == 2) {
+                        msg.what = LOAD_DATA_FINISH;
+                    }
+                    msg.obj = mComplainList;
+                    mHandler.sendMessage(msg);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }));
     }
 
     // 维修历史
     private void maintainDataLoad(final String type, String path,
-            String pageIndex, String pageSize, final int time)
-    {
+                                  String pageIndex, String pageSize, final int time) {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
+        params.put("uid", SharedPreUtil.getString(mContext, "userId", ""));
         params.put("pageIndex", pageIndex);
         params.put("pageSize", pageSize);
-        OkHttp.get(mContext,path, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
-			@Override
-			public void onResponse(JSONObject response) {
-				try
-                {
-                        BeanMaintainHistory bean;
-                        JSONArray obj = (JSONArray) response.get("obj");
-                        if (obj != null && obj.length() != 0)
-                        {
-                            for (int i = 0; i < obj.length(); i++)
-                            {
-                                bean = new BeanMaintainHistory();
-                                JSONObject cObjct = (JSONObject) obj
-                                        .get(i);
-                                JSONObject jobj = (JSONObject) cObjct
-                                        .get("report");
+        OkHttp.get(mContext, path, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    BeanMaintainHistory bean;
+                    JSONArray obj = (JSONArray) response.get("obj");
+                    if (obj != null && obj.length() != 0) {
+                        for (int i = 0; i < obj.length(); i++) {
+                            bean = new BeanMaintainHistory();
+                            JSONObject cObjct = (JSONObject) obj
+                                    .get(i);
+                            JSONObject jobj = (JSONObject) cObjct
+                                    .get("report");
 
-                                bean.setmTitle(jobj.getString("title"));
-                                bean.setmTime(jobj.getString("time"));
-                                bean.setmContent(jobj
-                                        .getString("content"));
-                                bean.setmType(type);
-                                if (jobj.has("fileList")) {
-                                	JSONArray list = (JSONArray) jobj.get("fileList");
-                                	if (list != null && list.length() != 0)
-                                    {
-                                		List<String> paths = new ArrayList<String>();
-                                		for (int j = 0; j < list.length(); j++) {
-                                			JSONObject listobj = list.getJSONObject(j);
-                                			 paths.add(listobj.has("path")?listobj.getString("path"):"");
-										}
-                                		 bean.setmImageList(paths);
+                            bean.setmTitle(jobj.getString("title"));
+                            bean.setmTime(jobj.getString("time"));
+                            bean.setmContent(jobj
+                                    .getString("content"));
+                            bean.setmType(type);
+                            if (jobj.has("fileList")) {
+                                JSONArray list = (JSONArray) jobj.get("fileList");
+                                if (list != null && list.length() != 0) {
+                                    List<String> paths = new ArrayList<String>();
+                                    for (int j = 0; j < list.length(); j++) {
+                                        JSONObject listobj = list.getJSONObject(j);
+                                        paths.add(listobj.has("path") ? listobj.getString("path") : "");
                                     }
-                                	
-                                	
+                                    bean.setmImageList(paths);
                                 }
 
-                                mMaintainList.add(bean);
-                            }
-                            mSum+=obj.length();
-                        }
-                        Message msg = new Message();
-                        if (time == 0)
-                        {
-                            msg.what = WEIXIU;
-                        }
-                        else if (time == 1)
-                        {
-                            msg.what = REFRESH_DATA_FINISH;
-                        }
-                        else if (time == 2)
-                        {
-                            msg.what = LOAD_DATA_FINISH;
-                        }
-                        msg.obj = mMaintainList;
-                        mHandler.sendMessage(msg);
 
-                }
-                catch (JSONException e)
-                {
+                            }
+
+                            mMaintainList.add(bean);
+                        }
+                        mSum += obj.length();
+                    }
+                    Message msg = new Message();
+                    if (time == 0) {
+                        msg.what = WEIXIU;
+                    } else if (time == 1) {
+                        msg.what = REFRESH_DATA_FINISH;
+                    } else if (time == 2) {
+                        msg.what = LOAD_DATA_FINISH;
+                    }
+                    msg.obj = mMaintainList;
+                    mHandler.sendMessage(msg);
+
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
-			}
-		}));
-   }
-    
+            }
+        }));
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

@@ -83,12 +83,12 @@ public class ActivityChangeInfo extends BaseActivity {
             mView.setVisibility(View.GONE);
             mSave.setVisibility(View.GONE);
             init();
-        }else if(mStrContent.equals("park")){
+        } else if (mStrContent.equals("park")) {
             mTitle.setText("修改停车场呢称");
             mContent.setHint("请输入停车场呢称");
         }
 
-        changeLoading.setOnTouchListener(new View.OnTouchListener(){
+        changeLoading.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -96,7 +96,6 @@ public class ActivityChangeInfo extends BaseActivity {
             }
 
         });
-
 
 
     }
@@ -132,7 +131,7 @@ public class ActivityChangeInfo extends BaseActivity {
     private void changeXiaoqu(final HomeBean bean) {
         changeLoading.setVisibility(View.VISIBLE);
         Map<String, String> params = new HashMap<String, String>();
-        params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
+        params.put("uid", SharedPreUtil.getString(mContext, "userId", ""));
         params.put("hid", bean.getmHouseNumberId());
         OkHttp.get(mContext, ConnectPath.CHANGEXIAOQU_PATH, params,
                 new BaseStringCallback(mContext, new CallbackHandler<String>() {
@@ -183,28 +182,28 @@ public class ActivityChangeInfo extends BaseActivity {
                     } else if (mStrContent.equals("beiyong")) {
                         if (mContent.getText().toString().equals("")) {
                             DialogShow.showHintDialog(mContext, "电话号码不能为空");
-                        }else if (!isPhoneNumberValid(mContent.getText().toString())){
+                        } else if (!isPhoneNumberValid(mContent.getText().toString())) {
                             DialogShow.showHintDialog(mContext, "请输入正确的手机号码!");
-                        }else {
+                        } else {
                             modification();
                         }
-                    }else if(mStrContent.equals("park")){
+                    } else if (mStrContent.equals("park")) {
                         if (Stringlength(mContent.getText().toString()) <= 16) {
                             HomeBean homeBean = new HomeBean();
                             homeBean.setmParkNickName(mContent.getText().toString());
                             homeBean.updateAll("mParkId = ?", id);
-                            BaseUtils.showShortToast(mContext,"修改成功");
+                            BaseUtils.showShortToast(mContext, "修改成功");
                             ActivityChangeInfo.this.finish();
                         } else {
                             DialogShow.showHintDialog(mContext, "呢称过长");
                         }
                     }
-                } else  {
+                } else {
                     if (mStrContent.equals("name")) {
                         DialogShow.showHintDialog(mContext, "输入名字为空");
                     } else if (mStrContent.equals("beiyong")) {
                         DialogShow.showHintDialog(mContext, "输入号码为空");
-                    }else if(mStrContent.equals("park")){
+                    } else if (mStrContent.equals("park")) {
                         DialogShow.showHintDialog(mContext, "输入呢称为空");
                     }
 
@@ -215,7 +214,7 @@ public class ActivityChangeInfo extends BaseActivity {
 
     private void modification() {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("id", mEhomeApplication.getmCurrentUser().getmId());
+        params.put("id", SharedPreUtil.getString(mContext, "userId", ""));
         params.put(mStrContent, mContent.getText().toString());
         OkHttp.get(mContext, ConnectPath.MODIFICATION_PATH, params,
                 new BaseStringCallback(mContext, new CallbackHandler<String>() {
@@ -272,13 +271,14 @@ public class ActivityChangeInfo extends BaseActivity {
             if (changeLoading.isShown()) {
                 changeLoading.setVisibility(View.GONE);
                 return false;
-            }else{
+            } else {
                 finish();
                 return true;
             }
         }
         return super.onKeyDown(keyCode, event);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
