@@ -47,6 +47,7 @@ import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.push.ExampleUtil;
 import com.xingyeda.ehome.push.TagAliasOperatorHelper;
 import com.xingyeda.ehome.util.AESUtils;
+import com.xingyeda.ehome.util.SharedPreUtil;
 import com.xingyeda.ehome.util.SpaceItemDecoration;
 import com.xingyeda.ehome.view.PercentLinearLayout;
 
@@ -206,7 +207,7 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
     private void enter() {
         Map<String, String> params = new HashMap<>();
         if (mEhomeApplication.getmCurrentUser() != null) {
-            params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
+            params.put("uid", SharedPreUtil.getString(mContext,"userId"));
         } else {
             params.put("uid", "");
             params.put("regKey", JPushInterface.getRegistrationID(mContext));
@@ -225,7 +226,7 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
     private void exit() {
         Map<String, String> params = new HashMap<>();
         if (mEhomeApplication.getmCurrentUser() != null) {
-            params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
+            params.put("uid", SharedPreUtil.getString(mContext,"userId"));
         } else {
             params.put("uid", "");
             params.put("regKey", JPushInterface.getRegistrationID(mContext));
@@ -243,7 +244,7 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
     private void sendMessage(String msg) {
         Map<String, String> params = new HashMap<>();
         if (mEhomeApplication.getmCurrentUser() != null) {
-            params.put("uid", mEhomeApplication.getmCurrentUser().getmId());
+            params.put("uid", SharedPreUtil.getString(mContext,"userId"));
         } else {
             params.put("uid", "");
             params.put("regKey", JPushInterface.getRegistrationID(mContext));
@@ -789,7 +790,7 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
             case R.id.share_play_share:
                 if (mEhomeApplication.getmCurrentUser() != null) {
                     mUserName = mEhomeApplication.getmCurrentUser().getmUsername();//获取用户昵称
-                    String uid = mEhomeApplication.getmCurrentUser().getmId();
+                    String uid = SharedPreUtil.getString(mContext,"userId");
                     mEquipmentId = getIntent().getExtras().getString("equipmentId");
                     mRoomId = getIntent().getExtras().getString("roomId");
                     String sharePassword = mEquipmentId + "|" + uid + "|" + mRoomId;
