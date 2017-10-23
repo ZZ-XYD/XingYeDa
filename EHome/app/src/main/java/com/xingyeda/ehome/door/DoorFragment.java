@@ -281,7 +281,9 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            frozenAccount.setVisibility(View.GONE);
+                            if (frozenAccount!=null) {
+                                frozenAccount.setVisibility(View.GONE);
+                            }
                             JSONArray jan2 = (JSONArray) response.get("camera");
                             if (jan2 != null && jan2.length() != 0) {
                                 MyLog.i("加载摄像头猫眼：" + jan2);

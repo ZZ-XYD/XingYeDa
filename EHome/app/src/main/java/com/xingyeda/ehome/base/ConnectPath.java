@@ -45,8 +45,8 @@ public class ConnectPath
     public static final String REPETITIONLOGIN_PATH = IP_PATH+"loginOut";
     //获取服务器的系统时间
     public static final String SYSTEMTIME_PATH = IP_PATH+"getCuTime?type=long";
-    //通知服务器重启监控视频
-    public static final String RESTARTRTMP_PATH = IP_PATH+"notificationRestart";
+//    //通知服务器重启监控视频
+//    public static final String RESTARTRTMP_PATH = IP_PATH+"notificationRestart";
     //通知消息计数
     public static final String PUSHMSG_PATH = IP_PATH+"clicknum";
     

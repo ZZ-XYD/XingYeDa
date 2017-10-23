@@ -92,6 +92,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
                 Map<String, String> params = new HashMap<>();
                 params.put("model", mEhomeApplication.model);
                 MyLog.e(sb);
+                MyLog.e("SDK版本："+mEhomeApplication.sdk+";手机型号:"+mEhomeApplication.model+";android系统版本号:"+mEhomeApplication.release+";AppVersions:"+AppUtils.getVersionName(mContext));
                 OkHttp.uploadFile(mContext, ConnectPath.LOG_UPDATE, "log", MyLog.fileName(0), params, MyLog.getFile(0), new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
                     @Override
                     public void onResponse(JSONObject response) {

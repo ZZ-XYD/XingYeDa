@@ -14,6 +14,7 @@ import java.util.TimerTask;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -40,6 +41,8 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 
+import com.xingyeda.ehome.ActivityGuide;
+import com.xingyeda.ehome.ActivityHomepage;
 import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
@@ -53,6 +56,7 @@ import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.LogUtils;
 import com.xingyeda.ehome.util.NetUtils;
 import com.xingyeda.ehome.util.SharedPreUtil;
+import com.xingyeda.ehome.zhibo.ActivityShareMain;
 import com.yuntongxun.ecsdk.ECDevice;
 import com.yuntongxun.ecsdk.ECVoIPCallManager;
 import com.yuntongxun.ecsdk.ECVoIPCallManager.CallType;
@@ -820,15 +824,15 @@ public class ActivityVideo extends BaseActivity {
         }
     };
 
-    private void restartRtmp() {
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("eid", mEquipmentId);
-        OkHttp.get(mContext, ConnectPath.RESTARTRTMP_PATH, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
-            @Override
-            public void onResponse(JSONObject response) {
-            }
-        }));
-    }
+//    private void restartRtmp() {
+//        Map<String, String> params = new HashMap<String, String>();
+//        params.put("eid", mEquipmentId);
+//        OkHttp.get(mContext, ConnectPath.RESTARTRTMP_PATH, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//            }
+//        }));
+//    }
 
     public String getStandardTime(long timestamp) {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss",
@@ -863,6 +867,14 @@ public class ActivityVideo extends BaseActivity {
         super.onDestroy();
         if (mCallId != null) {
             ECDevice.getECVoIPCallManager().releaseCall(mCallId);
+        }
+        for (Activity activity : mEhomeApplication.getActivityStack()) {
+           if (activity.getClass().equals(ActivityGuide.class)) {
+               Intent intent = new Intent();
+               intent.setAction(Intent.ACTION_MAIN);
+               intent.addCategory(Intent.CATEGORY_HOME);
+               startActivity(intent);
+            }
         }
         if (mType.equals("dial")) {
             if (mMediaPlayer != null) {
@@ -933,7 +945,7 @@ public class ActivityVideo extends BaseActivity {
 //				}
                     BaseUtils.showShortToast(ActivityVideo.this,
                             R.string.playback_failed);
-                    restartRtmp();
+//                    restartRtmp();
                     break;
                 case TIMER:
                     if (mVideoView != null) {

@@ -75,6 +75,9 @@ public class SharePasswordService extends Service {
                             if (cm.getPrimaryClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
                                 ClipData.Item item = null;
                                 item = cm.getPrimaryClip().getItemAt(0);
+                                if (item==null) {
+                                    return;
+                                }
                                 sharePassword = item.getText().toString();
                                 if (sharePassword.contains("创享E家")) {
                                     String password = sharePassword.substring(sharePassword.indexOf("￥"), sharePassword.lastIndexOf("￥")).toString();

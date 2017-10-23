@@ -114,6 +114,13 @@ public class ActivityGuide extends BaseActivity {
                 Intent home = new Intent(Intent.ACTION_MAIN);
                 home.addCategory(Intent.CATEGORY_HOME);
                 startActivity(home);
+            }else if (type.equals("BOOT_COMPLETED")){
+//                type=null;
+//                Intent intent = new Intent();
+//                intent.setAction(Intent.ACTION_MAIN);
+//                intent.addCategory(Intent.CATEGORY_HOME);
+//                startActivity(intent);
+                finish();
             }
         } else {
             setContentView(R.layout.activity_guide);

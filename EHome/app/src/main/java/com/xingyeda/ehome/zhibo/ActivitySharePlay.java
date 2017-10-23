@@ -241,7 +241,7 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
 
     }
 
-    private void sendMessage(String msg) {
+    private void sendShareMessage(String msg) {
         Map<String, String> params = new HashMap<>();
         if (mEhomeApplication.getmCurrentUser() != null) {
             params.put("uid", SharedPreUtil.getString(mContext,"userId"));
@@ -251,11 +251,12 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
         }
         params.put("roomId", mRoomId);
         params.put("content", msg);
+        zbEdit.setText("");
         OkHttp.get(mContext, ConnectPath.CAMERA_SEND_MESSAGE, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
             @Override
             public void onResponse(JSONObject response) {
 //                zbContent.append("我说:" + zbEdit.getText().toString() + "\n");
-                zbEdit.setText("");
+//                zbEdit.setText("");
             }
         }));
 
@@ -773,7 +774,7 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
                 hintKbTwo();
                 String comtent = zbEdit.getText().toString();
                 if (comtent != null && !"".equals(comtent)) {
-                    sendMessage(comtent);
+                    sendShareMessage(comtent);
                 }
                 break;
             case R.id.share_play_back:

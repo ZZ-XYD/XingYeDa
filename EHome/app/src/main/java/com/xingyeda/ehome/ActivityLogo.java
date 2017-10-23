@@ -335,11 +335,15 @@ public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, O
 
                         @Override
                         public void onResponse(File response, int id) {
-                            mBackground.setImageBitmap(BitmapFactory.decodeFile(LogcatHelper.getPATH_LOGCAT()+"/logo.png"));
+                            if (mBackground!=null) {
+                                mBackground.setImageBitmap(BitmapFactory.decodeFile(LogcatHelper.getPATH_LOGCAT()+"/logo.png"));
+                            }
                         }
                     });
                 }else{
-                    mBackground.setImageBitmap(BitmapFactory.decodeFile(LogcatHelper.getPATH_LOGCAT()+"/logo.png"));
+                    if (mBackground!=null) {
+                        mBackground.setImageBitmap(BitmapFactory.decodeFile(LogcatHelper.getPATH_LOGCAT()+"/logo.png"));
+                    }
                 }
 			} catch (JSONException e) {
 			    e.printStackTrace();

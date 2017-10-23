@@ -31,6 +31,7 @@ import com.ldl.dialogshow.animation.SlideExit.SlideBottomExit;
 import com.ldl.dialogshow.dialog.listener.OnBtnClickL;
 import com.ldl.dialogshow.dialog.widget.MaterialDialog;
 import com.ldl.dialogshow.dialog.widget.NormalDialog;
+import com.xingyeda.ehome.ActivityGuide;
 import com.xingyeda.ehome.ActivityHomepage;
 import com.xingyeda.ehome.ActivityLogin;
 import com.xingyeda.ehome.Service.HeartbeatService;
@@ -102,6 +103,8 @@ public class JPushReceiver extends BroadcastReceiver {
                 if (activity.getClass().equals(ActivityHomepage.class)) {
                     isReturn = false;
                 } else if (activity.getClass().equals(ActivityShareMain.class)) {
+                    isReturn = false;
+                }else if (activity.getClass().equals(ActivityGuide.class)) {
                     isReturn = false;
                 }
                 isStart = true;

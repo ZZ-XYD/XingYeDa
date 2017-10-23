@@ -134,7 +134,9 @@ public class ActivityAddAddress extends BaseActivity {
                                     .getString("name") : "");
                             mDatas.add(xiaoqu);
                         }
-                        mCommunity.setText(mDatas.get(0).getmName());
+                        if (mCommunity!=null) {
+                            mCommunity.setText(mDatas.get(0).getmName());
+                        }
                         mCommunityId = mDatas.get(0).getmId();
                         mHandler.sendEmptyMessage(XIAOQU);
                     }
@@ -169,7 +171,9 @@ public class ActivityAddAddress extends BaseActivity {
                                     .getString("name") : "");
                             qishuDatas.add(qishu);
                         }
-                        mPeriods.setText(qishuDatas.get(0).getmName());
+                        if (mPeriods!=null) {
+                            mPeriods.setText(qishuDatas.get(0).getmName());
+                        }
                         mPeriodsId = qishuDatas.get(0).getmId();
 
                     }
@@ -207,7 +211,9 @@ public class ActivityAddAddress extends BaseActivity {
                                     .getString("name") : "");
                             dongshuDatas.add(dongshu);
                         }
-                        mUnit.setText(dongshuDatas.get(0).getmName());
+                        if (mUnit!=null) {
+                            mUnit.setText(dongshuDatas.get(0).getmName());
+                        }
                         mUnitId = dongshuDatas.get(0).getmId();
                     }
                     mDatas.get(mXiaoquPosition).getQishu()
