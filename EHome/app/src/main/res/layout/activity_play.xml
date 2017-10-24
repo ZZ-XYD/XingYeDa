@@ -28,13 +28,19 @@
             android:id="@+id/playsurface"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
-        <TextView
+        <ImageView
             android:id="@+id/linkstate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textColor="#00FF00" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/loging"
+            android:contentDescription="@null"/>
+
+        <!--<TextView-->
+            <!--android:id="@+id/linkstate"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:textColor="#00FF00" />-->
         <com.xingyeda.ehome.view.PercentLinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -1,6 +1,7 @@
 package com.jovision.account;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -39,6 +40,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.xingyeda.ehome.R.id.linkState;
+
 public class JVPlayActivity extends BaseActivity implements IHandlerNotify, IHandlerLikeNotify {
 
     protected MyHandler handler = new MyHandler(this);
@@ -63,8 +66,12 @@ public class JVPlayActivity extends BaseActivity implements IHandlerNotify, IHan
     ImageView jvRight;
     @Bind(R.id.jvmy_console)
     RelativeLayout jvmyConsole;
+//    @Bind(R.id.linkstate)
+//    TextView linkState;
     @Bind(R.id.linkstate)
-    TextView linkState;
+    ImageView mLgingImg;
+
+    private AnimationDrawable mAnimation;
 
 
     private int channelIndex;
@@ -168,6 +175,8 @@ public class JVPlayActivity extends BaseActivity implements IHandlerNotify, IHan
             jvRight.setOnTouchListener(new LongClickListener());
         }
 
+        mAnimation = (AnimationDrawable) mLgingImg.getBackground();
+
 //        playSurface = (SurfaceView) findViewById(R.id.playsurface);
 
         ViewGroup.LayoutParams para = playSurface.getLayoutParams();
@@ -181,8 +190,9 @@ public class JVPlayActivity extends BaseActivity implements IHandlerNotify, IHan
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
                 if (!channel.isConnected()) {
-                    linkState.setVisibility(View.VISIBLE);
-                    linkState.setText(R.string.connecting);
+//                    linkState.setVisibility(View.VISIBLE);
+//                    linkState.setText(R.string.connecting);
+                    mAnimation.start();
                     connect(channel, holder.getSurface());
 
                 } else if (channel.isConnected()
@@ -192,7 +202,9 @@ public class JVPlayActivity extends BaseActivity implements IHandlerNotify, IHan
                     if (result) {
                         boolean resumeRes = JniUtil.resumeSurface(channelIndex, holder.getSurface());
                         if (resumeRes) {
-                            linkState.setVisibility(View.GONE);
+//                            linkState.setVisibility(View.GONE);
+                            mLgingImg.setVisibility(View.GONE);
+                            mAnimation.stop();
                         }
                     }
 
@@ -249,38 +261,38 @@ public class JVPlayActivity extends BaseActivity implements IHandlerNotify, IHan
             case AppConsts.CALL_CONNECT_CHANGE: {
                 switch (arg2) {
                     case 1:
-                        linkState.setText(R.string.connect_ok);
+//                        linkState.setText(R.string.connect_ok);
                         channel.setConnected(true);
                         break;
 
                     case 2:
-                        linkState.setText(R.string.error2);
+//                        linkState.setText(R.string.error2);
                         channel.setConnected(false);
                         channel.setPaused(true);
                         break;
                     case 4:
-                        linkState.setText(R.string.error4);
+//                        linkState.setText(R.string.error4);
                         channel.setConnected(false);
                         channel.setPaused(true);
                         break;
                     case 6:
-                        linkState.setText(R.string.error6);
+//                        linkState.setText(R.string.error6);
                         channel.setConnected(false);
                         channel.setPaused(true);
                         break;
                     case 7:
-                        linkState.setText(R.string.error7);
+//                        linkState.setText(R.string.error7);
                         channel.setConnected(false);
                         channel.setPaused(true);
                         break;
 
                     case 5:
-                        linkState.setText(R.string.error5);
+//                        linkState.setText(R.string.error5);
                         channel.setConnected(false);
                         channel.setPaused(true);
                         break;
                     case 8:
-                        linkState.setText(R.string.error8);
+//                        linkState.setText(R.string.error8);
                         channel.setConnected(false);
                         channel.setPaused(true);
                         break;
@@ -292,14 +304,16 @@ public class JVPlayActivity extends BaseActivity implements IHandlerNotify, IHan
 
             case AppConsts.CALL_FRAME_I_REPORT: {
 //                linkState.setText(R.string.i_ok);
-                linkState.setVisibility(View.GONE);
+//                linkState.setVisibility(View.GONE);
+                mLgingImg.setVisibility(View.GONE);
+                mAnimation.stop();
                 channel.setConnected(true);
                 channel.setPaused(false);
                 break;
             }
 
             case AppConsts.CALL_NORMAL_DATA: {
-                linkState.setText(R.string.o_ok);
+//                linkState.setText(R.string.o_ok);
                 try {
                     JSONObject jobj;
                     jobj = new JSONObject(obj.toString());
