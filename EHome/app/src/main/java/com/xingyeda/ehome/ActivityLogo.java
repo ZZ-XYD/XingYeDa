@@ -21,6 +21,7 @@ import android.os.Message;
 import android.os.Parcelable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -91,16 +92,15 @@ import static com.xingyeda.ehome.base.PhoneBrand.SYS_EMUI;
  */
 public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, OnConnectionFailedListener {
 
-    static {
-        System.loadLibrary("gnustl_shared");
-        System.loadLibrary("stlport_shared");
-        System.loadLibrary("tools");
-        System.loadLibrary("nplayer");
-        System.loadLibrary("alu");
-        System.loadLibrary("play");
-
-        System.loadLibrary("cat110");
-    }
+//    static {
+//        System.loadLibrary("gnustl_shared");
+//        System.loadLibrary("stlport_shared");
+//        System.loadLibrary("tools");
+//        System.loadLibrary("nplayer");
+//        System.loadLibrary("alu");
+//        System.loadLibrary("play");
+//        System.loadLibrary("cat110");
+//    }
 
     @Bind(R.id.logo_image)
     ImageView mBackground;
@@ -123,6 +123,14 @@ public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logo);
         ButterKnife.bind(this);
+
+        try {
+            initJOVI();
+        } catch (Throwable e) {
+            Log.v("JOVISION", String.valueOf(e));
+            MyLog.e(e);
+        }
+
 
         MyLog.i("ActivityLogo:Service--1");
         Intent startIntent = new Intent(mContext, SharePasswordService.class);
@@ -312,45 +320,44 @@ public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, O
     }
 
 
-
     private void loginImage() {
 
         if (!NetUtils.isConnected(mContext)) {
             BaseUtils.startActivity(mContext, ActivityLogin.class);
 //		    ActivityLogo.this.finish();
-		}else {
-    OkHttp.get(mContext,ConnectPath.LOGINIMAGE_PATH, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
-		@Override
-		public void onResponse(JSONObject response) {
-			try {
-			JSONObject jobj = response.getJSONObject("obj");
-                String fileMd5 = getFileMD5(new File(LogcatHelper.getPATH_LOGCAT()+"/logo.png"));
-                if (fileMd5==null||!fileMd5.equals(jobj.has("md5") ? jobj.getString("md5") : "")) {//没有这张图片  fileMd5.equals(null)
-                    mImagePath = jobj.has("strvalue") ? jobj.getString("strvalue") : "";
-                    OkHttp.downloadFile(mContext, ConnectPath.IMAGE_PATH + mImagePath, new FileCallBack(LogcatHelper.getPATH_LOGCAT(),"logo.png") {
-                        @Override
-                        public void onError(Call call, Exception e, int id) {
-                            ImageLoader.getInstance().displayImage(ConnectPath.IMAGE_PATH + mImagePath, mBackground);
-                        }
+        } else {
+            OkHttp.get(mContext, ConnectPath.LOGINIMAGE_PATH, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        JSONObject jobj = response.getJSONObject("obj");
+                        String fileMd5 = getFileMD5(new File(LogcatHelper.getPATH_LOGCAT() + "/logo.png"));
+                        if (fileMd5 == null || !fileMd5.equals(jobj.has("md5") ? jobj.getString("md5") : "")) {//没有这张图片  fileMd5.equals(null)
+                            mImagePath = jobj.has("strvalue") ? jobj.getString("strvalue") : "";
+                            OkHttp.downloadFile(mContext, ConnectPath.IMAGE_PATH + mImagePath, new FileCallBack(LogcatHelper.getPATH_LOGCAT(), "logo.png") {
+                                @Override
+                                public void onError(Call call, Exception e, int id) {
+                                    ImageLoader.getInstance().displayImage(ConnectPath.IMAGE_PATH + mImagePath, mBackground);
+                                }
 
-                        @Override
-                        public void onResponse(File response, int id) {
-                            if (mBackground!=null) {
-                                mBackground.setImageBitmap(BitmapFactory.decodeFile(LogcatHelper.getPATH_LOGCAT()+"/logo.png"));
+                                @Override
+                                public void onResponse(File response, int id) {
+                                    if (mBackground != null) {
+                                        mBackground.setImageBitmap(BitmapFactory.decodeFile(LogcatHelper.getPATH_LOGCAT() + "/logo.png"));
+                                    }
+                                }
+                            });
+                        } else {
+                            if (mBackground != null) {
+                                mBackground.setImageBitmap(BitmapFactory.decodeFile(LogcatHelper.getPATH_LOGCAT() + "/logo.png"));
                             }
                         }
-                    });
-                }else{
-                    if (mBackground!=null) {
-                        mBackground.setImageBitmap(BitmapFactory.decodeFile(LogcatHelper.getPATH_LOGCAT()+"/logo.png"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 }
-			} catch (JSONException e) {
-			    e.printStackTrace();
-			}
-		}
-	}));
-    	}
+            }));
+        }
     }
 
 
@@ -403,7 +410,7 @@ public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, O
 
     /**
      * 获取单个文件的MD5值！
-
+     *
      * @param file
      * @return
      */
@@ -429,5 +436,15 @@ public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, O
         }
         BigInteger bigInt = new BigInteger(1, digest.digest());
         return bigInt.toString(16);
+    }
+
+    public void initJOVI() {
+        System.loadLibrary("gnustl_shared");
+        System.loadLibrary("stlport_shared");
+        System.loadLibrary("tools");
+        System.loadLibrary("nplayer");
+        System.loadLibrary("alu");
+        System.loadLibrary("play");
+        System.loadLibrary("cat110");
     }
 }
