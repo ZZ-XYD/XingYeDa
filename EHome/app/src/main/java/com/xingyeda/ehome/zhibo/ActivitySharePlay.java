@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,6 +25,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,6 +71,7 @@ import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import okhttp3.Call;
 
+import static com.xingyeda.ehome.R.id.linkState;
 import static com.xingyeda.ehome.push.TagAliasOperatorHelper.ACTION_ADD;
 import static com.xingyeda.ehome.push.TagAliasOperatorHelper.ACTION_DELETE;
 import static com.xingyeda.ehome.push.TagAliasOperatorHelper.ACTION_GET;
@@ -98,10 +101,12 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
     PercentLinearLayout playCodeRateShow;
     @Bind(R.id.zb_play_code_rate_text)
     TextView playCodeRate;
+//    @Bind(R.id.zb_linkstate)
+//    TextView linkState;
     @Bind(R.id.zb_linkstate)
-    TextView linkState;
+    ImageView mLgingImg;
 
-
+    private AnimationDrawable mAnimation;
     private int channelIndex;
     private Device device;
     private Channel channel;
@@ -390,6 +395,8 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
         setContentView(R.layout.activity_share_play);
         ButterKnife.bind(this);
 
+
+        mAnimation = (AnimationDrawable) mLgingImg.getBackground();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -412,6 +419,7 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
                 if (!channel.isConnected()) {
 //                    linkState.setVisibility(View.VISIBLE);
 //                    linkState.setText(R.string.connecting);
+                    mAnimation.start();
                     connect(channel, holder.getSurface());
 
                 } else if (channel.isConnected()
@@ -420,9 +428,11 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
                     channel.setPaused(false);
                     if (result) {
                         boolean resumeRes = JniUtil.resumeSurface(channelIndex, holder.getSurface());
-//                        if (resumeRes) {
+                        if (resumeRes) {
 //                            linkState.setVisibility(View.GONE);
-//                        }
+                            mLgingImg.setVisibility(View.GONE);
+                            mAnimation.stop();
+                        }
                     }
 
                 }
@@ -458,33 +468,33 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
                         break;
 
                     case 2:
-                        linkState.setText(R.string.error2);
+//                        linkState.setText(R.string.error2);
                         channel.setConnected(false);
                         channel.setPaused(true);
                         break;
                     case 4:
-                        linkState.setText(R.string.error4);
+//                        linkState.setText(R.string.error4);
                         channel.setConnected(false);
                         channel.setPaused(true);
                         break;
                     case 6:
-                        linkState.setText(R.string.error6);
+//                        linkState.setText(R.string.error6);
                         channel.setConnected(false);
                         channel.setPaused(true);
                         break;
                     case 7:
-                        linkState.setText(R.string.error7);
+//                        linkState.setText(R.string.error7);
                         channel.setConnected(false);
                         channel.setPaused(true);
                         break;
 
                     case 5:
-                        linkState.setText(R.string.error5);
+//                        linkState.setText(R.string.error5);
                         channel.setConnected(false);
                         channel.setPaused(true);
                         break;
                     case 8:
-                        linkState.setText(R.string.error8);
+//                        linkState.setText(R.string.error8);
                         channel.setConnected(false);
                         channel.setPaused(true);
                         break;
@@ -497,6 +507,8 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
             case AppConsts.CALL_FRAME_I_REPORT: {
 //                linkState.setText(R.string.i_ok);
 //                linkState.setVisibility(View.GONE);
+                mLgingImg.setVisibility(View.GONE);
+                mAnimation.stop();
                 channel.setConnected(true);
                 channel.setPaused(false);
                 new Handler().postDelayed(new Runnable() {

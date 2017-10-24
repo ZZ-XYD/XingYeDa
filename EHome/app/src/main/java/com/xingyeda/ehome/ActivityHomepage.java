@@ -82,6 +82,9 @@ public class ActivityHomepage extends FragmentActivity {
 
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.setContentView(R.layout.activity_homepage);
+
+        MyLog.i(this.getClass().getSimpleName()+"启动");
+
         SharedPreUtil.put(mContext, "isMenuHint", true);
 //		mDbManager = new DBManager(this);
         ButterKnife.bind(this);
@@ -158,6 +161,7 @@ public class ActivityHomepage extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        MyLog.i(this.getClass().getSimpleName()+"销毁");
         OkHttpUtils.getInstance().cancelTag(this);
         ButterKnife.unbind(this);
         EHomeApplication.getInstance().finishActivity(this);
