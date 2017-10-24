@@ -145,7 +145,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                              Bundle savedInstanceState) {
 
         if (rootView == null) {
-            rootView = inflater.inflate(R.layout.door_fragment, null);
+            rootView = inflater.inflate(R.layout.door_fragment, container, false);
         }
         ViewGroup parent = (ViewGroup) rootView.getParent();
         if (parent != null) {
@@ -435,7 +435,9 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
 
                     @Override
                     public void onFailure() {
+                        if (mList!=null) {
                         mList.onRefreshComplete();
+                        }
                     }
                 }));
         MyLog.i("设备数据列表加载--0");

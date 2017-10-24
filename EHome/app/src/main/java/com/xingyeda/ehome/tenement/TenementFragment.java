@@ -71,7 +71,7 @@ public class TenementFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (rootView == null) {
-            rootView = inflater.inflate(R.layout.tenement_fragment, null);
+            rootView = inflater.inflate(R.layout.tenement_fragment, container, false);
         }
         ButterKnife.bind(this, rootView);
         ViewGroup parent = (ViewGroup) rootView.getParent();

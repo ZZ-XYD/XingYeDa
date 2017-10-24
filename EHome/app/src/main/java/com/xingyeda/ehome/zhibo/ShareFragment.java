@@ -73,7 +73,7 @@ public class ShareFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (rootView == null) {
-            rootView = inflater.inflate(R.layout.activity_share_main, null);
+            rootView = inflater.inflate(R.layout.activity_share_main, container, false);
         }
         ButterKnife.bind(this, rootView);
         ViewGroup parent = (ViewGroup) rootView.getParent();
