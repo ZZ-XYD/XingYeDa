@@ -670,8 +670,9 @@ public class ActivityVideo extends BaseActivity {
                                         mCallId);
                                 mCallId = null;
                             }
-                            mCallId = ECDevice.getECVoIPCallManager().makeCall(
-                                    CallType.VOICE, mEquipmentId);
+                            if (ECDevice.isInitialized()) {
+                                mCallId = ECDevice.getECVoIPCallManager().makeCall(CallType.VOICE, mEquipmentId);
+                            }
                             LogUtils.i("eid : " + mEquipmentId);
                             LogUtils.i("CallId : " + mCallId);
                             if (!ECDevice.getECVoIPSetupManager()
@@ -761,8 +762,9 @@ public class ActivityVideo extends BaseActivity {
                                             mCallId);
                                     mCallId = null;
                                 }
-                                mCallId = ECDevice.getECVoIPCallManager().makeCall(
-                                        CallType.VOICE, mEquipmentId);
+                                if (ECDevice.isInitialized()) {
+                                    mCallId = ECDevice.getECVoIPCallManager().makeCall(CallType.VOICE, mEquipmentId);
+                                }
                             }
                         }, 3000);
                     }
@@ -869,11 +871,11 @@ public class ActivityVideo extends BaseActivity {
             ECDevice.getECVoIPCallManager().releaseCall(mCallId);
         }
         for (Activity activity : mEhomeApplication.getActivityStack()) {
-           if (activity.getClass().equals(ActivityGuide.class)) {
-               Intent intent = new Intent();
-               intent.setAction(Intent.ACTION_MAIN);
-               intent.addCategory(Intent.CATEGORY_HOME);
-               startActivity(intent);
+            if (activity.getClass().equals(ActivityGuide.class)) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                startActivity(intent);
             }
         }
         if (mType.equals("dial")) {
@@ -966,8 +968,9 @@ public class ActivityVideo extends BaseActivity {
                             mCallId = null;
                         }
                         ECDevice.getECVoIPCallManager().releaseCall(mCallId);
-                        mCallId = ECDevice.getECVoIPCallManager().makeCall(
-                                CallType.VOICE, mEquipmentId);
+                        if (ECDevice.isInitialized()) {
+                            mCallId = ECDevice.getECVoIPCallManager().makeCall(CallType.VOICE, mEquipmentId);
+                        }
                     } else if (mType.equals("monitor")) {
                     }
 //				mUploadText.setVisibility(View.GONE);
