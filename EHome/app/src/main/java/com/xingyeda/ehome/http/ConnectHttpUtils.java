@@ -53,7 +53,12 @@ public class ConnectHttpUtils
             {
                 JSONObject userInfo = response.getJSONObject("obj");
                 UserInfo info = new UserInfo();
-                JVBase.detectionJVId(context, userInfo.getString("id"));
+                if (pwd.equals("")) {
+                    JVBase.detectionJVId(context, userInfo.getString("id"));
+                }else{
+                    JVBase.detectionJVId(context,name);
+                }
+//                JVBase.detectionJVId(context, userInfo.getString("id"));
                 info.setmId(userInfo.getString("id"));// 账号id
                 info.setmUsername(userInfo.has("username")?userInfo.getString("username"):"");// 用户名
                 info.setmPhone(userInfo.has("mobilephone")?userInfo.getString("mobilephone"):"");// 电话号码

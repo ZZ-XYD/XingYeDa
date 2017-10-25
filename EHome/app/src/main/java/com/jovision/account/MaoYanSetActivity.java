@@ -115,9 +115,12 @@ public class MaoYanSetActivity extends BaseActivity {
     }
 
     private void initCamera() {
-        cameraSirenPush.setmSetSwitch(!SharedPreUtil.getBoolean(mContext, "camera_siren_push"));
-        cameraMotionDetection.setmSetSwitch(!SharedPreUtil.getBoolean(mContext, "camera_motion_detection"));
-        cameraMotionDetectionSet.setmSetSwitch(!SharedPreUtil.getBoolean(mContext, "camera_motion_detection_set"));
+        isCameraCirenPush = SharedPreUtil.getBoolean(mContext, "camera_siren_push" , false);
+        isCameraMotionDetection =SharedPreUtil.getBoolean(mContext, "camera_motion_detection",false);
+        isCameraMotionDetectionSet = SharedPreUtil.getBoolean(mContext, "camera_motion_detection_set",false);
+        cameraSirenPush.setmSetSwitch(!isCameraCirenPush);
+        cameraMotionDetection.setmSetSwitch(!isCameraMotionDetection);
+        cameraMotionDetectionSet.setmSetSwitch(!isCameraMotionDetectionSet);
 
         cameraSirenPush.setOnChangeListener(changeListener);
         cameraMotionDetection.setOnChangeListener(changeListener);
@@ -127,11 +130,16 @@ public class MaoYanSetActivity extends BaseActivity {
     }
 
     private void initMaoyan() {
-        maoyanSetVocality.setmSetSwitch(!SharedPreUtil.getBoolean(mContext, "maoyan_vocality"));
-        maoyanSetShake.setmSetSwitch(!SharedPreUtil.getBoolean(mContext, "maoyan_shake"));
-        maoyanSetDoorbell.setmSetSwitch(!SharedPreUtil.getBoolean(mContext, "maoyan_doorbell"));
-        maoyanSetNfraredInduction.setmSetSwitch(!SharedPreUtil.getBoolean(mContext, "maoyan_nfrared_induction"));
-        maoyanSetMotionDetection.setmSetSwitch(!SharedPreUtil.getBoolean(mContext, "maoyan_motion_detection"));
+        isMaoyanVocality = SharedPreUtil.getBoolean(mContext, "maoyan_vocality",false);
+        isMaoyanhake = SharedPreUtil.getBoolean(mContext, "maoyan_shake",false);
+        isMaoyanDoorbell = SharedPreUtil.getBoolean(mContext, "maoyan_doorbell",false);
+        isMaoyanNfraredInduction = SharedPreUtil.getBoolean(mContext, "maoyan_nfrared_induction",false);
+        isMaoyanSetMotionDetection = SharedPreUtil.getBoolean(mContext, "maoyan_motion_detection",false);
+        maoyanSetVocality.setmSetSwitch(!isMaoyanVocality);
+        maoyanSetShake.setmSetSwitch(!isMaoyanhake);
+        maoyanSetDoorbell.setmSetSwitch(!isMaoyanDoorbell);
+        maoyanSetNfraredInduction.setmSetSwitch(!isMaoyanNfraredInduction);
+        maoyanSetMotionDetection.setmSetSwitch(!isMaoyanSetMotionDetection);
 
 
         maoyanSetVocality.setOnChangeListener(changeListener);
