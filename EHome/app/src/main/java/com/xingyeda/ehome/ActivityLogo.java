@@ -337,7 +337,9 @@ public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, O
                             OkHttp.downloadFile(mContext, ConnectPath.IMAGE_PATH + mImagePath, new FileCallBack(LogcatHelper.getPATH_LOGCAT(), "logo.png") {
                                 @Override
                                 public void onError(Call call, Exception e, int id) {
-                                    ImageLoader.getInstance().displayImage(ConnectPath.IMAGE_PATH + mImagePath, mBackground);
+                                    if (mBackground != null) {
+                                        ImageLoader.getInstance().displayImage(ConnectPath.IMAGE_PATH + mImagePath, mBackground);
+                                    }
                                 }
 
                                 @Override

@@ -256,7 +256,9 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
         }
         params.put("roomId", mRoomId);
         params.put("content", msg);
-        zbEdit.setText("");
+        if (zbEdit!=null) {
+            zbEdit.setText("");
+        }
         OkHttp.get(mContext, ConnectPath.CAMERA_SEND_MESSAGE, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
             @Override
             public void onResponse(JSONObject response) {

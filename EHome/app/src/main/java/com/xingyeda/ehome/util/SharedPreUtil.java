@@ -62,6 +62,9 @@ public class SharedPreUtil {
 	public static boolean getBoolean(Context context, String key) {
 		return getSharedPreferences(context).getBoolean(key, true);
 	}
+	public static boolean getBoolean(Context context, String key,boolean bol) {
+		return getSharedPreferences(context).getBoolean(key, bol);
+	}
 
 	public static float getFloat(Context context, String key) {
 		return getSharedPreferences(context).getFloat(key, 0f);

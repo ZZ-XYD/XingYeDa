@@ -59,6 +59,8 @@ import com.yuntongxun.ecsdk.ECError;
 import com.yuntongxun.ecsdk.ECInitParams;
 import com.yuntongxun.ecsdk.SdkErrorCode;
 
+import static android.R.attr.type;
+
 /**
  * @author 李达龙
  * @ClassName: ActivityGuide
@@ -81,6 +83,7 @@ public class ActivityGuide extends BaseActivity {
     private ArrayList<ImageView> mImageViews;
 
     private AdapterGuidePager mAdapter;
+    String type;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -102,7 +105,7 @@ public class ActivityGuide extends BaseActivity {
         SharedPreUtil.put(mContext, "time_difference", 0l);
 
 
-        String type = getIntent().getStringExtra("type");
+        type = getIntent().getStringExtra("type");
         initVoipSDK();
 
         if (type != null) {
@@ -115,12 +118,7 @@ public class ActivityGuide extends BaseActivity {
                 home.addCategory(Intent.CATEGORY_HOME);
                 startActivity(home);
             }else if (type.equals("BOOT_COMPLETED")){
-//                type=null;
-//                Intent intent = new Intent();
-//                intent.setAction(Intent.ACTION_MAIN);
-//                intent.addCategory(Intent.CATEGORY_HOME);
-//                startActivity(intent);
-                finish();
+//                finish();
             }
         } else {
             setContentView(R.layout.activity_guide);
@@ -433,7 +431,13 @@ public class ActivityGuide extends BaseActivity {
             public void onConnectState(ECDevice.ECConnectState state,
                                        ECError error) {
                 LogUtils.i("云通讯 ： state--" + state);
+                if (type!=null) {
+                if (type.equals("BOOT_COMPLETED")){
+                    finish();
+                }
+                }
                 if (state == ECDevice.ECConnectState.CONNECT_FAILED) {
+                    MyLog.i("云通讯 ： 登录失败");
                     LogUtils.i("云通讯 ： 连接错误代码  -  " + error.errorMsg);
                     if (error.errorCode == SdkErrorCode.SDK_KICKED_OFF) {
                         // 账号异地登陆
