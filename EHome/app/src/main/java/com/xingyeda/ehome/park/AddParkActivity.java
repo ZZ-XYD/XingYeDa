@@ -72,6 +72,8 @@ public class AddParkActivity extends BaseActivity {
     @Bind(R.id.park_watchhouse_text)
     TextView parkWatchhouseText;//岗亭
 
+    @Bind(R.id.park_truck_space)
+    EditText parkTruckSpace;//姓名
     @Bind(R.id.park_name)
     EditText parkName;//姓名
     @Bind(R.id.park_phone)
@@ -193,6 +195,8 @@ public class AddParkActivity extends BaseActivity {
                     DialogShow.showHintDialog(mContext, "岗亭不能为空");
                 } else if (parkName.getText().toString().equals("")) {
                     DialogShow.showHintDialog(mContext, "姓名不能为空");
+                }else if (parkTruckSpace.getText().toString().equals("")) {
+                    DialogShow.showHintDialog(mContext, "车位号不能为空");
                 } else if (parkPhone.getText().toString().equals("")) {
                     DialogShow.showHintDialog(mContext, "电话号码不能为空");
                 } else if (!isPhoneNumberValid(parkPhone.getText().toString())) {
@@ -339,6 +343,7 @@ public class AddParkActivity extends BaseActivity {
         params.put("carType", parkCarType.getText().toString());//车辆型号
         params.put("carNumber", parkCarNumber.getText().toString());//车牌号
         params.put("carData", parkCarData.getText().toString());//登记日期
+        params.put("pnum", parkTruckSpace.getText().toString());//车位号
         OkHttp.uploadFile(mContext, ConnectPath.BIND_SENTRY, "drivingLicense", pathImage, params, mFile, new BaseStringCallback(mContext, new CallbackHandler<String>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -394,8 +399,10 @@ public class AddParkActivity extends BaseActivity {
     View.OnTouchListener onTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View arg0, MotionEvent arg1) {
-            if (keyboardUtil.isShow()) {
-                keyboardUtil.hideKeyboard();
+            if (keyboardUtil!=null) {
+                if (keyboardUtil.isShow()) {
+                    keyboardUtil.hideKeyboard();
+                }
             }
             if (MotionEvent.ACTION_DOWN == arg1.getAction()) {
                 new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {

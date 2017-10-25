@@ -35,6 +35,7 @@ public class HomeBean extends DataSupport {
     private String mParkName;
     private String mParkId;
     private String mParkNickName;
+    private String mParkTruckSpace;
 
     public HomeBean() {
     }
@@ -43,6 +44,14 @@ public class HomeBean extends DataSupport {
         this.mParkName = mParkName;
         this.mParkId = mParkId;
         this.mParkNickName = mParkNickName;
+    }
+
+    public String getmParkTruckSpace() {
+        return mParkTruckSpace;
+    }
+
+    public void setmParkTruckSpace(String mParkTruckSpace) {
+        this.mParkTruckSpace = mParkTruckSpace;
     }
 
     public String getmParkNickName() {

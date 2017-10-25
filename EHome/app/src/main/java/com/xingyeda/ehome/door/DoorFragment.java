@@ -321,6 +321,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                                     bean.setmParkId(jobj.has("cplid") ? jobj.getString("cplid") : "");
                                     bean.setmCommunityId(jobj.has("xiaoqu") ? jobj.getString("xiaoqu") : "");
                                     bean.setmParkName(jobj.has("address") ? jobj.getString("address") : "");
+                                    bean.setmParkTruckSpace(jobj.has("pnum")?jobj.getString("pnum") : "");
                                     List<HomeBean> list = DataSupport.findAll(HomeBean.class);
                                     HomeBean baseBean = null;
                                     if (list != null && !list.isEmpty()) {
@@ -598,6 +599,9 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
 
 
     private void setListView() {
+        if (mList==null) {
+            return;
+        }
         mList.setPullLoadEnabled(false);
         mList.setScrollLoadEnabled(true);
         mList.setOnRefreshListener(this);
