@@ -29,6 +29,7 @@ import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.EHomeApplication;
 import com.xingyeda.ehome.util.BaseUtils;
+import com.xingyeda.ehome.util.MyLog;
 import com.xingyeda.ehome.view.PercentLinearLayout;
 
 import org.json.JSONException;
@@ -627,6 +628,8 @@ public class JVPlayActivity extends BaseActivity implements IHandlerNotify, IHan
                     bundle.putInt("ChannelOfChannel", channel.getChannel());
                     bundle.putInt("DeviceType", channel.getParent().getDeviceType());
                     bundle.putBoolean("isJFH", channel.getParent().isJFH());
+                    MyLog.i("中维摄像头的回放");
+                    finish();
                     BaseUtils.startActivities(mContext,VideoRewindActivity.class,bundle);
                 }
                 break;

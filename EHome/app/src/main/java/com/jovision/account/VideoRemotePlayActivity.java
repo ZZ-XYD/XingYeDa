@@ -20,6 +20,7 @@ import com.jovision.base.IHandlerNotify;
 import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.EHomeApplication;
+import com.xingyeda.ehome.util.MyLog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -139,6 +140,7 @@ public class VideoRemotePlayActivity extends BaseActivity implements IHandlerNot
     public void onHandler(int what, int arg1, int arg2, Object obj) {
         switch (what) {
             case AppConsts.CALL_CONNECT_CHANGE: {//远程回放，视频断开的处理
+                MyLog.i("中维远程播放断开");
                 switch (arg2) {
                     // 2 -- 断开连接成功
                     case JVNetConst.DISCONNECT_OK:
@@ -156,6 +158,7 @@ public class VideoRemotePlayActivity extends BaseActivity implements IHandlerNot
 
             case AppConsts.CALL_PLAY_DATA: {// 远程回放数据
                 linkStateTV.setVisibility(View.GONE);
+                MyLog.i("中维远程播放成功");
                 switch (arg2) {
                     case JVNetConst.JVN_DATA_O: {
                         if (0 == totalProgress) {
@@ -184,6 +187,7 @@ public class VideoRemotePlayActivity extends BaseActivity implements IHandlerNot
                 break;
             }
             case AppConsts.CALL_PLAY_DOOMED: {// 远程回放结束
+                MyLog.i("中维远程播放结束");
                 if (AppConsts.PLAYBACK_DONE == arg2) {
                     this.finish();
                 }

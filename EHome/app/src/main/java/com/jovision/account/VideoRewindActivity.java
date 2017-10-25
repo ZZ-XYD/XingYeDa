@@ -22,6 +22,7 @@ import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.EHomeApplication;
 import com.xingyeda.ehome.util.BaseUtils;
+import com.xingyeda.ehome.util.MyLog;
 import com.xingyeda.ehome.util.SpaceItemDecoration;
 
 import java.util.ArrayList;
@@ -228,6 +229,7 @@ public class VideoRewindActivity extends BaseActivity implements IHandlerNotify,
 //                                bundle.putString("acBuffStr", Str1+"M"+Str2);
                                 bundle.putString("acBuffStr", acBuffStr);
                                 bundle.putString("remoteKind", videoBean.remoteKind);
+                                MyLog.i("回放视频的参数"+bundle.toString());
                                 BaseUtils.startActivities(mContext, VideoRemotePlayActivity.class, bundle);
                             }
 
