@@ -123,7 +123,7 @@ public class TenementFragment extends Fragment {
                         adSwipereLayout.setRefreshing(true);
                         annunciate(addmoreTimes+"","10",0);
                     }else{
-                        annunciateDatas();
+                        annunciateDatas(0);
                     }
 
                 }
@@ -177,7 +177,7 @@ public class TenementFragment extends Fragment {
                         }
                         mApplication.setmAc_List(list);
                     }
-                    annunciateDatas();
+                    annunciateDatas(type);
                     if (adSwipereLayout!=null) {
                         adSwipereLayout.setRefreshing(false);
                     }
@@ -190,7 +190,7 @@ public class TenementFragment extends Fragment {
     }
 
     // 小区物业通告数据
-    private void annunciateDatas() {
+    private void annunciateDatas(int type) {
         MyLog.i("小区通告适配器---1");
         final List<AnnunciateBean> list = mApplication.getmAc_List();
 
@@ -202,23 +202,30 @@ public class TenementFragment extends Fragment {
                 adSwipereLayout.setVisibility(View.GONE);
                 mNoData.setVisibility(View.VISIBLE);
             }
+            switch (type){
+                case 0:
+                    mAdapter = new AnnunciateAdapter(list);
+                    adRecyclerView.setAdapter(mAdapter);
+                    mAdapter.clickItem(new AnnunciateAdapter.ClickItem() {
+                        @Override
+                        public void onclick(View view, int position) {
+                            AnnunciateBean bean = list.get(position);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("title", bean.getmTitle());
+                            bundle.putString("content", bean.getmContent());
+                            bundle.putString("time", bean.getmTime());
+                            bundle.putString("imageList", null);
+                            bundle.putString("bean", "annunciate");
+                            BaseUtils.startActivities(mContext, Notice_Activity.class, bundle);
+                        }
+                    });
+                    mAdapter.notifyDataSetChanged();
+                    break;
+                case 1:
+                    mAdapter.notifyDataSetChanged();
+                    break;
+            }
 
-            mAdapter = new AnnunciateAdapter(list);
-            adRecyclerView.setAdapter(mAdapter);
-            mAdapter.clickItem(new AnnunciateAdapter.ClickItem() {
-                @Override
-                public void onclick(View view, int position) {
-                    AnnunciateBean bean = list.get(position);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("title", bean.getmTitle());
-                    bundle.putString("content", bean.getmContent());
-                    bundle.putString("time", bean.getmTime());
-                    bundle.putString("imageList", null);
-                    bundle.putString("bean", "annunciate");
-                    BaseUtils.startActivities(mContext, Notice_Activity.class, bundle);
-                }
-            });
-            mAdapter.notifyDataSetChanged();
         } else {
             adSwipereLayout.setVisibility(View.GONE);
             mNoData.setVisibility(View.VISIBLE);
