@@ -672,13 +672,12 @@ public class ActivityVideo extends BaseActivity {
                             }
                             if (ECDevice.isInitialized()) {
                                 mCallId = ECDevice.getECVoIPCallManager().makeCall(CallType.VOICE, mEquipmentId);
-                            }
-                            LogUtils.i("eid : " + mEquipmentId);
-                            LogUtils.i("CallId : " + mCallId);
-                            if (!ECDevice.getECVoIPSetupManager()
-                                    .getLoudSpeakerStatus()) {
-                                ECDevice.getECVoIPSetupManager().enableLoudSpeaker(
-                                        true);
+                                LogUtils.i("eid : " + mEquipmentId);
+                                LogUtils.i("CallId : " + mCallId);
+                                if (!ECDevice.getECVoIPSetupManager().getLoudSpeakerStatus()) {
+                                    ECDevice.getECVoIPSetupManager().enableLoudSpeaker(
+                                            true);
+                                }
                             }
                         }
                     }
