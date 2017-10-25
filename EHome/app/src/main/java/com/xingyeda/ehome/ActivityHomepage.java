@@ -64,6 +64,7 @@ import static com.xingyeda.ehome.base.PhoneBrand.SYS_EMUI;
 public class ActivityHomepage extends FragmentActivity {
 
     public static boolean isFlHint = true;
+    private boolean afterOnSaveInstanceState = false;
 
     @Bind(R.id.tabhost)
     public FragmentTabHost mTabHost;
@@ -83,7 +84,7 @@ public class ActivityHomepage extends FragmentActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.setContentView(R.layout.activity_homepage);
 
-        MyLog.i(this.getClass().getSimpleName()+"启动");
+        MyLog.i(this.getClass().getSimpleName() + "启动");
 
         SharedPreUtil.put(mContext, "isMenuHint", true);
 //		mDbManager = new DBManager(this);
@@ -137,7 +138,6 @@ public class ActivityHomepage extends FragmentActivity {
                     getView(i));
 
             mTabHost.addTab(spec, mFragmentArray[i], null);
-
         }
     }
 
@@ -161,7 +161,7 @@ public class ActivityHomepage extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        MyLog.i(this.getClass().getSimpleName()+"销毁");
+        MyLog.i(this.getClass().getSimpleName() + "销毁");
         OkHttpUtils.getInstance().cancelTag(this);
         ButterKnife.unbind(this);
         EHomeApplication.getInstance().finishActivity(this);
@@ -327,17 +327,25 @@ public class ActivityHomepage extends FragmentActivity {
 
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        afterOnSaveInstanceState = true;
+    }
+
     // 监听返回按钮
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            // 把返回键设置成home键
-            Intent intent = new Intent();
-            intent.setAction(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            startActivity(intent);
-            return true;
+        if (!afterOnSaveInstanceState) {
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+                afterOnSaveInstanceState = false;
+                // 把返回键设置成home键
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                startActivity(intent);
+                return true;
+            }
         }
         return super.onKeyDown(keyCode, event);
     }
