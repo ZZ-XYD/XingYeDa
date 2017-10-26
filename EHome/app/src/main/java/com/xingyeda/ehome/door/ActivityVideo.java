@@ -54,12 +54,16 @@ import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.LogUtils;
+import com.xingyeda.ehome.util.MyLog;
 import com.xingyeda.ehome.util.NetUtils;
 import com.xingyeda.ehome.util.SharedPreUtil;
 import com.xingyeda.ehome.zhibo.ActivityShareMain;
 import com.yuntongxun.ecsdk.ECDevice;
+import com.yuntongxun.ecsdk.ECError;
+import com.yuntongxun.ecsdk.ECInitParams;
 import com.yuntongxun.ecsdk.ECVoIPCallManager;
 import com.yuntongxun.ecsdk.ECVoIPCallManager.CallType;
+import com.yuntongxun.ecsdk.SdkErrorCode;
 import com.yuntongxun.ecsdk.VideoRatio;
 import com.yuntongxun.ecsdk.VoipMediaChangedInfo;
 
@@ -67,6 +71,7 @@ import com.yuntongxun.ecsdk.VoipMediaChangedInfo;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
 import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.Vitamio;
 import io.vov.vitamio.widget.VideoView;
@@ -172,6 +177,10 @@ public class ActivityVideo extends BaseActivity {
         Vitamio.isInitialized(getApplicationContext());
         setContentView(R.layout.activity_video);
         ButterKnife.bind(this);
+
+        if (!ECDevice.isInitialized()) {
+            initVoipSDK();
+        }
         mAnimation = (AnimationDrawable) mLgingImg.getBackground();
         mAnimation.start();
         mIsCallout = false;
@@ -1215,5 +1224,109 @@ public class ActivityVideo extends BaseActivity {
         }
     }
 
+    public void initVoipSDK() {
 
+        if (!ECDevice.isInitialized()) {
+            ECDevice.initial(mContext, new ECDevice.InitListener() {
+                @Override
+                public void onInitialized() {
+                    // SDK已经初始化成功
+                    ECInitParams params = buildParams();
+                    if (params.validate()) {
+                        // 判断注册参数是否正确
+                        ECDevice.login(params);
+                    }
+                }
+
+                @Override
+                public void onError(Exception exception) {
+                    System.out.println("ex : " + exception.getMessage());
+                    LogUtils.i("云通讯：" + exception.getMessage());
+                }
+            });
+        } else {
+            loginAuto();
+        }
+    }
+
+    private void loginAuto() {
+        ECInitParams params = ECInitParams.createParams();
+        params.setUserid(JPushInterface
+                .getRegistrationID(getApplicationContext()));
+        params.setAppKey("aaf98f8953cadc690153e5b748654ea9");
+        params.setToken("df8b3eca32b040b603c35e3f304857f5");
+        params.setAuthType(ECInitParams.LoginAuthType.NORMAL_AUTH);
+        params.setMode(ECInitParams.LoginMode.AUTO);
+
+        eventSdk();
+
+        if (params.validate()) {
+            // 判断注册参数是否正确
+            ECDevice.login(params);
+        }
+    }
+
+    private ECInitParams buildParams() {
+        ECInitParams params = ECInitParams.createParams();
+        // 自定义登录方式：
+        // 测试阶段Userid可以填写手机
+        params.setUserid(JPushInterface
+                .getRegistrationID(getApplicationContext()));
+        // Random ran = new Random();
+        // String id = String.valueOf(ran.nextInt(99999999) * 10000000L
+        // + ran.nextInt(99999999));
+        // LogUtils.i("id:" + id);
+        // params.setUserid(id);
+        // params.setUserid("18711018824");
+        params.setAppKey("aaf98f8953cadc690153e5b748654ea9");
+        params.setToken("df8b3eca32b040b603c35e3f304857f5");
+        // 设置登陆验证模式（是否验证密码）NORMAL_AUTH-自定义方式
+        params.setAuthType(ECInitParams.LoginAuthType.NORMAL_AUTH);
+        // 1代表用户名+密码登陆（可以强制上线，踢掉已经在线的设备）
+        // 2代表自动重连注册（如果账号已经在其他设备登录则会提示异地登陆）
+        // 3 LoginMode（强制上线：FORCE_LOGIN 默认登录：AUTO）
+        params.setMode(ECInitParams.LoginMode.FORCE_LOGIN);
+
+        eventSdk();
+        return params;
+    }
+
+    private void eventSdk() {
+        ECDevice.setOnDeviceConnectListener(new ECDevice.OnECDeviceConnectListener() {
+            public void onConnect() {
+                // 兼容4.0，5.0可不必处理
+
+            }
+
+            @Override
+            public void onDisconnect(ECError error) {
+                // 兼容4.0，5.0可不必处理
+            }
+
+            @Override
+            public void onConnectState(ECDevice.ECConnectState state,
+                                       ECError error) {
+                LogUtils.i("云通讯 ： state--" + state);
+                if (state == ECDevice.ECConnectState.CONNECT_FAILED) {
+                    MyLog.i("云通讯 ： 登录失败");
+                    LogUtils.i("云通讯 ： 连接错误代码  -  " + error.errorMsg);
+                    if (error.errorCode == SdkErrorCode.SDK_KICKED_OFF) {
+                        // 账号异地登陆
+                        LogUtils.i("云通讯 ： 账号异地登陆");
+                    } else {
+                        // 连接状态失败
+                        LogUtils.i("云通讯 ： 连接状态失败    " + error.errorMsg);
+                    }
+                    return;
+                } else if (state == ECDevice.ECConnectState.CONNECT_SUCCESS) {
+                    // 登陆成功
+                    // if (mSpnTitle!=null) {
+                    // mSpnTitle.getChildAt(0).setEnabled(true);
+                    // }
+                    LogUtils.i("云通讯 ： 登陆成功");
+                    MyLog.i("云通讯 ： 登陆成功");
+                }
+            }
+        });
+    }
 }
