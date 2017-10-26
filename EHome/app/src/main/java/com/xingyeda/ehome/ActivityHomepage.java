@@ -339,25 +339,22 @@ public class ActivityHomepage extends FragmentActivity {
 
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        afterOnSaveInstanceState = true;
-    }
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        afterOnSaveInstanceState = true;
+//    }
 
     // 监听返回按钮
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-        if (!afterOnSaveInstanceState) {
-            if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-                afterOnSaveInstanceState = false;
-                // 把返回键设置成home键
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_HOME);
-                startActivity(intent);
-                return true;
-            }
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            // 把返回键设置成home键
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            startActivity(intent);
+            return true;
         }
         return super.onKeyDown(keyCode, event);
     }
