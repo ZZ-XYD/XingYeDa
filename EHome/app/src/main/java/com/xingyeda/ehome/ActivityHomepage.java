@@ -13,6 +13,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,6 +35,7 @@ import cn.jpush.android.api.TagAliasCallback;
 
 import com.umeng.analytics.MobclickAgent;
 import com.xiaomi.mipush.sdk.MiPushClient;
+import com.xingyeda.ehome.Service.KeepLiveReceiver;
 import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.base.EHomeApplication;
 import com.xingyeda.ehome.base.PhoneBrand;
@@ -75,6 +77,7 @@ public class ActivityHomepage extends FragmentActivity {
     public static final int DEFAULTCOMMUNITY = 100;
     private EHomeApplication mApplication;
     private Context mContext = this;
+    private KeepLiveReceiver keepLiveReceiver;
 //	public DBManager mDbManager;
 
     @Override
@@ -122,6 +125,14 @@ public class ActivityHomepage extends FragmentActivity {
         // 版本更新
         this.versionsUpdate();
 
+
+        keepLiveReceiver = new KeepLiveReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("android.intent.action.SCREEN_OFF");
+        intentFilter.addAction("android.intent.action.SCREEN_ON");
+        intentFilter.addAction("android.intent.action.USER_PRESENT");
+        registerReceiver(keepLiveReceiver, intentFilter);
+
     }
 
     @Override
@@ -165,6 +176,7 @@ public class ActivityHomepage extends FragmentActivity {
         OkHttpUtils.getInstance().cancelTag(this);
         ButterKnife.unbind(this);
         EHomeApplication.getInstance().finishActivity(this);
+        unregisterReceiver(keepLiveReceiver);
     }
 
     @Override
