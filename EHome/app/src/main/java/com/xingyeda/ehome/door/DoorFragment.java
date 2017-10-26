@@ -147,11 +147,11 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.door_fragment, container, false);
         }
+        ButterKnife.bind(this, rootView);
         ViewGroup parent = (ViewGroup) rootView.getParent();
         if (parent != null) {
             parent.removeView(rootView);
         }
-        ButterKnife.bind(this, rootView);
         MyLog.i("DoorFragment启动");
 //		isFlHint = true;
         // mHead.setImageResource(R.drawable.head);
