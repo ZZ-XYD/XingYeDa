@@ -738,7 +738,7 @@ public class EHomeApplication extends CoreApplication implements IHandlerLikeNot
             mIsMobile = mobile.isConnected();
             // networkState();
             if (!(mIsWifi || mIsMobile)) {
-                BaseUtils.showLongToast(getApplicationContext(), "网络异常，请检查网络");
+//                BaseUtils.showLongToast(getApplicationContext(), "网络异常，请检查网络");
 //				DialogShow.showHintDialog(getApplicationContext(), "网络异常，请检查网络");
             }
 
