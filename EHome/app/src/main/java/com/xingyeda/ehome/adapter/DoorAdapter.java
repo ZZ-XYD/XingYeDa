@@ -363,7 +363,6 @@ public class DoorAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
-
         @Bind(R.id.door_adapter_image)
         ImageView imageLogo;//小区logo
         @Bind(R.id.door_list_xiaoqu)
