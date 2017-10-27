@@ -8,6 +8,8 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.percent.PercentFrameLayout;
 import android.support.v4.app.Fragment;
@@ -15,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -119,6 +122,8 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
     TextView shareHint;
     @Bind(R.id.share_hint_layout)
     PercentFrameLayout shareHintLayout;
+    @Bind(R.id.door_frame)
+    FrameLayout door_frame;
 
     private String shareUrl;
 
@@ -169,7 +174,9 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
     }
 
     private void init() {
-
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        mContext.registerReceiver(wifBC, filter);
     }
 
     @OnClick({R.id.door_add, R.id.door_information, R.id.door_spn,
@@ -281,7 +288,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            if (frozenAccount!=null) {
+                            if (frozenAccount != null) {
                                 frozenAccount.setVisibility(View.GONE);
                             }
                             JSONArray jan2 = (JSONArray) response.get("camera");
@@ -321,7 +328,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                                     bean.setmParkId(jobj.has("cplid") ? jobj.getString("cplid") : "");
                                     bean.setmCommunityId(jobj.has("xiaoqu") ? jobj.getString("xiaoqu") : "");
                                     bean.setmParkName(jobj.has("address") ? jobj.getString("address") : "");
-                                    bean.setmParkTruckSpace(jobj.has("pnum")?jobj.getString("pnum") : "");
+                                    bean.setmParkTruckSpace(jobj.has("pnum") ? jobj.getString("pnum") : "");
                                     List<HomeBean> list = DataSupport.findAll(HomeBean.class);
                                     HomeBean baseBean = null;
                                     if (list != null && !list.isEmpty()) {
@@ -436,8 +443,8 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
 
                     @Override
                     public void onFailure() {
-                        if (mList!=null) {
-                        mList.onRefreshComplete();
+                        if (mList != null) {
+                            mList.onRefreshComplete();
                         }
                     }
                 }));
@@ -599,7 +606,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
 
 
     private void setListView() {
-        if (mList==null) {
+        if (mList == null) {
             return;
         }
         mList.setPullLoadEnabled(false);
@@ -859,6 +866,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
     public void onDestroyView() {
         super.onDestroyView();
         mContext.unregisterReceiver(mBroadcastReceiver);
+        mContext.unregisterReceiver(wifBC);
         OkHttpUtils.getInstance().cancelTag(this);
         ButterKnife.unbind(this);
         MyLog.i("DoorFragment销毁");
@@ -957,4 +965,24 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
         MyLog.i("扫描快速添加--0");
     }
 
+
+    // wifi+3g网络状态广播接收器
+    private BroadcastReceiver wifBC = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(final Context context, Intent intent) {
+            ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo wifiNetworkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            NetworkInfo mobileNetworkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+            if (wifiNetworkInfo.isConnected() && !mobileNetworkInfo.isConnected()) {
+                door_frame.setVisibility(View.GONE);
+            } else if (!wifiNetworkInfo.isConnected() && mobileNetworkInfo.isConnected()) {
+                door_frame.setVisibility(View.GONE);
+            } else {
+                door_frame.setVisibility(View.VISIBLE);
+                Toast.makeText(mContext, "当前网络不可用", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 }
