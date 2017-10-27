@@ -120,6 +120,9 @@ public class EHomeApplication extends CoreApplication implements IHandlerLikeNot
     private boolean mIsMobile = false;
 
 
+    //广告
+    private List<AdvertisementBean> advertisementList;
+
     private List<AnnunciateBean> mAnnunciateList;
     // 小区公告集合
     private List<AnnunciateBean> mAc_List;
@@ -259,21 +262,28 @@ public class EHomeApplication extends CoreApplication implements IHandlerLikeNot
     // this.mAc_Bean = mAc_Bean;
     // }
 
-
-    public List<AnnunciateBean> getmAc_List() {
-        return mAc_List;
+    public void setmAd(AdvertisementBean mAd) {
+        this.mAd = mAd;
     }
 
     public AdvertisementBean getmAd() {
         return mAd;
     }
 
-    public void setmAd(AdvertisementBean mAd) {
-        this.mAd = mAd;
+    public void setmAb_List(List<AdvertisementBean> advertisementList) {
+        this.advertisementList = advertisementList;
+    }
+
+    public List<AdvertisementBean> getmAb_List() {
+        return advertisementList;
     }
 
     public void setmAc_List(List<AnnunciateBean> mAc_List) {
         this.mAc_List = mAc_List;
+    }
+
+    public List<AnnunciateBean> getmAc_List() {
+        return mAc_List;
     }
 
     // public Datas getmDatas() {
