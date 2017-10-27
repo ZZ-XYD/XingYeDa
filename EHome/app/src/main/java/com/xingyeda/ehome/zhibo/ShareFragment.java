@@ -285,6 +285,7 @@ public class ShareFragment extends Fragment {
 
 
     private void initRollViewPager(){
+        mRollPagerView.setAnimationDurtion(1000);
         if (mApplication.getmAb_List()!=null){
             mRollPagerView.setAdapter(new AdvertisingAdapter(mRollPagerView,mApplication.getmAb_List()));
         }
