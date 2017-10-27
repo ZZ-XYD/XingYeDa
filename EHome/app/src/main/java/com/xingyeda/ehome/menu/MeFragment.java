@@ -44,7 +44,9 @@ import com.ldl.imageloader.core.listener.ImageLoadingListener;
 import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.base.EHomeApplication;
+import com.xingyeda.ehome.base.LitePalUtil;
 import com.xingyeda.ehome.bean.PushBean;
+import com.xingyeda.ehome.bean.UserInfo;
 import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
 import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
@@ -95,16 +97,15 @@ public class MeFragment extends Fragment {
     }
 
     private void init() {
-        if (mApplication.getmCurrentUser() != null) {
-            if (mApplication.getmCurrentUser().getmHeadPhotoUrl() == null) {
+        if (LitePalUtil.getUserInfo() != null) {
+            if (LitePalUtil.getUserInfo().getmHeadPhotoUrl() == null) {
                 mHead.setImageResource(R.mipmap.head);
-            } else if (mApplication.getmCurrentUser().getmHeadPhoto() != null) {
-                mHead.setImageBitmap(mApplication.getmCurrentUser()
-                        .getmHeadPhoto());
+            } else if (LitePalUtil.getUserInfo().getmHeadPhoto() != null) {
+                mHead.setImageBitmap(LitePalUtil.getUserInfo().getmHeadPhoto());
             } else {
-                if (mApplication.getmCurrentUser().getmHeadPhotoUrl().startsWith("http")) {
+                if (LitePalUtil.getUserInfo().getmHeadPhotoUrl().startsWith("http")) {
 
-                    ImageLoader.getInstance().loadImage(mApplication.getmCurrentUser().getmHeadPhotoUrl(), new ImageLoadingListener() {
+                    ImageLoader.getInstance().loadImage(LitePalUtil.getUserInfo().getmHeadPhotoUrl(), new ImageLoadingListener() {
 
                         @Override
                         public void onLoadingStarted(String imageUri, View view) {
@@ -119,7 +120,10 @@ public class MeFragment extends Fragment {
 
                         @Override
                         public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                            mApplication.getmCurrentUser().setmHeadPhoto(loadedImage);
+                            UserInfo info = new UserInfo();
+                            info.setmHeadPhoto(loadedImage);
+                            LitePalUtil.setUserInfo(info);
+//                            mApplication.getmCurrentUser().setmHeadPhoto(loadedImage);
                             if (mHead != null) {
                                 mHead.setImageBitmap(loadedImage);
                             }
@@ -133,11 +137,11 @@ public class MeFragment extends Fragment {
                 }
 
             }
-            mName.setText(mApplication.getmCurrentUser().getmUsername());
-            if (mApplication.getmCurrentUser().getmSNCode() == null || "".equals(mApplication.getmCurrentUser().getmSNCode())) {
+            mName.setText(LitePalUtil.getUserInfo().getmUsername());
+            if (LitePalUtil.getUserInfo().getmSNCode() == null || "".equals(LitePalUtil.getUserInfo().getmSNCode())) {
                 mSN.setText("Code ： " + "请绑定小区");
             } else {
-                mSN.setText("Code ： " + mApplication.getmCurrentUser().getmSNCode());
+                mSN.setText("Code ： " + LitePalUtil.getUserInfo().getmSNCode());
             }
         }
     }
@@ -145,11 +149,10 @@ public class MeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (mApplication.getmCurrentUser() != null) {
-            if (mApplication.getmCurrentUser().getmHeadPhoto() != null) {
-                mHead.setImageBitmap(mApplication.getmCurrentUser()
-                        .getmHeadPhoto());
-            } else if (mApplication.getmCurrentUser().getmHeadPhotoUrl() == null) {
+        if (LitePalUtil.getUserInfo() != null) {
+            if (LitePalUtil.getUserInfo().getmHeadPhoto() != null) {
+                mHead.setImageBitmap(LitePalUtil.getUserInfo().getmHeadPhoto());
+            } else if (LitePalUtil.getUserInfo().getmHeadPhotoUrl() == null) {
                 mHead.setImageResource(R.mipmap.head);
             }
         }
@@ -327,7 +330,9 @@ public class MeFragment extends Fragment {
 
                     @Override
                     public void onResponse(String response, int id) {
-                        mApplication.getmCurrentUser().setmHeadPhoto(mBitmap);
+                        UserInfo info = new UserInfo();
+                        info.setmHeadPhoto(mBitmap);
+                        LitePalUtil.setUserInfo(info);
                         mHead.setImageBitmap(mBitmap);
                         BaseUtils.showShortToast(mContext,
                                 R.string.uploaded_successfully);

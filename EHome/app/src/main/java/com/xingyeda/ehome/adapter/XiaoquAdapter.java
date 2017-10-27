@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 
 import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.base.EHomeApplication;
+import com.xingyeda.ehome.base.LitePalUtil;
 import com.xingyeda.ehome.bean.HomeBean;
 
 public class XiaoquAdapter extends BaseAdapter
@@ -73,7 +74,7 @@ public class XiaoquAdapter extends BaseAdapter
         
         //动态赋值
         HomeBean bean = mHomeBeans.get(position);
-        if (bean.equals(mApplication.getmCurrentUser().getmXiaoqu())) {
+        if (bean.getmIsDefault().equals("1")) {
         	viewHolder.mDefaultXiaoqu.setVisibility(View.VISIBLE);
 		}
         viewHolder.mXiaoqu.setText(bean.getmCommunity());

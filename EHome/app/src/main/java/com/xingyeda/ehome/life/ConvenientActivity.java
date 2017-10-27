@@ -30,6 +30,7 @@ import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.adapter.ConvenientAdapter;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
+import com.xingyeda.ehome.base.LitePalUtil;
 import com.xingyeda.ehome.bean.ConvenientBean;
 import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
 import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
@@ -49,7 +50,7 @@ public class ConvenientActivity extends BaseActivity {
         setContentView(R.layout.activity_convenient);
         ButterKnife.bind(this);
         mLists = new ArrayList<ConvenientBean>();
-        if (mEhomeApplication.getmCurrentUser().getmXiaoqu() != null) {
+        if (LitePalUtil.getHomeBean() != null) {
             init();
         } else {
             mlist.setVisibility(View.GONE);
@@ -60,8 +61,8 @@ public class ConvenientActivity extends BaseActivity {
     private void init() {
         Map<String, String> params = new HashMap<String, String>();
         params.put("uid", SharedPreUtil.getString(mContext, "userId", ""));
-        if (mEhomeApplication.getmCurrentUser().getmXiaoqu().getmCommunityId() == null || "".equals(mEhomeApplication.getmCurrentUser().getmXiaoqu().getmCommunityId())) {
-            params.put("xid", mEhomeApplication.getmCurrentUser().getmXiaoqu().getmCommunityId());
+        if (LitePalUtil.getHomeBean().getmCommunityId() == null || "".equals(LitePalUtil.getHomeBean().getmCommunityId())) {
+            params.put("xid", LitePalUtil.getHomeBean().getmCommunityId());
         }
         OkHttp.get(mContext, ConnectPath.CONVENIENCE_PATH, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
             @Override

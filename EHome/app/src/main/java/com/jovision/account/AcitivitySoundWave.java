@@ -35,6 +35,7 @@ import com.xingyeda.ehome.ActivityHomepage;
 import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
+import com.xingyeda.ehome.base.LitePalUtil;
 import com.xingyeda.ehome.bean.HomeBean;
 import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.door.DoorFragment;
@@ -373,8 +374,8 @@ final NormalListDialog dialog = DialogShow.showListDialog(mContext, idList);
 					}
 					String id = searchObj.getString("ystno");
 					if(null != id && !"".equalsIgnoreCase(id)){
-						if (mEhomeApplication.getmCurrentUser().ismCameraAdd()) {
-							for (HomeBean bean : mEhomeApplication.getmCurrentUser().getmXiaoquList()) {
+						if (LitePalUtil.getUserInfo().ismCameraAdd()) {
+							for (HomeBean bean : LitePalUtil.getHomeList()) {
 								if (bean.getmCameraId()!=null&&!bean.getmCameraId().isEmpty()) {
 									String s = bean.getmCameraId();
 								if (bean.getmCameraId().equals(id)) {
@@ -414,8 +415,8 @@ final NormalListDialog dialog = DialogShow.showListDialog(mContext, idList);
 //				 List<String>  idList = new ArrayList();
 				 if ("0"!=ystNum) {
 					 if (!"0".equals(ystNum)) {
-						 if (mEhomeApplication.getmCurrentUser().ismCameraAdd()) {
-							 for (HomeBean bean : mEhomeApplication.getmCurrentUser().getmXiaoquList()) {
+						 if (LitePalUtil.getUserInfo().ismCameraAdd()) {
+							 for (HomeBean bean : LitePalUtil.getHomeList()) {
 								 if (!bean.getmCameraId().equals(ystNum)) {
 									 for (DialogMenuItem dialogMenuItem : idList) {
 										 if (dialogMenuItem.mOperName.equals(ystNum)) {

@@ -49,6 +49,7 @@ import com.ldl.imageloader.core.ImageLoader;
 import com.mob.MobSDK;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
+import com.xingyeda.ehome.base.LitePalUtil;
 import com.xingyeda.ehome.base.PhoneBrand;
 import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.http.ConnectHttpUtils;
@@ -167,7 +168,7 @@ public class ActivityLogin extends BaseActivity {
                 mShowPwd.setVisibility(View.VISIBLE);
                 break;
             case R.id.login_sightseer://游客进入
-                mEhomeApplication.setmCurrentUser(null);
+                LitePalUtil.deleteUserInfo();
                 BaseUtils.startActivity(mContext, ActivityShareMain.class);
                 finish();
                 break;

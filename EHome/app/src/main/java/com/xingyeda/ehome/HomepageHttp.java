@@ -20,6 +20,7 @@ import com.ldl.imageloader.core.assist.FailReason;
 import com.ldl.imageloader.core.listener.ImageLoadingListener;
 import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.base.EHomeApplication;
+import com.xingyeda.ehome.base.LitePalUtil;
 import com.xingyeda.ehome.bean.AdvertisementBean;
 import com.xingyeda.ehome.bean.AnnunciateBean;
 import com.xingyeda.ehome.bean.HomeBean;
@@ -80,28 +81,30 @@ public class HomepageHttp {
                                             bean.setmIsDefault(jobj
                                                     .getString("isDefault"));
 
-                                            if (jobj.getString("isDefault")
-                                                    .equals("1")) {
-                                                SharedPreUtil.put(context, "eid", jobj.has("eid") ? jobj
-                                                        .getString("eid")
-                                                        : "");
-                                                SharedPreUtil.put(
-                                                        context,
-                                                        "dongshu",
-                                                        jobj.has("tid") ? jobj
-                                                                .getString("tid")
-                                                                : "");
-                                                mApplication.getmCurrentUser()
-                                                        .setmXiaoqu(bean);
-                                                mApplication.setmAnnunciateList(menuHint(bean.getmEquipmentId(), context));
-                                            }
-                                        }
-                                        mXiaoqu_List.add(bean);
-                                    }
-                                }
-                            } else {
-                                SharedPreUtil.put(context, "xiaoqu", false);
-                            }
+											if (jobj.getString("isDefault")
+													.equals("1")) {
+												SharedPreUtil.put(context, "eid", jobj.has("eid") ? jobj
+														.getString("eid")
+														: "");
+												SharedPreUtil.put(
+														context,
+														"dongshu",
+														jobj.has("tid") ? jobj
+																.getString("tid")
+																: "");
+												LitePalUtil.setHomeBean(bean);
+//												mApplication.getmCurrentUser()
+//														.setmXiaoqu(bean);
+												mApplication.setmAnnunciateList(menuHint(bean.getmEquipmentId(), context));
+											}
+										}
+										LitePalUtil.addHomeList(bean);
+										mXiaoqu_List.add(bean);
+									}
+								}
+							} else {
+								SharedPreUtil.put(context, "xiaoqu", false);
+							}
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -143,43 +146,43 @@ public class HomepageHttp {
 
     }
 
-    public static void refreshXiaoqu(String id, final Context context, final EHomeApplication mApplication) {
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("uid", id);
-        OkHttp.get(context, ConnectPath.RETURN_HOUSE_PATH, params,
-                new ConciseStringCallback(context, new ConciseCallbackHandler<String>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            List<HomeBean> mXiaoqu_List = new ArrayList<HomeBean>();
-                            JSONArray jan = (JSONArray) response.get("obj");
-                            if (jan != null && jan.length() != 0) {
-                                SharedPreUtil.put(context, "xiaoqu", true);
-                                for (int i = 0; i < jan.length(); i++) {
-                                    HomeBean bean = new HomeBean();
-                                    JSONObject jobj = jan.getJSONObject(i);
-                                    if (jobj.getString("isChecked").equals("1")) {
-                                        bean.setmCommunityId(jobj
-                                                .getString("rid"));
-                                        bean.setmCommunity(jobj
-                                                .getString("rname"));
-                                        bean.setmPeriodsId(jobj
-                                                .getString("nid"));
-                                        bean.setmPeriods(jobj
-                                                .getString("nname"));
-                                        if (jobj.has("tid")) {
-                                            bean.setmUnitId(jobj
-                                                    .getString("tid"));
-                                            mApplication.addMap(
-                                                    jobj.getString("tid"), null);
-                                        }
-                                        bean.setmUnit(jobj.getString("tname"));
-                                        bean.setmHouseNumber(jobj
-                                                .getString("hname"));
-                                        bean.setmHouseNumberId(jobj
-                                                .getString("hid"));
-                                        bean.setmIdentityType(jobj
-                                                .getString("type"));
+	public static void refreshXiaoqu(String id, final Context context, final EHomeApplication mApplication) {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("uid", id);
+		OkHttp.get(context, ConnectPath.RETURN_HOUSE_PATH, params,
+				new ConciseStringCallback(context, new ConciseCallbackHandler<String>() {
+					@Override
+					public void onResponse(JSONObject response) {
+						try {
+//							List<HomeBean> mXiaoqu_List = new ArrayList<HomeBean>();
+							JSONArray jan = (JSONArray) response.get("obj");
+							if (jan != null && jan.length() != 0) {
+								SharedPreUtil.put(context, "xiaoqu", true);
+								for (int i = 0; i < jan.length(); i++) {
+									HomeBean bean = new HomeBean();
+									JSONObject jobj = jan.getJSONObject(i);
+									if (jobj.getString("isChecked").equals("1")) {
+										bean.setmCommunityId(jobj
+												.getString("rid"));
+										bean.setmCommunity(jobj
+												.getString("rname"));
+										bean.setmPeriodsId(jobj
+												.getString("nid"));
+										bean.setmPeriods(jobj
+												.getString("nname"));
+										if (jobj.has("tid")) {
+											bean.setmUnitId(jobj
+													.getString("tid"));
+											mApplication.addMap(
+													jobj.getString("tid"), null);
+										}
+										bean.setmUnit(jobj.getString("tname"));
+										bean.setmHouseNumber(jobj
+												.getString("hname"));
+										bean.setmHouseNumberId(jobj
+												.getString("hid"));
+										bean.setmIdentityType(jobj
+												.getString("type"));
 
                                         if (jobj.has("eid")) {
                                             bean.setmEquipmentId(jobj
@@ -192,29 +195,30 @@ public class HomepageHttp {
                                             bean.setmIsDefault(jobj
                                                     .getString("isDefault"));
 
-                                            if (jobj.getString("isDefault")
-                                                    .equals("1")) {
-                                                SharedPreUtil.put(context, "eid", jobj.has("eid") ? jobj
-                                                        .getString("eid")
-                                                        : "");
-                                                SharedPreUtil.put(
-                                                        context,
-                                                        "dongshu",
-                                                        jobj.has("tid") ? jobj
-                                                                .getString("tid")
-                                                                : "");
-                                                mApplication.getmCurrentUser()
-                                                        .setmXiaoqu(bean);
-                                                mApplication.setmAnnunciateList(menuHint(bean.getmEquipmentId(), context));
-                                            }
-                                        }
-                                        mXiaoqu_List.add(bean);
-                                    }
-                                }
-                                mApplication.getmCurrentUser().setmXiaoquList(mXiaoqu_List);
-                            } else {
-                                SharedPreUtil.put(context, "xiaoqu", false);
-                            }
+											if (jobj.getString("isDefault")
+													.equals("1")) {
+												SharedPreUtil.put(context, "eid", jobj.has("eid") ? jobj
+														.getString("eid")
+														: "");
+												SharedPreUtil.put(
+														context,
+														"dongshu",
+														jobj.has("tid") ? jobj
+																.getString("tid")
+																: "");
+												LitePalUtil.setHomeBean(bean);
+//												mApplication.getmCurrentUser()
+//														.setmXiaoqu(bean);
+												mApplication.setmAnnunciateList(menuHint(bean.getmEquipmentId(), context));
+											}
+										}
+										LitePalUtil.addHomeList(bean);
+//										mXiaoqu_List.add(bean);
+									}
+								}
+							} else {
+								SharedPreUtil.put(context, "xiaoqu", false);
+							}
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -419,8 +423,8 @@ public class HomepageHttp {
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
 //                bitmap = loadedImage;
-                mApplication.getmCurrentUser().setmHeadPhoto(loadedImage);
-            }
+				LitePalUtil.getUserInfo().setmHeadPhoto(loadedImage);
+			}
 
             @Override
             public void onLoadingCancelled(String imageUri, View view) {

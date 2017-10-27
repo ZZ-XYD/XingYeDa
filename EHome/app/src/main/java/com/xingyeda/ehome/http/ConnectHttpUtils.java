@@ -24,6 +24,7 @@ import com.xingyeda.ehome.ActivityExplain;
 import com.xingyeda.ehome.ActivityHomepage;
 import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.base.EHomeApplication;
+import com.xingyeda.ehome.base.LitePalUtil;
 import com.xingyeda.ehome.bean.HomeBean;
 import com.xingyeda.ehome.bean.UserInfo;
 import com.xingyeda.ehome.dialog.DialogShow;
@@ -43,7 +44,6 @@ public class ConnectHttpUtils
     public static void loginUtils(JSONObject response, Context context,
             String name, String pwd,Class<?> cls)
     {
-//        JVBase.detectionJVId(context,name);
         EHomeApplication mApplication = (EHomeApplication) ((Activity) context)
                 .getApplication();
         try
@@ -58,8 +58,9 @@ public class ConnectHttpUtils
                 }else{
                     JVBase.detectionJVId(context,name);
                 }
-//                JVBase.detectionJVId(context, userInfo.getString("id"));
-                info.setmId(userInfo.getString("id"));// 账号id
+                SharedPreUtil.put(context, "userId", userInfo.getString("id"));
+
+                info.setmId(userInfo.has("id")?userInfo.getString("id"):"");// 账号id
                 info.setmUsername(userInfo.has("username")?userInfo.getString("username"):"");// 用户名
                 info.setmPhone(userInfo.has("mobilephone")?userInfo.getString("mobilephone"):"");// 电话号码
                 info.setmSex(userInfo.has("sex")?userInfo.getString("sex"):"");// 性别
@@ -68,10 +69,15 @@ public class ConnectHttpUtils
                 info.setmName(userInfo.has("name")?userInfo.getString("name"):"");// 呢称
                 info.setmHeadPhotoUrl(userInfo.has("img")?userInfo.getString("img"):"");// 头像
                 info.setmSNCode(userInfo.has("snCode")?userInfo.getString("snCode"):"");//sncode
+
+                LitePalUtil.setUserInfo(info);
+
                 if (userInfo.has("isChecked")?userInfo.getInt("isChecked") == 1:false)
                 {
                 	SharedPreUtil.put(context, "isChecked", true);
                     HomeBean bean = new HomeBean();
+                    bean.setmId(SharedPreUtil.getString(EHomeApplication.getmContext(), "userId"));
+//                    bean.setmType("1");
                     bean.setmCommunity(userInfo.has("xiaoquname")?userInfo.getString("xiaoquname"):"");
                     bean.setmCommunityId(userInfo.has("xiaoqu")?userInfo.getString("xiaoqu"):"");
                     bean.setmPeriods(userInfo.has("qishuname")?userInfo.getString("qishuname"):"");
@@ -81,7 +87,9 @@ public class ConnectHttpUtils
                     bean.setmHouseNumber(userInfo.has("hname")?userInfo.getString("hname"):"");
                     bean.setmHouseNumberId(userInfo.has("hid")?userInfo.getString("hid"):"");
                     bean.setmIdentityType(userInfo.has("type")?userInfo.getString("type"):"");
-                    info.setmXiaoqu(bean);
+                    bean.setmIsDefault("1");
+
+                    LitePalUtil.setHomeBean(bean);
 
                     LogUtils.i("默认小区 : "+bean);
                 }
@@ -89,12 +97,12 @@ public class ConnectHttpUtils
                 	SharedPreUtil.put(context, "isChecked", false);
 				}
 
-                mApplication.setmCurrentUser(info);
+//                mApplication.setmCurrentUser(info);
                 
                 LogUtils.i("userinfo : "+info);
 
                 SharedPreUtil.put(context, "isLogin", false);
-                SharedPreUtil.put(context, "userId", userInfo.getString("id"));
+
                 Bundle bundle = new Bundle();
                 if (info.getmPhone().equals("")) {
                     bundle.putString("type", "login");

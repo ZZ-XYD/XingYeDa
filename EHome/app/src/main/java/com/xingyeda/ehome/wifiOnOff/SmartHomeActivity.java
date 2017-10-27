@@ -26,6 +26,7 @@ import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.adapter.OnOffAdaper;
 import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.base.EHomeApplication;
+import com.xingyeda.ehome.base.LitePalUtil;
 import com.xingyeda.ehome.bean.OnOffBean;
 import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.door.DoorFragment;
@@ -467,7 +468,7 @@ public class SmartHomeActivity extends Cat110SDKActivity {
 
     private void login() {
         String oemCert = "1684ea8f2b44aa8e233b019f3e7e190056402e77d22a420fc1111d1395b79820d3412fff71bd4981e3265d758b94bd42cdee8d9c141ffce2167a0cae7897ab59eb7606442e20d180b00e13b43305e7a815a36f9e3cfc02018e4f4000a6b7876d7b24fabf9e796ca8b70473d71f7dd6380d11fdbe08c4f500fbf7425af47ce0c2";
-        String username = mApplication.getmCurrentUser().getmPhone();
+        String username = LitePalUtil.getUserInfo().getmPhone();
         String password = "123456";
         String captcha = "";
         Log.i(TAG, "login username:" + username + "   password" + password);
@@ -547,7 +548,7 @@ public class SmartHomeActivity extends Cat110SDKActivity {
                 break;
             case R.id.smart_home_getCode://获取验证码
                 mTimer.start();
-                sendAccountRegister(mApplication.getmCurrentUser().getmPhone(), "", new OnSendAccountRegisterResultListener() {
+                sendAccountRegister(LitePalUtil.getUserInfo().getmPhone(), "", new OnSendAccountRegisterResultListener() {
                     @Override
                     public void onResult(int result, long queryId, int durationSecs, int captchaPhase) {
                         if (result == 0) {
@@ -559,7 +560,7 @@ public class SmartHomeActivity extends Cat110SDKActivity {
                 break;
             case R.id.smart_home_submit://注册
                 if (mQueryId != 0) {
-                    submitAccountRegister(mApplication.getmCurrentUser().getmPhone(), "123456", mQueryId, smartHomeCode.getText().toString(), new OnSubmitAccountRegisterResultListener() {
+                    submitAccountRegister(LitePalUtil.getUserInfo().getmPhone(), "123456", mQueryId, smartHomeCode.getText().toString(), new OnSubmitAccountRegisterResultListener() {
                         @Override
                         public void onResult(int result, long newUid) {
                             if (result == 0) {

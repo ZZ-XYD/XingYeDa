@@ -4,8 +4,10 @@ import java.util.List;
 
 import android.graphics.Bitmap;
 
+import org.litepal.crud.DataSupport;
 
-public class UserInfo
+
+public class UserInfo extends DataSupport
 {
     //用户ID
     private String mId;
@@ -24,12 +26,12 @@ public class UserInfo
     private String mEmail;
     //性别
     private String mSex;
-    //默认小区
-    private HomeBean mXiaoqu;
+//    //默认小区
+//    private HomeBean mXiaoqu;
     //备用号码
     private String mRemarksPhone;
-    //绑定的所有小区
-    private List<HomeBean> mXiaoquList;
+//    //绑定的所有小区
+//    private List<HomeBean> mXiaoquList;
     //SN
     private String mSNCode;
 
@@ -180,17 +182,17 @@ public class UserInfo
 
 
 
-    public HomeBean getmXiaoqu()
-    {
-        return mXiaoqu;
-    }
-
-
-
-    public void setmXiaoqu(HomeBean mXiaoqu)
-    {
-        this.mXiaoqu = mXiaoqu;
-    }
+//    public HomeBean getmXiaoqu()
+//    {
+//        return mXiaoqu;
+//    }
+//
+//
+//
+//    public void setmXiaoqu(HomeBean mXiaoqu)
+//    {
+//        this.mXiaoqu = mXiaoqu;
+//    }
 
 
 
@@ -207,16 +209,16 @@ public class UserInfo
     }
 
 
-    public List<HomeBean> getmXiaoquList()
-    {
-        return mXiaoquList;
-    }
-
-
-    public void setmXiaoquList(List<HomeBean> mXiaoqu_List)
-    {
-        this.mXiaoquList = mXiaoqu_List;
-    }
+//    public List<HomeBean> getmXiaoquList()
+//    {
+//        return mXiaoquList;
+//    }
+//
+//
+//    public void setmXiaoquList(List<HomeBean> mXiaoqu_List)
+//    {
+//        this.mXiaoquList = mXiaoqu_List;
+//    }
     
 
 
@@ -229,20 +231,28 @@ public class UserInfo
 		this.mSNCode = mSNCode;
 	}
 
-
-	@Override
+    @Override
     public String toString()
     {
         return "UserInfo [mId=" + mId + ", mHeadPhoto=" + mHeadPhoto
                 + ", mUsername=" + mUsername + ", mPhone=" + mPhone
                 + ", mName=" + mName + ", mEmail=" + mEmail + ", mSex=" + mSex
-                + ", mXiaoqu=" + mXiaoqu + ", mRemarksPhone=" + mRemarksPhone
-                + ", mXiaoquList=" + mXiaoquList + "]";
+                + ", mRemarksPhone=" + mRemarksPhone +  "]";
     }
-   
-    
-   
-    
-    
+
+//	@Override
+//    public String toString()
+//    {
+//        return "UserInfo [mId=" + mId + ", mHeadPhoto=" + mHeadPhoto
+//                + ", mUsername=" + mUsername + ", mPhone=" + mPhone
+//                + ", mName=" + mName + ", mEmail=" + mEmail + ", mSex=" + mSex
+//                + ", mXiaoqu=" + mXiaoqu + ", mRemarksPhone=" + mRemarksPhone
+//                + ", mXiaoquList=" + mXiaoquList + "]";
+//    }
+
+
+
+
+
 
 }

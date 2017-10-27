@@ -102,7 +102,7 @@ public class EHomeApplication extends CoreApplication implements IHandlerLikeNot
         return mMap;
     }
 
-    private UserInfo mCurrentUser = new UserInfo();
+//    private UserInfo mCurrentUser = new UserInfo();
     //	private File mImageFile;
     private Timer mTimer = new Timer(true);
 
@@ -294,13 +294,13 @@ public class EHomeApplication extends CoreApplication implements IHandlerLikeNot
     // this.mDatas = mDatas;
     // }
 
-    public UserInfo getmCurrentUser() {
-        return mCurrentUser;
-    }
-
-    public void setmCurrentUser(UserInfo mCurrentUser) {
-        this.mCurrentUser = mCurrentUser;
-    }
+//    public UserInfo getmCurrentUser() {
+//        return mCurrentUser;
+//    }
+//
+//    public void setmCurrentUser(UserInfo mCurrentUser) {
+//        this.mCurrentUser = mCurrentUser;
+//    }
 
     // public boolean ismWifi()
     // {
@@ -524,7 +524,7 @@ public class EHomeApplication extends CoreApplication implements IHandlerLikeNot
     }
 
     public void offLine() {
-        if (null == mCurrentUser) {
+        if (null == LitePalUtil.getUserInfo()) {
             return;
         }
         Intent intent = new Intent("HeartbeatService");

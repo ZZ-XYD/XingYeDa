@@ -27,6 +27,7 @@ import com.ldl.imageloader.core.ImageLoader;
 import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
+import com.xingyeda.ehome.base.LitePalUtil;
 import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
 import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
@@ -136,7 +137,7 @@ public class InformationActivity extends BaseActivity {
 	mTime.setText(mTimeText);
 	mContent.setText("        "+mContentText);
 	mInitiatorShow.setText(mInitiatorText);
-	mReceiverShow.setText(mEhomeApplication.getmCurrentUser().getmUsername());
+	mReceiverShow.setText(LitePalUtil.getUserInfo().getmUsername());
 
     }
 

@@ -27,7 +27,9 @@ import com.xingyeda.ehome.ActivityHomepage;
 import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
+import com.xingyeda.ehome.base.LitePalUtil;
 import com.xingyeda.ehome.bean.HomeBean;
+import com.xingyeda.ehome.bean.UserInfo;
 import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.door.ActivityAddAddress;
 import com.xingyeda.ehome.util.BaseUtils;
@@ -131,25 +133,21 @@ public class ActivitySetInfo extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mBean = mEhomeApplication.getmCurrentUser().getmXiaoqu();
-        this.mNameText.setText(mEhomeApplication.getmCurrentUser().getmName());
+        mBean = LitePalUtil.getHomeBean();
+        this.mNameText.setText(LitePalUtil.getUserInfo().getmName());
 //	mName = mEhomeApplication.getmCurrentUser().getmName();
 
 //	this.mAlternate = mEhomeApplication.getmCurrentUser().getmRemarksPhone();
-        this.mAlternateText.setText(mEhomeApplication.getmCurrentUser()
-                .getmRemarksPhone());
+        this.mAlternateText.setText(LitePalUtil.getUserInfo().getmRemarksPhone());
         if (mBean != null) {
             mCommunity.setText(mBean.getmCommunity() + mBean.getmPeriods() + mBean.getmUnit() + mBean.getmHouseNumber());
         } else {
             mCommunity.setText(R.string.door_add_hint);
         }
-        this.mInfoPhone
-                .setText(mEhomeApplication.getmCurrentUser().getmPhone());
-        this.mUserName.setText(mEhomeApplication.getmCurrentUser()
-                .getmUsername());
-        if (mEhomeApplication.getmCurrentUser().getmXiaoqu() != null) {
-            String type = mEhomeApplication.getmCurrentUser().getmXiaoqu()
-                    .getmIdentityType();
+        this.mInfoPhone.setText(LitePalUtil.getUserInfo().getmPhone());
+        this.mUserName.setText(LitePalUtil.getUserInfo().getmUsername());
+        if (LitePalUtil.getHomeBean() != null) {
+            String type = LitePalUtil.getHomeBean().getmIdentityType();
             if (type.equals("1")) {
                 this.mUserType.setText(R.string.door_add_owner);
             } else if (type.equals("2")) {
@@ -164,24 +162,22 @@ public class ActivitySetInfo extends BaseActivity {
     }
 
     private void init() {
-        mBean = mEhomeApplication.getmCurrentUser().getmXiaoqu();
-        MyLog.i("个人信息数据初始化：" + mEhomeApplication.getmCurrentUser());
+        mBean = LitePalUtil.getHomeBean();
+        MyLog.i("个人信息数据初始化：" + LitePalUtil.getUserInfo());
         if (mBean != null) {
             mCommunity.setText(mBean.getmCommunity() + mBean.getmPeriods() + mBean.getmUnit() + mBean.getmHouseNumber());
         } else {
             mCommunity.setText(R.string.door_add_hint);
         }
-        if (mEhomeApplication.getmCurrentUser() != null) {
-            if (mEhomeApplication.getmCurrentUser().getmHeadPhotoUrl() == null) {
+        if (LitePalUtil.getUserInfo() != null) {
+            if (LitePalUtil.getUserInfo().getmHeadPhotoUrl() == null) {
                 mInfo_Photo.setImageResource(R.mipmap.head);
-            } else if (mEhomeApplication.getmCurrentUser().getmHeadPhoto() != null) {
-                mInfo_Photo.setImageBitmap(mEhomeApplication.getmCurrentUser()
-                        .getmHeadPhoto());
+            } else if (LitePalUtil.getUserInfo().getmHeadPhoto() != null) {
+                mInfo_Photo.setImageBitmap(LitePalUtil.getUserInfo().getmHeadPhoto());
             } else {
-                if (mEhomeApplication.getmCurrentUser().getmHeadPhotoUrl().startsWith("http")) {
+                if (LitePalUtil.getUserInfo().getmHeadPhotoUrl().startsWith("http")) {
 
-                    ImageLoader.getInstance().loadImage(mEhomeApplication.getmCurrentUser()
-                            .getmHeadPhotoUrl(), new ImageLoadingListener() {
+                    ImageLoader.getInstance().loadImage(LitePalUtil.getUserInfo().getmHeadPhotoUrl(), new ImageLoadingListener() {
 
                         @Override
                         public void onLoadingStarted(String imageUri, View view) {
@@ -196,7 +192,10 @@ public class ActivitySetInfo extends BaseActivity {
 
                         @Override
                         public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                            mEhomeApplication.getmCurrentUser().setmHeadPhoto(loadedImage);
+                            UserInfo info = new UserInfo();
+                            info.setmHeadPhoto(loadedImage);
+                            LitePalUtil.setUserInfo(info);
+//                            mEhomeApplication.getmCurrentUser().setmHeadPhoto(loadedImage);
                             if (mInfo_Photo != null) {
                                 mInfo_Photo.setImageBitmap(loadedImage);
                             }
@@ -430,7 +429,10 @@ public class ActivitySetInfo extends BaseActivity {
 
                     @Override
                     public void onResponse(String response, int id) {
-                        mEhomeApplication.getmCurrentUser().setmHeadPhoto(mBitmap);
+                        UserInfo info = new UserInfo();
+                        info.setmHeadPhoto(mBitmap);
+                        LitePalUtil.setUserInfo(info);
+//                        mEhomeApplication.getmCurrentUser().setmHeadPhoto(mBitmap);
                         mInfo_Photo.setImageBitmap(mBitmap);
                         BaseUtils.showShortToast(mContext, R.string.uploaded_successfully);
                     }

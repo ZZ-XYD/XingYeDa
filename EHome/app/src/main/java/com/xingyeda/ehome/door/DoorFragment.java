@@ -38,9 +38,11 @@ import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.adapter.DoorAdapter;
 import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.base.EHomeApplication;
+import com.xingyeda.ehome.base.LitePalUtil;
 import com.xingyeda.ehome.bean.AnnunciateBean;
 import com.xingyeda.ehome.bean.HomeBean;
 import com.xingyeda.ehome.bean.InformationBase;
+import com.xingyeda.ehome.bean.UserInfo;
 import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
 import com.xingyeda.ehome.http.okhttp.CallbackHandler;
@@ -89,6 +91,7 @@ import static com.xingyeda.ehome.R.string.share;
 import static com.xingyeda.ehome.base.BaseActivity.mEhomeApplication;
 import static com.xingyeda.ehome.base.BaseActivity.mScreenH;
 import static com.xingyeda.ehome.base.BaseActivity.mScreenW;
+import static com.xingyeda.ehome.base.ConnectPath.LOCK_CAR;
 
 /**
  * @author 李达龙
@@ -243,9 +246,9 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                 break;
             case R.id.door_spn:
                 Bundle bundle = new Bundle();
-                if (mApplication.getmCurrentUser().getmXiaoquList().size() == 0) {
+                if (LitePalUtil.getCommunityList().size() == 0) {
                     DialogShow.showHintDialog(mContext, "请先绑定小区");
-                } else if (mApplication.getmCurrentUser().getmXiaoquList().size() == 1) {
+                } else if (LitePalUtil.getCommunityList().size() == 1) {
                     DialogShow.showHintDialog(mContext, "不可修改当前默认小区");
                 } else {
                     bundle.putString("type", "community");
@@ -271,11 +274,11 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
 
     public void uploadXiaoqu(final String delete) {
         MyLog.i("设备数据列表加载--1，type = " + delete);
-        if (null == mApplication.getmCurrentUser()) {
+        if (null == LitePalUtil.getUserInfo()) {
             return;
         }
         // mXiaoqu_List.clear();
-        final List<HomeBean> mXiaoqu_List = new ArrayList<HomeBean>();
+//        final List<HomeBean> mXiaoqu_List = new ArrayList<HomeBean>();
         Map<String, String> params = new HashMap<String, String>();
         params.put("uid", SharedPreUtil.getString(mContext, "userId", ""));
         OkHttp.get(mContext, ConnectPath.RETURN_HOUSE_PATH, params,
@@ -288,16 +291,19 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            if (frozenAccount != null) {
+                            LitePalUtil.deleteHomeListAll();
+                            if (frozenAccount!=null) {
                                 frozenAccount.setVisibility(View.GONE);
                             }
                             JSONArray jan2 = (JSONArray) response.get("camera");
+                                UserInfo userInfo = new UserInfo();
                             if (jan2 != null && jan2.length() != 0) {
                                 MyLog.i("加载摄像头猫眼：" + jan2);
                                 for (int i = 0; i < jan2.length(); i++) {
                                     HomeBean bean = new HomeBean();
-                                    mApplication.getmCurrentUser().setmCameraAdd(true);
+                                    userInfo.setmCameraAdd(true);
                                     JSONObject jobj = jan2.getJSONObject(i);
+                                    bean.setmId( SharedPreUtil.getString(EHomeApplication.getmContext(), "userId"));
                                     bean.setmCameraId(jobj.has("serialNumber") ? jobj.getString("serialNumber") : "");
                                     bean.setmCameraName(jobj.has("name") ? jobj.getString("name") : "");
                                     if (jobj.has("type")) {
@@ -309,11 +315,12 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                                             bean.setmType("4");
                                         }
                                     }
-                                    mXiaoqu_List.add(bean);
+                                    LitePalUtil.addCameraList(bean);
                                 }
                             } else {
-                                mApplication.getmCurrentUser().setmCameraAdd(false);
+                                userInfo.setmCameraAdd(false);
                             }
+                            LitePalUtil.setUserInfo(userInfo);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -322,32 +329,37 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                             if (jan1 != null && jan1.length() != 0) {
                                 MyLog.i("加载停车场：" + jan1);
                                 for (int i = 0; i < jan1.length(); i++) {
-                                    HomeBean bean = new HomeBean();
                                     JSONObject jobj = jan1.getJSONObject(i);
+                                    HomeBean bean = new HomeBean();
+                                    bean.setmId(SharedPreUtil.getString(mContext, "userId"));
                                     bean.setmType("5");
                                     bean.setmParkId(jobj.has("cplid") ? jobj.getString("cplid") : "");
                                     bean.setmCommunityId(jobj.has("xiaoqu") ? jobj.getString("xiaoqu") : "");
                                     bean.setmParkName(jobj.has("address") ? jobj.getString("address") : "");
-                                    bean.setmParkTruckSpace(jobj.has("pnum") ? jobj.getString("pnum") : "");
-                                    List<HomeBean> list = DataSupport.findAll(HomeBean.class);
-                                    HomeBean baseBean = null;
-                                    if (list != null && !list.isEmpty()) {
-                                        for (HomeBean homeBean : list) {
-                                            if (homeBean.getmParkId().equals(bean.getmParkId())) {
-                                                baseBean = homeBean;
-                                            }
-                                        }
-                                    } else {
-                                        bean.setmParkNickName(bean.getmParkName());
-                                        bean.save();
-                                        baseBean = bean;
-                                    }
-                                    if (baseBean == null) {
-                                        bean.setmParkNickName(bean.getmParkName());
-                                        mXiaoqu_List.add(bean);
-                                    } else {
-                                        mXiaoqu_List.add(baseBean);
-                                    }
+                                    bean.setmParkTruckSpace(jobj.has("pnum")?jobj.getString("pnum") : "");
+                                    bean.setmParkLock(jobj.has("lock")?jobj.getString("lock") : "");
+                                    bean.setmParkNickName(jobj.has("address") ? jobj.getString("address") : "");
+//                                    bean.save();
+                                    LitePalUtil.addParkList(bean);
+//                                    List<HomeBean> list = DataSupport.where("mId = ? and mParkId = ?", SharedPreUtil.getString(EHomeApplication.getmContext(), "userId"),bean.getmParkId()).find(HomeBean.class);
+//                                    HomeBean baseBean = null;
+//                                    if (list != null && !list.isEmpty()) {
+//                                        for (HomeBean homeBean : list) {
+//                                            if (homeBean.getmParkId().equals(bean.getmParkId())) {
+//                                                baseBean = homeBean;
+//                                            }
+//                                        }
+//                                    } else {
+//                                        bean.setmParkNickName(bean.getmParkName());
+//                                        bean.save();
+//                                        baseBean = bean;
+//                                    }
+//                                    if (baseBean == null) {
+//                                        bean.setmParkNickName(bean.getmParkName());
+//                                        LitePalUtil.addParkList(bean);
+//                                    } else {
+//                                        LitePalUtil.addParkList(bean);
+//                                    }
 
 
                                 }
@@ -361,9 +373,10 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                                 MyLog.i("加载门禁：" + jan);
                                 for (int i = 0; i < jan.length(); i++) {
                                     HomeBean bean = new HomeBean();
+                                    bean.setmId(SharedPreUtil.getString(mContext, "userId"));
+                                    bean.setmType("1");
                                     JSONObject jobj = jan.getJSONObject(i);
                                     if (jobj.getString("isChecked").equals("1")) {
-                                        bean.setmType("1");
                                         if (jobj.has("state")) {
                                             bean.setState(jobj.getString("state"));
                                             if ("1".equals(jobj.getString("state"))) {
@@ -403,28 +416,19 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                                         }
                                         if (jobj.has("isDefault")) {
                                             SharedPreUtil.put(mContext, "isChecked", true);
-                                            bean.setmIsDefault(jobj
-                                                    .getString("isDefault"));
+                                            bean.setmIsDefault(jobj.getString("isDefault"));
 
-                                            if (jobj.getString("isDefault")
-                                                    .equals("1")) {
+                                            if (jobj.getString("isDefault").equals("1")) {
                                                 SharedPreUtil.put(mContext, "eid", jobj.has("eid") ? jobj.getString("eid") : "");
                                                 SharedPreUtil.put(mContext, "dongshu", jobj.has("tid") ? jobj.getString("tid") : "");
                                                 SharedPreUtil.put(mContext, "housenum", jobj.has("hname") ? jobj.getString("hname") : "");
-                                                mApplication.getmCurrentUser()
-                                                        .setmXiaoqu(bean);
-                                                // if (delete.equals("1"))
-                                                // {BaseUtils.startActivity(mContext,ActivityHomepage.class);
+                                                LitePalUtil.setHomeBean(bean);
                                             }
                                         }
                                     }
-                                    mXiaoqu_List.add(bean);
+                                    LitePalUtil.addHomeList(bean);
                                 }
-                                mApplication.getmCurrentUser().setmXiaoquList(
-                                        mXiaoqu_List);
                             } else {
-                                mApplication.getmCurrentUser().setmXiaoquList(
-                                        mXiaoqu_List);
                                 upload();
                             }
 
@@ -455,10 +459,8 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
 
     private void upload() {
         MyLog.i("设备数据列表适配器加载--1");
-        if (mApplication.getmCurrentUser().getmXiaoquList() != null
-                && mApplication.getmCurrentUser().getmXiaoquList().size() != 0) {
-            mAdapter = new DoorAdapter(mContext, mApplication
-                    .getmCurrentUser().getmXiaoquList());
+        if (LitePalUtil.getHomeList() != null && LitePalUtil.getHomeList().size() != 0) {
+            mAdapter = new DoorAdapter(mContext, LitePalUtil.getHomeList());
             if (mList != null) {
                 swipeMenuListView.setDividerHeight(20);
                 swipeMenuListView.setAdapter(mAdapter);
@@ -471,7 +473,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                 @Override
                 public void onclick(View view, int position) {
                     MyLog.i("分享按钮");
-                    final HomeBean bean = mApplication.getmCurrentUser().getmXiaoquList().get(position);
+                    final HomeBean bean = LitePalUtil.getHomeList().get(position);
                     String url = null;
                     if (bean.getmType().equals("1")) { //门禁
                         if (SharedPreUtil.getString(mContext, "share_type").equals("")) {
@@ -482,7 +484,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                         url = ConnectPath.BIND_PATH + "?uid&xiaoqu=" + bean.getmCommunityId()
                                 + "&qishu=" + bean.getmPeriodsId() + "&dongshu=" + bean.getmUnitId()
                                 + "&housenum=" + bean.getmHouseNumber() + "&type=" + SharedPreUtil.getString(mContext, "share_type")
-                                + "&sNcode=" + mApplication.getmCurrentUser().getmSNCode()
+                                + "&sNcode=" + LitePalUtil.getUserInfo().getmSNCode()
                                 + "&clientType=1" + "," + bean.getmCommunity() + bean.getmPeriods() + bean.getmUnit() + bean.getmHouseNumber() + "," + bean.getmType();
                     } else if (bean.getmType().equals("2")) { //摄像机
                         shareText.setText("摄像机设备添加扫描");
@@ -553,7 +555,19 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                             }
                         });
                     } else if (bean.getmType().equals("5")) {
-
+                        Map<String,String> params = new HashMap<String, String>();
+                        params.put("id",bean.getmParkId());
+                        OkHttp.get(mContext,ConnectPath.LOCK_CAR,params,new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                uploadXiaoqu("2");
+                                if (bean.getmParkLock().equals("0")) {
+                                    BaseUtils.showShortToast(mContext,"锁车成功");
+                                }else if (bean.getmParkLock().equals("1")){
+                                    BaseUtils.showShortToast(mContext,"解锁成功");
+                                }
+                            }
+                        }));
                     } else {
                         if (url != null) {
                             ViewGroup.LayoutParams para = shareImg.getLayoutParams();
@@ -581,21 +595,18 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
         }
 
 //		swipeMenuListView.setOnItemClickListener(itemClickListener);
-        if (mApplication.getmCurrentUser().getmXiaoqu() != null
-                && mApplication.getmCurrentUser().getmXiaoqu()
-                .getmEquipmentId() != null) {
-
+        if (LitePalUtil.getHomeBean() != null && LitePalUtil.getHomeBean().getmEquipmentId() != null) {
             if (SharedPreUtil.getBoolean(mContext, "isMenuHint")) {
                 SharedPreUtil.put(mContext, "isMenuHint", false);
                 menuHint();
             }
         }
-        if (mApplication.getmCurrentUser().getmXiaoquList() != null && !mApplication.getmCurrentUser().getmXiaoquList().isEmpty()) {
+        if (LitePalUtil.getHomeList() != null && !LitePalUtil.getHomeList().isEmpty()) {
 
-            if (mApplication.getmCurrentUser().getmXiaoquList().size() == 0) {
+            if (LitePalUtil.getHomeList().size() == 0) {
                 mModification.setText("请先绑定小区");
             } else {
-                HomeBean bean = mApplication.getmCurrentUser().getmXiaoqu();
+                HomeBean bean = LitePalUtil.getHomeBean();
                 if (bean != null) {
                     mModification.setText(bean.getmCommunity() + bean.getmPeriods() + bean.getmUnit() + bean.getmHouseNumber());
                 }
@@ -643,7 +654,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
         swipeMenuListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(final int position, SwipeMenu menu, int index) {
-                HomeBean bean = mApplication.getmCurrentUser().getmXiaoquList().get(position);
+                HomeBean bean = LitePalUtil.getHomeList().get(position);
                 if (bean.getmType().equals("1")) {
                     dialog(1, R.string.whether_relieve_bind, bean);
                 } else if (bean.getmType().equals("2")) {
@@ -768,8 +779,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
     private void menuHint() {
         MyLog.i("通知弹出--1");
         Map<String, String> params = new HashMap<String, String>();
-        params.put("eid", mApplication.getmCurrentUser().getmXiaoqu()
-                .getmEquipmentId());
+        params.put("eid", LitePalUtil.getHomeBean().getmEquipmentId());
         OkHttp.get(mContext, ConnectPath.MENUHINT_PATH, params,
                 new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
                     @Override

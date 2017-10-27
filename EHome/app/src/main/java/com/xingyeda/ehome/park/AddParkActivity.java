@@ -30,6 +30,7 @@ import com.ldl.dialogshow.dialog.widget.NormalListDialog;
 import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
+import com.xingyeda.ehome.base.LitePalUtil;
 import com.xingyeda.ehome.bean.HomeBean;
 import com.xingyeda.ehome.bean.SentryBean;
 import com.xingyeda.ehome.bean.Xiaoqu;
@@ -126,8 +127,8 @@ public class AddParkActivity extends BaseActivity {
         mXiaoquPosition = 0;
         parkCarData.setOnTouchListener(onTouchListener);
         getXiaoqu();
-        parkName.setText(mEhomeApplication.getmCurrentUser().getmName());
-        parkPhone.setText(mEhomeApplication.getmCurrentUser().getmPhone());
+        parkName.setText(LitePalUtil.getUserInfo().getmName());
+        parkPhone.setText(LitePalUtil.getUserInfo().getmPhone());
         parkCarNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -277,8 +278,8 @@ public class AddParkActivity extends BaseActivity {
                                     .getString("name") : "");
                             mDatas.add(xiaoqu);
                         }
-                        if (mEhomeApplication.getmCurrentUser().getmXiaoqu() != null) {
-                            HomeBean bean = mEhomeApplication.getmCurrentUser().getmXiaoqu();
+                        if (LitePalUtil.getHomeBean() != null) {
+                            HomeBean bean = LitePalUtil.getHomeBean();
                             parkXiaoquText.setText(bean.getmCommunity());
                             mCommunityId = bean.getmCommunityId();
                             parkAddress.setText(bean.getmCommunity() + bean.getmPeriods() + bean.getmUnit() + bean.getmHouseNumber());

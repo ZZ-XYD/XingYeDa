@@ -15,6 +15,7 @@ import com.ldl.dialogshow.dialog.widget.NormalDialog;
 import com.xingyeda.ehome.ActivityLogin;
 import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.base.BaseActivity;
+import com.xingyeda.ehome.base.LitePalUtil;
 import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.tenement.ActivityComplainAndService;
 import com.xingyeda.ehome.util.BaseUtils;
@@ -73,7 +74,7 @@ public class SetActivity extends BaseActivity {
 				mEhomeApplication.offLine();
 				mEhomeApplication.clearData();
 				mEhomeApplication.closemTimer();
-				mEhomeApplication.setmCurrentUser(null);
+				LitePalUtil.deleteUserInfo();
 				BaseUtils.startActivity(mContext, ActivityLogin.class);
 				dialog.superDismiss();
 				mEhomeApplication.finishAllActivity();

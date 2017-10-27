@@ -20,8 +20,10 @@ import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.adapter.XiaoquAdapter;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
+import com.xingyeda.ehome.base.LitePalUtil;
 import com.xingyeda.ehome.bean.HomeBean;
 import com.xingyeda.ehome.bean.InformationBase;
+import com.xingyeda.ehome.bean.UserInfo;
 import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
 import com.xingyeda.ehome.http.okhttp.CallbackHandler;
@@ -108,7 +110,7 @@ public class ActivityChangeInfo extends BaseActivity {
     private void init() {
 
         final List<HomeBean> list = new ArrayList<HomeBean>();
-        for (HomeBean bean : mEhomeApplication.getmCurrentUser().getmXiaoquList()) {
+        for (HomeBean bean : LitePalUtil.getCommunityList()) {
             if (bean.getmType().equals("1")) {
                 list.add(bean);
             }
@@ -123,8 +125,8 @@ public class ActivityChangeInfo extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 HomeBean mBean = list.get(position);
-                if (!mBean.equals(mEhomeApplication.getmCurrentUser().getmXiaoqu())) {
-                    mEhomeApplication.getmCurrentUser().setmXiaoqu(mBean);
+                if (!mBean.equals(LitePalUtil.getHomeBean())) {
+//                    LitePalUtil.setHomeBean(mBean);
                     changeXiaoqu(mBean);
                 } else {
                     DialogShow.showHintDialog(mContext, "您当前选择小区是默认小区，请重新选择");
@@ -143,9 +145,8 @@ public class ActivityChangeInfo extends BaseActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         changeLoading.setVisibility(View.GONE);
-                        mEhomeApplication.getmCurrentUser().setmXiaoqu(bean);
-                        BaseUtils.showShortToast(mContext,
-                                R.string.set_prosperity);
+                        LitePalUtil.updateHomeBean(bean);
+                        BaseUtils.showShortToast(mContext, R.string.set_prosperity);
                         SharedPreUtil.put(mContext, "eid",
                                 bean.getmEquipmentId());
                         SharedPreUtil.put(mContext, "dongshu",
@@ -244,12 +245,16 @@ public class ActivityChangeInfo extends BaseActivity {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                            mEhomeApplication.getmCurrentUser().setmName(mContent.getText().toString());
+                        UserInfo info = new UserInfo();
+                        info.setmName(mContent.getText().toString());
+                        LitePalUtil.setUserInfo(info);
                             final NormalDialog dialog = DialogShow.showSelectDialog(mContext, "上传成功", 1, new String[]{"确定"});
                             dialog.setOnBtnClickL(new OnBtnClickL() {
                                 @Override
                                 public void onBtnClick() {
-                                    mEhomeApplication.getmCurrentUser().setmPhone(mContent.getText().toString());
+                                    UserInfo info = new UserInfo();
+                                    info.setmPhone(mContent.getText().toString());
+                                    LitePalUtil.setUserInfo(info);
                                     BaseUtils.startActivity(mContext, ActivityHomepage.class);
                                     dialog.superDismiss();
                                     ActivityChangeInfo.this.finish();
@@ -279,9 +284,9 @@ public class ActivityChangeInfo extends BaseActivity {
 
                     @Override
                     public void onResponse(JSONObject response) {
-
+                            UserInfo info = new UserInfo();
                         if (mStrContent.equals("name")) {
-                            mEhomeApplication.getmCurrentUser().setmName(mContent.getText().toString());
+                            info.setmName(mContent.getText().toString());
                             final NormalDialog dialog = DialogShow.showSelectDialog(mContext, "修改成功", 1, new String[]{"确定"});
                             dialog.setOnBtnClickL(new OnBtnClickL() {
 
@@ -293,7 +298,7 @@ public class ActivityChangeInfo extends BaseActivity {
 
                             });
                         } else if (mStrContent.equals("beiyong")) {
-                            mEhomeApplication.getmCurrentUser().setmRemarksPhone(mContent.getText().toString());
+                            info.setmRemarksPhone(mContent.getText().toString());
                             final NormalDialog dialog = DialogShow.showSelectDialog(mContext, "修改成功", 1, new String[]{"确定"});
                             dialog.setOnBtnClickL(new OnBtnClickL() {
 
@@ -305,6 +310,7 @@ public class ActivityChangeInfo extends BaseActivity {
 
                             });
                         }
+                        LitePalUtil.setUserInfo(info);
                     }
 
                     @Override

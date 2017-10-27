@@ -38,6 +38,7 @@ import com.xingyeda.ehome.Service.HeartbeatService;
 import com.xingyeda.ehome.Test;
 import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.base.EHomeApplication;
+import com.xingyeda.ehome.base.LitePalUtil;
 import com.xingyeda.ehome.bean.InformationBase;
 import com.xingyeda.ehome.bean.ParkBean;
 import com.xingyeda.ehome.bean.PushBean;
@@ -150,7 +151,7 @@ public class JPushReceiver extends BroadcastReceiver {
             }
             if (!bean.getmType().equals("3") && !bean.getmType().equals("6") && !bean.getmType().equals("8") && !bean.getmType().equals("11")) {
                 if (bean.getmType().equals("2")) {
-                    if (mApplication.getmCurrentUser() != null) {
+                    if (LitePalUtil.getUserInfo() != null) {
                         InformationBase informationBase = new InformationBase(SharedPreUtil.getString(mContext, "userId", ""), bean.getmAdminName(),
                                 bean.getEaddress(), bean.getTitle(), bean.getAlertContent(), bean.getTime(), Integer.valueOf(bean.getSendType()), 0, bean.getPhotograph(), 0, 0);
                         informationBase.save();
@@ -184,7 +185,7 @@ public class JPushReceiver extends BroadcastReceiver {
                             bundle1.putString("echo", bean.getmUrl());
                             bundle1.putString("rtmp", bean.getRtmp());
                             bundle1.putString("time", bean.getTime());
-                            if (mApplication.getmCurrentUser() != null) {
+                            if (LitePalUtil.getUserInfo() != null) {
                                 bundle1.putString("code", bean.getmCode());
                                 LogUtils.i("呼叫时间 ： " + startTime);
                                 LogUtils.i("服务器当前时间：" + formatTimeInMillis(BaseUtils.getServerTime(mContext)));

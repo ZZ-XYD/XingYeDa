@@ -38,7 +38,9 @@ import com.xiaomi.mipush.sdk.MiPushClient;
 import com.xingyeda.ehome.Service.KeepLiveReceiver;
 import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.base.EHomeApplication;
+import com.xingyeda.ehome.base.LitePalUtil;
 import com.xingyeda.ehome.base.PhoneBrand;
+import com.xingyeda.ehome.bean.HomeBean;
 import com.xingyeda.ehome.bean.UserInfo;
 import com.xingyeda.ehome.door.DoorFragment;
 import com.xingyeda.ehome.http.ConnectHttpUtils;
@@ -101,20 +103,20 @@ public class ActivityHomepage extends FragmentActivity {
         SharedPreUtil.put(mContext, "isTenement_Upload", true);
         SharedPreUtil.put(mContext, "isDoor_Upload", true);
 
-        if (mApplication.getmCurrentUser() != null) {
+        if (LitePalUtil.getUserInfo() != null) {
             mApplication.setmAc_List(HomepageHttp.annunciate(SharedPreUtil.getString(mContext, "userId", ""), mContext));
 //            mApplication.setmAd(HomepageHttp.ad(mContext));
             mApplication.setmAb_List(HomepageHttp.ad(mContext));
-            if (mApplication.getmCurrentUser().getmXiaoqu() == null) {
+            if (LitePalUtil.getHomeBean() == null) {
                 mApplication.setmLife_List(HomepageHttp.life("", mContext));
             } else {
-                mApplication.setmLife_List(HomepageHttp.life(mApplication.getmCurrentUser().getmXiaoqu().getmCommunityId(), mContext));
+                mApplication.setmLife_List(HomepageHttp.life(LitePalUtil.getHomeBean().getmCommunityId(), mContext));
             }
-            if (mApplication.getmCurrentUser().getmHeadPhotoUrl() == null || mApplication.getmCurrentUser().getmHeadPhoto() != null) {
+            if (LitePalUtil.getUserInfo().getmHeadPhotoUrl() == null || LitePalUtil.getUserInfo().getmHeadPhoto() != null) {
                 return;
             } else {
-                if (mApplication.getmCurrentUser().getmHeadPhotoUrl().startsWith("http")) {
-                    HomepageHttp.head(mContext, mApplication.getmCurrentUser().getmHeadPhotoUrl(), mApplication);
+                if (LitePalUtil.getUserInfo().getmHeadPhotoUrl().startsWith("http")) {
+                    HomepageHttp.head(mContext,LitePalUtil.getUserInfo().getmHeadPhotoUrl(), mApplication);
                 }
             }
             HomepageHttp.menuSet(mContext, SharedPreUtil.getString(mContext, "userId", ""));
@@ -246,9 +248,9 @@ public class ActivityHomepage extends FragmentActivity {
 //		 startService(serviceIntent);
 
 
-        if (null != mApplication.getmCurrentUser()) {
+        if (null != LitePalUtil.getUserInfo()) {
             String mipush = null;
-            UserInfo userInfo = mApplication.getmCurrentUser();
+            UserInfo userInfo = LitePalUtil.getUserInfo();
             if (!SYS_EMUI.equals(PhoneBrand.getSystem())) {
                 MiPushClient.setAlias(mContext, userInfo.getmPhone(), null);
                 MiPushClient.subscribe(mContext, "p_" + userInfo.getmPhone(), null);
@@ -259,18 +261,19 @@ public class ActivityHomepage extends FragmentActivity {
             Set<String> set = new HashSet<String>();
             set.add("p_" + userInfo.getmPhone());
             set.add("n_" + userInfo.getmUsername());
-            if (userInfo.getmXiaoqu() != null) {
-                set.add("x_" + userInfo.getmXiaoqu().getmCommunityId());
-                set.add("q_" + userInfo.getmXiaoqu().getmPeriodsId());
-                set.add("d_" + userInfo.getmXiaoqu().getmUnitId());
-                set.add("m_" + userInfo.getmXiaoqu().getmHouseNumberId());
+            HomeBean bean = LitePalUtil.getHomeBean();
+            if (bean != null) {
+                set.add("x_" + bean.getmCommunityId());
+                set.add("q_" + bean.getmPeriodsId());
+                set.add("d_" + bean.getmUnitId());
+                set.add("m_" + bean.getmHouseNumberId());
 
                 if (!SYS_EMUI.equals(PhoneBrand.getSystem())) {
-                    MiPushClient.subscribe(mContext, "x_" + userInfo.getmXiaoqu().getmCommunityId(), null);
-                    MiPushClient.subscribe(mContext, "q_" + userInfo.getmXiaoqu().getmPeriodsId(), null);
-                    MiPushClient.subscribe(mContext, "d_" + userInfo.getmXiaoqu().getmUnitId(), null);
-                    MiPushClient.subscribe(mContext, "m_" + userInfo.getmXiaoqu().getmHouseNumberId(), null);
-                    mipush = mipush + "x_" + userInfo.getmXiaoqu().getmCommunityId() + " q_" + userInfo.getmXiaoqu().getmPeriodsId() + " d_" + userInfo.getmXiaoqu().getmUnitId() + " m_" + userInfo.getmXiaoqu().getmHouseNumberId();
+                    MiPushClient.subscribe(mContext, "x_" + bean.getmCommunityId(), null);
+                    MiPushClient.subscribe(mContext, "q_" + bean.getmPeriodsId(), null);
+                    MiPushClient.subscribe(mContext, "d_" + bean.getmUnitId(), null);
+                    MiPushClient.subscribe(mContext, "m_" + bean.getmHouseNumberId(), null);
+                    mipush = mipush + "x_" + bean.getmCommunityId() + " q_" + bean.getmPeriodsId() + " d_" + bean.getmUnitId() + " m_" + bean.getmHouseNumberId();
                 }
             }
             if (!SYS_EMUI.equals(PhoneBrand.getSystem())) {

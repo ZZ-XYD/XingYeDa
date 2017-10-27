@@ -4,7 +4,7 @@ import org.litepal.crud.DataSupport;
 
 public class HomeBean extends DataSupport {
     //小区logo
-    private int mId;
+    private String mId;
     private String state;//用户是否冻结
     //小区
     private String mCommunityId;//小区id
@@ -26,7 +26,7 @@ public class HomeBean extends DataSupport {
     //身份类型
     private String mIdentityType;
     
-    private String mType;//设备类型   1：门禁    2：普通摄像头       3：摇头机    4：猫眼
+    private String mType;//设备类型   1：门禁    2：普通摄像头       3：摇头机    4：猫眼  5:停车场
 
     private String mCameraId;//摄像头id
 
@@ -36,6 +36,7 @@ public class HomeBean extends DataSupport {
     private String mParkId;
     private String mParkNickName;
     private String mParkTruckSpace;
+    private String mParkLock;
 
     public HomeBean() {
     }
@@ -44,6 +45,14 @@ public class HomeBean extends DataSupport {
         this.mParkName = mParkName;
         this.mParkId = mParkId;
         this.mParkNickName = mParkNickName;
+    }
+
+    public String getmParkLock() {
+        return mParkLock;
+    }
+
+    public void setmParkLock(String mParkLock) {
+        this.mParkLock = mParkLock;
     }
 
     public String getmParkTruckSpace() {
@@ -112,11 +121,11 @@ public class HomeBean extends DataSupport {
     {
         this.mIdentityType = mIdentityType;
     }
-    public int getmId()
+    public String getmId()
     {
         return mId;
     }
-    public void setmId(int mId)
+    public void setmId(String mId)
     {
         this.mId = mId;
     }

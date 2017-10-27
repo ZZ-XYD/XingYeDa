@@ -24,6 +24,7 @@ import com.xiaowei.comm.Account;
 import com.xiaowei.core.utils.FileUtils;
 import com.xiaowei.core.utils.Logger;
 import com.xingyeda.ehome.base.EHomeApplication;
+import com.xingyeda.ehome.base.LitePalUtil;
 import com.xingyeda.ehome.bean.InformationBase;
 import com.xingyeda.ehome.menu.ActivityAbout;
 import com.xingyeda.ehome.util.BaseUtils;
@@ -397,7 +398,7 @@ public class AccountServiceImpl {
 //                    PlayUtil.capture(0, capturePath);
                     InformationBase base = new InformationBase();
 //                    base.setmImage(capturePath);
-                    base.setmUserId(EHomeApplication.getInstance().getmCurrentUser().getmId());
+                    base.setmUserId(SharedPreUtil.getString(EHomeApplication.getmContext(), "userId"));
                     base.setmName("猫眼");
                     base.setmTitle("猫眼报警");
                     base.setmContent("");
@@ -420,7 +421,7 @@ public class AccountServiceImpl {
                     InformationBase base = new InformationBase();
 
 //                    base.setmImage(capturePath);
-                    base.setmUserId(EHomeApplication.getInstance().getmCurrentUser().getmId());
+                    base.setmUserId(SharedPreUtil.getString(EHomeApplication.getmContext(), "userId"));
                     base.setmName("猫眼");
                     base.setmTitle("猫眼门铃提醒");
                     base.setmContent("");
@@ -447,7 +448,7 @@ public class AccountServiceImpl {
 //                else{
                     String time = formatTimeInMillis(BaseUtils.getServerTime(EHomeApplication.getmContext()));
                     InformationBase base = new InformationBase();
-                    base.setmUserId(EHomeApplication.getInstance().getmCurrentUser().getmId());
+                    base.setmUserId(SharedPreUtil.getString(EHomeApplication.getmContext(), "userId"));
                     base.setmName("摄像头");
                     base.setmTitle("摄像头报警提醒");
                     base.setmContent("");
