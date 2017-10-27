@@ -446,11 +446,6 @@ public class EHomeApplication extends CoreApplication implements IHandlerLikeNot
         singleton = this;
 
 //		 initVoipSDK();
-
-        // 注册 wifi+3/4g网络广播接收器
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);// 整个网格连接状态改变（wifi/34g）
-        this.registerReceiver(wifBC, filter);
     }
 
     private void initErrorHandler() {
@@ -734,27 +729,7 @@ public class EHomeApplication extends CoreApplication implements IHandlerLikeNot
 //		});
 //	}
 
-    // wifi+3g网络状态广播接收器
-    private BroadcastReceiver wifBC = new BroadcastReceiver() {
 
-        @Override
-        public void onReceive(final Context context, Intent intent) {
-            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo wifi = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);// 获取WIFI连接状态
-            mIsWifi = wifi.isConnected();
-            // 显示3g网络连接状态
-            NetworkInfo mobile = cm
-                    .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-            mIsMobile = mobile.isConnected();
-            // networkState();
-            if (!(mIsWifi || mIsMobile)) {
-//                BaseUtils.showLongToast(getApplicationContext(), "网络异常，请检查网络");
-//				DialogShow.showHintDialog(getApplicationContext(), "网络异常，请检查网络");
-            }
-
-        }
-
-    };
 
     @Override
     public void onNotify(int what, int arg1, int arg2, Object obj) {
