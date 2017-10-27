@@ -242,7 +242,7 @@ public class ActivityVideo extends BaseActivity {
                                     LogUtils.i("对方接听本次呼叫");
                                     mIsCallOk = true;
                                     if (mType.equals("dial")) {
-                                        connectRtmp(mJie);
+                                        connectRtmp(mJie+"&state=1");
                                         mConnect.setVisibility(View.GONE);
                                         // mIscount = false;
 //									mUploadText.setVisibility(View.GONE);
@@ -277,6 +277,9 @@ public class ActivityVideo extends BaseActivity {
                                 case ECCALL_FAILED:
                                     LogUtils.i("本次呼叫失败，根据失败原因播放提示音:"
                                             + voipCall.reason);
+                                    if (mType.equals("dial")) {
+                                        connectRtmp(mJie + "&state=0");
+                                    }
 //								for (int i = 0; i < 3; i++) {
 //
 //								}
@@ -673,7 +676,7 @@ public class ActivityVideo extends BaseActivity {
                         if (mIsCall) {
                             mTimerText.setText("连接中");
                             // count();
-                            // connectRtmp(mJie);
+                             connectRtmp(mJie+"&state=0");
                             if (mCallId != null) {
                                 ECDevice.getECVoIPCallManager().releaseCall(
                                         mCallId);
