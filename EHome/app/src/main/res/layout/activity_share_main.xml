@@ -8,14 +8,20 @@
     android:orientation="vertical"
     android:background="#EDECE8"
     >
-    <ImageView
-    android:id="@+id/share_annunciate"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    app:layout_heightPercent="30%"
-    android:background="@mipmap/bg_annunciate"
-    android:scaleType="fitXY"
-    android:contentDescription="@null"/>
+    <!--<ImageView-->
+    <!--android:id="@+id/share_annunciate"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--app:layout_heightPercent="30%"-->
+    <!--android:background="@mipmap/bg_annunciate"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:contentDescription="@null"/>-->
+    <com.jude.rollviewpager.RollPagerView
+        android:id="@+id/mRollPagerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_heightPercent="30%"
+        app:rollviewpager_play_delay="5000"/>
     <ImageView
         android:id="@+id/share_more"
         android:layout_width="wrap_content"
@@ -33,7 +39,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
-        android:layout_below="@id/share_annunciate">
+        android:layout_below="@id/mRollPagerView">
         <View
             android:layout_width="match_parent"
             android:layout_height="3dp"
