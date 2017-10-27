@@ -308,8 +308,12 @@ public class DoorAdapter extends BaseAdapter {
             viewHolder.tvDoorplate.setText("");
             viewHolder.mType.setText(" 停车场 ");
             viewHolder.imageLogo.setBackgroundResource(R.mipmap.park_logo);
-
-            Drawable drawable2 = mContext.getResources().getDrawable(R.drawable.but_lockset);
+            Drawable drawable2 = null;
+            if (bean.getmParkLock().equals("1")) {
+                drawable2 = mContext.getResources().getDrawable(R.drawable.but_lockset1);
+            }else {
+                 drawable2 = mContext.getResources().getDrawable(R.drawable.but_lockset);
+            }
             drawable2.setBounds(0, 0, drawable2.getMinimumWidth(), drawable2.getMinimumHeight());
             viewHolder.mOption0.setCompoundDrawables(null, drawable2, null, null);
 
@@ -322,7 +326,8 @@ public class DoorAdapter extends BaseAdapter {
             drawable1.setBounds(0, 0, drawable1.getMinimumWidth(), drawable1.getMinimumHeight());
             viewHolder.mOption2.setCompoundDrawables(null, drawable1, null, null);
             viewHolder.mOption0.setText("锁车");
-            viewHolder.mOption1.setText("出入记录");
+            viewHolder.mOption1.setText("记录");
+//            viewHolder.mOption1.setText("出入记录");
             viewHolder.mOption2.setText("设置");
 //			viewHolder.mOption1.setBackgroundResource(R.drawable.but_examine);
 //			viewHolder.mOption2.setBackgroundResource(R.drawable.but_modification);
