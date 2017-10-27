@@ -103,7 +103,8 @@ public class ActivityHomepage extends FragmentActivity {
 
         if (mApplication.getmCurrentUser() != null) {
             mApplication.setmAc_List(HomepageHttp.annunciate(SharedPreUtil.getString(mContext, "userId", ""), mContext));
-            mApplication.setmAd(HomepageHttp.ad(mContext));
+//            mApplication.setmAd(HomepageHttp.ad(mContext));
+            mApplication.setmAb_List(HomepageHttp.ad(mContext));
             if (mApplication.getmCurrentUser().getmXiaoqu() == null) {
                 mApplication.setmLife_List(HomepageHttp.life("", mContext));
             } else {
