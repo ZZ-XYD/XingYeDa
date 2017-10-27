@@ -3,7 +3,6 @@ package com.xingyeda.ehome.zhibo;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -13,11 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.jovision.AppConsts;
+import com.jude.rollviewpager.RollPagerView;
 import com.ldl.okhttp.OkHttpUtils;
 import com.xingyeda.ehome.R;
+import com.xingyeda.ehome.adapter.AdvertisingAdapter;
 import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.base.EHomeApplication;
 import com.xingyeda.ehome.door.PopWindow;
@@ -26,7 +25,6 @@ import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.MyLog;
-import com.xingyeda.ehome.wifiOnOff.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,8 +47,10 @@ public class ShareFragment extends Fragment {
     ImageView shareNoDatas;
     @Bind(R.id.share_swipereLayout)
     SwipeRefreshLayout mSwipeLayout;
-    @Bind(R.id.share_annunciate)
-    ImageView shareAnnunciate;
+    @Bind(R.id.mRollPagerView)
+    RollPagerView mRollPagerView;
+//    @Bind(R.id.share_annunciate)
+//    ImageView shareAnnunciate;
     @Bind(R.id.share_more)
     ImageView shareMore;
     private View rootView;
@@ -83,6 +83,7 @@ public class ShareFragment extends Fragment {
         MyLog.i("ShareFragment启动");
         mContext = this.getActivity();
         mApplication = (EHomeApplication) ((Activity) mContext).getApplication();
+        initRollViewPager();
         init();
 
 
@@ -90,11 +91,11 @@ public class ShareFragment extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        if (mApplication.getmAd() != null) {
-            shareAnnunciate.setImageBitmap(mApplication.getmAd().getmBitmap());
-        } else {
-
-        }
+//        if (mApplication.getmAd() != null) {
+//            shareAnnunciate.setImageBitmap(mApplication.getmAd().getmBitmap());
+//        } else {
+//
+//        }
 //        editSearch();
 
         return rootView;
@@ -283,4 +284,10 @@ public class ShareFragment extends Fragment {
     }
 
 
+    private void initRollViewPager(){
+        if (mApplication.getmAb_List()!=null){
+            mRollPagerView.setAdapter(new AdvertisingAdapter(mRollPagerView,mApplication.getmAb_List()));
+        }
+
+    }
 }
