@@ -45,7 +45,7 @@ public class ActivityKeepLive extends Activity {
 
 //        checkScreen();
 
-        MyLog.i("ActivityKeepLive启动");
+//        MyLog.i("ActivityKeepLive启动");
     }
 
     @Override
@@ -58,7 +58,7 @@ public class ActivityKeepLive extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(br);
-        MyLog.i("ActivityKeepLive销毁");
+//        MyLog.i("ActivityKeepLive销毁");
     }
 
     private void checkScreen() {
