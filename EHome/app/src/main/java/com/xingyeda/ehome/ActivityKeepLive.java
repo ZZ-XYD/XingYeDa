@@ -35,13 +35,15 @@ public class ActivityKeepLive extends Activity {
         br = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                finish();
+                if (intent.getAction().equals("finish")) {
+                    ActivityKeepLive.this.finish();
+                }
             }
         };
 
         registerReceiver(br, new IntentFilter("finish"));
 
-        checkScreen();
+//        checkScreen();
 
         MyLog.i("ActivityKeepLive启动");
     }
@@ -49,7 +51,7 @@ public class ActivityKeepLive extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        checkScreen();
+//        checkScreen();
     }
 
     @Override
@@ -63,7 +65,7 @@ public class ActivityKeepLive extends Activity {
         PowerManager pm = (PowerManager) ActivityKeepLive.this.getSystemService(Context.POWER_SERVICE);
         boolean isScreenOn = pm.isScreenOn();
         if (isScreenOn) {
-            finish();
+            ActivityKeepLive.this.finish();
         }
     }
 }
