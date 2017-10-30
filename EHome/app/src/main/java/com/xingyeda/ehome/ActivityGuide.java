@@ -117,8 +117,6 @@ public class ActivityGuide extends BaseActivity {
                 Intent home = new Intent(Intent.ACTION_MAIN);
                 home.addCategory(Intent.CATEGORY_HOME);
                 startActivity(home);
-            }else if (type.equals("BOOT_COMPLETED")){
-//                finish();
             }
         } else {
             setContentView(R.layout.activity_guide);
@@ -431,11 +429,6 @@ public class ActivityGuide extends BaseActivity {
             public void onConnectState(ECDevice.ECConnectState state,
                                        ECError error) {
                 LogUtils.i("云通讯 ： state--" + state);
-                if (type!=null) {
-                if (type.equals("BOOT_COMPLETED")){
-                    finish();
-                }
-                }
                 if (state == ECDevice.ECConnectState.CONNECT_FAILED) {
                     MyLog.i("云通讯 ： 登录失败");
                     LogUtils.i("云通讯 ： 连接错误代码  -  " + error.errorMsg);
