@@ -69,13 +69,16 @@ public class SharePasswordService extends Service {
                 if (!tasks.isEmpty()) {
                     ComponentName cn = tasks.get(0).topActivity;
                     if (cn.getPackageName().equals("com.xingyeda.ehome")) {
+                        if (cn.getClassName().equals("com.xingyeda.ehome.ActivityGuide") || cn.getClassName().equals("com.xingyeda.ehome.door.ActivityOpenDoor")) {
+                            return;
+                        }
                         String sharePassword = "";
                         String deSharePassword = "";//解密后的设备号,用户ID,房间号字符串
                         if (cm.hasPrimaryClip()) {
                             if (cm.getPrimaryClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
                                 ClipData.Item item = null;
                                 item = cm.getPrimaryClip().getItemAt(0);
-                                if (item==null) {
+                                if (item == null) {
                                     return;
                                 }
                                 sharePassword = item.getText().toString();
