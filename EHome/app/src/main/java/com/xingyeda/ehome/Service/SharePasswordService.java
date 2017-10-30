@@ -69,7 +69,7 @@ public class SharePasswordService extends Service {
                 if (!tasks.isEmpty()) {
                     ComponentName cn = tasks.get(0).topActivity;
                     if (cn.getPackageName().equals("com.xingyeda.ehome")) {
-                        if (cn.getClassName().equals("com.xingyeda.ehome.ActivityGuide") || cn.getClassName().equals("com.xingyeda.ehome.door.ActivityOpenDoor")) {
+                        if (cn.getClassName().equals("com.xingyeda.ehome.ActivityGuide") || cn.getClassName().equals("com.xingyeda.ehome.door.ActivityOpenDoor") || cn.getClassName().equals("com.xingyeda.ehome.zhibo.ActivitySharePlay")) {
                             return;
                         }
                         String sharePassword = "";
