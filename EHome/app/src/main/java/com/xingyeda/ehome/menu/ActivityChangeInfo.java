@@ -198,11 +198,12 @@ public class ActivityChangeInfo extends BaseActivity {
                         }
                     } else if (mStrContent.equals("park")) {
                         if (Stringlength(mContent.getText().toString()) <= 16) {
-                            HomeBean homeBean = new HomeBean();
-                            homeBean.setmParkNickName(mContent.getText().toString());
-                            homeBean.updateAll("mParkId = ?", id);
-                            BaseUtils.showShortToast(mContext, "修改成功");
-                            ActivityChangeInfo.this.finish();
+                            updetePark();
+//                            HomeBean homeBean = new HomeBean();
+//                            homeBean.setmParkNickName(mContent.getText().toString());
+//                            homeBean.updateAll("mParkId = ?", id);
+//                            BaseUtils.showShortToast(mContext, "修改成功");
+//                            ActivityChangeInfo.this.finish();
                         } else {
                             DialogShow.showHintDialog(mContext, "呢称过长");
                         }
@@ -229,6 +230,19 @@ public class ActivityChangeInfo extends BaseActivity {
                 }
                 break;
         }
+    }
+
+    private void updetePark() {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("id", id);
+        params.put("name", mContent.getText().toString());
+        OkHttp.get(mContext,ConnectPath.CAR_UPDATENAME,params,new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                BaseUtils.showShortToast(mContext, "修改成功");
+                ActivityChangeInfo.this.finish();
+            }
+        }));
     }
 
     private void uploadphone() {
