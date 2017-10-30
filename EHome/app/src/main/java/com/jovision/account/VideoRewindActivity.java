@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -27,7 +28,6 @@ import com.xingyeda.ehome.util.SpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -36,6 +36,8 @@ import butterknife.OnClick;
 public class VideoRewindActivity extends BaseActivity implements IHandlerNotify, IHandlerLikeNotify {
 
     protected MyHandler handler = new MyHandler(this);
+    @Bind(R.id.rewind_swipeLayout)
+    SwipeRefreshLayout mSwipeLayout;
     private IHandlerNotify handlerNotify = this;
     @Bind(R.id.rewind_today)
     TextView today;
@@ -66,7 +68,7 @@ public class VideoRewindActivity extends BaseActivity implements IHandlerNotify,
     private VideoRemoteAdapter adapter;
     private ArrayList<RemoteVideo> List;
     private boolean isClear = false;
-    private int  frequency = 0;
+    private int frequency = 0;
 
 
     @Override
@@ -85,15 +87,42 @@ public class VideoRewindActivity extends BaseActivity implements IHandlerNotify,
 
         select.setOnTouchListener(onTouchListener);
 
-        mYear = rightNow.get(Calendar.YEAR);
-        mMonth = rightNow.get(Calendar.MONTH) + 1;
-        mDay = rightNow.get(Calendar.DAY_OF_MONTH);
 
-        date = String.format(AppConsts.REMOTE_SEARCH_FORMATTER, mYear,
-                mMonth, mDay, mYear, mMonth, mDay);
+        mSwipeLayout.setColorSchemeResources(R.color.theme_orange);
+        mSwipeLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mYear = rightNow.get(Calendar.YEAR);
+                mMonth = rightNow.get(Calendar.MONTH) + 1;
+                mDay = rightNow.get(Calendar.DAY_OF_MONTH);
+
+                date = String.format(AppConsts.REMOTE_SEARCH_FORMATTER, mYear,
+                        mMonth, mDay, mYear, mMonth, mDay);
 
 
-        JniUtil.checkRemoteData(indexOfChannel, date);
+                JniUtil.checkRemoteData(indexOfChannel, date);
+                    mSwipeLayout.setRefreshing(true);
+            }
+        });
+
+        mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                date = String.format(AppConsts.REMOTE_SEARCH_FORMATTER, mYear,
+                        mMonth, mDay, mYear, mMonth, mDay);
+                JniUtil.checkRemoteData(indexOfChannel, date);
+            }
+        });
+
+//        mYear = rightNow.get(Calendar.YEAR);
+//        mMonth = rightNow.get(Calendar.MONTH) + 1;
+//        mDay = rightNow.get(Calendar.DAY_OF_MONTH);
+//
+//        date = String.format(AppConsts.REMOTE_SEARCH_FORMATTER, mYear,
+//                mMonth, mDay, mYear, mMonth, mDay);
+//
+//
+//        JniUtil.checkRemoteData(indexOfChannel, date);
 
     }
 
@@ -114,10 +143,13 @@ public class VideoRewindActivity extends BaseActivity implements IHandlerNotify,
                 mMonth = rightNow.get(Calendar.MONTH) + 1;
                 mDay = rightNow.get(Calendar.DAY_OF_MONTH);
                 isClear = true;
-                date = String.format(AppConsts.REMOTE_SEARCH_FORMATTER, mYear, mMonth, mDay,mYear, mMonth, mDay);
+                date = String.format(AppConsts.REMOTE_SEARCH_FORMATTER, mYear, mMonth, mDay, mYear, mMonth, mDay);
                 JniUtil.checkRemoteData(indexOfChannel, date);
                 break;
             case R.id.rewind_three_days:
+                mSwipeLayout.setRefreshing(true);
+                rewindRecyclerView.setVisibility(View.VISIBLE);
+                rewindNoData.setVisibility(View.GONE);
                 threeDays.setTextColor(getResources().getColor(R.color.white));
                 threeDays.setBackgroundResource(R.color.theme_orange);
                 today.setTextColor(getResources().getColor(R.color.theme_orange));
@@ -130,7 +162,7 @@ public class VideoRewindActivity extends BaseActivity implements IHandlerNotify,
                 for (int i = 0; i < 3; i++) {
                     isClear = true;
                     frequency++;
-                    date = String.format(AppConsts.REMOTE_SEARCH_FORMATTER, mYear, mMonth, mDay-i, mYear, mMonth, mDay-i);
+                    date = String.format(AppConsts.REMOTE_SEARCH_FORMATTER, mYear, mMonth, mDay - i, mYear, mMonth, mDay - i);
                     JniUtil.checkRemoteData(indexOfChannel, date);
                 }
                 break;
@@ -154,40 +186,40 @@ public class VideoRewindActivity extends BaseActivity implements IHandlerNotify,
                 Log.i("videoList", videoList + "");
                 if (null != videoList && 0 != videoList.size()) {
 
-                        if (frequency>0) {
-                            switch (frequency){
-                                case 3:
-                                    frequency--;
-                                    for (RemoteVideo remoteVideo : videoList) {
-                                        remoteVideo.year = mYear;
-                                        remoteVideo.month = mMonth;
-                                        remoteVideo.day = mDay;
-                                    }
-                                    break;
-                                case 2:
-                                    frequency--;
-                                    for (RemoteVideo remoteVideo : videoList) {
-                                        remoteVideo.year = mYear;
-                                        remoteVideo.month = mMonth;
-                                        remoteVideo.day = mDay-1;
-                                    }
-                                    break;
-                                case 1:
-                                    frequency--;
-                                    for (RemoteVideo remoteVideo : videoList) {
-                                        remoteVideo.year = mYear;
-                                        remoteVideo.month = mMonth;
-                                        remoteVideo.day = mDay-2;
-                                    }
-                                    break;
-                            }
-                        }else {
-                            for (RemoteVideo remoteVideo : videoList) {
+                    if (frequency > 0) {
+                        switch (frequency) {
+                            case 3:
+                                frequency--;
+                                for (RemoteVideo remoteVideo : videoList) {
+                                    remoteVideo.year = mYear;
+                                    remoteVideo.month = mMonth;
+                                    remoteVideo.day = mDay;
+                                }
+                                break;
+                            case 2:
+                                frequency--;
+                                for (RemoteVideo remoteVideo : videoList) {
+                                    remoteVideo.year = mYear;
+                                    remoteVideo.month = mMonth;
+                                    remoteVideo.day = mDay - 1;
+                                }
+                                break;
+                            case 1:
+                                frequency--;
+                                for (RemoteVideo remoteVideo : videoList) {
+                                    remoteVideo.year = mYear;
+                                    remoteVideo.month = mMonth;
+                                    remoteVideo.day = mDay - 2;
+                                }
+                                break;
+                        }
+                    } else {
+                        for (RemoteVideo remoteVideo : videoList) {
                             remoteVideo.year = mYear;
                             remoteVideo.month = mMonth;
                             remoteVideo.day = mDay;
-                            }
                         }
+                    }
                     if (null != List && 0 != List.size()) {
                         if (isClear) {
                             List.clear();
@@ -195,10 +227,10 @@ public class VideoRewindActivity extends BaseActivity implements IHandlerNotify,
                         }
                         for (RemoteVideo remoteVideo : videoList) {
 //                            if (!remoteVideo.remoteKind.equals("N")) {
-                                List.add(remoteVideo);
+                            List.add(remoteVideo);
 //                            }
                         }
-                    }else{
+                    } else {
 //                        List = new ArrayList<>();
 //                        for (RemoteVideo remoteVideo : videoList) {
 //                            if (!remoteVideo.remoteKind.equals("N")) {
@@ -209,6 +241,9 @@ public class VideoRewindActivity extends BaseActivity implements IHandlerNotify,
                     }
                     rewindRecyclerView.setVisibility(View.VISIBLE);
                     rewindNoData.setVisibility(View.GONE);
+                    if (mSwipeLayout!=null) {
+                        mSwipeLayout.setRefreshing(false);
+                    }
                     adapter = new VideoRemoteAdapter(mContext, List);
                     rewindRecyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
@@ -218,9 +253,9 @@ public class VideoRewindActivity extends BaseActivity implements IHandlerNotify,
                             RemoteVideo videoBean = List.get(position);
                             String acBuffStr = JniUtil.getPlayFileString(videoBean, isJFH, deviceType, videoBean.year, videoBean.month, videoBean.day, position);
 //                            Log.i("itemClick",+deviceType + videoBean.year + videoBean.month + videoBean.day + position+"");
-                            String BuffStr = acBuffStr.replace("-67","00");
-                            String Str1 = BuffStr.substring(0,BuffStr.lastIndexOf("/")+1);
-                            String Str2 = BuffStr.substring(BuffStr.lastIndexOf("/")+2);
+                            String BuffStr = acBuffStr.replace("-67", "00");
+                            String Str1 = BuffStr.substring(0, BuffStr.lastIndexOf("/") + 1);
+                            String Str2 = BuffStr.substring(BuffStr.lastIndexOf("/") + 2);
 
 
                             if (null != acBuffStr && !"".equalsIgnoreCase(acBuffStr)) {
@@ -229,7 +264,7 @@ public class VideoRewindActivity extends BaseActivity implements IHandlerNotify,
 //                                bundle.putString("acBuffStr", Str1+"M"+Str2);
                                 bundle.putString("acBuffStr", acBuffStr);
                                 bundle.putString("remoteKind", videoBean.remoteKind);
-                                MyLog.i("回放视频的参数"+bundle.toString());
+                                MyLog.i("回放视频的参数" + bundle.toString());
                                 BaseUtils.startActivities(mContext, VideoRemotePlayActivity.class, bundle);
                             }
 
@@ -272,8 +307,10 @@ public class VideoRewindActivity extends BaseActivity implements IHandlerNotify,
                                 mMonth = m++;
                                 mDay = d;
                                 isClear = true;
-                                date = String.format(AppConsts.REMOTE_SEARCH_FORMATTER,mYear, mMonth, mDay, mYear, mMonth, mDay);
-
+                                date = String.format(AppConsts.REMOTE_SEARCH_FORMATTER, mYear, mMonth, mDay, mYear, mMonth, mDay);
+                                mSwipeLayout.setRefreshing(true);
+                                rewindRecyclerView.setVisibility(View.VISIBLE);
+                                rewindNoData.setVisibility(View.GONE);
                                 JniUtil.checkRemoteData(indexOfChannel, date);
                             }
                         }, rightNow.get(Calendar.YEAR),

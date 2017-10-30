@@ -68,19 +68,25 @@
             android:textColor="@color/theme_orange"
             android:gravity="center"/>
     </com.xingyeda.ehome.view.PercentLinearLayout>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/rewind_swipeLayout"
+        app:layout_marginTopPercent="22%"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rewind_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_marginTopPercent="22%"
         android:padding="5dp"
         android:background="#F7F7F7"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
     <ImageView
         android:id="@+id/rewind_no_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_marginTopPercent="22%"
         android:background="@mipmap/no_data"
+        android:visibility="gone"
         />
 
 
