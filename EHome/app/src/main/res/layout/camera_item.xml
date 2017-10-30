@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -9,44 +8,66 @@
     android:layout_marginRight="5dp"
     app:cardCornerRadius="10dp"
     app:cardElevation="20dp"
-    app:cardPreventCornerOverlap="true"
-    >
+    app:cardPreventCornerOverlap="true">
+
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:orientation="vertical"
+        android:padding="5dp">
         >
-    >
-        <ImageView android:id="@+id/camera_image"
+
+        <ImageView
+            android:id="@+id/camera_image"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:scaleType="centerCrop"
-            android:background="@mipmap/smart_home"/>
-        <TextView android:id="@+id/camera_name"
+            android:background="@mipmap/smart_home"
+            android:scaleType="centerCrop" />
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textSize="14sp"
-            android:maxLines="2"/>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/camera_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="left"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/camera_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="@string/share"
+                android:textColor="@color/theme_orange"
+                android:textSize="14sp" />
+        </LinearLayout>
+
         <!--<RelativeLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:layout_marginBottom="10dp">-->
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:maxLines="1"-->
-                <!--android:text="发送者"-->
-                <!--android:layout_marginLeft="10dp"/>-->
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:maxLines="1"-->
-                <!--android:text="1024"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:layout_marginRight="10dp"/>-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_marginBottom="10dp">-->
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:maxLines="1"-->
+        <!--android:text="发送者"-->
+        <!--android:layout_marginLeft="10dp"/>-->
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:maxLines="1"-->
+        <!--android:text="1024"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_marginRight="10dp"/>-->
         <!--</RelativeLayout>-->
     </LinearLayout>
 </android.support.v7.widget.CardView>
