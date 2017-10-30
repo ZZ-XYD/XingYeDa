@@ -246,6 +246,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                 break;
             case R.id.door_spn:
                 Bundle bundle = new Bundle();
+                if (LitePalUtil.getCommunityList()!=null) {
                 if (LitePalUtil.getCommunityList().size() == 0) {
                     DialogShow.showHintDialog(mContext, "请先绑定小区");
                 } else if (LitePalUtil.getCommunityList().size() == 1) {
@@ -254,6 +255,9 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                     bundle.putString("type", "community");
                     BaseUtils.startActivities(mContext, ActivityChangeInfo.class,
                             bundle);
+                }
+                }else{
+                    DialogShow.showHintDialog(mContext, "请先绑定小区");
                 }
                 break;
             case R.id.share_cancel:
@@ -429,6 +433,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                                     LitePalUtil.addHomeList(bean);
                                 }
                             } else {
+                                mModification.setText("请先绑定小区");
                                 upload();
                             }
 
