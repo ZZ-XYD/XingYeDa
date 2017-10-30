@@ -132,7 +132,6 @@ public class ActivityHomepage extends FragmentActivity {
         keepLiveReceiver = new KeepLiveReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("android.intent.action.SCREEN_OFF");
-        intentFilter.addAction("android.intent.action.SCREEN_ON");
         intentFilter.addAction("android.intent.action.USER_PRESENT");
         registerReceiver(keepLiveReceiver, intentFilter);
 
