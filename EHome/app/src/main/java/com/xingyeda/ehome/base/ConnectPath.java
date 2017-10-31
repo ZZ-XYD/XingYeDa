@@ -6,7 +6,7 @@ import static android.os.FileObserver.CREATE;
 public class ConnectPath
 {
     //Ip地址
-//    public static final String IP = "http://192.168.10.250:8080/";
+//    public static final String IP = "http://192.168.10.250:8080/";250
     public static final String IP = "http://service.xyd999.com:8080/";
 
     //IP路径
@@ -171,6 +171,8 @@ public class ConnectPath
     public static final String CAR_MONTH_CARD = IP_PATH+"monthCard";
     //删除
     public static final String CAR_REMOVE = IP_PATH+"clearCarBd";
+    //删除
+    public static final String CAR_UPDATENAME = IP_PATH+"updateCpName";
 
 
     /**

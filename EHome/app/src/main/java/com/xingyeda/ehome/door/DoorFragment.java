@@ -427,6 +427,10 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                                                 SharedPreUtil.put(mContext, "dongshu", jobj.has("tid") ? jobj.getString("tid") : "");
                                                 SharedPreUtil.put(mContext, "housenum", jobj.has("hname") ? jobj.getString("hname") : "");
                                                 LitePalUtil.setHomeBean(bean);
+
+                                                if (bean != null) {
+                                                    mModification.setText(bean.getmCommunity() + bean.getmPeriods() + bean.getmUnit() + bean.getmHouseNumber());
+                                                }
                                             }
                                         }
                                     }

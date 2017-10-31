@@ -32,7 +32,7 @@ public class ActivityAbout extends BaseActivity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_about);
         ButterKnife.bind(this);
-        versions.setText(AppUtils.getVersionName(mContext)+"1027");
+        versions.setText(AppUtils.getVersionName(mContext));
 
     }
 
