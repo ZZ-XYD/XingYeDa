@@ -92,15 +92,15 @@ import static com.xingyeda.ehome.base.PhoneBrand.SYS_EMUI;
  */
 public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, OnConnectionFailedListener {
 
-//    static {
-//        System.loadLibrary("gnustl_shared");
-//        System.loadLibrary("stlport_shared");
-//        System.loadLibrary("tools");
-//        System.loadLibrary("nplayer");
-//        System.loadLibrary("alu");
-//        System.loadLibrary("play");
-//        System.loadLibrary("cat110");
-//    }
+    static {
+        System.loadLibrary("gnustl_shared");
+        System.loadLibrary("stlport_shared");
+        System.loadLibrary("tools");
+        System.loadLibrary("nplayer");
+        System.loadLibrary("alu");
+        System.loadLibrary("play");
+        System.loadLibrary("cat110");
+    }
 
     @Bind(R.id.logo_image)
     ImageView mBackground;
@@ -123,14 +123,6 @@ public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logo);
         ButterKnife.bind(this);
-
-        try {
-            initJOVI();
-        } catch (Throwable e) {
-            Log.v("JOVISION", String.valueOf(e));
-            MyLog.e(e);
-        }
-
 
         MyLog.i("ActivityLogo:Service--1");
         Intent startIntent = new Intent(mContext, SharePasswordService.class);
@@ -440,13 +432,4 @@ public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, O
         return bigInt.toString(16);
     }
 
-    public void initJOVI() {
-        System.loadLibrary("gnustl_shared");
-        System.loadLibrary("stlport_shared");
-        System.loadLibrary("tools");
-        System.loadLibrary("nplayer");
-        System.loadLibrary("alu");
-        System.loadLibrary("play");
-        System.loadLibrary("cat110");
-    }
 }
