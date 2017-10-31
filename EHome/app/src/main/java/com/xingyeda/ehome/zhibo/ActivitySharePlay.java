@@ -102,7 +102,7 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
     PercentLinearLayout playCodeRateShow;
     @Bind(R.id.zb_play_code_rate_text)
     TextView playCodeRate;
-//    @Bind(R.id.zb_linkstate)
+    //    @Bind(R.id.zb_linkstate)
 //    TextView linkState;
     @Bind(R.id.zb_linkstate)
     ImageView mLgingImg;
@@ -213,7 +213,7 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
     private void enter() {
         Map<String, String> params = new HashMap<>();
         if (LitePalUtil.getUserInfo() != null) {
-            params.put("uid", SharedPreUtil.getString(mContext,"userId"));
+            params.put("uid", SharedPreUtil.getString(mContext, "userId"));
         } else {
             params.put("uid", "");
             params.put("regKey", JPushInterface.getRegistrationID(mContext));
@@ -232,7 +232,7 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
     private void exit() {
         Map<String, String> params = new HashMap<>();
         if (LitePalUtil.getUserInfo() != null) {
-            params.put("uid", SharedPreUtil.getString(mContext,"userId"));
+            params.put("uid", SharedPreUtil.getString(mContext, "userId"));
         } else {
             params.put("uid", "");
             params.put("regKey", JPushInterface.getRegistrationID(mContext));
@@ -250,14 +250,14 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
     private void sendShareMessage(String msg) {
         Map<String, String> params = new HashMap<>();
         if (LitePalUtil.getUserInfo() != null) {
-            params.put("uid", SharedPreUtil.getString(mContext,"userId"));
+            params.put("uid", SharedPreUtil.getString(mContext, "userId"));
         } else {
             params.put("uid", "");
             params.put("regKey", JPushInterface.getRegistrationID(mContext));
         }
         params.put("roomId", mRoomId);
         params.put("content", msg);
-        if (zbEdit!=null) {
+        if (zbEdit != null) {
             zbEdit.setText("");
         }
         OkHttp.get(mContext, ConnectPath.CAMERA_SEND_MESSAGE, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
@@ -287,11 +287,11 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
                 String time = intent.getExtras().getString("time");
                 //接受消息
 //                zbContent.append(name + ":" + content + "\n");
-                mList.add(new MessageBean(name,content));
+                mList.add(new MessageBean(name, content));
                 mAdapter = new MessageAdapter(mList);
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
-                mRecyclerView.scrollToPosition(mRecyclerView.getAdapter().getItemCount()-1);
+                mRecyclerView.scrollToPosition(mRecyclerView.getAdapter().getItemCount() - 1);
 
             }
 
@@ -721,7 +721,7 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
      * @return
      */
     private void connect(Channel channel, Surface surface) {
-        if (null != channel) {
+        if (null != channel && surface != null) {
             JniUtil.connectDevice(channel, surface, "", false);
         }
     }
@@ -805,9 +805,9 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
                 }
                 break;
             case R.id.share_play_share:
-                if (LitePalUtil.getUserInfo()!= null) {
+                if (LitePalUtil.getUserInfo() != null) {
                     mUserName = LitePalUtil.getUserInfo().getmUsername();//获取用户昵称
-                    String uid = SharedPreUtil.getString(mContext,"userId");
+                    String uid = SharedPreUtil.getString(mContext, "userId");
                     mEquipmentId = getIntent().getExtras().getString("equipmentId");
                     mRoomId = getIntent().getExtras().getString("roomId");
                     String sharePassword = mEquipmentId + "|" + uid + "|" + mRoomId;
