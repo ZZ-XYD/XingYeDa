@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -797,9 +798,15 @@ public class ActivitySharePlay extends BaseActivity implements IHandlerNotify, I
                 break;
             case R.id.describe:
                 if (describe.getMaxLines() == 2) {
+                    Drawable drawable= getResources().getDrawable(R.mipmap.up);
+                    drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                    describe.setCompoundDrawables(null,null,drawable,null);
                     describe.setMaxLines(999);
                     describe.postInvalidate();
                 } else {
+                    Drawable drawable= getResources().getDrawable(R.mipmap.down);
+                    drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                    describe.setCompoundDrawables(null,null,drawable,null);
                     describe.setMaxLines(2);
                     describe.postInvalidate();
                 }
