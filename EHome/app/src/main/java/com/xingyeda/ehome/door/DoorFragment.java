@@ -13,6 +13,10 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.percent.PercentFrameLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +38,7 @@ import com.ldl.dialogshow.dialog.widget.NormalDialog;
 import com.ldl.dialogshow.dialog.widget.NormalListDialog;
 import com.ldl.okhttp.OkHttpUtils;
 import com.xingyeda.ehome.ActivityHomepage;
+import com.xingyeda.ehome.ActivityLogin;
 import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.adapter.DoorAdapter;
 import com.xingyeda.ehome.base.ConnectPath;
@@ -56,6 +61,7 @@ import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.MyLog;
 import com.xingyeda.ehome.util.NetUtils;
 import com.xingyeda.ehome.util.SharedPreUtil;
+import com.xingyeda.ehome.util.SpaceItemDecoration;
 import com.xingyeda.ehome.view.listview.PullToRefreshBase;
 import com.xingyeda.ehome.view.listview.PullToRefreshMenuView;
 import com.xingyeda.ehome.view.listview.SwipeMenu;
@@ -99,14 +105,12 @@ import static com.xingyeda.ehome.base.ConnectPath.LOCK_CAR;
  * @Description: 门禁界面
  * @date 2016-7-6
  */
-public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefreshListener<SwipeMenuListView> {
+public class DoorFragment extends Fragment{
 
     @Bind(R.id.door_information)
     ImageView mInformation;
     @Bind(R.id.door_spn)
     TextView mModification;
-    @Bind(R.id.door_Listview)
-    PullToRefreshMenuView mList;
     @Bind(R.id.door_add)
     ImageView mAddImage;
     @Bind(R.id.no_data)
@@ -127,6 +131,10 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
     PercentFrameLayout shareHintLayout;
     @Bind(R.id.door_frame)
     FrameLayout door_frame;
+    @Bind(R.id.door_swipereLayout)
+    SwipeRefreshLayout mSwipereLayout;
+    @Bind(R.id.door_Listview)
+    RecyclerView mListview;
 
     private String shareUrl;
 
@@ -135,13 +143,9 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
     private Context mContext;
     private EHomeApplication mApplication;
     public static final String ACTION_NAME = "RelieveBind";
-    // private String[] mDoors = new String[] { "监控", "开门" };
-//	public static boolean isFlHint = true;
 
-    private SwipeMenuListView swipeMenuListView;
     private List<AnnunciateBean> mAnnunciateList;
 
-    // private ArrayAdapter<HomeBean> mAdapter;
     private DoorAdapter mAdapter;
     private static final int REQUEST_CODE_SCAN = 0x0000;
 
@@ -161,16 +165,18 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
             parent.removeView(rootView);
         }
         MyLog.i("DoorFragment启动");
-//		isFlHint = true;
-        // mHead.setImageResource(R.drawable.head);
         mAnnunciateList = new ArrayList<AnnunciateBean>();
         mContext = this.getActivity();
         mApplication = (EHomeApplication) ((Activity) mContext)
                 .getApplication();
 
+        mListview.setLayoutManager(new LinearLayoutManager(mContext));
+        mListview.setHasFixedSize(true);
+        mListview.setItemAnimator(new DefaultItemAnimator());
+
+
         registerBoradcastReceiver();
         init();
-        setListView();
 
         return rootView;
 
@@ -180,11 +186,34 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
         IntentFilter filter = new IntentFilter();
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         mContext.registerReceiver(wifBC, filter);
+
+
+        mSwipereLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {//刷新
+                uploadXiaoqu("2");
+            }
+        });
+
+        mSwipereLayout.setColorSchemeResources(R.color.theme_orange);
+        mSwipereLayout.post(new Runnable() {
+            @Override
+            public void run() {//第一次刷新
+                if (mAdapter==null) {
+                    uploadXiaoqu("0");
+                    mListview.addItemDecoration(new SpaceItemDecoration(20));
+                    mSwipereLayout.setRefreshing(true);
+                }else{
+                    uploadXiaoqu("2");
+                }
+
+
+            }
+        });
+
     }
 
-    @OnClick({R.id.door_add, R.id.door_information, R.id.door_spn,
-//            R.id.doo_smart_home,
-            R.id.share_layout, R.id.share_cancel, R.id.share_confirm})
+    @OnClick({R.id.door_add, R.id.door_information, R.id.door_spn, R.id.share_layout, R.id.share_cancel, R.id.share_confirm})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.door_add:
@@ -233,14 +262,10 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
 
                     }
                 });
-                // BaseUtils.startActivity(mContext, ActivityAddAddress.class);
                 break;
             case R.id.door_information:
                 BaseUtils.startActivity(mContext, PersonalActivity.class);
                 break;
-//            case R.id.doo_smart_home:
-//                BaseUtils.startActivity(mContext, SmartHomeActivity.class);
-//                break;
             case R.id.share_layout:
                 shareLayout.setVisibility(View.GONE);
                 break;
@@ -281,8 +306,6 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
         if (null == LitePalUtil.getUserInfo()) {
             return;
         }
-        // mXiaoqu_List.clear();
-//        final List<HomeBean> mXiaoqu_List = new ArrayList<HomeBean>();
         Map<String, String> params = new HashMap<String, String>();
         params.put("uid", SharedPreUtil.getString(mContext, "userId", ""));
         OkHttp.get(mContext, ConnectPath.RETURN_HOUSE_PATH, params,
@@ -343,29 +366,7 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                                     bean.setmParkTruckSpace(jobj.has("pnum")?jobj.getString("pnum") : "");
                                     bean.setmParkLock(jobj.has("lock")?jobj.getString("lock") : "");
                                     bean.setmParkNickName(jobj.has("address") ? jobj.getString("address") : "");
-//                                    bean.save();
                                     LitePalUtil.addParkList(bean);
-//                                    List<HomeBean> list = DataSupport.where("mId = ? and mParkId = ?", SharedPreUtil.getString(EHomeApplication.getmContext(), "userId"),bean.getmParkId()).find(HomeBean.class);
-//                                    HomeBean baseBean = null;
-//                                    if (list != null && !list.isEmpty()) {
-//                                        for (HomeBean homeBean : list) {
-//                                            if (homeBean.getmParkId().equals(bean.getmParkId())) {
-//                                                baseBean = homeBean;
-//                                            }
-//                                        }
-//                                    } else {
-//                                        bean.setmParkNickName(bean.getmParkName());
-//                                        bean.save();
-//                                        baseBean = bean;
-//                                    }
-//                                    if (baseBean == null) {
-//                                        bean.setmParkNickName(bean.getmParkName());
-//                                        LitePalUtil.addParkList(bean);
-//                                    } else {
-//                                        LitePalUtil.addParkList(bean);
-//                                    }
-
-
                                 }
                             }
                         } catch (JSONException e) {
@@ -440,9 +441,10 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                                 mModification.setText("请先绑定小区");
                                 upload();
                             }
-
+                            if (mSwipereLayout!=null) {
+                                mSwipereLayout.setRefreshing(false);
+                            }
                             if (delete.equals("2")) {
-                                mList.onRefreshComplete();
                                 upload();
                             }
                             if (delete.equals("0")) {
@@ -456,8 +458,8 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
 
                     @Override
                     public void onFailure() {
-                        if (mList != null) {
-                            mList.onRefreshComplete();
+                        if (mSwipereLayout!=null) {
+                            mSwipereLayout.setRefreshing(false);
                         }
                     }
                 }));
@@ -469,16 +471,36 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
     private void upload() {
         MyLog.i("设备数据列表适配器加载--1");
         if (LitePalUtil.getHomeList() != null && LitePalUtil.getHomeList().size() != 0) {
-            mAdapter = new DoorAdapter(mContext, LitePalUtil.getHomeList());
-            if (mList != null) {
-                swipeMenuListView.setDividerHeight(20);
-                swipeMenuListView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+            if (mListview==null) {
+                return;
             }
+//            if (mAdapter!=null) {
+//                mAdapter.notifyDataSetChanged();
+//            }else{
+                mAdapter = new DoorAdapter(LitePalUtil.getHomeList());
+                mListview.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
+//            }
             mNoData.setVisibility(View.GONE);
-            mList.setVisibility(View.VISIBLE);
-
-            mAdapter.share(new DoorAdapter.ShareClickItem() {
+            mListview.setVisibility(View.VISIBLE);
+            mAdapter.longClick(new DoorAdapter.LongClick() {
+                @Override
+                public void onLongClick(View view, int position) {
+                    HomeBean bean = LitePalUtil.getHomeList().get(position);
+                    if (bean.getmType().equals("1")) {
+                        dialog(1, R.string.whether_relieve_bind, bean);
+                    } else if (bean.getmType().equals("2")) {
+                        dialog(2, R.string.is_remove_camera, bean);
+                    } else if (bean.getmType().equals("3")) {
+                        dialog(2, R.string.is_remove_camera, bean);
+                    } else if (bean.getmType().equals("4")) {
+                        dialog(2, R.string.is_remove_cateye, bean);
+                    } else if (bean.getmType().equals("5")) {
+                        dialog(3, R.string.is_remove_park, bean);
+                    }
+                }
+            });
+            mAdapter.clickIco(new DoorAdapter.ClickItem(){
                 @Override
                 public void onclick(View view, int position) {
                     MyLog.i("分享按钮");
@@ -600,10 +622,9 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
             });
         } else {
             mNoData.setVisibility(View.VISIBLE);
-            mList.setVisibility(View.GONE);
+            mListview.setVisibility(View.GONE);
         }
 
-//		swipeMenuListView.setOnItemClickListener(itemClickListener);
         if (LitePalUtil.getHomeBean() != null && LitePalUtil.getHomeBean().getmEquipmentId() != null) {
             if (SharedPreUtil.getBoolean(mContext, "isMenuHint")) {
                 SharedPreUtil.put(mContext, "isMenuHint", false);
@@ -622,79 +643,6 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
             }
         }
         MyLog.i("设备数据列表适配器加载--0");
-    }
-
-
-    private void setListView() {
-        if (mList == null) {
-            return;
-        }
-        mList.setPullLoadEnabled(false);
-        mList.setScrollLoadEnabled(true);
-        mList.setOnRefreshListener(this);
-        swipeMenuListView = mList.getRefreshableView();
-        mList.onRefreshComplete();
-
-        // 创建左滑弹出的item
-        SwipeMenuCreator creator = new SwipeMenuCreator() {
-
-            @Override
-            public void create(SwipeMenu menu) {
-                // 创建Item
-                SwipeMenuItem openItem = new SwipeMenuItem(mContext);
-                // 设置item的背景颜色
-                openItem.setBackground(new ColorDrawable(Color.RED));
-                // 设置item的宽度
-                openItem.setWidth(Utils.dip2px(mContext, 90));
-                // 设置item标题
-                openItem.setTitle("删除");
-                // 设置item字号
-                openItem.setTitleSize(18);
-                // 设置item字体颜色
-                openItem.setTitleColor(Color.WHITE);
-                // 添加到ListView的Item布局当中
-                menu.addMenuItem(openItem);
-
-            }
-        };
-        // set creator
-        swipeMenuListView.setMenuCreator(creator);
-        // 操作删除按钮的点击事件
-        swipeMenuListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(final int position, SwipeMenu menu, int index) {
-                HomeBean bean = LitePalUtil.getHomeList().get(position);
-                if (bean.getmType().equals("1")) {
-                    dialog(1, R.string.whether_relieve_bind, bean);
-                } else if (bean.getmType().equals("2")) {
-                    dialog(2, R.string.is_remove_camera, bean);
-                } else if (bean.getmType().equals("3")) {
-                    dialog(2, R.string.is_remove_camera, bean);
-                } else if (bean.getmType().equals("4")) {
-                    dialog(2, R.string.is_remove_cateye, bean);
-                } else if (bean.getmType().equals("5")) {
-                    dialog(3, R.string.is_remove_park, bean);
-                }
-
-
-                return false;
-            }
-        });
-
-        // 操作ListView左滑时的手势操作，这里用于处理上下左右滑动冲突：开始滑动时则禁止下拉刷新和上拉加载手势操作，结束滑动后恢复上下拉操作
-        swipeMenuListView
-                .setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
-                    @Override
-                    public void onSwipeStart(int position) {
-                        mList.setPullRefreshEnabled(false);
-                    }
-
-                    @Override
-                    public void onSwipeEnd(int position) {
-                        mList.setPullRefreshEnabled(true);
-                    }
-                });
-
     }
 
     private void dialog(final int type, int comtent, final HomeBean bean) {
@@ -862,21 +810,8 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
                         }
                     }
                 });
-                // mFlHint.setVisibility(View.VISIBLE);
-                //
-                // mFlTitle.setText(mAnnunciateList.get(mFlIndex).getmTitle());
-                // mFlContent.setText("\t\t"
-                // + mAnnunciateList.get(mFlIndex).getmContent());
             }
         }
-        // String hintText = "";
-        // for (AnnunciateBean bean : mAnnunciateList) {
-        // hintText=hintText+bean.getmTitle()+"  ：  "+bean.getmContent()+"    ";
-        // }
-        // mDesc.setText(hintText);
-        // if (hintText.equals("")) {
-        // mDesc.setVisibility(View.GONE);
-        // }
         MyLog.i("设置弹出通知内容--0");
 
     }
@@ -889,16 +824,6 @@ public class DoorFragment extends Fragment implements PullToRefreshBase.OnRefres
         OkHttpUtils.getInstance().cancelTag(this);
         ButterKnife.unbind(this);
         MyLog.i("DoorFragment销毁");
-    }
-
-    @Override
-    public void onPullDownToRefresh(PullToRefreshBase<SwipeMenuListView> refreshView) {
-        uploadXiaoqu("2");
-    }
-
-    @Override
-    public void onPullUpToRefresh(PullToRefreshBase<SwipeMenuListView> refreshView) {
-
     }
 
     @Override

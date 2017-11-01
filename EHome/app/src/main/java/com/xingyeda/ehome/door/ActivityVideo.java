@@ -174,9 +174,9 @@ public class ActivityVideo extends BaseActivity {
 
         SharedPreUtil.put(mContext, "isFinish", false);
 
-        Vitamio.isInitialized(getApplicationContext());
         setContentView(R.layout.activity_video);
         ButterKnife.bind(this);
+        Vitamio.isInitialized(getApplicationContext());
 
         if (!ECDevice.isInitialized()) {
             initVoipSDK();
@@ -966,7 +966,9 @@ public class ActivityVideo extends BaseActivity {
                             mMonitor_abnormal.setVisibility(View.VISIBLE);
                         }
                     }
-                    mLoading.setVisibility(View.GONE);
+                    if (mLoading!=null) {
+                        mLoading.setVisibility(View.GONE);
+                    }
                     mAnimation.stop();
                     mIsNormal = false;
                     // mVideoView.stopPlayback();

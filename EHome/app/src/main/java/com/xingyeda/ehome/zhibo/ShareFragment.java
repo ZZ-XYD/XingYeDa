@@ -91,12 +91,6 @@ public class ShareFragment extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-//        if (mApplication.getmAd() != null) {
-//            shareAnnunciate.setImageBitmap(mApplication.getmAd().getmBitmap());
-//        } else {
-//
-//        }
-//        editSearch();
 
         return rootView;
     }
@@ -135,6 +129,10 @@ public class ShareFragment extends Fragment {
                 if (cameraList==null||cameraList.isEmpty()) {
                     getShareList("1", "10");
                     mSwipeLayout.setRefreshing(true);
+                }else{
+                    if (recyclerView.getAdapter()==null) {
+                        setAdapter();
+                    }
                 }
 
             }

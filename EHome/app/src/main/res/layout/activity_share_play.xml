@@ -228,7 +228,8 @@
                 android:maxLines="2"
                 android:textSize="@dimen/text_size_18"
                 app:layout_marginLeftPercent="5%"
-                app:layout_marginRightPercent="5%" />
+                app:layout_marginRightPercent="5%"
+                android:drawableRight="@mipmap/down"/>
 
         </android.support.percent.PercentRelativeLayout>
 

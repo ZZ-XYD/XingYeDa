@@ -101,19 +101,34 @@
         </LinearLayout>
 
 
-        <RelativeLayout
+        <android.support.percent.PercentRelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#EDECE8">
 
-            <com.xingyeda.ehome.view.listview.PullToRefreshMenuView
-                android:id="@+id/door_Listview"
+            <!--<com.xingyeda.ehome.view.listview.PullToRefreshMenuView-->
+                <!--android:id="@+id/door_Listview"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:background="#EDECE8"-->
+                <!--android:paddingLeft="10dp"-->
+                <!--android:paddingRight="10dp" />-->
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/door_swipereLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:background="#EDECE8"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp" />
+                app:layout_marginLeftPercent="2%"
+                app:layout_marginRightPercent="2%"
+                app:layout_marginTopPercent="1%"
+                app:layout_marginBottomPercent="1%"
+                >
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/door_Listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </android.support.v4.widget.SwipeRefreshLayout>
 
             <ImageView
                 android:id="@+id/no_data"
@@ -134,7 +149,7 @@
                 android:src="@mipmap/add_small" />
 
 
-        </RelativeLayout>
+        </android.support.percent.PercentRelativeLayout>
 
     </com.xingyeda.ehome.view.PercentLinearLayout>
 
