@@ -128,13 +128,11 @@ public class ActivityHomepage extends FragmentActivity {
         // 版本更新
         this.versionsUpdate();
 
-
-        keepLiveReceiver = new KeepLiveReceiver();
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("android.intent.action.SCREEN_OFF");
-        intentFilter.addAction("android.intent.action.USER_PRESENT");
-        registerReceiver(keepLiveReceiver, intentFilter);
-
+//        keepLiveReceiver = new KeepLiveReceiver();
+//        IntentFilter intentFilter = new IntentFilter();
+//        intentFilter.addAction("android.intent.action.SCREEN_OFF");
+//        intentFilter.addAction("android.intent.action.USER_PRESENT");
+//        registerReceiver(keepLiveReceiver, intentFilter);
     }
 
     @Override
@@ -178,7 +176,7 @@ public class ActivityHomepage extends FragmentActivity {
         OkHttpUtils.getInstance().cancelTag(this);
         ButterKnife.unbind(this);
         EHomeApplication.getInstance().finishActivity(this);
-        unregisterReceiver(keepLiveReceiver);
+//        unregisterReceiver(keepLiveReceiver);
     }
 
     @Override
