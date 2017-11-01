@@ -116,7 +116,7 @@ public class ActivityHomepage extends FragmentActivity {
                 return;
             } else {
                 if (LitePalUtil.getUserInfo().getmHeadPhotoUrl().startsWith("http")) {
-                    HomepageHttp.head(mContext,LitePalUtil.getUserInfo().getmHeadPhotoUrl(), mApplication);
+                    HomepageHttp.head(mContext, LitePalUtil.getUserInfo().getmHeadPhotoUrl(), mApplication);
                 }
             }
             HomepageHttp.menuSet(mContext, SharedPreUtil.getString(mContext, "userId", ""));
@@ -138,6 +138,11 @@ public class ActivityHomepage extends FragmentActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
     private void tabHost() {
