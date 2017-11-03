@@ -112,13 +112,13 @@ public class ActivityHomepage extends FragmentActivity {
             } else {
                 mApplication.setmLife_List(HomepageHttp.life(LitePalUtil.getHomeBean().getmCommunityId(), mContext));
             }
-            if (LitePalUtil.getUserInfo().getmHeadPhotoUrl() == null || LitePalUtil.getUserInfo().getmHeadPhoto() != null) {
-                return;
-            } else {
-                if (LitePalUtil.getUserInfo().getmHeadPhotoUrl().startsWith("http")) {
-                    HomepageHttp.head(mContext, LitePalUtil.getUserInfo().getmHeadPhotoUrl(), mApplication);
-                }
-            }
+//            if (LitePalUtil.getUserInfo().getmHeadPhotoUrl() == null || LitePalUtil.getUserInfo().getmHeadPhoto() != null) {
+//                return;
+//            } else {
+//                if (LitePalUtil.getUserInfo().getmHeadPhotoUrl().startsWith("http")) {
+//                    HomepageHttp.head(mContext,LitePalUtil.getUserInfo().getmHeadPhotoUrl(), mApplication);
+//                }
+//            }
             HomepageHttp.menuSet(mContext, SharedPreUtil.getString(mContext, "userId", ""));
         }
         // 初始化

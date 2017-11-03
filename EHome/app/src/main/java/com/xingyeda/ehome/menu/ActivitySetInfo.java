@@ -38,6 +38,9 @@ import com.xingyeda.ehome.util.SharedPreUtil;
 import com.xingyeda.ehome.view.MaskedImage;
 import com.xingyeda.ehome.zxing.android.CaptureActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -172,9 +175,11 @@ public class ActivitySetInfo extends BaseActivity {
         if (LitePalUtil.getUserInfo() != null) {
             if (LitePalUtil.getUserInfo().getmHeadPhotoUrl() == null) {
                 mInfo_Photo.setImageResource(R.mipmap.head);
-            } else if (LitePalUtil.getUserInfo().getmHeadPhoto() != null) {
-                mInfo_Photo.setImageBitmap(LitePalUtil.getUserInfo().getmHeadPhoto());
-            } else {
+            }
+//            else if (LitePalUtil.getUserInfo().getmHeadPhoto() != null) {
+//                mInfo_Photo.setImageBitmap(LitePalUtil.getUserInfo().getmHeadPhoto());
+//            }
+            else {
                 if (LitePalUtil.getUserInfo().getmHeadPhotoUrl().startsWith("http")) {
 
                     ImageLoader.getInstance().loadImage(LitePalUtil.getUserInfo().getmHeadPhotoUrl(), new ImageLoadingListener() {
@@ -192,9 +197,9 @@ public class ActivitySetInfo extends BaseActivity {
 
                         @Override
                         public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                            UserInfo info = new UserInfo();
-                            info.setmHeadPhoto(loadedImage);
-                            LitePalUtil.setUserInfo(info);
+//                            UserInfo info = new UserInfo();
+//                            info.setmHeadPhoto(loadedImage);
+//                            LitePalUtil.setUserInfo(info);
 //                            mEhomeApplication.getmCurrentUser().setmHeadPhoto(loadedImage);
                             if (mInfo_Photo != null) {
                                 mInfo_Photo.setImageBitmap(loadedImage);
@@ -429,12 +434,25 @@ public class ActivitySetInfo extends BaseActivity {
 
                     @Override
                     public void onResponse(String response, int id) {
-                        UserInfo info = new UserInfo();
-                        info.setmHeadPhoto(mBitmap);
-                        LitePalUtil.setUserInfo(info);
+                        try {
+                            JSONObject jobj = new JSONObject(response);
+                            String url = jobj.has("obj")?jobj.getString("obj"):"";
+                            if (!"".equals(url)) {
+                                UserInfo info = new UserInfo();
+                                info.setmHeadPhotoUrl(url);
+                                LitePalUtil.setUserInfo(info);
+                                mInfo_Photo.setImageBitmap(mBitmap);
+                                BaseUtils.showShortToast(mContext, R.string.uploaded_successfully);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+//                        UserInfo info = new UserInfo();
+//                        info.setmHeadPhoto(mBitmap);
+//                        LitePalUtil.setUserInfo(info);
 //                        mEhomeApplication.getmCurrentUser().setmHeadPhoto(mBitmap);
-                        mInfo_Photo.setImageBitmap(mBitmap);
-                        BaseUtils.showShortToast(mContext, R.string.uploaded_successfully);
+
                     }
 
                 });
