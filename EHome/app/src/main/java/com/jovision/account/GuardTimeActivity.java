@@ -67,7 +67,6 @@ public class GuardTimeActivity extends BaseActivity {
                 timePickerDialog.show();
                 break;
             case R.id.guard_time_stop:
-
                 TimePickerDialog timePickerDialog2 = new TimePickerDialog(mContext, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -93,7 +92,7 @@ public class GuardTimeActivity extends BaseActivity {
             case R.id.guard_time_all_day:
                 SharedPreUtil.put(mContext,"guard_time_start","全天");
                 SharedPreUtil.put(mContext,"guard_time_stop","全天");
-                BaseUtils.showShortToast(mContext,"修改成功");
+//                BaseUtils.showShortToast(mContext,"修改成功");
                 break;
             case R.id.guard_time_save:
                 SharedPreUtil.put(mContext,"guard_time_start",guardTimeStartTime.getText().toString());

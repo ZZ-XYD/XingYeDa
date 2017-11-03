@@ -66,12 +66,12 @@ public class MaoYanSetActivity extends BaseActivity {
     SwitchButton cameraMotionDetection;//摄像头移动侦测
     @Bind(R.id.camera_motion_detection_set)
     SwitchButton cameraMotionDetectionSet;//摄像头移动侦测灵敏度
-    @Bind(R.id.guard_time_show)
-    TextView guardTimeShow;
+//    @Bind(R.id.guard_time_show)
+//    TextView guardTimeShow;
     @Bind(R.id.jv_siren_set_text)
     TextView jvSirenSetText;
-    @Bind(R.id.guard_time)
-    PercentRelativeLayout guardTime;
+//    @Bind(R.id.guard_time)
+//    PercentRelativeLayout guardTime;
 
 
     private String type;
@@ -184,15 +184,17 @@ public class MaoYanSetActivity extends BaseActivity {
         }
     };
 
-    @OnClick({R.id.maoyan_set_Back, R.id.jv_save, R.id.guard_time})
+    @OnClick({R.id.maoyan_set_Back, R.id.jv_save
+//            , R.id.guard_time
+    })
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.maoyan_set_Back:
                 finish();
                 break;
-            case R.id.guard_time:
-                BaseUtils.startActivity(mContext, GuardTimeActivity.class);
-                break;
+//            case R.id.guard_time:
+//                BaseUtils.startActivity(mContext, GuardTimeActivity.class);
+//                break;
             case R.id.jv_save:
                 if (type.equals("camera0")) {
                     cameraSave();
@@ -330,15 +332,15 @@ public class MaoYanSetActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if ("".equals(SharedPreUtil.getString(mContext, "guard_time_start"))) {
-            guardTimeShow.setText("全天");
-        } else {
-            if ("全天".equals(SharedPreUtil.getString(mContext, "guard_time_start"))) {
-                guardTimeShow.setText(SharedPreUtil.getString(mContext, "guard_time_start"));
-            } else {
-                guardTimeShow.setText(SharedPreUtil.getString(mContext, "guard_time_start") + "-" + SharedPreUtil.getString(mContext, "guard_time_stop"));
-            }
-        }
+//        if ("".equals(SharedPreUtil.getString(mContext, "guard_time_start"))) {
+//            guardTimeShow.setText("全天");
+//        } else {
+//            if ("全天".equals(SharedPreUtil.getString(mContext, "guard_time_start"))) {
+//                guardTimeShow.setText(SharedPreUtil.getString(mContext, "guard_time_start"));
+//            } else {
+//                guardTimeShow.setText(SharedPreUtil.getString(mContext, "guard_time_start") + "-" + SharedPreUtil.getString(mContext, "guard_time_stop"));
+//            }
+//        }
     }
     //    public static void maoyanSet(){
 //
