@@ -374,7 +374,7 @@ public class ActivityLogo extends BaseActivity implements ConnectionCallbacks, O
             DnsXmlUtils.downloadDnsFile();
         }
         // 账号初始化
-        AccountServiceImpl.getInstance().init(mContext);
+        AccountServiceImpl.getInstance().init();
     }
 
     public static void getToken() {

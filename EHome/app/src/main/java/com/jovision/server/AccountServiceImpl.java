@@ -105,10 +105,7 @@ public class AccountServiceImpl {
     /**
      * 初始化
      */
-    public void init(Context context) {
-        this.mContext = context;
-        mSoundPool = new SoundPool(2, AudioManager.STREAM_SYSTEM, 5);
-        mSoundPool.load(mContext.getApplicationContext(), R.raw.bell, 1);
+    public void init() {
         Logger.i("// ==============================");
         Logger.i("// # INIT");
         Logger.i("// ==============================");
@@ -117,6 +114,20 @@ public class AccountServiceImpl {
         String LOG_ACCOUNT_PATH = Environment.getExternalStorageDirectory().getPath()
                 + File.separator + "jovision" + File.separator;
         Account.init(BIZ_ACC_ANDROID, 1, Account.BIZ_ACC_CH, LOG_ACCOUNT_PATH, dnsPath, this);
+    }
+
+
+    /*
+    初始化SoundPool
+     */
+    public void initSP(Context context) {
+        Logger.i("初始化SoundPool");
+        this.mContext = context;
+        if (mSoundPool == null) {
+            mSoundPool = new SoundPool(4, AudioManager.STREAM_SYSTEM, 5);
+            mSoundPool.load(mContext, R.raw.bell, 1);
+            Logger.i("初始化SoundPool成功");
+        }
     }
 
     /**
@@ -448,7 +459,6 @@ public class AccountServiceImpl {
                     base.setmZhongWeiId(id);
                     base.setmZhongWeiType("1");
                     base.save();
-                    mSoundPool.play(1, 1, 1, 0, 0, 1);
 //                String id = jobj.has("dguid")?jobj.getString("dguid"):"";
                     if ("".equals(id)) {
                         return 0;
