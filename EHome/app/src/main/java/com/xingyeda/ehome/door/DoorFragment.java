@@ -105,7 +105,7 @@ import static com.xingyeda.ehome.base.ConnectPath.LOCK_CAR;
  * @Description: 门禁界面
  * @date 2016-7-6
  */
-public class DoorFragment extends Fragment{
+public class DoorFragment extends Fragment {
 
     @Bind(R.id.door_information)
     ImageView mInformation;
@@ -199,11 +199,11 @@ public class DoorFragment extends Fragment{
         mSwipereLayout.post(new Runnable() {
             @Override
             public void run() {//第一次刷新
-                if (mAdapter==null) {
+                if (mAdapter == null) {
                     uploadXiaoqu("0");
                     mListview.addItemDecoration(new SpaceItemDecoration(20));
                     mSwipereLayout.setRefreshing(true);
-                }else{
+                } else {
                     uploadXiaoqu("2");
                 }
 
@@ -271,17 +271,17 @@ public class DoorFragment extends Fragment{
                 break;
             case R.id.door_spn:
                 Bundle bundle = new Bundle();
-                if (LitePalUtil.getCommunityList()!=null) {
-                if (LitePalUtil.getCommunityList().size() == 0) {
-                    DialogShow.showHintDialog(mContext, "请先绑定小区");
-                } else if (LitePalUtil.getCommunityList().size() == 1) {
-                    DialogShow.showHintDialog(mContext, "不可修改当前默认小区");
+                if (LitePalUtil.getCommunityList() != null) {
+                    if (LitePalUtil.getCommunityList().size() == 0) {
+                        DialogShow.showHintDialog(mContext, "请先绑定小区");
+                    } else if (LitePalUtil.getCommunityList().size() == 1) {
+                        DialogShow.showHintDialog(mContext, "不可修改当前默认小区");
+                    } else {
+                        bundle.putString("type", "community");
+                        BaseUtils.startActivities(mContext, ActivityChangeInfo.class,
+                                bundle);
+                    }
                 } else {
-                    bundle.putString("type", "community");
-                    BaseUtils.startActivities(mContext, ActivityChangeInfo.class,
-                            bundle);
-                }
-                }else{
                     DialogShow.showHintDialog(mContext, "请先绑定小区");
                 }
                 break;
@@ -319,18 +319,18 @@ public class DoorFragment extends Fragment{
                     public void onResponse(JSONObject response) {
                         try {
                             LitePalUtil.deleteHomeListAll();
-                            if (frozenAccount!=null) {
+                            if (frozenAccount != null) {
                                 frozenAccount.setVisibility(View.GONE);
                             }
                             JSONArray jan2 = (JSONArray) response.get("camera");
-                                UserInfo userInfo = new UserInfo();
+                            UserInfo userInfo = new UserInfo();
                             if (jan2 != null && jan2.length() != 0) {
                                 MyLog.i("加载摄像头猫眼：" + jan2);
                                 for (int i = 0; i < jan2.length(); i++) {
                                     HomeBean bean = new HomeBean();
                                     userInfo.setmCameraAdd(true);
                                     JSONObject jobj = jan2.getJSONObject(i);
-                                    bean.setmId( SharedPreUtil.getString(EHomeApplication.getmContext(), "userId"));
+                                    bean.setmId(SharedPreUtil.getString(EHomeApplication.getmContext(), "userId"));
                                     bean.setmCameraId(jobj.has("serialNumber") ? jobj.getString("serialNumber") : "");
                                     bean.setmCameraName(jobj.has("name") ? jobj.getString("name") : "");
                                     if (jobj.has("type")) {
@@ -363,8 +363,8 @@ public class DoorFragment extends Fragment{
                                     bean.setmParkId(jobj.has("cplid") ? jobj.getString("cplid") : "");
                                     bean.setmCommunityId(jobj.has("xiaoqu") ? jobj.getString("xiaoqu") : "");
                                     bean.setmParkName(jobj.has("address") ? jobj.getString("address") : "");
-                                    bean.setmParkTruckSpace(jobj.has("pnum")?jobj.getString("pnum") : "");
-                                    bean.setmParkLock(jobj.has("lock")?jobj.getString("lock") : "");
+                                    bean.setmParkTruckSpace(jobj.has("pnum") ? jobj.getString("pnum") : "");
+                                    bean.setmParkLock(jobj.has("lock") ? jobj.getString("lock") : "");
                                     bean.setmParkNickName(jobj.has("address") ? jobj.getString("address") : "");
                                     LitePalUtil.addParkList(bean);
                                 }
@@ -430,7 +430,9 @@ public class DoorFragment extends Fragment{
                                                 LitePalUtil.setHomeBean(bean);
 
                                                 if (bean != null) {
-                                                    mModification.setText(bean.getmCommunity() + bean.getmPeriods() + bean.getmUnit() + bean.getmHouseNumber());
+                                                    if (mModification != null) {
+                                                        mModification.setText(bean.getmCommunity() + bean.getmPeriods() + bean.getmUnit() + bean.getmHouseNumber());
+                                                    }
                                                 }
                                             }
                                         }
@@ -438,10 +440,12 @@ public class DoorFragment extends Fragment{
                                     LitePalUtil.addHomeList(bean);
                                 }
                             } else {
-                                mModification.setText("请先绑定小区");
+                                if (mModification != null) {
+                                    mModification.setText("请先绑定小区");
+                                }
                                 upload();
                             }
-                            if (mSwipereLayout!=null) {
+                            if (mSwipereLayout != null) {
                                 mSwipereLayout.setRefreshing(false);
                             }
                             if (delete.equals("2")) {
@@ -458,7 +462,7 @@ public class DoorFragment extends Fragment{
 
                     @Override
                     public void onFailure() {
-                        if (mSwipereLayout!=null) {
+                        if (mSwipereLayout != null) {
                             mSwipereLayout.setRefreshing(false);
                         }
                     }
@@ -471,15 +475,15 @@ public class DoorFragment extends Fragment{
     private void upload() {
         MyLog.i("设备数据列表适配器加载--1");
         if (LitePalUtil.getHomeList() != null && LitePalUtil.getHomeList().size() != 0) {
-            if (mListview==null) {
+            if (mListview == null) {
                 return;
             }
 //            if (mAdapter!=null) {
 //                mAdapter.notifyDataSetChanged();
 //            }else{
-                mAdapter = new DoorAdapter(LitePalUtil.getHomeList());
-                mListview.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+            mAdapter = new DoorAdapter(LitePalUtil.getHomeList());
+            mListview.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
 //            }
             mNoData.setVisibility(View.GONE);
             mListview.setVisibility(View.VISIBLE);
@@ -500,7 +504,7 @@ public class DoorFragment extends Fragment{
                     }
                 }
             });
-            mAdapter.clickIco(new DoorAdapter.ClickItem(){
+            mAdapter.clickIco(new DoorAdapter.ClickItem() {
                 @Override
                 public void onclick(View view, int position) {
                     MyLog.i("分享按钮");
@@ -586,16 +590,16 @@ public class DoorFragment extends Fragment{
                             }
                         });
                     } else if (bean.getmType().equals("5")) {
-                        Map<String,String> params = new HashMap<String, String>();
-                        params.put("id",bean.getmParkId());
-                        OkHttp.get(mContext,ConnectPath.LOCK_CAR,params,new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("id", bean.getmParkId());
+                        OkHttp.get(mContext, ConnectPath.LOCK_CAR, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
                             @Override
                             public void onResponse(JSONObject response) {
                                 uploadXiaoqu("2");
                                 if (bean.getmParkLock().equals("0")) {
-                                    BaseUtils.showShortToast(mContext,"锁车成功");
-                                }else if (bean.getmParkLock().equals("1")){
-                                    BaseUtils.showShortToast(mContext,"解锁成功");
+                                    BaseUtils.showShortToast(mContext, "锁车成功");
+                                } else if (bean.getmParkLock().equals("1")) {
+                                    BaseUtils.showShortToast(mContext, "解锁成功");
                                 }
                             }
                         }));
@@ -634,11 +638,15 @@ public class DoorFragment extends Fragment{
         if (LitePalUtil.getHomeList() != null && !LitePalUtil.getHomeList().isEmpty()) {
 
             if (LitePalUtil.getHomeList().size() == 0) {
-                mModification.setText("请先绑定小区");
+                if (mModification != null) {
+                    mModification.setText("请先绑定小区");
+                }
             } else {
                 HomeBean bean = LitePalUtil.getHomeBean();
                 if (bean != null) {
-                    mModification.setText(bean.getmCommunity() + bean.getmPeriods() + bean.getmUnit() + bean.getmHouseNumber());
+                    if (mModification != null) {
+                        mModification.setText(bean.getmCommunity() + bean.getmPeriods() + bean.getmUnit() + bean.getmHouseNumber());
+                    }
                 }
             }
         }
