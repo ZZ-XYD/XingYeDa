@@ -76,12 +76,13 @@ public class SharePasswordService extends Service {
                         String deSharePassword = "";//解密后的设备号,用户ID,房间号字符串
                         if (cm.hasPrimaryClip()) {
                             if (cm.getPrimaryClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
-                                ClipData.Item item = null;
-                                item = cm.getPrimaryClip().getItemAt(0);
+                                ClipData.Item item = cm.getPrimaryClip().getItemAt(0);
                                 if (item == null) {
                                     return;
                                 }
-                                sharePassword = item.getText().toString();
+                                if (item != null) {
+                                    sharePassword = String.valueOf(item.getText());
+                                }
                                 if (sharePassword.contains("创享E家")) {
                                     String password = sharePassword.substring(sharePassword.indexOf("￥"), sharePassword.lastIndexOf("￥")).toString();
                                     if (password != null) {
