@@ -7,8 +7,10 @@ import com.xingyeda.ehome.util.SharedPreUtil;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.id.list;
 import static com.alipay.sdk.authjs.a.b;
 
 /**
@@ -174,6 +176,33 @@ public class LitePalUtil {
      */
     public static void deleteHomeListAll(){
         DataSupport.deleteAll(HomeBean.class,"mId = ?", SharedPreUtil.getString(EHomeApplication.getmContext(), "userId"));
+    }
+
+    /**
+     * 获取小区list
+     * @return
+     */
+    public static List<HomeBean> getCameraList(){
+        List<HomeBean> list = new ArrayList<>();
+        List<HomeBean> homeList = getHomeList();
+        if (homeList != null && !homeList.isEmpty()) {
+            for (HomeBean homeBean : homeList) {
+                if ("2".equals(homeBean.getmType())) {
+                    list.add(homeBean);
+                } else if ("3".equals(homeBean.getmType())) {
+                    list.add(homeBean);
+                } else if ("4".equals(homeBean.getmType())) {
+                    list.add(homeBean);
+                }
+            }
+            if (list != null && !list.isEmpty()) {
+                return list;
+            } else {
+                return null;
+            }
+        }else{
+            return null;
+        }
     }
 
 

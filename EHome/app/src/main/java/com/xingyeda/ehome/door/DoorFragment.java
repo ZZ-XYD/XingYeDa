@@ -93,6 +93,7 @@ import static android.R.attr.isDefault;
 import static android.R.attr.path;
 import static android.R.id.list;
 import static android.app.Activity.RESULT_OK;
+import static com.xiaomi.channel.commonutils.misc.a.f;
 import static com.xingyeda.ehome.R.string.share;
 import static com.xingyeda.ehome.base.BaseActivity.mEhomeApplication;
 import static com.xingyeda.ehome.base.BaseActivity.mScreenH;
@@ -151,6 +152,8 @@ public class DoorFragment extends Fragment {
 
     private static final String DECODED_CONTENT_KEY = "codedContent";
     private static final String DECODED_BITMAP_KEY = "codedBitmap";
+    private List<HomeBean> mCameraList;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -167,8 +170,9 @@ public class DoorFragment extends Fragment {
         MyLog.i("DoorFragment启动");
         mAnnunciateList = new ArrayList<AnnunciateBean>();
         mContext = this.getActivity();
-        mApplication = (EHomeApplication) ((Activity) mContext)
-                .getApplication();
+        mApplication = (EHomeApplication) ((Activity) mContext).getApplication();
+        mCameraList = LitePalUtil.getCameraList();
+
 
         mListview.setLayoutManager(new LinearLayoutManager(mContext));
         mListview.setHasFixedSize(true);
@@ -201,7 +205,7 @@ public class DoorFragment extends Fragment {
             public void run() {//第一次刷新
                 if (mAdapter == null) {
                     uploadXiaoqu("0");
-                    mListview.addItemDecoration(new SpaceItemDecoration(20));
+//                    mListview.addItemDecoration(new SpaceItemDecoration(20));
                     mSwipereLayout.setRefreshing(true);
                 } else {
                     uploadXiaoqu("2");
@@ -474,6 +478,27 @@ public class DoorFragment extends Fragment {
 
     private void upload() {
         MyLog.i("设备数据列表适配器加载--1");
+        List<HomeBean> mCamera = LitePalUtil.getCameraList();
+        if (mCameraList!=null && !mCameraList.isEmpty() && mCamera!=null && !mCamera.isEmpty()) {
+            for (HomeBean homeBean : mCameraList) {
+                boolean flag = true ;
+                for (HomeBean bean : mCamera) {
+                    if (homeBean.getmCameraId().equals(bean.getmCameraId())) {
+                        flag = false;
+                    }
+                }
+                if (flag) {
+                    JVBase.delDev(homeBean.getmCameraId());
+                }
+
+            }
+//        for (HomeBean homeBean : mCameraList) {
+//            boolean b = mCamera.contains(homeBean);
+//            if (!mCamera.contains(homeBean)) {
+//                JVBase.delDev(homeBean.getmCameraId());
+//            }
+//        }
+        }
         if (LitePalUtil.getHomeList() != null && LitePalUtil.getHomeList().size() != 0) {
             if (mListview == null) {
                 return;
