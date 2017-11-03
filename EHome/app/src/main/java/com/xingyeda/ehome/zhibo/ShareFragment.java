@@ -49,7 +49,7 @@ public class ShareFragment extends Fragment {
     SwipeRefreshLayout mSwipeLayout;
     @Bind(R.id.mRollPagerView)
     RollPagerView mRollPagerView;
-//    @Bind(R.id.share_annunciate)
+    //    @Bind(R.id.share_annunciate)
 //    ImageView shareAnnunciate;
     @Bind(R.id.share_more)
     ImageView shareMore;
@@ -94,28 +94,31 @@ public class ShareFragment extends Fragment {
 
         return rootView;
     }
-    private void init(){
+
+    private void init() {
         MyLog.i("ShareFragment初始化--1");
         mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                addmoreTimes=1;
+                addmoreTimes = 1;
                 getShareList("1", "10");
             }
         });
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 // 不在滑动和最后可见条目是脚布局时加载更多
 //                if (cameraList.size()>=10) {
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisible + 1 == adapter.getItemCount()) {
-                        addmoreTimes++;
-                        addShareList(addmoreTimes+"","6");
-                    }
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisible + 1 == adapter.getItemCount()) {
+                    addmoreTimes++;
+                    addShareList(addmoreTimes + "", "6");
+                }
 //                }
             }
 
-            @Override public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 lastVisible = mLayoutManager.findLastVisibleItemPosition();
             }
@@ -126,11 +129,11 @@ public class ShareFragment extends Fragment {
         mSwipeLayout.post(new Runnable() {
             @Override
             public void run() {
-                if (cameraList==null||cameraList.isEmpty()) {
+                if (cameraList == null || cameraList.isEmpty()) {
                     getShareList("1", "10");
                     mSwipeLayout.setRefreshing(true);
-                }else{
-                    if (recyclerView.getAdapter()==null) {
+                } else {
+                    if (recyclerView.getAdapter() == null) {
                         setAdapter();
                     }
                 }
@@ -169,13 +172,13 @@ public class ShareFragment extends Fragment {
 
                             }
                         }
-                        if (mSwipeLayout!=null) {
+                        if (mSwipeLayout != null) {
                             mSwipeLayout.setRefreshing(false);
                         }
                         if (cameraList != null && !cameraList.isEmpty()) {
                             setAdapter();
                         } else {
-                            if (recyclerView!=null && shareNoDatas!=null) {
+                            if (recyclerView != null && shareNoDatas != null) {
                                 recyclerView.setVisibility(View.GONE);
                                 shareNoDatas.setVisibility(View.VISIBLE);
                             }
@@ -190,9 +193,10 @@ public class ShareFragment extends Fragment {
         }));
         MyLog.i("分享直播列表获取--0");
     }
-    private void setAdapter(){
+
+    private void setAdapter() {
         adapter = new CameraAdapter(cameraList);
-        if (recyclerView!=null && shareNoDatas!=null) {
+        if (recyclerView != null && shareNoDatas != null) {
             recyclerView.setVisibility(View.VISIBLE);
             shareNoDatas.setVisibility(View.GONE);
             recyclerView.setAdapter(adapter);
@@ -210,6 +214,7 @@ public class ShareFragment extends Fragment {
             }
         });
     }
+
     private void addShareList(String pageIndex, String pageSize) {
         MyLog.i("分享直播列表加载更多--1");
         Map<String, String> params = new HashMap<>();
@@ -235,7 +240,7 @@ public class ShareFragment extends Fragment {
                                     cameraList.add(camera);
                                 }
 
-                            adapter.notifyItemInserted(cameraList.size());
+                                adapter.notifyItemInserted(cameraList.size());
                             }
                         }
                     }
@@ -264,9 +269,9 @@ public class ShareFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (mSwipeLayout!=null) {
+        if (mSwipeLayout != null) {
             if (mSwipeLayout.isRefreshing()) {
-            mSwipeLayout.setRefreshing(false);
+                mSwipeLayout.setRefreshing(false);
                 getShareList("1", "10");
             }
         }
@@ -282,11 +287,8 @@ public class ShareFragment extends Fragment {
     }
 
 
-    private void initRollViewPager(){
+    private void initRollViewPager() {
         mRollPagerView.setAnimationDurtion(1000);
-        if (mApplication.getmAb_List()!=null){
-            mRollPagerView.setAdapter(new AdvertisingAdapter(mRollPagerView,mApplication.getmAb_List()));
-        }
-
+        mRollPagerView.setAdapter(new AdvertisingAdapter(mRollPagerView, mApplication.getmAb_List()));
     }
 }

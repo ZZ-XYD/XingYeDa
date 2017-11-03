@@ -254,8 +254,8 @@
     <string name="hg_door_text">门禁</string>
     <!--物业  -->
     <string name="hg_tenement_text">物业</string>
-    <!--商圈  -->
-    <string name="hg_life_text">商圈</string>
+    <!--直播  -->
+    <string name="hg_life_text">直播</string>
     <!--个人  -->
     <string name="hg_info_text">个人</string>
     <!--我的设备  -->

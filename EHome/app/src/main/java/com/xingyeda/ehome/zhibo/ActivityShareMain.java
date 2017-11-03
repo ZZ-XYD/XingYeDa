@@ -3,6 +3,7 @@ package com.xingyeda.ehome.zhibo;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,12 +13,17 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.jude.rollviewpager.RollPagerView;
 import com.ldl.dialogshow.dialog.listener.OnBtnClickL;
 import com.ldl.dialogshow.dialog.widget.NormalDialog;
 import com.ldl.imageloader.core.ImageLoader;
+import com.ldl.imageloader.core.assist.FailReason;
+import com.ldl.imageloader.core.listener.ImageLoadingListener;
 import com.xingyeda.ehome.ActivityHomepage;
 import com.xingyeda.ehome.ActivityLogin;
+import com.xingyeda.ehome.HomepageHttp;
 import com.xingyeda.ehome.R;
+import com.xingyeda.ehome.adapter.AdvertisingAdapter;
 import com.xingyeda.ehome.base.BaseActivity;
 import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.bean.AdvertisementBean;
@@ -49,8 +55,8 @@ public class ActivityShareMain extends BaseActivity {
     ImageView mNoDatas;
     @Bind(R.id.sightseer_swipereLayout)
     SwipeRefreshLayout mSwipeLayout;
-    @Bind(R.id.sightseer_annunciate)
-    ImageView mAnnunciate;
+    @Bind(R.id.sightseer_RollPagerView)
+    RollPagerView mRollPagerView;
     @Bind(R.id.sightseer_more)
     ImageView mMore;
     private List<Camera> cameraList = new ArrayList<>();
@@ -70,6 +76,7 @@ public class ActivityShareMain extends BaseActivity {
         setContentView(R.layout.activity_sightseer_main);
         ButterKnife.bind(this);
         init();
+//        ad(mContext);
 //        if (mEhomeApplication.getActivityStack()!=null&&!mEhomeApplication.getActivityStack().isEmpty()) {
 //            for (Activity activity : mEhomeApplication.getActivityStack()) {
 //                if (activity.getClass().equals(ActivityShareMain.class)) {
@@ -91,11 +98,12 @@ public class ActivityShareMain extends BaseActivity {
 
         getShareList("1", "10");
 
-        if (mEhomeApplication.getmAd() != null) {
-            mAnnunciate.setImageBitmap(mEhomeApplication.getmAd().getmBitmap());
-        } else {
-            ad(mContext);
-        }
+//        if (mEhomeApplication.getmAd() != null) {
+//            mAnnunciate.setImageBitmap(mEhomeApplication.getmAd().getmBitmap());
+//        } else {
+//            ad(mContext);
+//        }
+        initRollViewPager();
     }
 
     private void init() {
@@ -135,7 +143,7 @@ public class ActivityShareMain extends BaseActivity {
     }
 
     private void getShareList(String pageIndex, String pageSize) {
-        MyLog.i("获取分享直播列表：pageIndex"+pageIndex+";pageSize:"+pageSize);
+        MyLog.i("获取分享直播列表：pageIndex" + pageIndex + ";pageSize:" + pageSize);
         Map<String, String> params = new HashMap<>();
         params.put("index", pageIndex);
         params.put("size", pageSize);
@@ -195,7 +203,7 @@ public class ActivityShareMain extends BaseActivity {
     }
 
     private void addShareList(String pageIndex, String pageSize) {
-        MyLog.i("加载分享直播列表：pageIndex"+pageIndex+";pageSize:"+pageSize);
+        MyLog.i("加载分享直播列表：pageIndex" + pageIndex + ";pageSize:" + pageSize);
         Map<String, String> params = new HashMap<>();
         params.put("index", pageIndex);
         params.put("size", pageSize);
@@ -233,7 +241,7 @@ public class ActivityShareMain extends BaseActivity {
     }
 
 
-    @OnClick({R.id.sightseer_more,R.id.sightseer_door, R.id.sightseer_tenement, R.id.sightseer_life, R.id.sightseer_info})
+    @OnClick({R.id.sightseer_more, R.id.sightseer_door, R.id.sightseer_tenement, R.id.sightseer_life, R.id.sightseer_info})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.sightseer_door:
@@ -253,15 +261,16 @@ public class ActivityShareMain extends BaseActivity {
                 break;
         }
     }
-    private void hint(){
-        final NormalDialog dialog = DialogShow.showSelectDialog(mContext,"此功能暂无权限，是否登录？",2,new String[] { getResources().getString(R.string.cancel),getResources().getString(R.string.confirm)});
+
+    private void hint() {
+        final NormalDialog dialog = DialogShow.showSelectDialog(mContext, "此功能暂无权限，是否登录？", 2, new String[]{getResources().getString(R.string.cancel), getResources().getString(R.string.confirm)});
         dialog.setOnBtnClickL(new OnBtnClickL() {
 
             @Override
             public void onBtnClick() {
                 dialog.dismiss();
             }
-        },new OnBtnClickL() {
+        }, new OnBtnClickL() {
             @Override
             public void onBtnClick() {
                 BaseUtils.startActivity(mContext, ActivityLogin.class);
@@ -278,27 +287,6 @@ public class ActivityShareMain extends BaseActivity {
         }
     }
 
-    public  void ad(Context context){
-		OkHttp.get(context, ConnectPath.ADVERTISEMENT_PATH, new ConciseStringCallback(context, new ConciseCallbackHandler<String>() {
-			@Override
-			public void onResponse(JSONObject response) {
-				try {
-					if (response.has("obj")) {
-						AdvertisementBean bean = new AdvertisementBean();
-                        JSONObject jobj = (JSONObject) response.get("obj");
-                            bean.setmImagePath(jobj.has("url")?jobj.getString("url"):"");
-                            if (jobj.has("url")) {
-								ImageLoader.getInstance().displayImage(jobj.getString("url"),mAnnunciate);
-							}
-                            bean.setmAdPath(jobj.has("href")?jobj.getString("href"):"");
-                            mEhomeApplication.setmAd(bean);
-                    }
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
-		}));
-	}
     // 监听返回按钮
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -308,5 +296,10 @@ public class ActivityShareMain extends BaseActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void initRollViewPager() {
+        mRollPagerView.setAnimationDurtion(1000);
+        mRollPagerView.setAdapter(new AdvertisingAdapter(mRollPagerView, mEhomeApplication.getmAb_List()));
     }
 }

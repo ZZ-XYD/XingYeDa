@@ -8,16 +8,12 @@
     android:orientation="vertical"
     android:background="#EDECE8"
     >
-    <ImageView
-        android:id="@+id/sightseer_annunciate"
+    <com.jude.rollviewpager.RollPagerView
+        android:id="@+id/sightseer_RollPagerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_heightPercent="30%"
-        android:background="@mipmap/bg_annunciate"
-        android:scaleType="fitXY"
-        android:contentDescription="@null"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true" />
+        app:rollviewpager_play_delay="4000"/>
 
     <ImageView
         android:id="@+id/sightseer_more"
@@ -83,7 +79,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_marginTopPercent="1%"
-        android:layout_below="@id/sightseer_annunciate"
+        android:layout_below="@id/sightseer_RollPagerView"
         android:layout_above="@id/sightseer_taber"
 
         >
