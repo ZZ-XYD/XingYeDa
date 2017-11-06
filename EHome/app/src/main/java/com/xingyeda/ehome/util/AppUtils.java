@@ -53,7 +53,7 @@ public class AppUtils
 			PackageManager packageManager = context.getPackageManager();
 			PackageInfo packageInfo = packageManager.getPackageInfo(
 					context.getPackageName(), 0);
-			return packageInfo.versionName+"1030";
+			return packageInfo.versionName+"1106 ";
 
 		} catch (NameNotFoundException e)
 		{

@@ -7,11 +7,16 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,6 +84,31 @@ public class DoorAdapter  extends RecyclerView.Adapter<DoorAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final HomeBean bean = mList.get(position);
+        if ("1".equals(bean.getmBase())) {
+            holder.tvXiaoqu.setText(bean.getmCommunity());
+            holder.imageLogo.setBackgroundResource(R.mipmap.xiaoqu_logo);
+            holder.mOption0.setText("分享");
+            holder.mOption1.setText("开门");
+            holder.mOption2.setText("电话");
+            setImage(holder.mOption0, R.drawable.but_share);
+            setImage(holder.mOption1, R.drawable.but_open_door);
+            setImage(holder.mOption2, R.drawable.but_monitoring);
+
+            holder.mOption2.setOnClickListener(new View.OnClickListener() {//监控
+                @Override
+                public void onClick(View v) {
+                    if (!bean.getmPhone().equals("")) {
+                        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + bean.getmPhone()));
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            return;
+                        }
+                        mContext.startActivity(intent);
+
+                    }
+                }
+            });
+        } else {
         if (bean.getmType().equals("1")) {
             holder.tvXiaoqu.setText(bean.getmCommunity());
             holder.tvQishu.setText(bean.getmPeriods());
@@ -90,9 +120,9 @@ public class DoorAdapter  extends RecyclerView.Adapter<DoorAdapter.ViewHolder> {
             holder.mOption0.setText("分享");
             holder.mOption1.setText("开门");
             holder.mOption2.setText("监控");
-            setImage(holder.mOption0,R.drawable.but_share);
-            setImage(holder.mOption1,R.drawable.but_open_door);
-            setImage(holder.mOption2,R.drawable.but_monitoring);
+            setImage(holder.mOption0, R.drawable.but_share);
+            setImage(holder.mOption1, R.drawable.but_open_door);
+            setImage(holder.mOption2, R.drawable.but_monitoring);
 
             holder.mOption1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -133,9 +163,9 @@ public class DoorAdapter  extends RecyclerView.Adapter<DoorAdapter.ViewHolder> {
             holder.mOption0.setText("分享");
             holder.mOption1.setText("监控");
             holder.mOption2.setText("设置");
-            setImage(holder.mOption0,R.drawable.but_share);
-            setImage(holder.mOption1,R.drawable.but_examine);
-            setImage(holder.mOption2,R.drawable.but_modification);
+            setImage(holder.mOption0, R.drawable.but_share);
+            setImage(holder.mOption1, R.drawable.but_examine);
+            setImage(holder.mOption2, R.drawable.but_modification);
 
             holder.mOption1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -175,9 +205,9 @@ public class DoorAdapter  extends RecyclerView.Adapter<DoorAdapter.ViewHolder> {
             holder.mOption0.setText("分享");
             holder.mOption1.setText("监控");
             holder.mOption2.setText("设置");
-            setImage(holder.mOption0,R.drawable.but_share);
-            setImage(holder.mOption1,R.drawable.but_examine);
-            setImage(holder.mOption2,R.drawable.but_modification);
+            setImage(holder.mOption0, R.drawable.but_share);
+            setImage(holder.mOption1, R.drawable.but_examine);
+            setImage(holder.mOption2, R.drawable.but_modification);
 
             holder.mOption1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -213,9 +243,9 @@ public class DoorAdapter  extends RecyclerView.Adapter<DoorAdapter.ViewHolder> {
             holder.mOption0.setText("分享");
             holder.mOption1.setText("监控");
             holder.mOption2.setText("设置");
-            setImage(holder.mOption0,R.drawable.but_share);
-            setImage(holder.mOption1,R.drawable.but_examine);
-            setImage(holder.mOption2,R.drawable.but_modification);
+            setImage(holder.mOption0, R.drawable.but_share);
+            setImage(holder.mOption1, R.drawable.but_examine);
+            setImage(holder.mOption2, R.drawable.but_modification);
 
             holder.mOption1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -251,12 +281,12 @@ public class DoorAdapter  extends RecyclerView.Adapter<DoorAdapter.ViewHolder> {
             holder.mOption1.setText("记录");
             holder.mOption2.setText("设置");
             if (bean.getmParkLock().equals("1")) {
-                setImage(holder.mOption0,R.drawable.but_lockset1);
-            }else {
-                setImage(holder.mOption0,R.drawable.but_lockset);
+                setImage(holder.mOption0, R.drawable.but_lockset1);
+            } else {
+                setImage(holder.mOption0, R.drawable.but_lockset);
             }
-            setImage(holder.mOption1,R.drawable.but_month_card);
-            setImage(holder.mOption2,R.drawable.but_modification);
+            setImage(holder.mOption1, R.drawable.but_month_card);
+            setImage(holder.mOption2, R.drawable.but_modification);
 
             holder.mOption1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -284,6 +314,7 @@ public class DoorAdapter  extends RecyclerView.Adapter<DoorAdapter.ViewHolder> {
                 }
             }
         });
+    }
     }
 
     @Override

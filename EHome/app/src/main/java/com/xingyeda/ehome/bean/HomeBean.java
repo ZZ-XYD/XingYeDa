@@ -38,6 +38,11 @@ public class HomeBean extends DataSupport {
     private String mParkTruckSpace;
     private String mParkLock;
 
+    private String mYunNumber;//云通讯设备
+    private String mPhone;//电话
+    private String mBase;//电话
+
+
     public HomeBean() {
     }
 
@@ -45,6 +50,30 @@ public class HomeBean extends DataSupport {
         this.mParkName = mParkName;
         this.mParkId = mParkId;
         this.mParkNickName = mParkNickName;
+    }
+
+    public String getmBase() {
+        return mBase;
+    }
+
+    public void setmBase(String mBase) {
+        this.mBase = mBase;
+    }
+
+    public String getmYunNumber() {
+        return mYunNumber;
+    }
+
+    public void setmYunNumber(String mYunNumber) {
+        this.mYunNumber = mYunNumber;
+    }
+
+    public String getmPhone() {
+        return mPhone;
+    }
+
+    public void setmPhone(String mPhone) {
+        this.mPhone = mPhone;
     }
 
     public String getmParkLock() {

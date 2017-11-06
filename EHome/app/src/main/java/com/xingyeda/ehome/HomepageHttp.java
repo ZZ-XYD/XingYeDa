@@ -28,6 +28,7 @@ import com.xingyeda.ehome.bean.LifeBean;
 import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
 import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
+import com.xingyeda.ehome.util.AppUtils;
 import com.xingyeda.ehome.util.SharedPreUtil;
 
 public class HomepageHttp {
@@ -36,6 +37,7 @@ public class HomepageHttp {
         final List<HomeBean> mXiaoqu_List = new ArrayList<HomeBean>();
         Map<String, String> params = new HashMap<String, String>();
         params.put("uid", id);
+        params.put("ersion", AppUtils.getVersionCode(context));
         OkHttp.get(context, ConnectPath.RETURN_HOUSE_PATH, params,
                 new ConciseStringCallback(context, new ConciseCallbackHandler<String>() {
                     @Override
@@ -149,6 +151,7 @@ public class HomepageHttp {
 	public static void refreshXiaoqu(String id, final Context context, final EHomeApplication mApplication) {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("uid", id);
+        params.put("ersion", AppUtils.getVersionCode(context));
 		OkHttp.get(context, ConnectPath.RETURN_HOUSE_PATH, params,
 				new ConciseStringCallback(context, new ConciseCallbackHandler<String>() {
 					@Override

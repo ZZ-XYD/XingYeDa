@@ -57,6 +57,7 @@ import com.xingyeda.ehome.http.okhttp.OkHttp;
 import com.xingyeda.ehome.information.PersonalActivity;
 import com.xingyeda.ehome.menu.ActivityChangeInfo;
 import com.xingyeda.ehome.park.AddParkActivity;
+import com.xingyeda.ehome.util.AppUtils;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.MyLog;
 import com.xingyeda.ehome.util.NetUtils;
@@ -312,6 +313,7 @@ public class DoorFragment extends Fragment {
         }
         Map<String, String> params = new HashMap<String, String>();
         params.put("uid", SharedPreUtil.getString(mContext, "userId", ""));
+        params.put("version", AppUtils.getVersionCode(mContext));
         OkHttp.get(mContext, ConnectPath.RETURN_HOUSE_PATH, params,
                 new BaseStringCallback(mContext, new CallbackHandler<String>() {
 
@@ -395,28 +397,30 @@ public class DoorFragment extends Fragment {
                                         } else {
                                             bean.setState("");
                                         }
-                                        bean.setmCommunityId(jobj
-                                                .getString("rid"));
-                                        bean.setmCommunity(jobj
-                                                .getString("rname"));
-                                        bean.setmPeriodsId(jobj
-                                                .getString("nid"));
-                                        bean.setmPeriods(jobj
-                                                .getString("nname"));
+                                        bean.setmCommunityId(jobj.has("rid")?jobj
+                                                .getString("rid"):"");
+                                        bean.setmCommunity(jobj.has("rname")?jobj
+                                                .getString("rname"):"");
+                                        bean.setmPeriodsId(jobj.has("nid")?jobj
+                                                .getString("nid"):"");
+                                        bean.setmPeriods(jobj.has("nname")?jobj
+                                                .getString("nname"):"");
                                         if (jobj.has("tid")) {
                                             bean.setmUnitId(jobj
                                                     .getString("tid"));
                                             mApplication.addMap(
                                                     jobj.getString("tid"), null);
                                         }
-                                        bean.setmUnit(jobj.getString("tname"));
-                                        bean.setmHouseNumber(jobj
-                                                .getString("hname"));
-                                        bean.setmHouseNumberId(jobj
-                                                .getString("hid"));
-                                        bean.setmIdentityType(jobj
-                                                .getString("type"));
-
+                                        bean.setmUnit(jobj.has("tname")?jobj
+                                                .getString("tname"):"");
+                                        bean.setmHouseNumber(jobj.has("hname")?jobj
+                                                .getString("hname"):"");
+                                        bean.setmHouseNumberId(jobj.has("hid")?jobj
+                                                .getString("hid"):"");
+                                        bean.setmIdentityType(jobj.has("type")?jobj
+                                                .getString("type"):"");
+                                        bean.setmPhone(jobj.has("phone")?jobj.getString("phone"):"");
+                                        bean.setmBase(jobj.has("base")?jobj.getString("base"):"");
                                         if (jobj.has("eid")) {
                                             bean.setmEquipmentId(jobj
                                                     .getString("eid"));

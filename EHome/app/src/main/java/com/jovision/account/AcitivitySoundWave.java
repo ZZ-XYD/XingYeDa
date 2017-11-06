@@ -354,7 +354,7 @@ final NormalListDialog dialog = DialogShow.showListDialog(mContext, idList);
 				@Override
 				public void onOperItemClick(AdapterView<?> parent,View view, int positions, long id) {
 					AddSound(idList.get(positions).mOperName);
-					dialog.dismiss();
+					dialog.superDismiss();
 
 				}
 			});
@@ -416,8 +416,8 @@ final NormalListDialog dialog = DialogShow.showListDialog(mContext, idList);
 				 if ("0"!=ystNum) {
 					 if (!"0".equals(ystNum)) {
 						 if (LitePalUtil.getUserInfo().ismCameraAdd()) {
-							 for (HomeBean bean : LitePalUtil.getHomeList()) {
-								 if (!bean.getmCameraId().equals(ystNum)) {
+							 for (HomeBean bean : LitePalUtil.getCameraList()) {
+								 if (!ystNum.equals(bean.getmCameraId())) {
 									 for (DialogMenuItem dialogMenuItem : idList) {
 										 if (dialogMenuItem.mOperName.equals(ystNum)) {
 											 return;

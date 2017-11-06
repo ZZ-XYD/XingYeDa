@@ -15,8 +15,8 @@ android {
         applicationId "com.xingyeda.ehome"
         minSdkVersion 9
 //        targetSdkVersion 25
-        versionCode 9
-        versionName "2.3.4"
+        versionCode 10
+        versionName "2.3.5"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
