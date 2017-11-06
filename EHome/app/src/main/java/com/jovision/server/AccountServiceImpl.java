@@ -1,5 +1,9 @@
 package com.jovision.server;
 
+import android.content.Context;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Looper;
@@ -23,6 +27,7 @@ import com.jovision.server.utils.DnsXmlUtils;
 import com.xiaowei.comm.Account;
 import com.xiaowei.core.utils.FileUtils;
 import com.xiaowei.core.utils.Logger;
+import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.base.EHomeApplication;
 import com.xingyeda.ehome.base.LitePalUtil;
 import com.xingyeda.ehome.bean.InformationBase;
@@ -92,6 +97,11 @@ public class AccountServiceImpl {
 
     public String logAccount = "";
 
+    //音频类
+    private SoundPool mSoundPool;
+
+    private Context mContext;
+
     /**
      * 初始化
      */
@@ -104,6 +114,20 @@ public class AccountServiceImpl {
         String LOG_ACCOUNT_PATH = Environment.getExternalStorageDirectory().getPath()
                 + File.separator + "jovision" + File.separator;
         Account.init(BIZ_ACC_ANDROID, 1, Account.BIZ_ACC_CH, LOG_ACCOUNT_PATH, dnsPath, this);
+    }
+
+
+    /*
+    初始化SoundPool
+     */
+    public void initSP(Context context) {
+        Logger.i("初始化SoundPool");
+        this.mContext = context;
+        if (mSoundPool == null) {
+            mSoundPool = new SoundPool(4, AudioManager.STREAM_SYSTEM, 5);
+            mSoundPool.load(mContext, R.raw.bell, 1);
+            Logger.i("初始化SoundPool成功");
+        }
     }
 
     /**
@@ -384,13 +408,13 @@ public class AccountServiceImpl {
     public int OnBizAccPush(int type, String payload) {
         try {
             JSONObject jobj = new JSONObject(payload);
-            if (jobj==null) {
+            if (jobj == null) {
                 return 0;
             }
-            MyLog.i("中维push："+jobj.toString());
+            MyLog.i("中维push：" + jobj.toString());
 
-           String aType  = jobj.has("atype")?jobj.getString("atype"):"";
-            String id = jobj.has("dguid")?jobj.getString("dguid"):"";
+            String aType = jobj.has("atype") ? jobj.getString("atype") : "";
+            String id = jobj.has("dguid") ? jobj.getString("dguid") : "";
             if (!aType.equals("")) {
                 Looper.prepare();
                 if ("15".equals(aType)) {
@@ -406,14 +430,14 @@ public class AccountServiceImpl {
                     base.setImageType(1);
                     base.setmMessage_status(-1);
                     base.setmDoor_status(-1);
-                    base.setmImage(jobj.has("apic")?jobj.getString("apic"):"");
+                    base.setmImage(jobj.has("apic") ? jobj.getString("apic") : "");
                     base.setImageType(8);
                     base.setmZhongWeiId(id);
                     base.setmZhongWeiType("1");
                     base.setmTime(formatTimeInMillis(BaseUtils.getServerTime(EHomeApplication.getmContext())));
                     base.save();
-                }
-                else if ("14".equals(aType)) {
+                    mSoundPool.play(1, 1, 1, 0, 0, 1);
+                } else if ("14".equals(aType)) {
 //                Looper.prepare();
 //                    String capturePath = LogcatHelper.getPATH_LOGCAT() + "/"+System.currentTimeMillis() + ".jpg";
 //                    PlayUtil.capture(0, capturePath);
@@ -430,21 +454,20 @@ public class AccountServiceImpl {
                     base.setmTime(time);
                     base.setmMessage_status(-1);
                     base.setmDoor_status(-1);
-                    base.setmImage(jobj.has("apic")?jobj.getString("apic"):"");
+                    base.setmImage(jobj.has("apic") ? jobj.getString("apic") : "");
                     base.setImageType(8);
                     base.setmZhongWeiId(id);
                     base.setmZhongWeiType("1");
                     base.save();
 //                String id = jobj.has("dguid")?jobj.getString("dguid"):"";
-                if ("".equals(id)) {
-                    return 0;
-                }
-                Bundle bundle = new Bundle();
-                bundle.putString("id",id);
-                bundle.putString("time",time);
-                BaseUtils.startActivities(EHomeApplication.getmContext(), MaoyanGuestActivity.class,bundle);
-                }
-                else if ("7".equals(aType)){
+                    if ("".equals(id)) {
+                        return 0;
+                    }
+                    Bundle bundle = new Bundle();
+                    bundle.putString("id", id);
+                    bundle.putString("time", time);
+                    BaseUtils.startActivities(EHomeApplication.getmContext(), MaoyanGuestActivity.class, bundle);
+                } else if ("7".equals(aType)) {
 //                else{
                     String time = formatTimeInMillis(BaseUtils.getServerTime(EHomeApplication.getmContext()));
                     InformationBase base = new InformationBase();
@@ -457,11 +480,12 @@ public class AccountServiceImpl {
                     base.setmTime(time);
                     base.setmMessage_status(-1);
                     base.setmDoor_status(-1);
-                    base.setmImage(jobj.has("apic")?jobj.getString("apic"):"");
+                    base.setmImage(jobj.has("apic") ? jobj.getString("apic") : "");
                     base.setImageType(8);
                     base.setmZhongWeiId(id);
                     base.setmZhongWeiType("2");
                     base.save();
+                    mSoundPool.play(1, 1, 1, 0, 0, 1);
                 }
 //                Looper.loop();
             }

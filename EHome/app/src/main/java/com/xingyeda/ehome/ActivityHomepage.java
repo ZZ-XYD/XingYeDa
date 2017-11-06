@@ -33,6 +33,7 @@ import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 
+import com.jovision.server.AccountServiceImpl;
 import com.umeng.analytics.MobclickAgent;
 import com.xiaomi.mipush.sdk.MiPushClient;
 import com.xingyeda.ehome.Service.KeepLiveReceiver;
@@ -127,6 +128,8 @@ public class ActivityHomepage extends FragmentActivity {
         this.event();
         // 版本更新
         this.versionsUpdate();
+        //初始化SoundPool
+        AccountServiceImpl.getInstance().initSP(mContext);
 
 //        keepLiveReceiver = new KeepLiveReceiver();
 //        IntentFilter intentFilter = new IntentFilter();
