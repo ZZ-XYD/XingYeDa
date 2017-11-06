@@ -420,7 +420,8 @@ public class ActivityAddAddress extends BaseActivity {
 
                             @Override
                             public void onBtnClick() {
-                                startActivity(ActivityHomepage.class);
+                                dialog.superDismiss();
+                                BaseUtils.startActivity(mContext,ActivityHomepage.class);
                             }
                         });
                     }

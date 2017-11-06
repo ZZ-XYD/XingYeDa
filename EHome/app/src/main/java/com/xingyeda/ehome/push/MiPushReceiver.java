@@ -121,6 +121,8 @@ public class MiPushReceiver extends PushMessageReceiver {
                 Iterator<Map.Entry<String, Boolean>> entries = mApplication.getmPushMap().entrySet().iterator();
                 while (entries.hasNext()) {
                     Map.Entry<String, Boolean> entry = entries.next();
+                    LogUtils.i("MiPushmsgId : " + bean.getmMsgId());
+                    LogUtils.i("MiPushmapKey : " + entry.getKey());
                     if (bean.getmMsgId().equals(entry.getKey())) {
                         return;
                     }

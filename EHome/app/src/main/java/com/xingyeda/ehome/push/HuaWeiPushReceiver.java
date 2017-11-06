@@ -121,6 +121,8 @@ public class HuaWeiPushReceiver extends PushReceiver {
                     Iterator<Map.Entry<String, Boolean>> entries = mApplication.getmPushMap().entrySet().iterator();
                     while (entries.hasNext()) {
                         Map.Entry<String, Boolean> entry = entries.next();
+                        LogUtils.i("HWPushmsgId : " + bean.getmMsgId());
+                        LogUtils.i("HWPushmapKey : " + entry.getKey());
                         if (bean.getmMsgId().equals(entry.getKey())) {
                             return false;
                         }

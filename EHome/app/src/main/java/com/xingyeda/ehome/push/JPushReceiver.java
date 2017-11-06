@@ -126,11 +126,13 @@ public class JPushReceiver extends BroadcastReceiver {
             bean = rBean.getPushObject();
             MyLog.i("JPush信息：" + bean.toString());
             LogUtils.i("JPushMsgId   " + bean.getmMsgId());
-            LogUtils.i("JPushMsgId   " + bean.toString());
+            LogUtils.i("JPushMsg   " + bean.toString());
             if (mApplication.getmPushMap() != null) {
                 Iterator<Map.Entry<String, Boolean>> entries = mApplication.getmPushMap().entrySet().iterator();
                 while (entries.hasNext()) {
                     Map.Entry<String, Boolean> entry = entries.next();
+                    LogUtils.i("JPushmsgId : " + bean.getmMsgId());
+                    LogUtils.i("JPushmapKey : " + entry.getKey());
                     if (bean.getmMsgId().equals(entry.getKey())) {
                         return;
                     }

@@ -243,6 +243,7 @@
                         android:layout_marginRight="15dp"
                         android:contentDescription="@null"
                         android:src="@mipmap/next"
+                        android:visibility="invisible"
                         />
                 </RelativeLayout>
                 </LinearLayout>
