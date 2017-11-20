@@ -242,7 +242,7 @@ public class ActivityVideo extends BaseActivity {
                                     LogUtils.i("对方接听本次呼叫");
                                     mIsCallOk = true;
                                     if (mType.equals("dial")) {
-                                        connectRtmp(mJie+"&state=1");
+                                        connectRtmp(mJie + "&state=1");
                                         mConnect.setVisibility(View.GONE);
                                         // mIscount = false;
 //									mUploadText.setVisibility(View.GONE);
@@ -676,7 +676,7 @@ public class ActivityVideo extends BaseActivity {
                         if (mIsCall) {
                             mTimerText.setText("连接中");
                             // count();
-                             connectRtmp(mJie+"&state=0");
+                            connectRtmp(mJie + "&state=0");
                             if (mCallId != null) {
                                 ECDevice.getECVoIPCallManager().releaseCall(
                                         mCallId);
@@ -966,7 +966,7 @@ public class ActivityVideo extends BaseActivity {
                             mMonitor_abnormal.setVisibility(View.VISIBLE);
                         }
                     }
-                    if (mLoading!=null) {
+                    if (mLoading != null) {
                         mLoading.setVisibility(View.GONE);
                     }
                     mAnimation.stop();
@@ -1005,7 +1005,7 @@ public class ActivityVideo extends BaseActivity {
     }
 
     private void playfunction(String path) {
-        if (path == "") {
+        if (path == "" || path == null) {
             BaseUtils.showShortToast(mContext, R.string.play_address_error);
             return;
         } else {
