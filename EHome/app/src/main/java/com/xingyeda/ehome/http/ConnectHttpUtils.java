@@ -36,6 +36,7 @@ import com.xingyeda.ehome.util.AppUtils;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.LogUtils;
 import com.xingyeda.ehome.util.LogcatHelper;
+import com.xingyeda.ehome.util.MyLog;
 import com.xingyeda.ehome.util.SharedPreUtil;
 
 
@@ -224,6 +225,7 @@ public class ConnectHttpUtils
     { "unchecked", "rawtypes" })
     private static void downloadUpdate(String path, final Context context)
     {
+        MyLog.i("下载地址:"+path);
         mCount = new TimeCount(5000, 1000, context);
         mProgressDialog.show();
         mCount.start();

@@ -18,7 +18,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.jovision.Jni.sendBytes;
-import static u.aly.au.as;
 
 /**
  * Created by juyang on 16/3/23.

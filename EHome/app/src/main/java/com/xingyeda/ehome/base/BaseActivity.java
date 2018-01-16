@@ -17,8 +17,6 @@ import android.util.DisplayMetrics;
 import android.view.Window;
 import android.widget.Toast;
 
-import com.ldl.imageloader.utils.L;
-import com.umeng.analytics.MobclickAgent;
 import com.xingyeda.ehome.util.LogUtils;
 import com.ldl.okhttp.OkHttpUtils;
 import com.xingyeda.ehome.util.MyLog;
@@ -67,14 +65,12 @@ public class BaseActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-//        MobclickAgent.onResume(this);
     }
 
     //界面刚不可见
     @Override
     protected void onPause() {
         super.onPause();
-//        MobclickAgent.onPause(this);
     }
 
 

@@ -29,6 +29,7 @@ import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.http.okhttp.BaseStringCallback;
 import com.xingyeda.ehome.http.okhttp.CallbackHandler;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
+import com.xingyeda.ehome.util.AppUtils;
 import com.xingyeda.ehome.util.BaseUtils;
 import com.xingyeda.ehome.util.MD5Utils;
 
@@ -178,6 +179,8 @@ public class ActivityInfo extends BaseActivity {
         params.put("sex", mSexStr);
         params.put("phone", mPhone);
         params.put("beiyongphone", mPhone);
+        params.put("phoneversion", mEhomeApplication.model);
+        params.put("appversions", AppUtils.getVersionName(mContext));
         params.put("img", "");
         params.put("email", "");
         OkHttp.get(mContext, ConnectPath.REGISTER_PATH, params, new BaseStringCallback(mContext, new CallbackHandler<String>() {

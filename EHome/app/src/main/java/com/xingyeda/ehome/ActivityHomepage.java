@@ -34,7 +34,6 @@ import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 
 import com.jovision.server.AccountServiceImpl;
-import com.umeng.analytics.MobclickAgent;
 import com.xiaomi.mipush.sdk.MiPushClient;
 import com.xingyeda.ehome.Service.KeepLiveReceiver;
 import com.xingyeda.ehome.base.ConnectPath;
@@ -48,6 +47,7 @@ import com.xingyeda.ehome.http.ConnectHttpUtils;
 import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
 import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
+import com.xingyeda.ehome.life.BusinessFragment;
 import com.xingyeda.ehome.life.LifeFragment;
 import com.xingyeda.ehome.menu.MeFragment;
 import com.xingyeda.ehome.tenement.TenementFragment;
@@ -73,10 +73,10 @@ public class ActivityHomepage extends FragmentActivity {
 
     @Bind(R.id.tabhost)
     public FragmentTabHost mTabHost;
-    private String mTabTexts[] = {"门禁", "物业", "直播", "我"};
+    private String mTabTexts[] = {"门禁", "物业", "商圈", "我"};
     private int mTabImage[] = {R.drawable.door_image, R.drawable.property_image, R.drawable.life_image, R.drawable.me_image};
     @SuppressWarnings("rawtypes")
-    private Class mFragmentArray[] = {DoorFragment.class, TenementFragment.class, ShareFragment.class, MeFragment.class};
+    private Class mFragmentArray[] = {DoorFragment.class, TenementFragment.class, BusinessFragment.class, MeFragment.class};
     public static final int DEFAULTCOMMUNITY = 100;
     private EHomeApplication mApplication;
     private Context mContext = this;
@@ -191,13 +191,11 @@ public class ActivityHomepage extends FragmentActivity {
     protected void onResume() {
 //		initVoipSDK();
         super.onResume();
-        MobclickAgent.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        MobclickAgent.onPause(this);
     }
 
 

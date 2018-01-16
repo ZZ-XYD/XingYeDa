@@ -85,6 +85,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -93,6 +95,7 @@ import butterknife.OnClick;
 import static android.R.attr.isDefault;
 import static android.R.attr.path;
 import static android.R.id.list;
+import static android.R.id.shareText;
 import static android.app.Activity.RESULT_OK;
 import static com.xiaomi.channel.commonutils.misc.a.f;
 import static com.xingyeda.ehome.R.string.share;
@@ -119,12 +122,12 @@ public class DoorFragment extends Fragment {
     ImageView mNoData;
     @Bind(R.id.frozen_account)
     TextView frozenAccount;
-    @Bind(R.id.share_img)
-    ImageView shareImg;
-    @Bind(R.id.share_layout)
-    PercentFrameLayout shareLayout;
-    @Bind(R.id.share_text)
-    TextView shareText;
+//    @Bind(R.id.share_img)
+//    ImageView shareImg;
+//    @Bind(R.id.share_layout)
+//    PercentFrameLayout shareLayout;
+//    @Bind(R.id.share_text)
+//    TextView shareText;
     @Bind(R.id.share_icon)
     ImageView shareIcon;
     @Bind(R.id.share_hint)
@@ -154,6 +157,7 @@ public class DoorFragment extends Fragment {
     private static final String DECODED_CONTENT_KEY = "codedContent";
     private static final String DECODED_BITMAP_KEY = "codedBitmap";
     private List<HomeBean> mCameraList;
+    private Timer mTimer;
 
 
     @Override
@@ -197,6 +201,7 @@ public class DoorFragment extends Fragment {
             @Override
             public void onRefresh() {//刷新
                 uploadXiaoqu("2");
+                connectTime(10);
             }
         });
 
@@ -208,6 +213,7 @@ public class DoorFragment extends Fragment {
                     uploadXiaoqu("0");
 //                    mListview.addItemDecoration(new SpaceItemDecoration(20));
                     mSwipereLayout.setRefreshing(true);
+                    connectTime(10);
                 } else {
                     uploadXiaoqu("2");
                 }
@@ -218,17 +224,17 @@ public class DoorFragment extends Fragment {
 
     }
 
-    @OnClick({R.id.door_add, R.id.door_information, R.id.door_spn, R.id.share_layout, R.id.share_cancel, R.id.share_confirm})
+    @OnClick({R.id.door_add, R.id.door_information, R.id.door_spn, R.id.share_cancel, R.id.share_confirm})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.door_add:
                 ArrayList<DialogMenuItem> list = new ArrayList<DialogMenuItem>();
                 list.add(new DialogMenuItem("绑定门禁", 0));
-                list.add(new DialogMenuItem("添加猫眼", 0));
-                list.add(new DialogMenuItem("添加摄像头", 0));
-                list.add(new DialogMenuItem("添加摇头机", 0));
+//                list.add(new DialogMenuItem("添加猫眼", 0));
+//                list.add(new DialogMenuItem("添加摄像头", 0));
+//                list.add(new DialogMenuItem("添加摇头机", 0));
                 list.add(new DialogMenuItem("添加停车场", 0));
-                list.add(new DialogMenuItem("快速添加", 0));
+                list.add(new DialogMenuItem("二维码添加", 0));
                 final NormalListDialog dialog = DialogShow.showListDialog(mContext,
                         list);
                 dialog.titleTextSize_SP(18).itemTextSize(18).isTitleShow(true)
@@ -242,26 +248,33 @@ public class DoorFragment extends Fragment {
                             case 0:// 绑定小区
                                 BaseUtils.startActivity(mContext, ActivityAddAddress.class);
                                 break;
-                            case 1:// 猫眼
-                                bundle.putString("type", "cateye");
-                                BaseUtils.startActivities(mContext, ActivityAddCamera.class, bundle);
-                                //								BaseUtils.startActivity(mContext, JVMaoYanPlay.class);
-                                break;
-                            case 2://普通摄像头
-                                bundle.putString("type", "common");
-                                BaseUtils.startActivities(mContext, ActivityAddCamera.class, bundle);
-                                break;
-                            case 3://摇头机
-                                bundle.putString("type", "shake");
-                                BaseUtils.startActivities(mContext, ActivityAddCamera.class, bundle);
-                                break;
-                            case 4://添加停车场
+                            case 1://添加停车场
                                 BaseUtils.startActivity(mContext, AddParkActivity.class);
                                 break;
-                            case 5://快速添加
+                            case 2://快速添加
                                 Intent intent = new Intent(mContext, CaptureActivity.class);
                                 startActivityForResult(intent, REQUEST_CODE_SCAN);
                                 break;
+//                            case 1:// 猫眼
+//                                bundle.putString("type", "cateye");
+//                                BaseUtils.startActivities(mContext, ActivityAddCamera.class, bundle);
+//                                //								BaseUtils.startActivity(mContext, JVMaoYanPlay.class);
+//                                break;
+//                            case 2://普通摄像头
+//                                bundle.putString("type", "common");
+//                                BaseUtils.startActivities(mContext, ActivityAddCamera.class, bundle);
+//                                break;
+//                            case 3://摇头机
+//                                bundle.putString("type", "shake");
+//                                BaseUtils.startActivities(mContext, ActivityAddCamera.class, bundle);
+//                                break;
+//                            case 4://添加停车场
+//                                BaseUtils.startActivity(mContext, AddParkActivity.class);
+//                                break;
+//                            case 5://快速添加
+//                                Intent intent = new Intent(mContext, CaptureActivity.class);
+//                                startActivityForResult(intent, REQUEST_CODE_SCAN);
+//                                break;
                         }
                         dialog.dismiss();
 
@@ -271,9 +284,9 @@ public class DoorFragment extends Fragment {
             case R.id.door_information:
                 BaseUtils.startActivity(mContext, PersonalActivity.class);
                 break;
-            case R.id.share_layout:
-                shareLayout.setVisibility(View.GONE);
-                break;
+//            case R.id.share_layout:
+//                shareLayout.setVisibility(View.GONE);
+//                break;
             case R.id.door_spn:
                 Bundle bundle = new Bundle();
                 if (LitePalUtil.getCommunityList() != null) {
@@ -306,6 +319,22 @@ public class DoorFragment extends Fragment {
 
     }
 
+    //接通计时  默认60秒----收到接通信息时调用
+    private void connectTime(int time) {
+        if (mTimer != null) {
+            mTimer.cancel();
+        }
+        mTimer = new Timer();
+        mTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (mSwipereLayout != null) {
+                    mSwipereLayout.setRefreshing(false);
+                }
+            }
+        }, time * 1000);
+    }
+
     public void uploadXiaoqu(final String delete) {
         MyLog.i("设备数据列表加载--1，type = " + delete);
         if (null == LitePalUtil.getUserInfo()) {
@@ -319,44 +348,60 @@ public class DoorFragment extends Fragment {
 
                     @Override
                     public void parameterError(JSONObject response) {
+                        if (mTimer!=null) {
+                            mTimer.cancel();
+                        }
+                        if (mSwipereLayout != null) {
+                            mSwipereLayout.setRefreshing(false);
+                        }
                     }
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        try {
-                            LitePalUtil.deleteHomeListAll();
-                            if (frozenAccount != null) {
-                                frozenAccount.setVisibility(View.GONE);
-                            }
-                            JSONArray jan2 = (JSONArray) response.get("camera");
-                            UserInfo userInfo = new UserInfo();
-                            if (jan2 != null && jan2.length() != 0) {
-                                MyLog.i("加载摄像头猫眼：" + jan2);
-                                for (int i = 0; i < jan2.length(); i++) {
-                                    HomeBean bean = new HomeBean();
-                                    userInfo.setmCameraAdd(true);
-                                    JSONObject jobj = jan2.getJSONObject(i);
-                                    bean.setmId(SharedPreUtil.getString(EHomeApplication.getmContext(), "userId"));
-                                    bean.setmCameraId(jobj.has("serialNumber") ? jobj.getString("serialNumber") : "");
-                                    bean.setmCameraName(jobj.has("name") ? jobj.getString("name") : "");
-                                    if (jobj.has("type")) {
-                                        if (jobj.getString("type").equals("yaotou")) {
-                                            bean.setmType("3");
-                                        } else if (jobj.getString("type").equals("buyaotou")) {
-                                            bean.setmType("2");
-                                        } else if (jobj.getString("type").equals("maoyan")) {
-                                            bean.setmType("4");
-                                        }
-                                    }
-                                    LitePalUtil.addCameraList(bean);
-                                }
-                            } else {
-                                userInfo.setmCameraAdd(false);
-                            }
-                            LitePalUtil.setUserInfo(userInfo);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        if (mTimer!=null) {
+                            mTimer.cancel();
                         }
+                        if (mSwipereLayout != null) {
+                            mSwipereLayout.setRefreshing(false);
+                        }
+                        LitePalUtil.deleteHomeListAll();
+                        if (frozenAccount != null) {
+                            frozenAccount.setVisibility(View.GONE);
+                        }
+//                        try {
+//                            LitePalUtil.deleteHomeListAll();
+//                            if (frozenAccount != null) {
+//                                frozenAccount.setVisibility(View.GONE);
+//                            }
+//                            JSONArray jan2 = (JSONArray) response.get("camera");
+//                            UserInfo userInfo = new UserInfo();
+//                            if (jan2 != null && jan2.length() != 0) {
+//                                MyLog.i("加载摄像头猫眼：" + jan2);
+//                                for (int i = 0; i < jan2.length(); i++) {
+//                                    HomeBean bean = new HomeBean();
+//                                    userInfo.setmCameraAdd(true);
+//                                    JSONObject jobj = jan2.getJSONObject(i);
+//                                    bean.setmId(SharedPreUtil.getString(EHomeApplication.getmContext(), "userId"));
+//                                    bean.setmCameraId(jobj.has("serialNumber") ? jobj.getString("serialNumber") : "");
+//                                    bean.setmCameraName(jobj.has("name") ? jobj.getString("name") : "");
+//                                    if (jobj.has("type")) {
+//                                        if (jobj.getString("type").equals("yaotou")) {
+//                                            bean.setmType("3");
+//                                        } else if (jobj.getString("type").equals("buyaotou")) {
+//                                            bean.setmType("2");
+//                                        } else if (jobj.getString("type").equals("maoyan")) {
+//                                            bean.setmType("4");
+//                                        }
+//                                    }
+//                                    LitePalUtil.addCameraList(bean);
+//                                }
+//                            } else {
+//                                userInfo.setmCameraAdd(false);
+//                            }
+//                            LitePalUtil.setUserInfo(userInfo);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
                         try {
                             JSONArray jan1 = (JSONArray) response.get("pllist");
                             if (jan1 != null && jan1.length() != 0) {
@@ -368,10 +413,10 @@ public class DoorFragment extends Fragment {
                                     bean.setmType("5");
                                     bean.setmParkId(jobj.has("cplid") ? jobj.getString("cplid") : "");
                                     bean.setmCommunityId(jobj.has("xiaoqu") ? jobj.getString("xiaoqu") : "");
-                                    bean.setmParkName(jobj.has("address") ? jobj.getString("address") : "");
+                                    bean.setmParkName(jobj.has("name") ? jobj.getString("name") : "");
                                     bean.setmParkTruckSpace(jobj.has("pnum") ? jobj.getString("pnum") : "");
                                     bean.setmParkLock(jobj.has("lock") ? jobj.getString("lock") : "");
-                                    bean.setmParkNickName(jobj.has("address") ? jobj.getString("address") : "");
+                                    bean.setmParkNickName(jobj.has("name") ? jobj.getString("name") : "");
                                     LitePalUtil.addParkList(bean);
                                 }
                             }
@@ -405,6 +450,7 @@ public class DoorFragment extends Fragment {
                                                 .getString("nid"):"");
                                         bean.setmPeriods(jobj.has("nname")?jobj
                                                 .getString("nname"):"");
+                                        bean.setmVersions(jobj.has("updateClient")?jobj.getString("updateClient"):"");
                                         if (jobj.has("tid")) {
                                             bean.setmUnitId(jobj
                                                     .getString("tid"));
@@ -421,6 +467,7 @@ public class DoorFragment extends Fragment {
                                                 .getString("type"):"");
                                         bean.setmPhone(jobj.has("phone")?jobj.getString("phone"):"");
                                         bean.setmBase(jobj.has("base")?jobj.getString("base"):"");
+                                        bean.setmYunNumber(jobj.has("yun")?jobj.getString("yun"):"");
                                         if (jobj.has("eid")) {
                                             bean.setmEquipmentId(jobj
                                                     .getString("eid"));
@@ -453,9 +500,6 @@ public class DoorFragment extends Fragment {
                                 }
                                 upload();
                             }
-                            if (mSwipereLayout != null) {
-                                mSwipereLayout.setRefreshing(false);
-                            }
                             if (delete.equals("2")) {
                                 upload();
                             }
@@ -470,6 +514,9 @@ public class DoorFragment extends Fragment {
 
                     @Override
                     public void onFailure() {
+                        if (mTimer!=null) {
+                            mTimer.cancel();
+                        }
                         if (mSwipereLayout != null) {
                             mSwipereLayout.setRefreshing(false);
                         }
@@ -482,7 +529,7 @@ public class DoorFragment extends Fragment {
 
     private void upload() {
         MyLog.i("设备数据列表适配器加载--1");
-        List<HomeBean> mCamera = LitePalUtil.getCameraList();
+        final List<HomeBean> mCamera = LitePalUtil.getCameraList();
         if (mCameraList!=null && !mCameraList.isEmpty() && mCamera!=null && !mCamera.isEmpty()) {
             for (HomeBean homeBean : mCameraList) {
                 boolean flag = true ;
@@ -514,21 +561,28 @@ public class DoorFragment extends Fragment {
             mListview.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
 //            }
-            mNoData.setVisibility(View.GONE);
+            if (mNoData!=null) {
+                mNoData.setVisibility(View.GONE);
+            }
             mListview.setVisibility(View.VISIBLE);
             mAdapter.longClick(new DoorAdapter.LongClick() {
                 @Override
                 public void onLongClick(View view, int position) {
                     HomeBean bean = LitePalUtil.getHomeList().get(position);
+                    if ("1".equals(bean.getmBase())) {
+                        return;
+                    }
                     if (bean.getmType().equals("1")) {
                         dialog(1, R.string.whether_relieve_bind, bean);
-                    } else if (bean.getmType().equals("2")) {
-                        dialog(2, R.string.is_remove_camera, bean);
-                    } else if (bean.getmType().equals("3")) {
-                        dialog(2, R.string.is_remove_camera, bean);
-                    } else if (bean.getmType().equals("4")) {
-                        dialog(2, R.string.is_remove_cateye, bean);
-                    } else if (bean.getmType().equals("5")) {
+                    }
+//                    else if (bean.getmType().equals("2")) {
+//                        dialog(2, R.string.is_remove_camera, bean);
+//                    } else if (bean.getmType().equals("3")) {
+//                        dialog(2, R.string.is_remove_camera, bean);
+//                    } else if (bean.getmType().equals("4")) {
+//                        dialog(2, R.string.is_remove_cateye, bean);
+//                    }
+                    else if (bean.getmType().equals("5")) {
                         dialog(3, R.string.is_remove_park, bean);
                     }
                 }
@@ -539,86 +593,97 @@ public class DoorFragment extends Fragment {
                     MyLog.i("分享按钮");
                     final HomeBean bean = LitePalUtil.getHomeList().get(position);
                     String url = null;
+                    Bundle bundle = new Bundle();
                     if (bean.getmType().equals("1")) { //门禁
                         if (SharedPreUtil.getString(mContext, "share_type").equals("")) {
                             SharedPreUtil.put(mContext, "share_type", 2 + "");
-
                         }
-                        shareText.setText("门禁设备添加扫描");
+//                        shareText.setText("门禁设备添加扫描");
                         url = ConnectPath.BIND_PATH + "?uid&xiaoqu=" + bean.getmCommunityId()
                                 + "&qishu=" + bean.getmPeriodsId() + "&dongshu=" + bean.getmUnitId()
                                 + "&housenum=" + bean.getmHouseNumber() + "&type=" + SharedPreUtil.getString(mContext, "share_type")
                                 + "&sNcode=" + LitePalUtil.getUserInfo().getmSNCode()
                                 + "&clientType=1" + "," + bean.getmCommunity() + bean.getmPeriods() + bean.getmUnit() + bean.getmHouseNumber() + "," + bean.getmType();
-                    } else if (bean.getmType().equals("2")) { //摄像机
-                        shareText.setText("摄像机设备添加扫描");
-                        url = ConnectPath.ADD_CAMERA + "?uid&num=" + bean.getmCameraId()
-                                + "&name=" + bean.getmCameraName()
-                                + "&username=" + SharedPreUtil.getString(mContext, "userName")
-                                + "&userpwd=" + SharedPreUtil.getString(mContext, "userPwd")
-                                + "&type=buyaotou" + "," + bean.getmCameraId() + "," + bean.getmType();
-                    } else if (bean.getmType().equals("3")) { //摇头机
-                        shareText.setText("摇头机设备添加扫描");
-                        url = ConnectPath.ADD_CAMERA + "?uid&num=" + bean.getmCameraId()
-                                + "&name=" + bean.getmCameraName()
-                                + "&username=" + SharedPreUtil.getString(mContext, "userName")
-                                + "&userpwd=" + SharedPreUtil.getString(mContext, "userPwd")
-                                + "&type=yaotou" + "," + bean.getmCameraId() + "," + bean.getmType();
-                    } else if (bean.getmType().equals("4")) { //猫眼
-                        shareText.setText("猫眼设备添加扫描");
-                        url = ConnectPath.ADD_CAMERA + "?uid&num=" + bean.getmCameraId()
-                                + "&name=" + bean.getmCameraName()
-                                + "&username=" + SharedPreUtil.getString(mContext, "userName")
-                                + "&userpwd=" + SharedPreUtil.getString(mContext, "userPwd")
-                                + "&type=maoyan" + "," + bean.getmCameraId() + "," + bean.getmType();
+                        if (url != null) {
+                            bundle.putString("QRCode",url);
+                            BaseUtils.startActivities(mContext,ShareActivity.class,bundle);
+                        } else {
+                            BaseUtils.showShortToast(mContext, "分享失败");
+                        }
                     }
-                    if (bean.getmType().equals("2") || bean.getmType().equals("3")) {
-                        final String path = url;
-                        ArrayList<DialogMenuItem> list = new ArrayList<DialogMenuItem>();
-                        list.add(new DialogMenuItem("分享", 0));
-                        list.add(new DialogMenuItem("直播", 0));
-                        list.add(new DialogMenuItem("取消", 0));
-                        final NormalListDialog dialog = DialogShow.showListDialog(mContext,
-                                list);
-                        dialog.titleTextSize_SP(18).itemTextSize(18).isTitleShow(true)
-                                .title("请操作").setOnOperItemClickL(new OnOperItemClickL() {
-
-                            @Override
-                            public void onOperItemClick(AdapterView<?> parent,
-                                                        View view, int positions, long id) {
-                                Bundle bundle = new Bundle();
-                                switch (positions) {
-                                    case 0:// 分享
-                                        if (path != null) {
-                                            ViewGroup.LayoutParams para = shareImg.getLayoutParams();
-                                            para.width = mScreenW / 4 * 3;//修改宽度
-                                            para.height = mScreenW / 4 * 3;//修改高度
-                                            shareImg.setLayoutParams(para);
-                                            shareLayout.setVisibility(View.VISIBLE);
-                                            try {
-                                                Bitmap bitmap = CodeCreator.createQRCode(path);
-                                                shareImg.setImageBitmap(bitmap);
-                                            } catch (WriterException e) {
-                                                e.printStackTrace();
-                                            }
-                                        } else {
-                                            BaseUtils.showShortToast(mContext, "分享失败");
-                                        }
-                                        break;
-                                    case 1:// 直播
-                                        bundle.putString("equipmentId", bean.getmCameraId());
-                                        bundle.putString("mhousenumberId", bean.getmHouseNumberId());
-                                        BaseUtils.startActivities(mContext, ActivityVideoShare.class, bundle);
-                                        break;
-                                    case 2:// 取消
-                                        dialog.dismiss();
-                                        break;
-                                }
-                                dialog.dismiss();
-
-                            }
-                        });
-                    } else if (bean.getmType().equals("5")) {
+//                    else if (bean.getmType().equals("2")) { //摄像机
+////                        shareText.setText("摄像机设备添加扫描");
+//                        url = ConnectPath.ADD_CAMERA + "?uid&num=" + bean.getmCameraId()
+//                                + "&name=" + bean.getmCameraName()
+//                                + "&username=" + SharedPreUtil.getString(mContext, "userName")
+//                                + "&userpwd=" + SharedPreUtil.getString(mContext, "userPwd")
+//                                + "&type=buyaotou" + "," + bean.getmCameraId() + "," + bean.getmType();
+//                    } else if (bean.getmType().equals("3")) { //摇头机
+////                        shareText.setText("摇头机设备添加扫描");
+//                        url = ConnectPath.ADD_CAMERA + "?uid&num=" + bean.getmCameraId()
+//                                + "&name=" + bean.getmCameraName()
+//                                + "&username=" + SharedPreUtil.getString(mContext, "userName")
+//                                + "&userpwd=" + SharedPreUtil.getString(mContext, "userPwd")
+//                                + "&type=yaotou" + "," + bean.getmCameraId() + "," + bean.getmType();
+//                    } else if (bean.getmType().equals("4")) { //猫眼
+////                        shareText.setText("猫眼设备添加扫描");
+//                        url = ConnectPath.ADD_CAMERA + "?uid&num=" + bean.getmCameraId()
+//                                + "&name=" + bean.getmCameraName()
+//                                + "&username=" + SharedPreUtil.getString(mContext, "userName")
+//                                + "&userpwd=" + SharedPreUtil.getString(mContext, "userPwd")
+//                                + "&type=maoyan" + "," + bean.getmCameraId() + "," + bean.getmType();
+//                    }
+//                    if (bean.getmType().equals("2") || bean.getmType().equals("3")) {
+//                        final String path = url;
+//                        ArrayList<DialogMenuItem> list = new ArrayList<DialogMenuItem>();
+//                        list.add(new DialogMenuItem("分享", 0));
+//                        list.add(new DialogMenuItem("直播", 0));
+//                        list.add(new DialogMenuItem("取消", 0));
+//                        final NormalListDialog dialog = DialogShow.showListDialog(mContext,
+//                                list);
+//                        dialog.titleTextSize_SP(18).itemTextSize(18).isTitleShow(true)
+//                                .title("请操作").setOnOperItemClickL(new OnOperItemClickL() {
+//
+//                            @Override
+//                            public void onOperItemClick(AdapterView<?> parent,
+//                                                        View view, int positions, long id) {
+//                                Bundle bundle = new Bundle();
+//                                switch (positions) {
+//                                    case 0:// 分享
+//                                        if (path != null) {
+//
+//                                            bundle.putString("QRCode",path);
+//                                            BaseUtils.startActivities(mContext,ShareActivity.class,bundle);
+////                                            ViewGroup.LayoutParams para = shareImg.getLayoutParams();
+////                                            para.width = mScreenW / 4 * 3;//修改宽度
+////                                            para.height = mScreenW / 4 * 3;//修改高度
+////                                            shareImg.setLayoutParams(para);
+////                                            shareLayout.setVisibility(View.VISIBLE);
+////                                            try {
+////                                                Bitmap bitmap = CodeCreator.createQRCode(path);
+////                                                shareImg.setImageBitmap(bitmap);
+////                                            } catch (WriterException e) {
+////                                                e.printStackTrace();
+////                                            }
+//                                        } else {
+//                                            BaseUtils.showShortToast(mContext, "分享失败");
+//                                        }
+//                                        break;
+//                                    case 1:// 直播
+//                                        bundle.putString("equipmentId", bean.getmCameraId());
+//                                        bundle.putString("mhousenumberId", bean.getmHouseNumberId());
+//                                        BaseUtils.startActivities(mContext, ActivityVideoShare.class, bundle);
+//                                        break;
+//                                    case 2:// 取消
+//                                        dialog.dismiss();
+//                                        break;
+//                                }
+//                                dialog.dismiss();
+//
+//                            }
+//                        });
+//                    }
+                    else if (bean.getmType().equals("5")) {
                         Map<String, String> params = new HashMap<String, String>();
                         params.put("id", bean.getmParkId());
                         OkHttp.get(mContext, ConnectPath.LOCK_CAR, params, new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
@@ -632,29 +697,35 @@ public class DoorFragment extends Fragment {
                                 }
                             }
                         }));
-                    } else {
-                        if (url != null) {
-                            ViewGroup.LayoutParams para = shareImg.getLayoutParams();
-                            para.width = mScreenW / 4 * 3;//修改宽度
-                            para.height = mScreenW / 4 * 3;//修改高度
-                            shareImg.setLayoutParams(para);
-                            shareLayout.setVisibility(View.VISIBLE);
-                            try {
-                                Bitmap bitmap = CodeCreator.createQRCode(url);
-                                shareImg.setImageBitmap(bitmap);
-                            } catch (WriterException e) {
-                                e.printStackTrace();
-                            }
-                        } else {
-                            BaseUtils.showShortToast(mContext, "分享失败");
-                        }
                     }
+//                    else if (bean.getmType().equals("1")){
+//                        if (url != null) {
+//                            bundle.putString("QRCode",url);
+//                            BaseUtils.startActivities(mContext,ShareActivity.class,bundle);
+//                            ViewGroup.LayoutParams para = shareImg.getLayoutParams();
+//                            para.width = mScreenW / 4 * 3;//修改宽度
+//                            para.height = mScreenW / 4 * 3;//修改高度
+//                            shareImg.setLayoutParams(para);
+//                            shareLayout.setVisibility(View.VISIBLE);
+//                            try {
+//                                Bitmap bitmap = CodeCreator.createQRCode(url);
+//                                shareImg.setImageBitmap(bitmap);
+//                            } catch (WriterException e) {
+//                                e.printStackTrace();
+//                            }
+//                        } else {
+//                            BaseUtils.showShortToast(mContext, "分享失败");
+//                        }
+//                    }
 
 
                 }
             });
         } else {
-            mNoData.setVisibility(View.VISIBLE);
+            if (mNoData!=null) {
+                mNoData.setVisibility(View.VISIBLE);
+            }
+//            mNoData.setVisibility(View.VISIBLE);
             mListview.setVisibility(View.GONE);
         }
 
@@ -695,12 +766,11 @@ public class DoorFragment extends Fragment {
 
             @Override
             public void onBtnClick() {
-                dialog.dismiss();
                 MyLog.i("设备删除选择--1");
                 switch (type) {
                     case 1:
                         final String isDefault = bean.getmIsDefault();
-                        if (isDefault.equals("1")) {
+                        if ("1".equals(isDefault)) {
 
                             final NormalDialog ensure_dialog = DialogShow
                                     .showSelectDialog(
@@ -743,6 +813,7 @@ public class DoorFragment extends Fragment {
 
                 }
                 MyLog.i("设备删除选择--0");
+                dialog.superDismiss();
             }
         });
     }
@@ -903,24 +974,32 @@ public class DoorFragment extends Fragment {
             if (data != null) {
 
                 String content = data.getStringExtra(DECODED_CONTENT_KEY);
+                MyLog.i("content:"+content);
 //                Bitmap bitmap = data.getParcelableExtra(DECODED_BITMAP_KEY);
                 String spStr[] = content.split(",");
-                shareUrl = spStr[0].replaceAll("uid", "uid=" + SharedPreUtil.getString(mContext, "userId", ""));
+                if (spStr.length>2) {
+                    shareUrl = spStr[0].replaceAll("uid", "uid=" + SharedPreUtil.getString(mContext, "userId", ""));
 
-                shareHintLayout.setVisibility(View.VISIBLE);
-                if ("1".equals(spStr[2])) {
-                    shareIcon.setBackgroundResource(R.mipmap.xiaoqu_logo);
-                    shareHint.setText("是否添加" + spStr[1]);
-                } else if ("2".equals(spStr[2])) {
-                    shareIcon.setBackgroundResource(R.mipmap.camera_logo);
-                    shareHint.setText("是否添加设备" + spStr[1]);
-                } else if ("3".equals(spStr[2])) {
-                    shareIcon.setBackgroundResource(R.mipmap.shake_logo);
-                    shareHint.setText("是否添加设备" + spStr[1]);
-                } else if ("4".equals(spStr[2])) {
-                    shareIcon.setBackgroundResource(R.mipmap.cat_eye_logo);
-                    shareHint.setText("是否添加设备" + spStr[1]);
+                    shareHintLayout.setVisibility(View.VISIBLE);
+                    if (spStr!=null) {
+                        shareIcon.setBackgroundResource(R.mipmap.xiaoqu_logo);
+                        shareHint.setText("是否添加" + spStr[1]);
+                    }
                 }
+
+//                if ("1".equals(spStr[2])) {
+//                    shareIcon.setBackgroundResource(R.mipmap.xiaoqu_logo);
+//                    shareHint.setText("是否添加" + spStr[1]);
+//                } else if ("2".equals(spStr[2])) {
+//                    shareIcon.setBackgroundResource(R.mipmap.camera_logo);
+//                    shareHint.setText("是否添加设备" + spStr[1]);
+//                } else if ("3".equals(spStr[2])) {
+//                    shareIcon.setBackgroundResource(R.mipmap.shake_logo);
+//                    shareHint.setText("是否添加设备" + spStr[1]);
+//                } else if ("4".equals(spStr[2])) {
+//                    shareIcon.setBackgroundResource(R.mipmap.cat_eye_logo);
+//                    shareHint.setText("是否添加设备" + spStr[1]);
+//                }
             }
 
         }

@@ -2,7 +2,7 @@
 <litepal>
     <dbname value="EHome" ></dbname>
 
-    <version value="6" ></version>
+    <version value="7" ></version>
 
 
     <list>

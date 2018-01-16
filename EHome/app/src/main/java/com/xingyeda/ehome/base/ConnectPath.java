@@ -76,6 +76,8 @@ public class ConnectPath
     public static final String ANNUNCIATE_PATH = IP_PATH + "getAnnouncement";
     //物业投诉和维修
     public static final String COMPLAINANDSERVICE_PATH = IP_PATH + "shujuzidian";
+    //物业中心播放地址
+    public static final String PROPERTYLIVE_PATH = IP_PATH + "getPropertyLive";
 //    //物业投诉提交
 //    public static final String COMPLAINADD_PATH = IP_PATH + "xydServer/servlet/addtousu";
 //    //物业维修提交

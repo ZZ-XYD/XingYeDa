@@ -46,6 +46,7 @@ import com.xingyeda.ehome.bean.ReceivePush;
 
 import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.door.ActivityVideo;
+import com.xingyeda.ehome.door.ActivityVideoTest;
 import com.xingyeda.ehome.door.DoorFragment;
 import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
 import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
@@ -124,6 +125,9 @@ public class JPushReceiver extends BroadcastReceiver {
         if (message != null && !message.equals("")) {
             ReceivePush rBean = gson.fromJson(message, ReceivePush.class);
             bean = rBean.getPushObject();
+            if (bean.getmMsgId()==null) {
+                return;
+            }
             MyLog.i("JPush信息：" + bean.toString());
             LogUtils.i("JPushMsgId   " + bean.getmMsgId());
             LogUtils.i("JPushMsg   " + bean.toString());
@@ -133,7 +137,7 @@ public class JPushReceiver extends BroadcastReceiver {
                     Map.Entry<String, Boolean> entry = entries.next();
                     LogUtils.i("JPushmsgId : " + bean.getmMsgId());
                     LogUtils.i("JPushmapKey : " + entry.getKey());
-                    if (bean.getmMsgId().equals(entry.getKey())) {
+                    if (entry.getKey().equals(bean.getmMsgId())) {
                         return;
                     }
                 }
@@ -175,8 +179,10 @@ public class JPushReceiver extends BroadcastReceiver {
                             final SimpleDateFormat sdf = new SimpleDateFormat(
                                     "yyyy-MM-dd HH:mm:ss");
                             final Date startTime = sdf.parse(bean.getTime());
-                            if (!("".equals(bean.getmUrl())) && null != bean.getmUrl()) {
-                                videoCallBack(bean.getmUrl());
+                            if (!("".equals(bean.getmUrl()))) {
+                                if (bean.getmUrl()!=null) {
+                                    videoCallBack(bean.getmUrl());
+                                }
                             }
                             bundle1.putString("dongshu", bean.getmUtil());
                             bundle1.putString("eid", bean.getEid());
@@ -192,7 +198,11 @@ public class JPushReceiver extends BroadcastReceiver {
                                 LogUtils.i("呼叫时间 ： " + startTime);
                                 LogUtils.i("服务器当前时间：" + formatTimeInMillis(BaseUtils.getServerTime(mContext)));
                                 if ((BaseUtils.getServerTime(mContext) - startTime.getTime()) <= 10000) {
-                                    BaseUtils.startActivities(mContext, ActivityVideo.class, bundle1);
+                                    if (bean.getRtmp()!=null && bean.getRtmp().length() !=  0) {
+                                        BaseUtils.startActivities(mContext, ActivityVideo.class, bundle1);
+                                    }else{
+                                        BaseUtils.startActivities(mContext, ActivityVideoTest.class, bundle1);
+                                    }
 
                                 }
                             }
@@ -207,6 +217,10 @@ public class JPushReceiver extends BroadcastReceiver {
                         if (activity.getClass().equals(ActivityVideo.class)) {
                             SharedPreUtil.put(mContext, "isFinish", true);
                             mApplication.finishActivity(ActivityVideo.class);
+                            return;
+                        }else if (activity.getClass().equals(ActivityVideoTest.class)) {
+                            SharedPreUtil.put(mContext, "isFinish", true);
+                            mApplication.finishActivity(ActivityVideoTest.class);
                             return;
                         }
                     }
@@ -235,53 +249,79 @@ public class JPushReceiver extends BroadcastReceiver {
                         if (activity.getClass().equals(ActivityVideo.class)) {
                             mApplication.finishActivity(ActivityVideo.class);
                             return;
+                        }else if (activity.getClass().equals(ActivityVideoTest.class)) {
+                            mApplication.finishActivity(ActivityVideoTest.class);
+                            return;
                         }
                     }
                 } else if (bean.getmType().equals("7")) {
                     LogUtils.i("jpush : 物业通知");
                     SharedPreUtil.put(mContext, "isTenement_Upload", true);
-                    final NormalDialog dialog = DialogShow.showSelectDialogONE(context, bean.getTitle(), bean.getAlertContent());
-                    dialog.setOnBtnClickL(new OnBtnClickL() {
-                        @Override
-                        public void onBtnClick() {
-                            dialog.dismiss();
-                        }
-                    });
-
+                    Bundle bundle = new Bundle();
+                    bundle.putString("code", "");
+                    bundle.putString("title", bean.getTitle());
+                    bundle.putString("content", bean.getAlertContent());
+                    bundle.putString("time", "");
+                    bundle.putString("type", "7");
+                    BaseUtils.startActivities(EHomeApplication.getmContext(), DialogActivity.class,bundle);
+//                    final MaterialDialog dialog = new MaterialDialog(mContext);
+//                    dialog.btnNum(1)
+//                            .title(bean.getTitle())
+//                            .content("\t\t" + bean.getAlertContent())
+//                            .btnText(new String[]{"确定"})
+//                            .showAnim(new BounceTopEnter())
+//                            .dismissAnim(new SlideBottomExit());
+//                    dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+//                    dialog.setCanceledOnTouchOutside(false);
+//                    dialog.show();
+//                    dialog.setOnBtnClickL(new OnBtnClickL() {
+//                        // listener
+//                        @Override
+//                        public void onBtnClick() {
+//                            dialog.superDismiss();
+//                        }
+//                    });
                 } else if (bean.getmType().equals("8")) {
-
-                    final MaterialDialog dialog = new MaterialDialog(context);
-                    dialog.btnNum(2)
-                            .title(bean.getTitle())
-                            .content("\t\t" + bean.getAlertContent())
-                            .btnText(new String[]{"确定", "查看详情"})
-                            .showAnim(new BounceTopEnter())
-                            .dismissAnim(new SlideBottomExit());
-                    dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-                    dialog.setCanceledOnTouchOutside(false);
-                    dialog.show();
-                    dialog.setOnBtnClickL(new OnBtnClickL() {
-                        // listener
-                        @Override
-                        public void onBtnClick() {
-                            msgCallBack(bean.getmCode());
-                            dialog.dismiss();
-                        }
-                    }, new OnBtnClickL() {
-                        @Override
-                        public void onBtnClick() {
-                            msgCallBack(bean.getmCode());
-                            Bundle bundle = new Bundle();
-                            bundle.putString("title", bean.getTitle());
-                            bundle.putString("content", bean.getAlertContent());
-                            bundle.putString("time", bean.getTime());
-                            bundle.putString("imageList", null);
-                            bundle.putString("bean", "annunciate");
-                            dialog.dismiss();
-                            BaseUtils.startActivities(EHomeApplication.getmContext(), Notice_Activity.class, bundle);
-
-                        }
-                    });
+                    SharedPreUtil.put(mContext, "isAnnunciate", true);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("code", bean.getmCode());
+                    bundle.putString("title", bean.getTitle());
+                    bundle.putString("content", bean.getAlertContent());
+                    bundle.putString("time", bean.getTime());
+                    bundle.putString("type", "8");
+                    BaseUtils.startActivities(EHomeApplication.getmContext(), DialogActivity.class,bundle);
+//                    final MaterialDialog dialog = new MaterialDialog(mContext);
+//                    dialog.btnNum(2)
+//                            .title(bean.getTitle())
+//                            .content("\t\t" + bean.getAlertContent())
+//                            .btnText(new String[]{"确定", "查看详情"})
+//                            .showAnim(new BounceTopEnter())
+//                            .dismissAnim(new SlideBottomExit());
+//                    dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+//                    dialog.setCanceledOnTouchOutside(false);
+//                    dialog.show();
+//                    dialog.setOnBtnClickL(new OnBtnClickL() {
+//                        // listener
+//                        @Override
+//                        public void onBtnClick() {
+//                            msgCallBack(bean.getmCode());
+//                            dialog.superDismiss();
+//                        }
+//                    }, new OnBtnClickL() {
+//                        @Override
+//                        public void onBtnClick() {
+//                            msgCallBack(bean.getmCode());
+//                            Bundle bundle = new Bundle();
+//                            bundle.putString("title", bean.getTitle());
+//                            bundle.putString("content", bean.getAlertContent());
+//                            bundle.putString("time", bean.getTime());
+//                            bundle.putString("imageList", null);
+//                            bundle.putString("bean", "annunciate");
+//                            BaseUtils.startActivities(EHomeApplication.getmContext(), Notice_Activity.class, bundle);
+//                            dialog.superDismiss();
+//
+//                        }
+//                    });
                 } else if (bean.getmType().equals("9")) {//停车场出入消息
                     ParkBean parkBean = new ParkBean(SharedPreUtil.getString(mContext, "userId", ""), bean.getTitle(), bean.getmMsg(), bean.getTime(), bean.getPhotograph(), 0);
                     parkBean.save();

@@ -66,13 +66,6 @@
             android:background="@drawable/loging"
             android:contentDescription="@null" />
 
-        <!--<TextView-->
-        <!--android:id="@+id/zb_linkstate"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:textColor="#00FF00" />-->
-
         <com.xingyeda.ehome.view.PercentLinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -131,29 +124,6 @@
         </com.xingyeda.ehome.view.PercentLinearLayout>
     </android.support.percent.PercentRelativeLayout>
 
-
-    <!--<android.support.percent.PercentRelativeLayout-->
-    <!--android:id="@+id/describe_layout"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_below="@id/zb_playsurface_layout"-->
-    <!--android:background="@color/bg_gray"-->
-    <!--&gt;-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/describe"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_margin="5dp"-->
-    <!--android:ellipsize="end"-->
-    <!--android:maxLines="2"-->
-    <!--android:textSize="@dimen/text_size_18"-->
-    <!--app:layout_marginLeftPercent="5%"-->
-    <!--app:layout_marginRightPercent="5%" />-->
-
-    <!--</android.support.percent.PercentRelativeLayout>-->
-
-
     <com.xingyeda.ehome.view.PercentLinearLayout
         android:id="@+id/import_layout"
         android:layout_width="match_parent"
@@ -193,19 +163,6 @@
         android:layout_above="@id/import_layout"
         android:background="@color/black" />
 
-    <!--<ScrollView-->
-    <!--android:id="@+id/zb_scrollview"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_above="@id/import_layout"-->
-    <!--android:layout_below="@id/describe_layout"-->
-    <!--android:layout_marginTop="10dp">-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/zb_content"-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="fill_parent" />-->
-    <!--</ScrollView>-->
     <com.xingyeda.ehome.view.PercentLinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -232,7 +189,6 @@
                 android:drawableRight="@mipmap/down"/>
 
         </android.support.percent.PercentRelativeLayout>
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/zb_play_recylerView"
             android:layout_width="match_parent"
@@ -240,8 +196,4 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp" />
     </com.xingyeda.ehome.view.PercentLinearLayout>
-
-    <!--</android.support.percent.PercentRelativeLayout>-->
-
-
 </android.support.percent.PercentRelativeLayout>

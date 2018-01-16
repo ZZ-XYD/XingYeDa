@@ -40,6 +40,7 @@ import com.xingyeda.ehome.base.EHomeApplication;
 import com.xingyeda.ehome.bean.HomeBean;
 import com.xingyeda.ehome.dialog.DialogShow;
 import com.xingyeda.ehome.door.ActivityVideo;
+import com.xingyeda.ehome.door.ActivityVideoTest;
 import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
 import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
@@ -87,17 +88,22 @@ public class DoorAdapter  extends RecyclerView.Adapter<DoorAdapter.ViewHolder> {
         if ("1".equals(bean.getmBase())) {
             holder.tvXiaoqu.setText(bean.getmCommunity());
             holder.imageLogo.setBackgroundResource(R.mipmap.xiaoqu_logo);
-            holder.mOption0.setText("分享");
-            holder.mOption1.setText("开门");
-            holder.mOption2.setText("电话");
+            holder.mOption0.setText("设置");
+            holder.mOption1.setText("电话");
+            holder.mOption2.setText("摄像头");
             setImage(holder.mOption0, R.drawable.but_share);
             setImage(holder.mOption1, R.drawable.but_open_door);
             setImage(holder.mOption2, R.drawable.but_monitoring);
 
-            holder.mOption2.setOnClickListener(new View.OnClickListener() {//监控
+            holder.mOption0.setOnClickListener(new View.OnClickListener() {//监控
                 @Override
                 public void onClick(View v) {
-                    if (!bean.getmPhone().equals("")) {
+                }
+            });
+            holder.mOption1.setOnClickListener(new View.OnClickListener() {//监控
+                @Override
+                public void onClick(View v) {
+                    if (!"".equals(bean.getmPhone())) {
                         Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + bean.getmPhone()));
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
@@ -105,6 +111,18 @@ public class DoorAdapter  extends RecyclerView.Adapter<DoorAdapter.ViewHolder> {
                         }
                         mContext.startActivity(intent);
 
+                    }
+                }
+            });
+            holder.mOption2.setOnClickListener(new View.OnClickListener() {//监控
+                @Override
+                public void onClick(View v) {
+                    if (!"".equals(bean.getmYunNumber())) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("cameraId", bean.getmYunNumber());
+                        bundle.putString("cameraName", "物业中心");
+                        bundle.putString("type", "shakingCamera");
+                        BaseUtils.startActivities(mContext, JVPlayActivity.class, bundle);
                     }
                 }
             });
@@ -152,124 +170,126 @@ public class DoorAdapter  extends RecyclerView.Adapter<DoorAdapter.ViewHolder> {
                     }
                 }
             });
-        } else if (bean.getmType().equals("2")) {
-            holder.tvXiaoqu.setText(bean.getmCameraName());
-            holder.tvQishu.setText("");
-            holder.tvDongshu.setText(bean.getmCameraId());
-            holder.tvDoorplate.setText("");
-            holder.mType.setText(" 摄像机 ");
-            holder.imageLogo.setBackgroundResource(R.mipmap.camera_logo);
-
-            holder.mOption0.setText("分享");
-            holder.mOption1.setText("监控");
-            holder.mOption2.setText("设置");
-            setImage(holder.mOption0, R.drawable.but_share);
-            setImage(holder.mOption1, R.drawable.but_examine);
-            setImage(holder.mOption2, R.drawable.but_modification);
-
-            holder.mOption1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {//监控
-                    Bundle bundle = new Bundle();
-                    bundle.putString("cameraId", bean.getmCameraId());
-                    bundle.putString("cameraName", bean.getmCameraName());
-                    bundle.putString("type", "generalCamera");
-                    if (bean.getmCameraId() != null) {
-                        BaseUtils.startActivities(mContext, JVPlayActivity.class, bundle);
-                    } else {
-                        DialogShow.showHintDialog(mContext, "摄像头id为空");
-                    }
-                }
-            });
-            holder.mOption2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {//修改
-                    Bundle bundle = new Bundle();
-                    bundle.putString("type", "camera0");
-                    bundle.putString("cameraId", bean.getmCameraId());
-                    if (bean.getmCameraId() != null) {
-                        BaseUtils.startActivities(mContext, MaoYanSetActivity.class, bundle);
-                    } else {
-                        DialogShow.showHintDialog(mContext, "摄像头id为空");
-                    }
-                }
-            });
-        } else if (bean.getmType().equals("3")) {
-            holder.tvXiaoqu.setText(bean.getmCameraName());
-            holder.tvQishu.setText("");
-            holder.tvDongshu.setText(bean.getmCameraId());
-            holder.tvDoorplate.setText("");
-            holder.mType.setText(" 摇头机 ");
-            holder.imageLogo.setBackgroundResource(R.mipmap.shake_logo);
-
-            holder.mOption0.setText("分享");
-            holder.mOption1.setText("监控");
-            holder.mOption2.setText("设置");
-            setImage(holder.mOption0, R.drawable.but_share);
-            setImage(holder.mOption1, R.drawable.but_examine);
-            setImage(holder.mOption2, R.drawable.but_modification);
-
-            holder.mOption1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {//监控
-                    Bundle bundle = new Bundle();
-                    bundle.putString("cameraId", bean.getmCameraId());
-                    bundle.putString("cameraName", bean.getmCameraName());
-                    bundle.putString("type", "shakingCamera");
-                    if (bean.getmCameraId() != null) {
-                        BaseUtils.startActivities(mContext, JVPlayActivity.class, bundle);
-                    } else {
-                        DialogShow.showHintDialog(mContext, "摄像头id为空");
-                    }
-                }
-            });
-            holder.mOption2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {//修改
-                    Bundle bundle = new Bundle();
-                    bundle.putString("type", "camera1");
-                    bundle.putString("cameraId", bean.getmCameraId());
-                    BaseUtils.startActivities(mContext, MaoYanSetActivity.class, bundle);
-                }
-            });
-        } else if (bean.getmType().equals("4")) {
-            holder.tvXiaoqu.setText(bean.getmCameraName());
-            holder.tvQishu.setText("");
-            holder.tvDongshu.setText(bean.getmCameraId());
-            holder.tvDoorplate.setText("");
-            holder.mType.setText(" 猫  眼 ");
-            holder.imageLogo.setBackgroundResource(R.mipmap.cat_eye_logo);
-
-            holder.mOption0.setText("分享");
-            holder.mOption1.setText("监控");
-            holder.mOption2.setText("设置");
-            setImage(holder.mOption0, R.drawable.but_share);
-            setImage(holder.mOption1, R.drawable.but_examine);
-            setImage(holder.mOption2, R.drawable.but_modification);
-
-            holder.mOption1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {//监控
-                    Bundle bundle = new Bundle();
-                    bundle.putString("cameraId", bean.getmCameraId());
-                    bundle.putString("type", "see");
-                    if (bean.getmCameraId() != null) {
-                        BaseUtils.startActivities(mContext, JVMaoYanActivity.class, bundle);
-                    } else {
-                        DialogShow.showHintDialog(mContext, "摄像头id为空");
-                    }
-                }
-            });
-            holder.mOption2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {//修改
-                    Bundle bundle = new Bundle();
-                    bundle.putString("type", "camera2");
-                    bundle.putString("cameraId", bean.getmCameraId());
-                    BaseUtils.startActivities(mContext, MaoYanSetActivity.class, bundle);
-                }
-            });
-        } else if (bean.getmType().equals("5")) {
+        }
+//        else if (bean.getmType().equals("2")) {
+//            holder.tvXiaoqu.setText(bean.getmCameraName());
+//            holder.tvQishu.setText("");
+//            holder.tvDongshu.setText(bean.getmCameraId());
+//            holder.tvDoorplate.setText("");
+//            holder.mType.setText(" 摄像机 ");
+//            holder.imageLogo.setBackgroundResource(R.mipmap.camera_logo);
+//
+//            holder.mOption0.setText("分享");
+//            holder.mOption1.setText("监控");
+//            holder.mOption2.setText("设置");
+//            setImage(holder.mOption0, R.drawable.but_share);
+//            setImage(holder.mOption1, R.drawable.but_examine);
+//            setImage(holder.mOption2, R.drawable.but_modification);
+//
+//            holder.mOption1.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {//监控
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("cameraId", bean.getmCameraId());
+//                    bundle.putString("cameraName", bean.getmCameraName());
+//                    bundle.putString("type", "generalCamera");
+//                    if (bean.getmCameraId() != null) {
+//                        BaseUtils.startActivities(mContext, JVPlayActivity.class, bundle);
+//                    } else {
+//                        DialogShow.showHintDialog(mContext, "摄像头id为空");
+//                    }
+//                }
+//            });
+//            holder.mOption2.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {//修改
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("type", "camera0");
+//                    bundle.putString("cameraId", bean.getmCameraId());
+//                    if (bean.getmCameraId() != null) {
+//                        BaseUtils.startActivities(mContext, MaoYanSetActivity.class, bundle);
+//                    } else {
+//                        DialogShow.showHintDialog(mContext, "摄像头id为空");
+//                    }
+//                }
+//            });
+//        } else if (bean.getmType().equals("3")) {
+//            holder.tvXiaoqu.setText(bean.getmCameraName());
+//            holder.tvQishu.setText("");
+//            holder.tvDongshu.setText(bean.getmCameraId());
+//            holder.tvDoorplate.setText("");
+//            holder.mType.setText(" 摇头机 ");
+//            holder.imageLogo.setBackgroundResource(R.mipmap.shake_logo);
+//
+//            holder.mOption0.setText("分享");
+//            holder.mOption1.setText("监控");
+//            holder.mOption2.setText("设置");
+//            setImage(holder.mOption0, R.drawable.but_share);
+//            setImage(holder.mOption1, R.drawable.but_examine);
+//            setImage(holder.mOption2, R.drawable.but_modification);
+//
+//            holder.mOption1.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {//监控
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("cameraId", bean.getmCameraId());
+//                    bundle.putString("cameraName", bean.getmCameraName());
+//                    bundle.putString("type", "shakingCamera");
+//                    if (bean.getmCameraId() != null) {
+//                        BaseUtils.startActivities(mContext, JVPlayActivity.class, bundle);
+//                    } else {
+//                        DialogShow.showHintDialog(mContext, "摄像头id为空");
+//                    }
+//                }
+//            });
+//            holder.mOption2.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {//修改
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("type", "camera1");
+//                    bundle.putString("cameraId", bean.getmCameraId());
+//                    BaseUtils.startActivities(mContext, MaoYanSetActivity.class, bundle);
+//                }
+//            });
+//        } else if (bean.getmType().equals("4")) {
+//            holder.tvXiaoqu.setText(bean.getmCameraName());
+//            holder.tvQishu.setText("");
+//            holder.tvDongshu.setText(bean.getmCameraId());
+//            holder.tvDoorplate.setText("");
+//            holder.mType.setText(" 猫  眼 ");
+//            holder.imageLogo.setBackgroundResource(R.mipmap.cat_eye_logo);
+//
+//            holder.mOption0.setText("分享");
+//            holder.mOption1.setText("监控");
+//            holder.mOption2.setText("设置");
+//            setImage(holder.mOption0, R.drawable.but_share);
+//            setImage(holder.mOption1, R.drawable.but_examine);
+//            setImage(holder.mOption2, R.drawable.but_modification);
+//
+//            holder.mOption1.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {//监控
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("cameraId", bean.getmCameraId());
+//                    bundle.putString("type", "see");
+//                    if (bean.getmCameraId() != null) {
+//                        BaseUtils.startActivities(mContext, JVMaoYanActivity.class, bundle);
+//                    } else {
+//                        DialogShow.showHintDialog(mContext, "摄像头id为空");
+//                    }
+//                }
+//            });
+//            holder.mOption2.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {//修改
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("type", "camera2");
+//                    bundle.putString("cameraId", bean.getmCameraId());
+//                    BaseUtils.startActivities(mContext, MaoYanSetActivity.class, bundle);
+//                }
+//            });
+//        }
+        else if (bean.getmType().equals("5")) {
             holder.tvXiaoqu.setText(bean.getmParkNickName());
             holder.tvQishu.setText("");
             holder.tvDongshu.setText("");
@@ -395,7 +415,11 @@ public class DoorAdapter  extends RecyclerView.Adapter<DoorAdapter.ViewHolder> {
                         + bean.getmPeriods()
                         + bean.getmUnit());
         if (bean.getmEquipmentId() != null) {
-            BaseUtils.startActivities(mContext, ActivityVideo.class, bundle);
+                if (bean.getmVersions()!=null&&bean.getmVersions().equals("forAlice")) {
+                    BaseUtils.startActivities(mContext, ActivityVideoTest.class, bundle);
+                }else{
+                    BaseUtils.startActivities(mContext, ActivityVideo.class, bundle);
+                }
         } else {
             DialogShow.showHintDialog(mContext, mContext.getResources().getString(R.string.not_bind_facility));
         }

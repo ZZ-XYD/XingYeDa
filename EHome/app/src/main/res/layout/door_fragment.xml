@@ -153,38 +153,39 @@
 
     </com.xingyeda.ehome.view.PercentLinearLayout>
 
-    <android.support.percent.PercentFrameLayout
-        android:id="@+id/share_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#50000000"
-        android:descendantFocusability="afterDescendants"
-        android:visibility="gone">
+    <!--<android.support.percent.PercentFrameLayout-->
+        <!--android:id="@+id/share_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="#50000000"-->
+        <!--android:descendantFocusability="afterDescendants"-->
+        <!--android:visibility="gone"-->
+        <!--&gt;-->
 
-        <android.support.percent.PercentRelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <!--<android.support.percent.PercentRelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
 
-            <ImageView
-                android:id="@+id/share_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:background="@color/white" />
+            <!--<ImageView-->
+                <!--android:id="@+id/share_img"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:background="@color/white" />-->
 
-            <TextView
-                android:id="@+id/share_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/share_img"
-                android:layout_centerHorizontal="true"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_22"
+            <!--<TextView-->
+                <!--android:id="@+id/share_text"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@id/share_img"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textSize="@dimen/text_size_22"-->
 
-                />
-        </android.support.percent.PercentRelativeLayout>
+                <!--/>-->
+        <!--</android.support.percent.PercentRelativeLayout>-->
 
-    </android.support.percent.PercentFrameLayout>
+    <!--</android.support.percent.PercentFrameLayout>-->
 
     <android.support.percent.PercentFrameLayout
         android:id="@+id/share_hint_layout"

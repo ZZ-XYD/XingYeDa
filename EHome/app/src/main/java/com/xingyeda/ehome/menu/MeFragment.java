@@ -12,6 +12,8 @@ import java.util.Map;
 
 
 import butterknife.Bind;
+import cn.sharesdk.onekeyshare.OnekeyShare;
+import cn.sharesdk.tencent.qq.QQ;
 import okhttp3.Call;
 
 import android.annotation.SuppressLint;
@@ -41,6 +43,7 @@ import com.ldl.dialogshow.dialog.widget.NormalListDialog;
 import com.ldl.imageloader.core.ImageLoader;
 import com.ldl.imageloader.core.assist.FailReason;
 import com.ldl.imageloader.core.listener.ImageLoadingListener;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.xingyeda.ehome.R;
 import com.xingyeda.ehome.base.ConnectPath;
 import com.xingyeda.ehome.base.EHomeApplication;
@@ -48,6 +51,7 @@ import com.xingyeda.ehome.base.LitePalUtil;
 import com.xingyeda.ehome.bean.PushBean;
 import com.xingyeda.ehome.bean.UserInfo;
 import com.xingyeda.ehome.dialog.DialogShow;
+import com.xingyeda.ehome.door.ActivityVideoTest;
 import com.xingyeda.ehome.http.okhttp.ConciseCallbackHandler;
 import com.xingyeda.ehome.http.okhttp.ConciseStringCallback;
 import com.xingyeda.ehome.http.okhttp.OkHttp;
@@ -181,7 +185,9 @@ public class MeFragment extends Fragment {
                 BaseUtils.startActivity(mContext, ActivityAbout.class);
                 break;
             case R.id.my_pay_fees:
-                DialogShow.showHintDialog(mContext, "该功能暂未开放，敬请期待");
+//                BaseUtils.startActivity(mContext, ActivityVideoTest.class);
+//                DialogShow.showHintDialog(mContext, "该功能暂未开放，敬请期待");
+                showShare();
                 break;
             case R.id.me_head:
                 uploadHeadPhoto();
@@ -189,6 +195,25 @@ public class MeFragment extends Fragment {
 
         }
 
+    }
+    private void showShare() {
+        OnekeyShare oks = new OnekeyShare();
+        oks.disableSSOWhenAuthorize();
+        oks.setImageUrl("http://firicon.fir.im/baa18a6d779c597888d685f1159070df5b4f2912");
+        oks.setTitleUrl("http://mudu.tv/?c=activity&a=live&id=87166");
+        oks.setText("","text");
+        oks.setTitle("标题");
+        oks.setUrl("http://www.baidu.com");
+        oks.show(mContext);
+    }
+    private void share(String appName) {
+        Intent share_intent = new Intent();
+        share_intent.setAction(Intent.ACTION_SEND);
+        share_intent.setType("text/plain");
+        share_intent.putExtra(Intent.EXTRA_SUBJECT, "f分享");
+        share_intent.putExtra(Intent.EXTRA_TEXT, "HI 推荐您使用一款软件:" + appName);
+        share_intent = Intent.createChooser(share_intent, "分享");
+        startActivity(share_intent);
     }
 
     private void uploadHeadPhoto() {

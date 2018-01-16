@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.percent.PercentRelativeLayout
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/theme_orange"
+        app:layout_heightPercent="8%">
+
+        <TextView
+            android:id="@+id/share_play_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="聊天室"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_25" />
+
+        <TextView
+            android:id="@+id/share_play_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:drawableLeft="@mipmap/back"
+            android:gravity="center"
+            android:text="@string/back"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_20" />
+
+    </android.support.percent.PercentRelativeLayout>
+
+
+    <android.support.percent.PercentRelativeLayout
+        android:id="@+id/zb_playsurface_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_layout"
+        >
+
+        <io.vov.vitamio.widget.VideoView
+            android:id="@+id/video_vitamio_videoView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            />
+
+        <ImageView
+            android:id="@+id/no_monitoring"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/monitoring_image"
+            android:contentDescription="@null"
+            android:visibility="gone"/>
+        <FrameLayout
+            android:id="@+id/video_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:descendantFocusability="afterDescendants"
+            >
+
+            <ImageView
+                android:id="@+id/video_logingimg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/loging"
+                android:contentDescription="@null"
+                />
+        </FrameLayout>
+
+
+
+    </android.support.percent.PercentRelativeLayout>
+
+    <com.xingyeda.ehome.view.PercentLinearLayout
+        android:id="@+id/import_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        app:layout_heightPercent="6%"
+        app:layout_marginPercent="1%">
+
+        <EditText
+            android:id="@+id/zb_edit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="8"
+            android:background="@drawable/button_black_lucency"
+            android:hint="输入内容"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            app:layout_marginLeftPercent="2%"
+            app:layout_marginRightPercent="1%" />
+
+        <Button
+            android:id="@+id/zb_send"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@drawable/button_blue_lucency"
+            android:text="发送"
+            android:textColor="@color/white"
+            app:layout_marginLeftPercent="1%"
+            app:layout_marginRightPercent="2%" />
+    </com.xingyeda.ehome.view.PercentLinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:layout_above="@id/import_layout"
+        android:background="@color/black" />
+
+    <com.xingyeda.ehome.view.PercentLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/import_layout"
+        android:layout_below="@id/zb_playsurface_layout"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/zb_play_recylerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp" />
+    </com.xingyeda.ehome.view.PercentLinearLayout>
+</android.support.percent.PercentRelativeLayout>

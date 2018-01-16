@@ -20,6 +20,8 @@ public class HomeBean extends DataSupport {
     private String mHouseNumber;
     //设备id
     private String mEquipmentId;
+    //设备版本
+    private String mVersions;//forAlice: 新的下位机，windows: 旧版本
     
     //默认小区
     private String mIsDefault;
@@ -40,7 +42,7 @@ public class HomeBean extends DataSupport {
 
     private String mYunNumber;//云通讯设备
     private String mPhone;//电话
-    private String mBase;//电话
+    private String mBase;//
 
 
     public HomeBean() {
@@ -50,6 +52,14 @@ public class HomeBean extends DataSupport {
         this.mParkName = mParkName;
         this.mParkId = mParkId;
         this.mParkNickName = mParkNickName;
+    }
+
+    public String getmVersions() {
+        return mVersions;
+    }
+
+    public void setmVersions(String mVersions) {
+        this.mVersions = mVersions;
     }
 
     public String getmBase() {

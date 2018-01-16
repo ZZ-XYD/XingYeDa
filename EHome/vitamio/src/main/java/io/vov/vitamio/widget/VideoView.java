@@ -217,16 +217,16 @@ public class VideoView extends SurfaceView implements MediaController.MediaPlaye
           return true;
       }
 
-      if (getWindowToken() != null) {
-        int message = framework_err == MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK ? getResources().getIdentifier("VideoView_error_text_invalid_progressive_playback", "string", mContext.getPackageName()): getResources().getIdentifier("VideoView_error_text_unknown", "string", mContext.getPackageName());
-
-        new AlertDialog.Builder(mContext).setTitle(getResources().getIdentifier("VideoView_error_title", "string", mContext.getPackageName())).setMessage(message).setPositiveButton(getResources().getIdentifier("VideoView_error_button", "string", mContext.getPackageName()), new DialogInterface.OnClickListener() {
-          public void onClick(DialogInterface dialog, int whichButton) {
-            if (mOnCompletionListener != null)
-              mOnCompletionListener.onCompletion(mMediaPlayer);
-          }
-        }).setCancelable(false).show();
-      }
+//      if (getWindowToken() != null) {
+//        int message = framework_err == MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK ? getResources().getIdentifier("VideoView_error_text_invalid_progressive_playback", "string", mContext.getPackageName()): getResources().getIdentifier("VideoView_error_text_unknown", "string", mContext.getPackageName());
+//
+//        new AlertDialog.Builder(mContext).setTitle(getResources().getIdentifier("VideoView_error_title", "string", mContext.getPackageName())).setMessage(message).setPositiveButton(getResources().getIdentifier("VideoView_error_button", "string", mContext.getPackageName()), new DialogInterface.OnClickListener() {
+//          public void onClick(DialogInterface dialog, int whichButton) {
+//            if (mOnCompletionListener != null)
+//              mOnCompletionListener.onCompletion(mMediaPlayer);
+//          }
+//        }).setCancelable(false).show();
+//      }
       return true;
     }
   };

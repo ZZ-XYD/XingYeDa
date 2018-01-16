@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.xingyeda.ehome.view.PercentLinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <android.support.percent.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/theme_orange"
+        app:layout_heightPercent="10%">
+
+        <TextView
+            android:id="@+id/share_facility_headline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/share_equipment"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_25" />
+
+        <TextView
+            android:id="@+id/share_facility_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:drawableLeft="@mipmap/back"
+            android:gravity="center"
+            android:text="@string/back"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_20" />
+
+    </android.support.percent.PercentRelativeLayout>
+    <ImageView
+        android:id="@+id/share_facility_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:layout_marginTopPercent="10%"
+        />
+    <com.xingyeda.ehome.view.PercentLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_marginLeftPercent="10%"
+        app:layout_marginRightPercent="10%"
+        android:orientation="vertical"
+        app:layout_marginTopPercent="5%">
+        <com.xingyeda.ehome.view.PercentLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 1 "
+                android:background="@drawable/circle_shape"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_20"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="对方需先下载创享e家"
+                app:layout_marginLeftPercent="5%"
+                android:textSize="@dimen/text_size_20"
+                />
+        </com.xingyeda.ehome.view.PercentLinearLayout>
+
+        <com.xingyeda.ehome.view.PercentLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_marginTopPercent="2%">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 2 "
+                android:background="@drawable/circle_shape"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_20"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="注册登录后点击下方的"
+                app:layout_marginLeftPercent="5%"
+                android:textSize="@dimen/text_size_20"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="“+”"
+                android:textSize="@dimen/text_size_20"
+                android:textColor="@color/theme_orange"
+                />
+        </com.xingyeda.ehome.view.PercentLinearLayout>
+        <com.xingyeda.ehome.view.PercentLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_marginTopPercent="2%">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 3 "
+                android:background="@drawable/circle_shape"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_20"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="扫描二维码后完成添加操作"
+                app:layout_marginLeftPercent="5%"
+                android:textSize="@dimen/text_size_20"/>
+        </com.xingyeda.ehome.view.PercentLinearLayout>
+
+    </com.xingyeda.ehome.view.PercentLinearLayout>
+
+</com.xingyeda.ehome.view.PercentLinearLayout>

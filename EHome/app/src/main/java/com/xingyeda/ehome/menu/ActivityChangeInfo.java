@@ -112,7 +112,9 @@ public class ActivityChangeInfo extends BaseActivity {
         final List<HomeBean> list = new ArrayList<HomeBean>();
         for (HomeBean bean : LitePalUtil.getCommunityList()) {
             if (bean.getmType().equals("1")) {
-                list.add(bean);
+                if (!bean.getmEquipmentId().equals("")) {
+                    list.add(bean);
+                }
             }
         }
         XiaoquAdapter adapter = new XiaoquAdapter(mContext, list);

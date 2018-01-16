@@ -13,52 +13,56 @@
         app:layout_heightPercent="30%"
         android:background="@color/theme_orange"
         android:paddingBottom="5dp">
-        <TextView
+        <com.xingyeda.ehome.view.PercentLinearLayout
             android:id="@+id/life_convenience"
+            app:layout_widthPercent="35%"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_heightPercent="25%"
+            android:layout_alignParentBottom="true"
+            app:layout_marginBottomPercent="15%"
+            app:layout_marginLeftPercent="1%"
+            android:background="@drawable/button_theme_lucency50"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/online_support"
+                app:layout_marginLeftPercent="10%"
+                android:layout_gravity="center_vertical"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="在线客服"
+                android:textColor="@color/white"
+                android:gravity="center"
+                app:layout_marginLeftPercent="7%"/>
+
+        </com.xingyeda.ehome.view.PercentLinearLayout>
+
+
+        <ImageView
+            android:id="@+id/share_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableTop="@mipmap/convenience"
-            android:gravity="center"
-            android:layout_centerInParent="true"
-            android:text="@string/convenient_telephone"
-            android:textSize="@dimen/text_size_22"
-            android:textColor="@color/white"
-            />
+            android:background="@mipmap/add_white"
+            app:layout_marginTopPercent="20%"
+            app:layout_marginRightPercent="5%"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="19dp"
+            android:layout_marginEnd="19dp"
+            android:layout_marginTop="29dp" />
+
     </android.support.percent.PercentRelativeLayout>
-    <!--<RelativeLayout -->
-        <!---->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="150dp"-->
-        <!--&gt;-->
-        <!--<ImageView -->
-            <!--android:id="@+id/bg_annunciate"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="0dp"-->
-            <!--app:layout_heightPercent="30%"-->
-            <!--android:background="@mipmap/bg_annunciate"-->
-            <!--android:scaleType="fitXY"-->
-            <!--android:contentDescription="@null"/>-->
-        
-        <!-- <TextView 
-            android:id="@+id/addr_str"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/location"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:drawablePadding="5dp"
-            android:background="@drawable/bg_location"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"/> -->
-    <!--</RelativeLayout>-->
+
     <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:visibility="gone">
         <View 
             android:layout_width="match_parent"
             android:layout_height="3dp"
@@ -84,34 +88,54 @@
             android:background="@color/theme_orange"
             />
     </LinearLayout>
-    <android.support.percent.PercentRelativeLayout
+    <!--<android.support.percent.PercentRelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--app:layout_marginTopPercent="1%">-->
+        <!--<android.support.v4.widget.SwipeRefreshLayout-->
+            <!--android:id="@+id/ad_swipereLayout"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--app:layout_marginLeftPercent="5%"-->
+            <!--app:layout_marginRightPercent="5%"-->
+            <!--&gt;-->
+
+            <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:id="@+id/ad_recycler_view"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"/>-->
+        <!--</android.support.v4.widget.SwipeRefreshLayout>-->
+        <!--<ImageView-->
+            <!--android:id="@+id/ad_no_data"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@mipmap/no_datas"-->
+            <!--android:visibility="gone"-->
+            <!--android:contentDescription="@null"/>-->
+
+    <!--</android.support.percent.PercentRelativeLayout>-->
+
+
+    <com.xingyeda.ehome.view.LineGridView
+        android:id="@+id/life_gridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        app:layout_marginTopPercent="1%">
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/ad_swipereLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_marginLeftPercent="5%"
-            app:layout_marginRightPercent="5%"
-            >
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/ad_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </android.support.v4.widget.SwipeRefreshLayout>
-        <ImageView 
-            android:id="@+id/ad_no_data"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@mipmap/no_datas"
-            android:visibility="gone"
-            android:contentDescription="@null"/>
-        
-    </android.support.percent.PercentRelativeLayout>
-    
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:numColumns="3"
+        android:scrollbars="none"
+        android:stretchMode="columnWidth"
+        />
+    <ImageView
+        android:id="@+id/life_nodata"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:src="@mipmap/no_data"
+        android:visibility="gone"
+        />
 
 
 

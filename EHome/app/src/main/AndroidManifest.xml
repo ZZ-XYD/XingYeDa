@@ -121,6 +121,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".door.ActivityVideoTest"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ActivityLogo"
             android:screenOrientation="portrait" />
         <activity
@@ -572,24 +575,6 @@
         <activity
             android:name=".zhibo.ActivityShareSeek"
             android:windowSoftInputMode="adjustPan|stateVisible" />
-
-        <!-- 友盟 -->
-        <meta-data
-            android:name="UMENG_APPKEY"
-            android:value="57ce3af6e0f55a02f30036c6" />
-        <meta-data
-            android:name="UMENG_CHANNEL"
-            android:value="ehome" />
-        <meta-data
-            android:name="DEBUG_LOG"
-            android:value="true" />
-        <meta-data
-            android:name="TRACE_LOG"
-            android:value="true" />
-        <meta-data
-            android:name="LOG_LEVEL"
-            android:value="60" />
-
         <activity android:name=".park.ParkHistoryActivity" />
         <activity android:name=".park.ParkMessageActivity" />
         <!--
@@ -655,10 +640,12 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
+
         <activity
             android:name=".ActivityKeepLive"
             android:configChanges="keyboardHidden|orientation|screenSize|navigation|keyboard"
@@ -666,7 +653,12 @@
             android:exported="false"
             android:finishOnTaskLaunch="false"
             android:launchMode="singleInstance"
-            android:theme="@style/KeepLiveStyle"></activity>
+            android:theme="@style/KeepLiveStyle" />
+        <activity android:name=".door.ShareActivity" />
+        <activity android:name=".tenement.CallCenterActivity" />
+        <activity android:name=".tenement.AnnunciateActivity" />
+        <activity android:name=".push.DialogActivity"
+            android:theme="@style/dialogstyle"></activity>
     </application>
 
 </manifest>

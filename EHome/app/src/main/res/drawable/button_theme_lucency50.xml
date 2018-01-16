@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android" >
     
         <!-- 填充色 -->
-    <solid android:color="@color/theme_lucency_50" />
+    <solid android:color="#60FFFFFF" />
        <!--大小  -->
     <size android:width="30dp" android:height="30dp"/>
        <!--圆角  -->

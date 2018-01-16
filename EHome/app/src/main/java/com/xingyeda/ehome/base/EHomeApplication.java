@@ -37,6 +37,7 @@ import com.ldl.imageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.ldl.imageloader.core.ImageLoader;
 import com.ldl.imageloader.core.ImageLoaderConfiguration;
 import com.ldl.imageloader.core.assist.QueueProcessingType;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.xiaomi.mipush.sdk.MiPushClient;
 import com.xiaowei.core.CoreApplication;
 import com.xingyeda.ehome.bean.AdvertisementBean;
@@ -426,6 +427,7 @@ public class EHomeApplication extends CoreApplication implements IHandlerLikeNot
         OkHttpUtils.getInstance().setConnectTimeout(100000, TimeUnit.MILLISECONDS);
         initErrorHandler();
         MyLog.delFile();
+        CrashReport.initCrashReport(getApplicationContext(),"cb48b5bd3e",true);
 
         if (!SYS_EMUI.equals(PhoneBrand.getSystem())) {
             //小米推送

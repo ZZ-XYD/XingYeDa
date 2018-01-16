@@ -78,7 +78,6 @@
         android:orientation="vertical"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:visibility="gone"
         >
        
         <TextView 
@@ -98,6 +97,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/maintain"
+            android:textSize="@dimen/text_size_20"
+            android:padding="20dp"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DEDFDF"/>
+        <TextView
+            android:id="@+id/my_service_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/service_phone"
+            android:textSize="@dimen/text_size_20"
+            android:padding="20dp"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DEDFDF"/>
+        <TextView
+            android:id="@+id/my_notice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/notice"
             android:textSize="@dimen/text_size_20"
             android:padding="20dp"
             />

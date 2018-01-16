@@ -3,6 +3,8 @@
 
     <!--软件名字  -->
     <string name="app_name">创享e家</string>
+
+    <string name="agora_app_id">404bdbf5706a4572969c4797903e60a7</string>
     <!--versions名字  -->
     <string name="versions">2.0.0</string>
     <!--乐创e家         智享生活  -->
@@ -130,13 +132,15 @@
     <!--通知 -->
     <string name="notification">通知</string>
     <!--建议 -->
-    <string name="suggested">建      议</string>
+    <string name="suggested">建    议</string>
     <!--建议 -->
     <string name="suggest">建议/维修</string>
     <!--建议记录 -->
     <string name="suggested_record">建议记录</string>
     <!--维修 -->
-    <string name="maintain">维      修</string>
+    <string name="maintain">维    修</string>
+    <!--服务电话 -->
+    <string name="service_phone">服务电话</string>
     <!--维修记录 -->
     <string name="maintain_record">维修记录</string>
     <!--图片数5张已满 -->
@@ -848,4 +852,7 @@
     <string name="web_error_502">版本过高</string>
     <!-- 消息成功率统计： 通道将消息转发给SDK后，SDK通知通道消息已接收到 -->
     <string name="hwpush_ability_value" translatable="false">successRateAnalytics</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

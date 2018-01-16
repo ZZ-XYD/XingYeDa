@@ -285,20 +285,27 @@ public class ActivityVideo extends BaseActivity {
 //								}
                                     if (mIsCallOk) {
                                         closeDoor();
+                                        if (mTimerText!=null) {
                                         if (171504 == voipCall.reason) {
-                                            BaseUtils.showLongToast(mContext, "网络状况不太好哦。");
+//                                            BaseUtils.showLongToast(mContext, "网络状况不太好哦。");
+                                            mTimerText.setText("网络状况不太好哦");
                                         } else if (171506 == voipCall.reason) {
-                                            BaseUtils.showLongToast(mContext, "未知错误");
+//                                            BaseUtils.showLongToast(mContext, "未知错误");
+                                            mTimerText.setText("网络状况不太好哦");
                                         } else if (175480 == voipCall.reason) {
-                                            BaseUtils.showLongToast(mContext, "设备正在使用。");
+//                                            BaseUtils.showLongToast(mContext, "设备正在使用。");
+                                            mTimerText.setText("网络状况不太好哦");
                                         } else if (170486 == voipCall.reason) {
 //									closeDoor();
-                                            BaseUtils.showLongToast(mContext, "设备正在使用中。");
+//                                            BaseUtils.showLongToast(mContext, "设备正在使用中。");
+                                            mTimerText.setText("网络状况不太好哦");
                                         } else if (175486 == voipCall.reason) {
 //									closeDoor();
                                         } else {
-                                            BaseUtils.showLongToast(mContext, "错误代码 : "
-                                                    + voipCall.reason);
+//                                            BaseUtils.showLongToast(mContext, "错误代码 : "
+//                                                    + voipCall.reason);
+                                            mTimerText.setText("错误代码 : " + voipCall.reason);
+                                        }
                                         }
                                         if (mType.equals("monitor")) {
                                             mCall.setImageResource(R.mipmap.callout);
@@ -1005,7 +1012,7 @@ public class ActivityVideo extends BaseActivity {
     }
 
     private void playfunction(String path) {
-        if (path == "") {
+        if(path == null || path.length() <= 0){
             BaseUtils.showShortToast(mContext, R.string.play_address_error);
             return;
         } else {
@@ -1031,6 +1038,7 @@ public class ActivityVideo extends BaseActivity {
                                 mediaPlayer.setPlaybackSpeed(1.0f);
                             }
                         });
+                mVideoView.start();
             }
         }
     }
@@ -1063,8 +1071,7 @@ public class ActivityVideo extends BaseActivity {
             @Override
             public void onResponse(JSONObject response) {
                 if (mCallId != null) {
-                    ECDevice.getECVoIPCallManager()
-                            .releaseCall(mCallId);
+                    ECDevice.getECVoIPCallManager().releaseCall(mCallId);
                 }
             }
         }));

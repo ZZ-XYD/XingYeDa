@@ -12,106 +12,7 @@
         app:layout_heightPercent="30%"
         android:background="@color/theme_orange"
         android:paddingBottom="5dp">
-
-        <!-- <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp" 
-            android:layout_marginRight="20dp">
-
             <TextView
-                android:id="@+id/life_information"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:drawableTop="@drawable/information"
-                android:gravity="center"
-                android:text="@string/message_center"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_18" />
-
-            <ImageButton
-                android:id="@+id/life_more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:background="@null"
-                android:contentDescription="@null"
-                android:src="@drawable/more" />
-             <LinearLayout
-            android:id="@+id/life_spn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal"
-            android:layout_centerInParent="true" >
-
-            <Spinner
-                android:id="@+id/life_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="right"
-                android:background="@null" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:contentDescription="@null"
-                android:src="@drawable/down_new" />
-        </LinearLayout>
-        </RelativeLayout> -->
-
-        <!-- <RelativeLayout
-            android:id="@+id/life_message_alert"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/inform_background" >
-
-            <TextView
-                android:id="@+id/life_menu_desc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="5dp"
-                android:ellipsize="marquee"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:gravity="center"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:scrollHorizontally="true"
-                android:singleLine="true"
-                android:textColor="@color/theme_orange"
-                android:textSize="@dimen/text_size_18" />
-
-            <ImageView
-                android:id="@+id/life_eliminate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:contentDescription="@null"
-                android:src="@drawable/eliminate" />
-        </RelativeLayout> -->
-
-        <!-- <com.xingyeda.ehome.view.MaskedImage
-            android:id="@+id/life_head_portrait"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/circle_orange" /> -->
-            <TextView 
                 android:id="@+id/life_convenience"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -122,31 +23,6 @@
                 android:textSize="@dimen/text_size_22"
                 android:textColor="@color/white"
                 />
-
-       <!--  <LinearLayout
-            android:id="@+id/life_spn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal" >
-
-            <Spinner
-                android:id="@+id/life_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="right"
-                android:background="@null" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:contentDescription="@null"
-                android:src="@drawable/down_new" />
-        </LinearLayout> -->
-
     </android.support.percent.PercentRelativeLayout>
  <com.xingyeda.ehome.view.LineGridView
         android:id="@+id/life_gridview"
@@ -160,14 +36,7 @@
         android:scrollbars="none" 
         android:stretchMode="columnWidth" 
          />
-   <!--  <GridView  android:id="@+id/life_gridview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:numColumns="3"></GridView> -->
-        <ImageView 
+        <ImageView
             android:id="@+id/life_nodata"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

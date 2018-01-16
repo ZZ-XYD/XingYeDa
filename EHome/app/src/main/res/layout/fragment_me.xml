@@ -108,14 +108,16 @@
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
             android:text="@string/suggest"
-            android:textSize="@dimen/text_size_18" />
+            android:textSize="@dimen/text_size_18"
+            android:visibility="gone"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="#EDECE8" />
+            android:background="#EDECE8"
+            />
 
         <TextView
             android:id="@+id/my_pay_fees"
@@ -129,13 +131,19 @@
             android:paddingTop="10dp"
             android:text="@string/pay_fees"
             android:textSize="@dimen/text_size_18" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#EDECE8"
+            />
     </LinearLayout>
 
     <TextView
         android:id="@+id/me_about"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:background="@color/white"
         android:drawableLeft="@mipmap/about"
         android:drawablePadding="10dp"

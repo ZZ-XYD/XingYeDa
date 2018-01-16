@@ -74,14 +74,14 @@ public class XiaoquAdapter extends BaseAdapter
         
         //动态赋值
         HomeBean bean = mHomeBeans.get(position);
-        if (bean.getmIsDefault().equals("1")) {
+        if ("1".equals(bean.getmIsDefault())) {
         	viewHolder.mDefaultXiaoqu.setVisibility(View.VISIBLE);
 		}
         viewHolder.mXiaoqu.setText(bean.getmCommunity());
         viewHolder.mQishu.setText(bean.getmPeriods());
         viewHolder.mDongshu.setText(bean.getmUnit());
-        viewHolder.mDoorplate.setText("\t"+bean.getmHouseNumber());  
-        
+        viewHolder.mDoorplate.setText("\t"+bean.getmHouseNumber());
+
         
         return convertView;
     }
