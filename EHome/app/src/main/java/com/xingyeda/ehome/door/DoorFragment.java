@@ -436,8 +436,10 @@ public class DoorFragment extends Fragment {
                                         if (jobj.has("state")) {
                                             bean.setState(jobj.getString("state"));
                                             if ("1".equals(jobj.getString("state"))) {
-                                                frozenAccount.setVisibility(View.VISIBLE);
-                                                frozenAccount.setText(jobj.getString("rname") + "已被冻结，有疑问请联系物业管理员");
+                                                if (frozenAccount!=null) {
+                                                    frozenAccount.setVisibility(View.VISIBLE);
+                                                    frozenAccount.setText(jobj.getString("rname") + "已被冻结，有疑问请联系物业管理员");
+                                                }
                                             }
                                         } else {
                                             bean.setState("");
@@ -726,7 +728,9 @@ public class DoorFragment extends Fragment {
                 mNoData.setVisibility(View.VISIBLE);
             }
 //            mNoData.setVisibility(View.VISIBLE);
-            mListview.setVisibility(View.GONE);
+            if (mListview!=null) {
+                mListview.setVisibility(View.GONE);
+            }
         }
 
         if (LitePalUtil.getHomeBean() != null && LitePalUtil.getHomeBean().getmEquipmentId() != null) {

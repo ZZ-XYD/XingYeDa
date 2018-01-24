@@ -133,7 +133,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@null"
-        android:src="@mipmap/no_data"
+        android:background="@mipmap/no_data"
         android:visibility="gone"
         />
 
