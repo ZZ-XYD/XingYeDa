@@ -230,6 +230,10 @@ public class ConnectHttpUtils
         mProgressDialog.show();
         mCount.start();
         final String apkPath = LogcatHelper.getPATH_LOGCAT() + "/EHome.apk";
+        File apk = new File(apkPath);
+        if (apk.exists()) {
+            apk.delete();
+        }
         mHttpUtils = new HttpUtils();
         mHttpUtils.download(path, apkPath, true, true, new RequestCallBack()
         {
