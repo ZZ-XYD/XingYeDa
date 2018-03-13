@@ -212,7 +212,9 @@ public class DoorFragment extends Fragment {
                 if (mAdapter == null) {
                     uploadXiaoqu("0");
 //                    mListview.addItemDecoration(new SpaceItemDecoration(20));
-                    mSwipereLayout.setRefreshing(true);
+                    if (mSwipereLayout!=null) {
+                        mSwipereLayout.setRefreshing(true);
+                    }
                     connectTime(10);
                 } else {
                     uploadXiaoqu("2");
@@ -493,8 +495,8 @@ public class DoorFragment extends Fragment {
                                                 }
                                             }
                                         }
-                                    }
                                     LitePalUtil.addHomeList(bean);
+                                    }
                                 }
                             } else {
                                 if (mModification != null) {
