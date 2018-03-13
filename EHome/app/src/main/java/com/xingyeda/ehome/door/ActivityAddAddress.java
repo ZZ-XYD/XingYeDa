@@ -262,7 +262,9 @@ public class ActivityAddAddress extends BaseActivity {
                             getResources()
                                     .getString(R.string.not_null_house_number));
                     // DialogUtils.getHintDialog(mContext,R.string.not_null_house_number);
-                } else if (mCode.getText().toString() == null || mCode.getText().toString().equals("")) {
+                } else if (houseNumber.equals("9999")) {
+                DialogShow.showHintDialog(mContext, "门牌号9999错误");
+                }else if (mCode.getText().toString() == null || mCode.getText().toString().equals("")) {
                     if (!mIdentityStr.equals("1")) {
                         DialogShow.showHintDialog(mContext, "code不能为空");
                     } else {
