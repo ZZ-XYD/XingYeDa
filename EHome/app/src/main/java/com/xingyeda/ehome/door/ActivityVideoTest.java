@@ -62,6 +62,7 @@ import com.yuntongxun.ecsdk.SdkErrorCode;
 import com.yuntongxun.ecsdk.VideoRatio;
 import com.yuntongxun.ecsdk.VoipMediaChangedInfo;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
@@ -425,6 +426,7 @@ public class ActivityVideoTest extends BaseActivity {
 
     //  教程步骤 6  离开频道
     private void leaveChannel() {
+        if (mRtcEngine!=null)
         mRtcEngine.leaveChannel();//离开频道
     }
 
@@ -491,6 +493,7 @@ public class ActivityVideoTest extends BaseActivity {
             voiceAndShake();
             mCallTimer.schedule(mCallTimerTask, 25000);
         } else if (mType.equals("monitor")) {//监控处理
+            inRoom();
             mCallTimer.schedule(mCallTimerTask, 60000);
             //声音seekbar监控
             mVerticalSeekBar.setOnSeekBarChangeListener(Listener);
@@ -505,6 +508,50 @@ public class ActivityVideoTest extends BaseActivity {
             mBack.setVisibility(View.VISIBLE);
         }
 
+    }
+    private boolean isRoom = false;
+    private void inRoom(){
+        Map<String,String> params = new HashMap<>();
+        params.put("roomId",mEquipmentId);
+        params.put("uid",SharedPreUtil.getString(mContext, "userId"));
+        OkHttp.get(mContext,ConnectPath.IN_ROOM,params,new BaseStringCallback(mContext, new CallbackHandler<String>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                isRoom =true;
+            }
+
+            @Override
+            public void parameterError(JSONObject response) {
+                    if (response.opt("status").equals("903")) {//有人在监控
+//                        BaseUtils.showLongToast(mContext,"有人正在监控，请稍候再试");
+                        finish();
+                    }else if (response.opt("status").equals("904")){//设备正在呼叫
+//                        BaseUtils.showLongToast(mContext,"设备正在呼叫，请稍候再试");
+                        finish();
+                    }else if (response.opt("status").equals("404")){//设备不在线
+                        finish();
+                    }
+            }
+
+            @Override
+            public void onFailure() {
+                BaseUtils.showLongToast(mContext,"连接超时，请稍候再试");
+                finish();
+            }
+        }));
+    }
+    private void outRoom(){
+        if (isRoom) {
+        Map<String,String> params = new HashMap<>();
+        params.put("roomId",mEquipmentId);
+        params.put("uid",SharedPreUtil.getString(mContext, "userId"));
+        OkHttp.get(mContext,ConnectPath.OUT_ROOM,params,new ConciseStringCallback(mContext, new ConciseCallbackHandler<String>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+            }
+        }));
+        }
     }
 
     private TimerTask mCallTimerTask = new TimerTask() {
@@ -673,6 +720,8 @@ private void finishAll(){
             mVibrator.cancel();
         }
         closeDoor();
+    }else if (mType.equals("monitor")) {
+        outRoom();
     }
 
 }
