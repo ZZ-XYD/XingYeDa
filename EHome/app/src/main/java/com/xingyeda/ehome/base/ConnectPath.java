@@ -202,6 +202,8 @@ public class ConnectPath
 
     //上传日志
     public static final String LOG_UPDATE = IP_PATH+"submitLog";
+    public static final String IN_ROOM = IP_PATH+"inRoom";
+    public static final String OUT_ROOM = IP_PATH+"outRoom";
 
 
 }
