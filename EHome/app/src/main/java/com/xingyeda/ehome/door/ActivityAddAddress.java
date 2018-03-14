@@ -271,7 +271,15 @@ public class ActivityAddAddress extends BaseActivity {
                         DialogShow.showHintDialog(mContext, "设备SN不能为空");
                     }
                 } else {
-                    submit(houseNumber);
+                    if (mCommunityId!=null) {
+                        DialogShow.showHintDialog(mContext, "请选择小区");
+                    }else if (mPeriodsId!=null){
+                        DialogShow.showHintDialog(mContext, "请选择期数");
+                    } else if (mUnitId!=null) {
+                        DialogShow.showHintDialog(mContext, "请选择栋数");
+                    }else{
+                        submit(houseNumber);
+                    }
                 }
                 break;
             case R.id.door_add_back:
